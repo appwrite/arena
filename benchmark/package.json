@@ -1,0 +1,15 @@
+{
+  "name": "appwrite-arena-benchmark",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "bun run src/index.ts",
+    "bench:with-guidelines": "bun run src/index.ts --mode with-guidelines",
+    "bench:without-guidelines": "bun run src/index.ts --mode without-guidelines",
+    "bench:all": "bun run src/index.ts --mode with-guidelines && bun run src/index.ts --mode without-guidelines"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.7.2"
+  }
+}

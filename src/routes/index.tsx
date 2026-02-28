@@ -1,88 +1,45 @@
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
+import type { BenchmarkResults } from '#/lib/types'
+import LeaderboardTabs from '#/components/LeaderboardTabs'
+import LeaderboardTable from '#/components/LeaderboardTable'
+import withGuidelinesData from '#/data/results-with-guidelines.json'
+import withoutGuidelinesData from '#/data/results-without-guidelines.json'
+
+const withGuidelines = withGuidelinesData as BenchmarkResults
+const withoutGuidelines = withoutGuidelinesData as BenchmarkResults
 
 export const Route = createFileRoute('/')({ component: App })
 
 function App() {
+  const [activeTab, setActiveTab] = useState<'with-guidelines' | 'without-guidelines'>('with-guidelines')
+  const activeData = activeTab === 'with-guidelines' ? withGuidelines : withoutGuidelines
+
   return (
-    <main className="page-wrap px-4 pb-8 pt-14">
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
-        <p className="island-kicker mb-3">TanStack Start Base Template</p>
-        <h1 className="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-          Island hours, but for product teams.
+    <main className="arena-container px-4 pb-0 pt-14">
+      <section className="rise-in mb-6 text-center">
+        <h1 className="mb-4 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+          <span className="text-[var(--accent-pink)]">
+            Appwrite Arena
+          </span>
         </h1>
-        <p className="mb-8 max-w-2xl text-base text-[var(--sea-ink-soft)] sm:text-lg">
-          A tropical, breathable app starter with full-document SSR, server
-          functions, streaming, and type-safe routing. Calm on the eyes. Fast in
-          production.
+        <p className="mx-auto max-w-2xl text-base text-[var(--text-secondary)] sm:text-lg">
+          Benchmarking AI models on their knowledge of Appwrite services.
+          See how well LLMs understand Appwrite — with and without guideline context.
         </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="/blog"
-            className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
-          >
-            Explore Posts
-          </a>
-          <a
-            href="https://tanstack.com/router"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-[rgba(23,58,64,0.2)] bg-white/50 px-5 py-2.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.35)]"
-          >
-            Router Guide
-          </a>
+      </section>
+
+      <section className="rise-in" style={{ animationDelay: '100ms' }}>
+        <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <LeaderboardTabs activeTab={activeTab} onTabChange={setActiveTab} />
+          {activeData.runDate && (
+            <p className="text-xs text-[var(--text-secondary)]">
+              Last updated: {new Date(activeData.runDate).toLocaleDateString()}
+            </p>
+          )}
         </div>
-      </section>
 
-      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          [
-            'Type-Safe Routing',
-            'Routes and links stay in sync across every page.',
-          ],
-          [
-            'Server Functions',
-            'Call server code from your UI without creating API boilerplate.',
-          ],
-          [
-            'Streaming by Default',
-            'Ship progressively rendered responses for faster experiences.',
-          ],
-          [
-            'Tailwind Native',
-            'Design quickly with utility-first styling and custom tokens.',
-          ],
-        ].map(([title, desc], index) => (
-          <article
-            key={title}
-            className="island-shell feature-card rise-in rounded-2xl p-5"
-            style={{ animationDelay: `${index * 90 + 80}ms` }}
-          >
-            <h2 className="mb-2 text-base font-semibold text-[var(--sea-ink)]">
-              {title}
-            </h2>
-            <p className="m-0 text-sm text-[var(--sea-ink-soft)]">{desc}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="island-shell mt-8 rounded-2xl p-6">
-        <p className="island-kicker mb-2">Quick Start</p>
-        <ul className="m-0 list-disc space-y-2 pl-5 text-sm text-[var(--sea-ink-soft)]">
-          <li>
-            Edit <code>src/routes/index.tsx</code> to customize the hero and
-            product narrative.
-          </li>
-          <li>
-            Update <code>src/components/Header.tsx</code> and{' '}
-            <code>src/components/Footer.tsx</code> for brand links.
-          </li>
-          <li>
-            Add routes in <code>src/routes</code> and tweak visual tokens in{' '}
-            <code>src/styles.css</code>.
-          </li>
-        </ul>
+        <LeaderboardTable data={activeData} />
       </section>
     </main>
   )

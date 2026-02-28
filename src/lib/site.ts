@@ -1,4 +1,4 @@
-export const SITE_TITLE = 'TanStack Start'
+export const SITE_TITLE = 'Appwrite Arena'
 export const SITE_DESCRIPTION =
-  'A tropical, breathable app starter with full-document SSR, server functions, streaming, and type-safe routing.'
-export const SITE_URL = 'https://example.com'
+  'An LLM leaderboard benchmarking AI models on their knowledge of Appwrite services.'
+export const SITE_URL = 'https://arena.appwrite.io'
