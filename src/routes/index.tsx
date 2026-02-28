@@ -3,22 +3,21 @@ import { useState } from "react";
 import LeaderboardTable from "#/components/LeaderboardTable";
 import LeaderboardTabs from "#/components/LeaderboardTabs";
 import ScoringModeToggle from "#/components/ScoringModeToggle";
-import withGuidelinesData from "#/data/results-with-guidelines.json";
-import withoutGuidelinesData from "#/data/results-without-guidelines.json";
+import withSkillsData from "#/data/results-with-skills.json";
+import withoutSkillsData from "#/data/results-without-skills.json";
 import type { BenchmarkResults, ScoringMode } from "#/lib/types";
 
-const withGuidelines = withGuidelinesData as BenchmarkResults;
-const withoutGuidelines = withoutGuidelinesData as BenchmarkResults;
+const withSkills = withSkillsData as BenchmarkResults;
+const withoutSkills = withoutSkillsData as BenchmarkResults;
 
 export const Route = createFileRoute("/")({ component: App });
 
 function App() {
-	const [activeTab, setActiveTab] = useState<
-		"with-guidelines" | "without-guidelines"
-	>("with-guidelines");
+	const [activeTab, setActiveTab] = useState<"with-skills" | "without-skills">(
+		"with-skills",
+	);
 	const [scoringMode, setScoringMode] = useState<ScoringMode>("all");
-	const activeData =
-		activeTab === "with-guidelines" ? withGuidelines : withoutGuidelines;
+	const activeData = activeTab === "with-skills" ? withSkills : withoutSkills;
 
 	return (
 		<main className="arena-container px-4 pb-0 pt-14">
@@ -28,7 +27,7 @@ function App() {
 				</h1>
 				<p className="mx-auto max-w-2xl text-base text-[var(--text-secondary)] sm:text-lg">
 					Benchmarking AI models on their knowledge of Appwrite services. See
-					how well LLMs understand Appwrite — with and without guideline
+					how well LLMs understand Appwrite — with and without skill files
 					context.
 				</p>
 			</section>

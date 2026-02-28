@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "bench": "bun run src/index.ts",
-    "bench:with-guidelines": "bun run src/index.ts --mode with-guidelines",
-    "bench:without-guidelines": "bun run src/index.ts --mode without-guidelines",
-    "bench:all": "bun run src/index.ts --mode with-guidelines && bun run src/index.ts --mode without-guidelines"
+    "bench:with-skills": "bun run src/index.ts --mode with-skills",
+    "bench:without-skills": "bun run src/index.ts --mode without-skills",
+    "bench:all": "bun run src/index.ts --mode with-skills && bun run src/index.ts --mode without-skills"
   },
   "devDependencies": {
     "@types/bun": "latest",

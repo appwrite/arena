@@ -6,21 +6,21 @@ import { allQuestions } from "./questions/index";
 import { runBenchmark } from "./runner";
 import type { BenchmarkResults, Question, QuestionResult } from "./types";
 
-function parseArgs(): { mode: "with-guidelines" | "without-guidelines" } {
+function parseArgs(): { mode: "with-skills" | "without-skills" } {
 	const args = process.argv.slice(2);
 	const modeIndex = args.indexOf("--mode");
 	if (modeIndex !== -1 && args[modeIndex + 1]) {
 		const mode = args[modeIndex + 1];
-		if (mode === "with-guidelines" || mode === "without-guidelines") {
+		if (mode === "with-skills" || mode === "without-skills") {
 			return { mode };
 		}
 	}
-	return { mode: "without-guidelines" };
+	return { mode: "without-skills" };
 }
 
-function loadGuidelines(): string {
-	const guidelinesDir = resolve(import.meta.dir, "guidelines");
-	const indexPath = join(guidelinesDir, "llms.txt");
+function loadSkills(): string {
+	const skillsDir = resolve(import.meta.dir, "skills");
+	const indexPath = join(skillsDir, "llms.txt");
 
 	try {
 		const index = readFileSync(indexPath, "utf-8");
@@ -32,16 +32,16 @@ function loadGuidelines(): string {
 		let combined = "";
 		for (const file of files) {
 			try {
-				const content = readFileSync(join(guidelinesDir, file), "utf-8");
+				const content = readFileSync(join(skillsDir, file), "utf-8");
 				combined += `${content}\n\n`;
 			} catch {
-				console.warn(`  Warning: Could not read guideline file: ${file}`);
+				console.warn(`  Warning: Could not read skill file: ${file}`);
 			}
 		}
 
 		return combined.trim();
 	} catch {
-		console.warn("Warning: Could not read guidelines index (llms.txt)");
+		console.warn("Warning: Could not read skills index (llms.txt)");
 		return "";
 	}
 }
@@ -127,7 +127,7 @@ function saveProgress(progress: ProgressData): void {
 
 function saveOutput(
 	progress: ProgressData,
-	mode: "with-guidelines" | "without-guidelines",
+	mode: "with-skills" | "without-skills",
 ): void {
 	const models = Object.values(progress.models).map((m) => {
 		const scores = aggregateScores(m.results, allQuestions);
@@ -197,18 +197,18 @@ async function main() {
 		);
 	}
 
-	let guidelines = "";
-	if (mode === "with-guidelines") {
-		guidelines = loadGuidelines();
-		if (guidelines) {
-			console.log(`Loaded guidelines (${guidelines.length} chars)`);
+	let skills = "";
+	if (mode === "with-skills") {
+		skills = loadSkills();
+		if (skills) {
+			console.log(`Loaded skills (${skills.length} chars)`);
 		} else {
-			console.log("Warning: No guidelines loaded");
+			console.log("Warning: No skills loaded");
 		}
 	}
 
-	const systemPrompt = guidelines
-		? `You are an expert on Appwrite, the open-source backend-as-a-service platform. Use the following documentation to answer questions accurately.\n\n${guidelines}`
+	const systemPrompt = skills
+		? `You are an expert on Appwrite, the open-source backend-as-a-service platform. Use the following documentation to answer questions accurately.\n\n${skills}`
 		: "You are an expert on Appwrite, the open-source backend-as-a-service platform. Answer questions about Appwrite services accurately and concisely.";
 
 	const pricing = await fetchPricing(MODELS);

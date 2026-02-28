@@ -1,7 +1,7 @@
 export interface BenchmarkResults {
 	version: string;
 	runDate: string;
-	mode: "with-guidelines" | "without-guidelines";
+	mode: "with-skills" | "without-skills";
 	totalQuestions: number;
 	totalMcq: number;
 	totalFreeform: number;

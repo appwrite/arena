@@ -1,14 +1,14 @@
 interface LeaderboardTabsProps {
-	activeTab: "with-guidelines" | "without-guidelines";
-	onTabChange: (tab: "with-guidelines" | "without-guidelines") => void;
+	activeTab: "with-skills" | "without-skills";
+	onTabChange: (tab: "with-skills" | "without-skills") => void;
 }
 
 const TABS: {
-	value: "with-guidelines" | "without-guidelines";
+	value: "with-skills" | "without-skills";
 	label: string;
 }[] = [
-	{ value: "with-guidelines", label: "With Guidelines" },
-	{ value: "without-guidelines", label: "Without Guidelines" },
+	{ value: "with-skills", label: "With skills.md" },
+	{ value: "without-skills", label: "Without skills.md" },
 ];
 
 export default function LeaderboardTabs({
