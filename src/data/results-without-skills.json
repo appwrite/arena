@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "runDate": "2026-02-28T18:51:10.836Z",
+  "mode": "without-skills",
+  "totalQuestions": 70,
+  "totalMcq": 57,
+  "totalFreeform": 13,
+  "models": [
+    {
+      "modelId": "gemini-3-1-pro-preview",
+      "modelName": "Gemini 3.1 Pro (Preview)",
+      "provider": "Google",
+      "costPerMillionTokens": 2,
+      "scores": {
+        "fundamental": 100,
+        "auth": 98.5,
+        "databases": 99,
+        "functions": 100,
+        "storage": 100,
+        "sites": 92,
+        "messaging": 100
+      },
+      "mcqScores": {
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 100,
+        "functions": 100,
+        "storage": 100,
+        "sites": 100,
+        "messaging": 100
+      },
+      "freeformScores": {
+        "fundamental": 100,
+        "auth": 92.5,
+        "databases": 95,
+        "functions": 100,
+        "storage": 100,
+        "sites": 20,
+        "messaging": 100
+      },
+      "overall": 98.5,
+      "mcqOverall": 100,
+      "freeformOverall": 91.9,
+      "totalQuestions": 70,
+      "totalCorrect": 69,
+      "runDate": "2026-02-28T18:51:10.836Z"
+    },
+    {
+      "modelId": "gpt-5-3-codex",
+      "modelName": "GPT 5.3 Codex",
+      "provider": "OpenAI",
+      "costPerMillionTokens": 1.75,
+      "scores": {
+        "fundamental": 98.5,
+        "auth": 99.5,
+        "databases": 100,
+        "functions": 96.5,
+        "storage": 97,
+        "sites": 100,
+        "messaging": 100
+      },
+      "mcqScores": {
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 100,
+        "functions": 100,
+        "storage": 100,
+        "sites": 100,
+        "messaging": 100
+      },
+      "freeformScores": {
+        "fundamental": 92.5,
+        "auth": 97.5,
+        "databases": 100,
+        "functions": 82.5,
+        "storage": 85,
+        "sites": 100,
+        "messaging": 100
+      },
+      "overall": 98.8,
+      "mcqOverall": 100,
+      "freeformOverall": 93.5,
+      "totalQuestions": 70,
+      "totalCorrect": 70,
+      "runDate": "2026-02-28T18:51:10.836Z"
+    },
+    {
+      "modelId": "claude-opus-4-6",
+      "modelName": "Claude Opus 4.6",
+      "provider": "Anthropic",
+      "costPerMillionTokens": 5,
+      "scores": {
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 100,
+        "functions": 100,
+        "storage": 99.5,
+        "sites": 100,
+        "messaging": 100
+      },
+      "mcqScores": {
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 100,
+        "functions": 100,
+        "storage": 100,
+        "sites": 100,
+        "messaging": 100
+      },
+      "freeformScores": {
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 100,
+        "functions": 100,
+        "storage": 97.5,
+        "sites": 100,
+        "messaging": 100
+      },
+      "overall": 99.9,
+      "mcqOverall": 100,
+      "freeformOverall": 99.6,
+      "totalQuestions": 70,
+      "totalCorrect": 70,
+      "runDate": "2026-02-28T18:51:10.836Z"
+    }
+  ]
+}
