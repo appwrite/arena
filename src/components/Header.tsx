@@ -1,4 +1,5 @@
 import ThemeToggle from './ThemeToggle'
+import githubStars from '#/data/github-stars.json'
 
 function AppwriteLogo() {
   return (
@@ -25,11 +26,9 @@ function formatStars(count: number): string {
   return String(count)
 }
 
-interface HeaderProps {
-  stars: number | null
-}
+export default function Header() {
+  const stars = githubStars.stars
 
-export default function Header({ stars }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 bg-[var(--header-bg)] px-4 backdrop-blur-lg">
       <nav className="arena-container flex items-center py-4">
@@ -50,13 +49,9 @@ export default function Header({ stars }: HeaderProps) {
           >
             <StarIcon />
             <span>Star on GitHub</span>
-            {stars !== null ? (
-              <span className="rounded-md px-2 py-0.5 text-xs font-semibold text-[var(--text-secondary)]" style={{ background: 'var(--line)' }}>
-                {formatStars(stars)}
-              </span>
-            ) : (
-              <span className="inline-block h-4 w-8 animate-pulse rounded-full" style={{ background: 'var(--line)' }} />
-            )}
+            <span className="rounded-md px-2 py-0.5 text-xs font-semibold text-[var(--text-secondary)]" style={{ background: 'var(--line)' }}>
+              {formatStars(stars)}
+            </span>
           </a>
           <ThemeToggle />
         </div>
