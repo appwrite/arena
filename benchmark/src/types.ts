@@ -24,7 +24,6 @@ export interface ModelConfig {
   name: string
   provider: string
   openRouterId: string
-  costPerMillionTokens: number
 }
 
 export interface ModelBenchmarkRun {
@@ -44,6 +43,9 @@ export interface BenchmarkResults {
   version: string
   runDate: string
   mode: 'with-guidelines' | 'without-guidelines'
+  totalQuestions: number
+  totalMcq: number
+  totalFreeform: number
   models: Array<{
     modelId: string
     modelName: string

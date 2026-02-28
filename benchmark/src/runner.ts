@@ -80,6 +80,7 @@ export async function runBenchmark({
   onQuestionComplete,
 }: RunBenchmarkOptions): Promise<QuestionResult[]> {
   const completedIds = new Set(existingResults.map((r) => r.questionId))
+  const alreadyDone = existingResults.length
   const results: QuestionResult[] = [...existingResults]
 
   const remaining = questions.filter((q) => !completedIds.has(q.id))
@@ -90,12 +91,12 @@ export async function runBenchmark({
   }
 
   console.log(
-    `  ${existingResults.length}/${questions.length} already done, running ${remaining.length} remaining`,
+    `  ${alreadyDone}/${questions.length} already done, running ${remaining.length} remaining`,
   )
 
   for (let i = 0; i < remaining.length; i++) {
     const question = remaining[i]
-    const totalIdx = existingResults.length + i + 1
+    const totalIdx = alreadyDone + i + 1
     console.log(
       `  [${totalIdx}/${questions.length}] ${question.category}/${question.id} (${question.type})`,
     )

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import type { BenchmarkResults, SortField, CategoryKey } from '#/lib/types'
+import type { BenchmarkResults, SortField, CategoryKey, ScoringMode } from '#/lib/types'
 import { CATEGORY_LABELS } from '#/lib/types'
 import SortableHeader from './SortableHeader'
 import ModelRow from './ModelRow'
@@ -16,9 +16,10 @@ const CATEGORIES: CategoryKey[] = [
 
 interface LeaderboardTableProps {
   data: BenchmarkResults
+  scoringMode: ScoringMode
 }
 
-export default function LeaderboardTable({ data }: LeaderboardTableProps) {
+export default function LeaderboardTable({ data, scoringMode }: LeaderboardTableProps) {
   const [sortField, setSortField] = useState<SortField>('overall')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
 
@@ -28,6 +29,11 @@ export default function LeaderboardTable({ data }: LeaderboardTableProps) {
       let aVal: number | string
       let bVal: number | string
 
+      const aScores = scoringMode === 'mcq' ? a.mcqScores : scoringMode === 'freeform' ? a.freeformScores : a.scores
+      const bScores = scoringMode === 'mcq' ? b.mcqScores : scoringMode === 'freeform' ? b.freeformScores : b.scores
+      const aOverall = scoringMode === 'mcq' ? a.mcqOverall : scoringMode === 'freeform' ? a.freeformOverall : a.overall
+      const bOverall = scoringMode === 'mcq' ? b.mcqOverall : scoringMode === 'freeform' ? b.freeformOverall : b.overall
+
       if (sortField === 'modelName') {
         aVal = a.modelName.toLowerCase()
         bVal = b.modelName.toLowerCase()
@@ -35,11 +41,11 @@ export default function LeaderboardTable({ data }: LeaderboardTableProps) {
         aVal = a.costPerMillionTokens
         bVal = b.costPerMillionTokens
       } else if (sortField === 'overall') {
-        aVal = a.overall
-        bVal = b.overall
+        aVal = aOverall
+        bVal = bOverall
       } else {
-        aVal = a.scores[sortField as CategoryKey] ?? 0
-        bVal = b.scores[sortField as CategoryKey] ?? 0
+        aVal = aScores?.[sortField as CategoryKey] ?? 0
+        bVal = bScores?.[sortField as CategoryKey] ?? 0
       }
 
       if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1
@@ -47,7 +53,7 @@ export default function LeaderboardTable({ data }: LeaderboardTableProps) {
       return 0
     })
     return models
-  }, [data.models, sortField, sortDirection])
+  }, [data.models, sortField, sortDirection, scoringMode])
 
   function handleSort(field: string) {
     if (field === sortField) {
@@ -110,7 +116,7 @@ export default function LeaderboardTable({ data }: LeaderboardTableProps) {
         </thead>
         <tbody>
           {sortedModels.map((model, index) => (
-            <ModelRow key={model.modelId} model={model} rank={index + 1} />
+            <ModelRow key={model.modelId} model={model} rank={index + 1} scoringMode={scoringMode} />
           ))}
         </tbody>
       </table>

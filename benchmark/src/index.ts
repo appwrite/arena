@@ -4,6 +4,7 @@ import type { ModelBenchmarkRun, BenchmarkResults, Question, QuestionResult } fr
 import { MODELS } from './config'
 import { runBenchmark } from './runner'
 import { allQuestions } from './questions/index'
+import { fetchPricing } from './pricing'
 
 function parseArgs(): { mode: 'with-guidelines' | 'without-guidelines' } {
   const args = process.argv.slice(2)
@@ -48,12 +49,16 @@ function loadGuidelines(): string {
 function aggregateScores(
   results: QuestionResult[],
   questions: Question[],
+  typeFilter?: 'mcq' | 'free-form',
 ): Record<string, number> {
   const categories = [...new Set(questions.map((q) => q.category))]
   const scores: Record<string, number> = {}
 
   for (const category of categories) {
-    const categoryResults = results.filter((r) => r.category === category)
+    let categoryResults = results.filter((r) => r.category === category)
+    if (typeFilter) {
+      categoryResults = categoryResults.filter((r) => r.type === typeFilter)
+    }
     if (categoryResults.length > 0) {
       const avg = categoryResults.reduce((sum, r) => sum + r.score, 0) / categoryResults.length
       scores[category] = Math.round(avg * 1000) / 10
@@ -61,6 +66,12 @@ function aggregateScores(
   }
 
   return scores
+}
+
+function computeOverall(results: QuestionResult[], typeFilter?: 'mcq' | 'free-form'): number {
+  const filtered = typeFilter ? results.filter((r) => r.type === typeFilter) : results
+  if (filtered.length === 0) return 0
+  return Math.round((filtered.reduce((sum, r) => sum + r.score, 0) / filtered.length) * 1000) / 10
 }
 
 interface ProgressData {
@@ -103,10 +114,12 @@ function saveProgress(progress: ProgressData): void {
 function saveOutput(progress: ProgressData, mode: 'with-guidelines' | 'without-guidelines'): void {
   const models = Object.values(progress.models).map((m) => {
     const scores = aggregateScores(m.results, allQuestions)
+    const mcqScores = aggregateScores(m.results, allQuestions, 'mcq')
+    const freeformScores = aggregateScores(m.results, allQuestions, 'free-form')
     const totalCorrect = m.results.filter((r) => r.correct).length
-    const overall = m.results.length > 0
-      ? Math.round((m.results.reduce((sum, r) => sum + r.score, 0) / m.results.length) * 1000) / 10
-      : 0
+    const overall = computeOverall(m.results)
+    const mcqOverall = computeOverall(m.results, 'mcq')
+    const freeformOverall = computeOverall(m.results, 'free-form')
 
     return {
       modelId: m.modelId,
@@ -114,17 +127,27 @@ function saveOutput(progress: ProgressData, mode: 'with-guidelines' | 'without-g
       provider: m.provider,
       costPerMillionTokens: m.costPerMillionTokens,
       scores,
+      mcqScores,
+      freeformScores,
       overall,
+      mcqOverall,
+      freeformOverall,
       totalQuestions: allQuestions.length,
       totalCorrect,
       runDate: new Date().toISOString(),
     }
   })
 
+  const totalMcq = allQuestions.filter((q) => q.type === 'mcq').length
+  const totalFreeform = allQuestions.filter((q) => q.type === 'free-form').length
+
   const output: BenchmarkResults = {
     version: '1.0.0',
     runDate: new Date().toISOString(),
     mode,
+    totalQuestions: allQuestions.length,
+    totalMcq,
+    totalFreeform,
     models,
   }
 
@@ -161,17 +184,24 @@ async function main() {
     ? `You are an expert on Appwrite, the open-source backend-as-a-service platform. Use the following documentation to answer questions accurately.\n\n${guidelines}`
     : 'You are an expert on Appwrite, the open-source backend-as-a-service platform. Answer questions about Appwrite services accurately and concisely.'
 
+  const pricing = await fetchPricing(MODELS)
+
   for (const model of MODELS) {
     console.log(`\nRunning: ${model.name} (${model.provider})`)
+
+    const costPerMillionTokens = pricing[model.id] ?? 0
 
     if (!progress.models[model.id]) {
       progress.models[model.id] = {
         modelId: model.id,
         modelName: model.name,
         provider: model.provider,
-        costPerMillionTokens: model.costPerMillionTokens,
+        costPerMillionTokens,
         results: [],
       }
+    } else {
+      // Always update pricing to latest
+      progress.models[model.id].costPerMillionTokens = costPerMillionTokens
     }
 
     const existingResults = progress.models[model.id].results

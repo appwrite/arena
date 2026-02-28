@@ -15,7 +15,7 @@ export default function ScoreCell({ score }: ScoreCellProps) {
 
   return (
     <td className="px-3 py-3 text-right text-sm font-semibold" style={{ color: getScoreColor(score) }}>
-      {score.toFixed(1)}%
+      {score % 1 === 0 ? score : score.toFixed(1)}%
     </td>
   )
 }

@@ -1,4 +1,4 @@
-import type { ModelResult, CategoryKey } from '#/lib/types'
+import type { ModelResult, CategoryKey, ScoringMode } from '#/lib/types'
 import ScoreCell from './ScoreCell'
 
 const CATEGORIES: CategoryKey[] = [
@@ -14,9 +14,13 @@ const CATEGORIES: CategoryKey[] = [
 interface ModelRowProps {
   model: ModelResult
   rank: number
+  scoringMode: ScoringMode
 }
 
-export default function ModelRow({ model, rank }: ModelRowProps) {
+export default function ModelRow({ model, rank, scoringMode }: ModelRowProps) {
+  const scores = scoringMode === 'mcq' ? model.mcqScores : scoringMode === 'freeform' ? model.freeformScores : model.scores
+  const overall = scoringMode === 'mcq' ? model.mcqOverall : scoringMode === 'freeform' ? model.freeformOverall : model.overall
+
   return (
     <tr className="border-b border-[var(--line)] transition hover:bg-[var(--link-bg-hover)]">
       <td className="px-3 py-3 text-center text-sm font-semibold text-[var(--text-secondary)]">
@@ -30,9 +34,9 @@ export default function ModelRow({ model, rank }: ModelRowProps) {
         ${model.costPerMillionTokens.toFixed(2)}
       </td>
       {CATEGORIES.map((cat) => (
-        <ScoreCell key={cat} score={model.scores[cat]} />
+        <ScoreCell key={cat} score={scores?.[cat]} />
       ))}
-      <ScoreCell score={model.overall} />
+      <ScoreCell score={overall} />
     </tr>
   )
 }
