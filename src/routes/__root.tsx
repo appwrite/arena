@@ -1,6 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL, OG_IMAGE } from '../lib/site'
 
 import appCss from '../styles.css?url'
 
@@ -9,27 +10,33 @@ const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getIte
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'Appwrite Arena — LLM Leaderboard',
-      },
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { title: SITE_TITLE },
+      { name: 'description', content: SITE_DESCRIPTION },
+
+      // Open Graph
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: SITE_URL },
+      { property: 'og:title', content: SITE_TITLE },
+      { property: 'og:description', content: SITE_DESCRIPTION },
+      { property: 'og:image', content: OG_IMAGE },
+      { property: 'og:site_name', content: 'Appwrite Arena' },
+
+      // Twitter / X
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:url', content: SITE_URL },
+      { name: 'twitter:title', content: SITE_TITLE },
+      { name: 'twitter:description', content: SITE_DESCRIPTION },
+      { name: 'twitter:image', content: OG_IMAGE },
+
+      // Misc
+      { name: 'theme-color', content: '#19191D' },
     ],
     links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-      {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        href: '/favicon.svg',
-      },
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'canonical', href: SITE_URL },
     ],
   }),
   shellComponent: RootDocument,
