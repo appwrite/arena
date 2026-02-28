@@ -46,7 +46,7 @@ function App() {
         <LeaderboardTable data={activeData} scoringMode={scoringMode} />
 
         {activeData.runDate && (
-          <p className="text-center mt-2 text-xs text-[var(--text-secondary)]">
+          <p className="text-center mt-4 text-xs text-[var(--text-secondary)]">
             Last updated on {new Date(activeData.runDate).toLocaleDateString()}
           </p>
         )}
