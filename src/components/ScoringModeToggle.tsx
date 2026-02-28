@@ -12,7 +12,7 @@ export default function ScoringModeToggle({ active, onChange, totalQuestions, to
   const modes: { value: ScoringMode; label: string; count: number }[] = [
     { value: 'all', label: 'All', count: totalQuestions },
     { value: 'mcq', label: 'Deterministic', count: totalMcq },
-    { value: 'freeform', label: 'AI-Judged', count: totalFreeform },
+    { value: 'freeform', label: 'AI-Judged (Freeform)', count: totalFreeform },
   ]
 
   return (
