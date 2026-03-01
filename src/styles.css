@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap");
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --breakpoint-xs: 540px;
 }
 
 :root {
@@ -12,11 +15,12 @@
   --surface: #ffffff;
   --surface-strong: #ffffff;
   --line: rgba(25, 25, 29, 0.12);
+  --line-subtle: rgba(25, 25, 29, 0.06);
   --bg-base: #EDEDF0;
   --header-bg: rgba(237, 237, 240, 0.88);
   --chip-bg: #ffffff;
   --chip-line: rgba(25, 25, 29, 0.15);
-  --link-bg-hover: rgba(25, 25, 29, 0.06);
+  --link-bg-hover: rgba(25, 25, 29, 0.03);
   --score-low: #ef4444;
   --score-mid: #eab308;
   --score-high: #22c55e;
@@ -29,11 +33,12 @@
   --surface: rgba(25, 25, 29, 0.8);
   --surface-strong: rgba(25, 25, 29, 0.92);
   --line: rgba(237, 237, 240, 0.1);
+  --line-subtle: rgba(237, 237, 240, 0.05);
   --bg-base: #19191D;
   --header-bg: rgba(25, 25, 29, 0.88);
   --chip-bg: rgba(25, 25, 29, 0.9);
   --chip-line: rgba(237, 237, 240, 0.15);
-  --link-bg-hover: rgba(237, 237, 240, 0.06);
+  --link-bg-hover: rgba(237, 237, 240, 0.03);
   --score-low: #f87171;
   --score-mid: #facc15;
   --score-high: #4ade80;
@@ -47,11 +52,12 @@
     --surface: rgba(25, 25, 29, 0.8);
     --surface-strong: rgba(25, 25, 29, 0.92);
     --line: rgba(237, 237, 240, 0.1);
+    --line-subtle: rgba(237, 237, 240, 0.05);
     --bg-base: #19191D;
     --header-bg: rgba(25, 25, 29, 0.88);
     --chip-bg: rgba(25, 25, 29, 0.9);
     --chip-line: rgba(237, 237, 240, 0.15);
-    --link-bg-hover: rgba(237, 237, 240, 0.06);
+    --link-bg-hover: rgba(237, 237, 240, 0.03);
     --score-low: #f87171;
     --score-mid: #facc15;
     --score-high: #4ade80;
@@ -62,9 +68,7 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#app {
+html {
   min-height: 100%;
 }
 
@@ -84,12 +88,19 @@ a {
 }
 
 .arena-container {
-  width: min(1200px, calc(100% - 2rem));
+  width: min(1200px, calc(100% - 1rem));
   margin-inline: auto;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .arena-container {
+    width: min(1200px, calc(100% - 2rem));
+  }
 }
 
 .arena-card {
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-subtle);
   background: var(--surface);
   border-radius: 1rem;
 }
@@ -99,6 +110,31 @@ button,
 a {
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
     opacity 180ms ease;
+}
+
+.score-high {
+  background-color: rgba(80, 131, 130, 0.15);
+  color: rgba(133, 219, 216, 0.5);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.score-mid {
+  background-color: rgba(152, 89, 62, 0.15);
+  color: rgba(254, 149, 103, 0.5);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.score-low {
+  background-color: rgba(143, 14, 14, 0.15);
+  color: rgba(255, 69, 58, 0.5);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.group:hover .score-high,
+.group:hover .score-mid,
+.group:hover .score-low {
+  background-color: rgba(133, 219, 216, 0.15);
+  color: #85DBD8;
 }
 
 .rise-in {

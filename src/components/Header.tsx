@@ -1,5 +1,4 @@
 import githubStars from "#/data/github-stars.json";
-import ThemeToggle from "./ThemeToggle";
 
 function AppwriteLogo() {
 	return (
@@ -60,7 +59,7 @@ export default function Header() {
 					className="inline-flex items-center gap-2.5 text-[var(--text-primary)] no-underline"
 				>
 					<AppwriteLogo />
-					<span className="text-[var(--text-primary)] text-xl font-semibold tracking-tight">
+					<span className="font-heading text-[var(--text-primary)] text-lg font-medium tracking-tight">
 						Benchmark
 					</span>
 				</a>
@@ -81,7 +80,6 @@ export default function Header() {
 							{formatStars(stars)}
 						</span>
 					</a>
-					<ThemeToggle />
 				</div>
 			</nav>
 		</header>

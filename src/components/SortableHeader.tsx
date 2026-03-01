@@ -7,6 +7,7 @@ interface SortableHeaderProps {
 	currentDirection: "asc" | "desc";
 	onSort: (field: string) => void;
 	align?: "left" | "right";
+	divider?: boolean;
 }
 
 export default function SortableHeader({
@@ -15,16 +16,17 @@ export default function SortableHeader({
 	currentSort,
 	currentDirection,
 	onSort,
-	align = "right",
+	align = "left",
+	divider,
 }: SortableHeaderProps) {
 	const isActive = currentSort === field;
 
 	return (
 		<th
 			onClick={() => onSort(field)}
-			className={`cursor-pointer select-none whitespace-nowrap px-3 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] ${
+			className={`cursor-pointer select-none whitespace-nowrap px-3 text-xs font-medium tracking-normal text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] ${
 				align === "left" ? "text-left" : "text-right"
-			}`}
+			} ${divider ? "border-l border-[var(--line-subtle)]" : ""}`}
 		>
 			<span className="inline-flex items-center gap-1">
 				{label}
@@ -33,7 +35,7 @@ export default function SortableHeader({
 						size={12}
 						className={
 							isActive && currentDirection === "asc"
-								? "text-[var(--accent-pink)]"
+								? "text-white"
 								: "opacity-30"
 						}
 					/>
@@ -41,7 +43,7 @@ export default function SortableHeader({
 						size={12}
 						className={
 							isActive && currentDirection === "desc"
-								? "text-[var(--accent-pink)]"
+								? "text-white"
 								: "opacity-30"
 						}
 						style={{ marginTop: "-4px" }}

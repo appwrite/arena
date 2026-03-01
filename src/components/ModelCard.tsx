@@ -1,0 +1,92 @@
+import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
+import { CATEGORY_LABELS } from "#/lib/types";
+import ProviderLogo from "./ProviderLogo";
+
+const CATEGORIES: CategoryKey[] = [
+	"fundamental",
+	"auth",
+	"databases",
+	"functions",
+	"storage",
+	"sites",
+	"messaging",
+];
+
+interface ModelCardProps {
+	model: ModelResult;
+	scoringMode: ScoringMode;
+}
+
+function formatScore(score: number | undefined) {
+	if (score === undefined || score === null) return "-";
+	return score % 1 === 0 ? `${score}%` : `${score.toFixed(1)}%`;
+}
+
+export default function ModelCard({ model, scoringMode }: ModelCardProps) {
+	const scores =
+		scoringMode === "mcq"
+			? model.mcqScores
+			: scoringMode === "freeform"
+				? model.freeformScores
+				: model.scores;
+	const overall =
+		scoringMode === "mcq"
+			? model.mcqOverall
+			: scoringMode === "freeform"
+				? model.freeformOverall
+				: model.overall;
+
+	const overallColor =
+		overall >= 70 ? "#85DBD8" : overall >= 40 ? "#FE9567" : "#FF453A";
+
+	return (
+		<div className="group arena-card flex flex-col p-5">
+			<div className="mb-4 flex items-center gap-3">
+				<ProviderLogo provider={model.provider} size={20} />
+				<span className="text-sm font-semibold text-[var(--text-primary)]">
+					{model.modelName}
+				</span>
+				<span className="ml-auto text-xs text-[var(--text-secondary)]">
+					${model.costPerMillionTokens.toFixed(2)}/1M
+				</span>
+			</div>
+
+			<div className="mb-4 flex items-baseline gap-1.5">
+				<span
+					className="text-2xl font-semibold"
+					style={{ color: overallColor }}
+				>
+					{formatScore(overall)}
+				</span>
+				<span className="text-xs text-[var(--text-secondary)]">overall</span>
+			</div>
+
+			<div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+				{CATEGORIES.map((cat) => {
+					const score = scores?.[cat];
+					const scoreClass =
+						score !== undefined
+							? score >= 70
+								? "score-high"
+								: score >= 40
+									? "score-mid"
+									: "score-low"
+							: "";
+
+					return (
+						<div key={cat} className="flex items-center justify-between">
+							<span className="text-xs text-[var(--text-secondary)]">
+								{CATEGORY_LABELS[cat]}
+							</span>
+							<span
+								className={`${scoreClass} rounded-md px-1.5 py-0.5 text-xs`}
+							>
+								{formatScore(score)}
+							</span>
+						</div>
+					);
+				})}
+			</div>
+		</div>
+	);
+}

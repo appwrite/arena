@@ -1,4 +1,5 @@
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
+import ProviderLogo from "./ProviderLogo";
 import ScoreCell from "./ScoreCell";
 
 const CATEGORIES: CategoryKey[] = [
@@ -13,11 +14,10 @@ const CATEGORIES: CategoryKey[] = [
 
 interface ModelRowProps {
 	model: ModelResult;
-	rank: number;
 	scoringMode: ScoringMode;
 }
 
-export default function ModelRow({ model, rank, scoringMode }: ModelRowProps) {
+export default function ModelRow({ model, scoringMode }: ModelRowProps) {
 	const scores =
 		scoringMode === "mcq"
 			? model.mcqScores
@@ -32,25 +32,22 @@ export default function ModelRow({ model, rank, scoringMode }: ModelRowProps) {
 				: model.overall;
 
 	return (
-		<tr className="border-b border-[var(--line)] transition hover:bg-[var(--link-bg-hover)]">
-			<td className="px-3 py-3 text-center text-sm font-semibold text-[var(--text-secondary)]">
-				{rank}
-			</td>
-			<td className="px-3 py-3 text-left">
-				<div className="text-sm font-semibold text-[var(--text-primary)]">
-					{model.modelName}
-				</div>
-				<div className="text-xs text-[var(--text-secondary)]">
-					{model.provider}
+		<tr className="group h-[52px] border-b border-[var(--line-subtle)] last:border-b-0 transition hover:bg-[var(--link-bg-hover)]">
+			<td className="w-12 px-0 text-[var(--text-secondary)]">
+				<div className="flex h-full items-center justify-center">
+					<ProviderLogo provider={model.provider} size={16} />
 				</div>
 			</td>
-			<td className="px-3 py-3 text-right text-sm text-[var(--text-secondary)]">
+			<td className="px-3 text-left text-sm font-semibold text-[var(--text-primary)]">
+				{model.modelName}
+			</td>
+			<td className="px-3 text-left text-sm text-[var(--text-secondary)]">
 				${model.costPerMillionTokens.toFixed(2)}
 			</td>
-			{CATEGORIES.map((cat) => (
-				<ScoreCell key={cat} score={scores?.[cat]} />
+			<ScoreCell score={overall} isOverall />
+			{CATEGORIES.map((cat, i) => (
+				<ScoreCell key={cat} score={scores?.[cat]} divider={i === 0} />
 			))}
-			<ScoreCell score={overall} />
 		</tr>
 	);
 }
