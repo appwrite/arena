@@ -6,7 +6,6 @@ export interface Question {
 	choices?: string[];
 	correctAnswer: string;
 	rubric?: string;
-	reference?: string;
 }
 
 export interface QuestionResult {

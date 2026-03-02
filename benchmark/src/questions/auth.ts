@@ -47,26 +47,10 @@ export const authQuestions: Question[] = [
 		type: "free-form",
 		question:
 			"Write the code to implement email/password signup and login using the Appwrite Web SDK. Include setting up the client, creating an account, and creating a session.",
-		correctAnswer: `import { Client, Account, ID } from 'appwrite';
-
-const client = new Client()
-  .setEndpoint('https://cloud.appwrite.io/v1')
-  .setProject('PROJECT_ID');
-
-const account = new Account(client);
-
-// Sign up
-await account.create(ID.unique(), 'email@example.com', 'password123', 'User Name');
-
-// Log in
-await account.createEmailPasswordSession('email@example.com', 'password123');
-
-// Get current user
-const user = await account.get();`,
+		correctAnswer:
+			"The Appwrite Web SDK requires initializing a Client with endpoint and project ID, then creating an Account instance. Registration uses account.create(ID.unique(), email, password, name). Login uses account.createEmailPasswordSession(email, password).",
 		rubric:
 			"Must include: 1) Client initialization with setEndpoint and setProject, 2) Account service instantiation, 3) account.create() with ID.unique(), email, password, 4) account.createEmailPasswordSession(), 5) Correct imports from appwrite",
-		reference:
-			"The Appwrite Web SDK requires initializing a Client with endpoint and project ID, then creating an Account instance. Registration uses account.create(ID.unique(), email, password, name). Login uses account.createEmailPasswordSession(email, password).",
 	},
 	{
 		id: "auth-5",
@@ -102,11 +86,9 @@ const user = await account.get();`,
 		question:
 			"Explain how Appwrite sessions work. How are they created, managed, and deleted? What about session limits?",
 		correctAnswer:
-			"Appwrite sessions are created when users authenticate (via email/password, OAuth, etc.). Each session generates a secret token stored as an HTTP-only cookie. Users can have up to 10 active sessions. Sessions can be listed with account.listSessions(), deleted individually with account.deleteSession(sessionId), or all sessions deleted with account.deleteSessions(). Sessions have configurable expiry periods.",
+			"Sessions represent authenticated user connections. They are created during login, stored as HTTP-only cookies, limited to 10 per user, and can be managed via account.listSessions(), account.deleteSession(), and account.deleteSessions().",
 		rubric:
 			"Must mention: 1) Sessions created on authentication, 2) Session tokens/cookies, 3) Session limit (10), 4) Methods to list/delete sessions, 5) Session expiry",
-		reference:
-			"Sessions represent authenticated user connections. They are created during login, stored as HTTP-only cookies, limited to 10 per user, and can be managed via account.listSessions(), account.deleteSession(), and account.deleteSessions().",
 	},
 	{
 		id: "auth-8",

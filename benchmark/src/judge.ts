@@ -16,7 +16,7 @@ export async function judgeAnswer(
 
 Question: ${question.question}
 
-Reference Answer: ${question.reference ?? question.correctAnswer}
+Reference Answer: ${question.correctAnswer}
 
 ${question.rubric ? `Rubric: ${question.rubric}` : ""}
 

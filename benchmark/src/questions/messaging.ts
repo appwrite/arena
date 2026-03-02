@@ -47,11 +47,9 @@ export const messagingQuestions: Question[] = [
 		question:
 			"Explain how to set up push notifications with Appwrite Messaging. What providers are supported and how do you send a push notification to a topic?",
 		correctAnswer:
-			"To set up push notifications: 1) Configure a push provider in the Appwrite Console — supported providers include FCM (Firebase Cloud Messaging) for Android and web, and APNS (Apple Push Notification Service) for iOS. 2) Create a topic for targeting users. 3) Subscribe user targets to the topic. 4) Send a push notification using messaging.createPush() with the topic ID, title, body, and optional data payload. Server-side code: messaging.createPush(ID.unique(), title, body, [topicId], [], [], data). Users must register their device push tokens as targets.",
+			"Appwrite Messaging supports FCM and APNS for push. Setup involves configuring providers, creating topics, subscribing user targets, then sending via messaging.createPush() with topic IDs.",
 		rubric:
 			"Must mention: 1) FCM and/or APNS providers, 2) Topic creation for targeting, 3) User subscription/targets, 4) messaging.createPush() method, 5) Device token registration",
-		reference:
-			"Appwrite Messaging supports FCM and APNS for push. Setup involves configuring providers, creating topics, subscribing user targets, then sending via messaging.createPush() with topic IDs.",
 	},
 	{
 		id: "msg-5",
@@ -113,11 +111,9 @@ export const messagingQuestions: Question[] = [
 		question:
 			"Describe how Appwrite Messaging handles message targeting. How can you send messages to specific users, topics, or individual targets?",
 		correctAnswer:
-			"Appwrite Messaging supports three targeting methods: 1) Topics — subscribe users to topics and send to all subscribers at once. Create a topic with messaging.createTopic(), subscribe targets with messaging.createSubscriber(). 2) Users — specify user IDs directly when creating a message, which sends to all targets of those users. 3) Targets — specify individual target IDs (specific email, phone, or push token) for precise delivery. When creating a message (createEmail, createSMS, createPush), you pass arrays for topics, users, and targets parameters. Messages can combine multiple targeting methods in a single send.",
+			"Messages can target topics (group subscriptions), users (all targets of specified users), or individual targets (specific delivery endpoints). These can be combined in a single message creation call.",
 		rubric:
 			"Must mention: 1) Three targeting methods: topics, users, targets, 2) Topic subscription mechanism, 3) How messages are sent to each target type, 4) That targeting can be combined",
-		reference:
-			"Messages can target topics (group subscriptions), users (all targets of specified users), or individual targets (specific delivery endpoints). These can be combined in a single message creation call.",
 	},
 	{
 		id: "msg-10",

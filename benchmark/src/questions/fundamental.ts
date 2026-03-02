@@ -63,11 +63,9 @@ export const fundamentalQuestions: Question[] = [
 		question:
 			"Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
 		correctAnswer:
-			"Client-side SDKs (Web, Flutter, mobile) are used in frontend applications and require user authentication. Server-side SDKs (Node.js, Python, etc.) use API keys and have elevated privileges, bypassing permission checks when using an API key with appropriate scopes.",
+			"Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
 		rubric:
 			"Must mention: 1) Client SDKs for frontend/user-facing apps, 2) Server SDKs use API keys, 3) Server SDKs can bypass permissions, 4) Client SDKs require user sessions",
-		reference:
-			"Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
 	},
 	{
 		id: "fund-7",
@@ -89,11 +87,9 @@ export const fundamentalQuestions: Question[] = [
 		question:
 			"Describe how Appwrite's permission model works. What are the different permission types available?",
 		correctAnswer:
-			"Appwrite uses a role-based permission model. Permissions can be set on resources like documents, files, and functions. Permission types include: Permission.read(), Permission.create(), Permission.update(), Permission.delete(). Roles include Role.any(), Role.guests(), Role.users(), Role.user(userId), Role.team(teamId), Role.member(membershipId), and Role.label(label).",
+			"Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
 		rubric:
 			"Must mention: 1) Permission types (read, create, update, delete), 2) At least 3 role types, 3) That permissions are set on resources",
-		reference:
-			"Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
 	},
 	{
 		id: "fund-9",

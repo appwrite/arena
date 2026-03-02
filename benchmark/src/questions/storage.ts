@@ -33,42 +33,10 @@ export const storageQuestions: Question[] = [
 		type: "free-form",
 		question:
 			"Write code using the Appwrite Web SDK to create a bucket, upload a file, and get a preview URL for an image file. Include permission configuration.",
-		correctAnswer: `import { Client, Storage, ID, Permission, Role } from 'appwrite';
-
-const client = new Client()
-  .setEndpoint('https://cloud.appwrite.io/v1')
-  .setProject('PROJECT_ID');
-
-const storage = new Storage(client);
-
-// Create bucket (server-side)
-const bucket = await storage.createBucket(
-  ID.unique(),
-  'Images',
-  [
-    Permission.read(Role.any()),
-    Permission.create(Role.users()),
-    Permission.delete(Role.users()),
-  ],
-  false, // fileSecurity
-  true,  // enabled
-  10000000, // maximumFileSize (10MB)
-  ['image/png', 'image/jpeg', 'image/gif'], // allowedFileExtensions
-);
-
-// Upload file (client-side)
-const file = await storage.createFile(
-  bucket.$id,
-  ID.unique(),
-  document.getElementById('fileInput').files[0],
-);
-
-// Get preview URL
-const preview = storage.getFilePreview(bucket.$id, file.$id, 400, 300);`,
+		correctAnswer:
+			"Storage service provides createBucket() for bucket management, createFile() for uploads, and getFilePreview() for image transformations. Buckets support file size limits, allowed extensions, and permission configuration.",
 		rubric:
 			"Must include: 1) Storage service instantiation, 2) Bucket creation with permissions, 3) storage.createFile() with bucket ID, file ID, and File object, 4) storage.getFilePreview() for image preview, 5) Correct imports",
-		reference:
-			"Storage service provides createBucket() for bucket management, createFile() for uploads, and getFilePreview() for image transformations. Buckets support file size limits, allowed extensions, and permission configuration.",
 	},
 	{
 		id: "stor-4",
@@ -145,11 +113,9 @@ const preview = storage.getFilePreview(bucket.$id, file.$id, 400, 300);`,
 		question:
 			"Explain the difference between storage.getFileView(), storage.getFileDownload(), and storage.getFilePreview(). When would you use each?",
 		correctAnswer:
-			"getFileView() returns a URL that displays the file in the browser (inline content disposition) — use for displaying files like images or PDFs directly. getFileDownload() returns a URL with a download content disposition — use when you want to trigger a file download. getFilePreview() returns a transformed image URL with options for width, height, quality, format etc. — use for generating thumbnails, responsive images, or image transformations. Only getFilePreview() supports image manipulation parameters.",
+			"getFileView() serves files inline for browser display. getFileDownload() triggers a download. getFilePreview() provides image transformation capabilities (resize, crop, format conversion). Only preview supports manipulation parameters.",
 		rubric:
 			"Must explain: 1) getFileView() for inline/browser display, 2) getFileDownload() for triggering downloads, 3) getFilePreview() for image transformations, 4) When to use each one",
-		reference:
-			"getFileView() serves files inline for browser display. getFileDownload() triggers a download. getFilePreview() provides image transformation capabilities (resize, crop, format conversion). Only preview supports manipulation parameters.",
 	},
 	{
 		id: "stor-10",

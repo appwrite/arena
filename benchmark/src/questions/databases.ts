@@ -35,40 +35,10 @@ export const databasesQuestions: Question[] = [
 		type: "free-form",
 		question:
 			'Write code using the Appwrite Web SDK to create a database, a collection with attributes, and insert a document. Use a "tasks" collection with title (string), completed (boolean), and dueDate (datetime) attributes.',
-		correctAnswer: `import { Client, Databases, ID, Permission, Role } from 'appwrite';
-
-const client = new Client()
-  .setEndpoint('https://cloud.appwrite.io/v1')
-  .setProject('PROJECT_ID');
-
-const databases = new Databases(client);
-
-// Create database
-const db = await databases.create(ID.unique(), 'MyApp');
-
-// Create collection
-const collection = await databases.createCollection(db.$id, ID.unique(), 'Tasks', [
-  Permission.read(Role.users()),
-  Permission.create(Role.users()),
-  Permission.update(Role.users()),
-  Permission.delete(Role.users()),
-]);
-
-// Create attributes
-await databases.createStringAttribute(db.$id, collection.$id, 'title', 255, true);
-await databases.createBooleanAttribute(db.$id, collection.$id, 'completed', true, false);
-await databases.createDatetimeAttribute(db.$id, collection.$id, 'dueDate', false);
-
-// Create document
-const doc = await databases.createDocument(db.$id, collection.$id, ID.unique(), {
-  title: 'My Task',
-  completed: false,
-  dueDate: '2024-12-31T00:00:00.000Z',
-});`,
+		correctAnswer:
+			"Use Databases service to create database, collection with permissions, attributes (createStringAttribute, createBooleanAttribute, createDatetimeAttribute), then createDocument with the data object.",
 		rubric:
 			"Must include: 1) Client + Databases setup, 2) databases.create() for database, 3) databases.createCollection() with permissions, 4) Creating string, boolean, datetime attributes, 5) databases.createDocument() with data",
-		reference:
-			"Use Databases service to create database, collection with permissions, attributes (createStringAttribute, createBooleanAttribute, createDatetimeAttribute), then createDocument with the data object.",
 	},
 	{
 		id: "db-4",
@@ -103,41 +73,10 @@ const doc = await databases.createDocument(db.$id, collection.$id, ID.unique(), 
 		type: "free-form",
 		question:
 			"Explain how to query documents in Appwrite using the Query class. Show examples of filtering, sorting, limiting, and pagination.",
-		correctAnswer: `Use the Query class to build queries passed to databases.listDocuments():
-
-import { Query } from 'appwrite';
-
-// Filter by equality
-await databases.listDocuments(dbId, collId, [
-  Query.equal('status', 'active'),
-]);
-
-// Multiple filters (AND)
-await databases.listDocuments(dbId, collId, [
-  Query.equal('status', 'active'),
-  Query.greaterThan('price', 10),
-]);
-
-// Sorting
-await databases.listDocuments(dbId, collId, [
-  Query.orderDesc('createdAt'),
-]);
-
-// Pagination with limit and offset
-await databases.listDocuments(dbId, collId, [
-  Query.limit(25),
-  Query.offset(50),
-]);
-
-// Cursor-based pagination
-await databases.listDocuments(dbId, collId, [
-  Query.cursorAfter('lastDocumentId'),
-  Query.limit(25),
-]);`,
+		correctAnswer:
+			"The Query class provides methods like equal(), greaterThan(), lessThan(), orderAsc(), orderDesc(), limit(), offset(), cursorAfter() that are passed as an array to databases.listDocuments().",
 		rubric:
 			"Must include: 1) Query.equal() for filtering, 2) Query.orderDesc() or orderAsc() for sorting, 3) Query.limit() and Query.offset() for pagination, 4) Passing queries array to listDocuments(), 5) At least one other query method",
-		reference:
-			"The Query class provides methods like equal(), greaterThan(), lessThan(), orderAsc(), orderDesc(), limit(), offset(), cursorAfter() that are passed as an array to databases.listDocuments().",
 	},
 	{
 		id: "db-7",

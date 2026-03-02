@@ -47,11 +47,9 @@ export const sitesQuestions: Question[] = [
 		question:
 			"Explain how to deploy a site to Appwrite Sites. What are the build configuration options and deployment methods?",
 		correctAnswer:
-			"Appwrite Sites can be deployed through: 1) Git integration — connect a GitHub/GitLab repository for automatic deployments on push, 2) CLI deployment using appwrite deploy site, 3) Manual upload through the Console. Build configuration includes: framework preset (auto-detected or manual), build command (e.g., npm run build), output directory (e.g., dist, .next, build), install command (e.g., npm install), root directory, and environment variables. Sites support branch-based deployments and preview deployments for pull requests.",
+			"Appwrite Sites supports Git-based deployments, CLI deployments, and manual uploads. Configuration includes framework preset, build command, output directory, install command, root directory, and environment variables.",
 		rubric:
 			"Must mention: 1) At least 2 deployment methods (Git, CLI, or manual), 2) Build command configuration, 3) Output directory setting, 4) Framework support/presets, 5) Environment variables",
-		reference:
-			"Appwrite Sites supports Git-based deployments, CLI deployments, and manual uploads. Configuration includes framework preset, build command, output directory, install command, root directory, and environment variables.",
 	},
 	{
 		id: "sites-5",
