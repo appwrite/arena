@@ -31,7 +31,7 @@ export default function LeaderboardTable({
 
 	return (
 		<div className="arena-card max-w-full overflow-x-auto">
-			<table className="w-full min-w-[960px] border-collapse table-fixed">
+			<table className="w-full min-w-[960px] border-collapse table-fixed font-inter">
 				<colgroup>
 					<col style={{ width: "48px" }} />
 					<col style={{ width: "20%" }} />
