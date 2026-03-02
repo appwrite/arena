@@ -4,7 +4,12 @@ import { MODELS } from "./config";
 import { fetchPricing } from "./pricing";
 import { allQuestions } from "./questions/index";
 import { runBenchmark } from "./runner";
-import type { BenchmarkResults, Question, QuestionResult } from "./types";
+import type {
+	BenchmarkResults,
+	Question,
+	QuestionDetail,
+	QuestionResult,
+} from "./types";
 
 function parseArgs(): { mode: "with-skills" | "without-skills" } {
 	const args = process.argv.slice(2);
@@ -142,6 +147,23 @@ function saveOutput(
 		const mcqOverall = computeOverall(m.results, "mcq");
 		const freeformOverall = computeOverall(m.results, "free-form");
 
+		const questionDetails: QuestionDetail[] = m.results.map((r) => {
+			const q = allQuestions.find((q) => q.id === r.questionId);
+			return {
+				questionId: r.questionId,
+				category: r.category,
+				type: r.type,
+				question: q?.question ?? "",
+				choices: q?.choices,
+				correctAnswer: q?.correctAnswer ?? "",
+				rubric: q?.rubric,
+				modelAnswer: r.modelAnswer,
+				correct: r.correct,
+				score: r.score,
+				judgeReasoning: r.judgeReasoning,
+			};
+		});
+
 		return {
 			modelId: m.modelId,
 			modelName: m.modelName,
@@ -156,6 +178,7 @@ function saveOutput(
 			totalQuestions: allQuestions.length,
 			totalCorrect,
 			runDate: new Date().toISOString(),
+			questionDetails,
 		};
 	});
 

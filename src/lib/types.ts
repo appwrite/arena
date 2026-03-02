@@ -1,3 +1,17 @@
+export interface QuestionDetail {
+	questionId: string;
+	category: string;
+	type: "mcq" | "free-form";
+	question: string;
+	choices?: string[];
+	correctAnswer: string;
+	rubric?: string;
+	modelAnswer: string;
+	correct: boolean;
+	score: number;
+	judgeReasoning?: string;
+}
+
 export interface BenchmarkResults {
 	version: string;
 	runDate: string;
@@ -32,6 +46,7 @@ export interface ModelResult {
 	totalQuestions: number;
 	totalCorrect: number;
 	runDate: string;
+	questionDetails: QuestionDetail[];
 }
 
 export type ScoringMode = "all" | "mcq" | "freeform";
@@ -44,6 +59,16 @@ export const CATEGORY_LABELS: Record<string, string> = {
 	storage: "Storage",
 	sites: "Sites",
 	messaging: "Messaging",
+};
+
+export const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+	fundamental: "Core concepts, SDKs, permissions, and platform basics",
+	auth: "Authentication methods, user management, and sessions",
+	databases: "Collections, documents, queries, and relationships",
+	functions: "Serverless functions, runtimes, and execution",
+	storage: "File uploads, buckets, and file management",
+	sites: "Static site hosting, domains, and deployments",
+	messaging: "Push notifications, SMS, email, and providers",
 };
 
 export type CategoryKey = keyof ModelResult["scores"];

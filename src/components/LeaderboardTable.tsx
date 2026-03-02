@@ -1,5 +1,8 @@
+import { Link, useNavigate } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
+import { withViewTransition } from "#/lib/viewTransition";
 import ModelRow from "./ModelRow";
 
 const CATEGORIES: CategoryKey[] = [
@@ -21,6 +24,7 @@ export default function LeaderboardTable({
 	models,
 	scoringMode,
 }: LeaderboardTableProps) {
+	const navigate = useNavigate();
 	if (models.length === 0) {
 		return (
 			<div className="arena-card p-8 text-center text-[var(--text-secondary)]">
@@ -30,7 +34,10 @@ export default function LeaderboardTable({
 	}
 
 	return (
-		<div className="arena-card max-w-full overflow-x-auto">
+		<div
+			className="arena-card max-w-full overflow-x-auto"
+			style={{ viewTransitionName: "leaderboard" }}
+		>
 			<table className="w-full min-w-[960px] border-collapse table-fixed">
 				<colgroup>
 					<col style={{ width: "48px" }} />
@@ -73,6 +80,19 @@ export default function LeaderboardTable({
 					))}
 				</tbody>
 			</table>
+			{models.length === 1 && (
+				<Link
+					to="/"
+					className="flex items-center justify-center gap-1.5 border-t border-[var(--line-subtle)] px-3 py-3 text-xs font-medium text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+					onClick={(e) => {
+						e.preventDefault();
+						withViewTransition(() => navigate({ to: "/" }));
+					}}
+				>
+					View all models
+					<ArrowRight size={12} />
+				</Link>
+			)}
 		</div>
 	);
 }

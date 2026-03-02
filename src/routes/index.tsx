@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import FilterChip from "#/components/FilterChip";
 import LeaderboardTable from "#/components/LeaderboardTable";
 import ModelCard from "#/components/ModelCard";
@@ -24,6 +24,8 @@ const SORT_OPTIONS: { field: SortField; label: string }[] = [
 	{ field: "costPerMillionTokens", label: "Cost" },
 	{ field: "modelName", label: "Model" },
 ];
+
+const VALID_SORT_FIELDS = new Set(SORT_OPTIONS.map((o) => o.field));
 
 function useSortedModels(
 	models: ModelResult[],
@@ -84,17 +86,52 @@ function useSortedModels(
 	}, [models, sortField, sortDirection, scoringMode]);
 }
 
-export const Route = createFileRoute("/")({ component: App });
+interface SearchParams {
+	dataset?: "with-skills" | "without-skills";
+	scoring?: ScoringMode;
+	sort?: SortField;
+	dir?: "asc" | "desc";
+	view?: "list" | "grid";
+}
+
+export const Route = createFileRoute("/")({
+	validateSearch: (search: Record<string, unknown>): SearchParams => {
+		const result: SearchParams = {};
+		if (search.dataset === "without-skills") {
+			result.dataset = "without-skills";
+		}
+		if (search.scoring === "mcq" || search.scoring === "freeform") {
+			result.scoring = search.scoring as ScoringMode;
+		}
+		if (
+			typeof search.sort === "string" &&
+			VALID_SORT_FIELDS.has(search.sort as SortField) &&
+			search.sort !== "overall"
+		) {
+			result.sort = search.sort as SortField;
+		}
+		if (search.dir === "asc") {
+			result.dir = "asc";
+		}
+		if (search.view === "grid") {
+			result.view = "grid";
+		}
+		return result;
+	},
+	component: App,
+});
 
 function App() {
-	const [activeTab, setActiveTab] = useState<"with-skills" | "without-skills">(
-		"with-skills",
-	);
-	const [scoringMode, setScoringMode] = useState<ScoringMode>("all");
-	const [sortField, setSortField] = useState<SortField>("overall");
-	const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
-	const [viewMode, setViewMode] = useState<"list" | "grid">("list");
-	const activeData = activeTab === "with-skills" ? withSkills : withoutSkills;
+	const search = Route.useSearch();
+	const navigate = useNavigate({ from: Route.fullPath });
+
+	const dataset = search.dataset ?? "with-skills";
+	const scoringMode = search.scoring ?? "all";
+	const sortField = search.sort ?? "overall";
+	const sortDirection = search.dir ?? "desc";
+	const viewMode = search.view ?? "list";
+
+	const activeData = dataset === "with-skills" ? withSkills : withoutSkills;
 
 	const sortedModels = useSortedModels(
 		activeData.models,
@@ -103,17 +140,47 @@ function App() {
 		sortDirection,
 	);
 
+	const setFilter = useCallback(
+		(updates: {
+			dataset?: "with-skills" | "without-skills";
+			scoring?: ScoringMode;
+			sort?: SortField;
+			dir?: "asc" | "desc";
+			view?: "list" | "grid";
+		}) => {
+			navigate({
+				search: (prev: SearchParams) => {
+					const d = updates.dataset ?? prev.dataset ?? "with-skills";
+					const s = updates.scoring ?? prev.scoring ?? "all";
+					const sf = updates.sort ?? prev.sort ?? "overall";
+					const sd = updates.dir ?? prev.dir ?? "desc";
+					const v = updates.view ?? prev.view ?? "list";
+
+					const result: SearchParams = {};
+					if (d !== "with-skills") result.dataset = d;
+					if (s !== "all") result.scoring = s;
+					if (sf !== "overall") result.sort = sf;
+					if (sd !== "desc") result.dir = sd;
+					if (v !== "list") result.view = v;
+					return result;
+				},
+				replace: true,
+			});
+		},
+		[navigate],
+	);
+
 	const currentSortLabel =
 		SORT_OPTIONS.find((o) => o.field === sortField)?.label ?? "Overall";
 
 	function handleSortClick() {
 		const currentIndex = SORT_OPTIONS.findIndex((o) => o.field === sortField);
 		const nextIndex = (currentIndex + 1) % SORT_OPTIONS.length;
-		setSortField(SORT_OPTIONS[nextIndex].field);
+		setFilter({ sort: SORT_OPTIONS[nextIndex].field });
 	}
 
 	function handleDirectionClick() {
-		setSortDirection((d) => (d === "asc" ? "desc" : "asc"));
+		setFilter({ dir: sortDirection === "desc" ? "asc" : "desc" });
 	}
 
 	return (
@@ -131,13 +198,21 @@ function App() {
 				<div className="mb-4 flex flex-wrap items-center gap-2">
 					<FilterChip
 						label="Dataset"
-						value={activeTab}
+						value={dataset}
 						options={[
-							{ value: "with-skills", label: "With skills.md" },
-							{ value: "without-skills", label: "Without skills.md" },
+							{
+								value: "with-skills",
+								label: "With skills.md",
+							},
+							{
+								value: "without-skills",
+								label: "Without skills.md",
+							},
 						]}
 						onChange={(v) =>
-							setActiveTab(v as "with-skills" | "without-skills")
+							setFilter({
+								dataset: v as "with-skills" | "without-skills",
+							})
 						}
 					/>
 					<FilterChip
@@ -148,7 +223,7 @@ function App() {
 							{ value: "mcq", label: "Deterministic" },
 							{ value: "freeform", label: "AI-Judged" },
 						]}
-						onChange={(v) => setScoringMode(v as ScoringMode)}
+						onChange={(v) => setFilter({ scoring: v as ScoringMode })}
 					/>
 					<span className="ml-auto inline-flex items-center gap-2">
 						<span className="inline-flex items-center gap-1 text-xs text-[var(--text-secondary)]">
@@ -172,7 +247,10 @@ function App() {
 								)}
 							</button>
 						</span>
-						<ViewToggle view={viewMode} onChange={setViewMode} />
+						<ViewToggle
+							view={viewMode}
+							onChange={(v) => setFilter({ view: v })}
+						/>
 					</span>
 				</div>
 
