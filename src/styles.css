@@ -2,9 +2,57 @@
 @import url("https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap");
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Aeonik Pro";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://assets.appwrite.network/fonts/aeonik-pro/AeonikPro-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("https://assets.appwrite.network/fonts/aeonik-pro/AeonikPro-RegularItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://assets.appwrite.network/fonts/aeonik-pro/AeonikPro-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url("https://assets.appwrite.network/fonts/aeonik-pro/AeonikPro-MediumItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://assets.appwrite.network/fonts/aeonik-pro/AeonikPro-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url("https://assets.appwrite.network/fonts/aeonik-pro/AeonikPro-BoldItalic.woff2") format("woff2");
+}
+
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Aeonik Pro", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Aeonik Pro", "General Sans", ui-sans-serif, system-ui, sans-serif;
   --breakpoint-xs: 540px;
 }
 
