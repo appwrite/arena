@@ -15,10 +15,10 @@ export default function Footer() {
 						Leaderboard
 					</a>
 					<a
-						href="/#methodology"
+						href="/#how-it-works"
 						className="font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
 					>
-						Methodology
+						How it works
 					</a>
 					<a
 						href="https://github.com/appwrite/arena"

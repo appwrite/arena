@@ -1,3 +1,5 @@
+import { Menu, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import githubStars from "#/data/github-stars.json";
 
 function AppwriteLogo() {
@@ -48,8 +50,37 @@ function formatStars(count: number): string {
 	return String(count);
 }
 
+const NAV_LINKS = [
+	{ href: "/#leaderboard", label: "Leaderboard" },
+	{ href: "/#how-it-works", label: "How it works" },
+];
+
 export default function Header() {
 	const stars = githubStars.stars;
+	const [open, setOpen] = useState(false);
+
+	const close = useCallback(() => setOpen(false), []);
+
+	// Close on Escape
+	useEffect(() => {
+		if (!open) return;
+		function onKey(e: KeyboardEvent) {
+			if (e.key === "Escape") setOpen(false);
+		}
+		document.addEventListener("keydown", onKey);
+		return () => document.removeEventListener("keydown", onKey);
+	}, [open]);
+
+	// Prevent body scroll when menu is open
+	useEffect(() => {
+		document.body.style.overflow = open ? "hidden" : "";
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [open]);
+
+	const linkClass =
+		"text-sm font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]";
 
 	return (
 		<header className="sticky top-0 z-50 bg-[var(--header-bg)] px-4 backdrop-blur-lg">
@@ -64,19 +95,13 @@ export default function Header() {
 					</span>
 				</a>
 
-				<div className="ml-auto flex items-center gap-4">
-					<a
-						href="/#leaderboard"
-						className="text-sm font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-					>
-						Leaderboard
-					</a>
-					<a
-						href="/#methodology"
-						className="text-sm font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-					>
-						Methodology
-					</a>
+				{/* Desktop nav */}
+				<div className="ml-auto hidden items-center gap-4 md:flex">
+					{NAV_LINKS.map((link) => (
+						<a key={link.href} href={link.href} className={linkClass}>
+							{link.label}
+						</a>
+					))}
 					<a
 						href="https://github.com/appwrite/arena"
 						target="_blank"
@@ -93,7 +118,52 @@ export default function Header() {
 						</span>
 					</a>
 				</div>
+
+				{/* Mobile hamburger */}
+				<button
+					type="button"
+					onClick={() => setOpen((v) => !v)}
+					className="ml-auto cursor-pointer border-none bg-transparent p-1 text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] md:hidden"
+					aria-label={open ? "Close menu" : "Open menu"}
+					aria-expanded={open}
+				>
+					{open ? <X size={24} /> : <Menu size={24} />}
+				</button>
 			</nav>
+
+			{/* Mobile overlay */}
+			{open && (
+				<div className="fixed inset-0 top-[60px] z-40 flex flex-col bg-[var(--bg-base)] px-4 pt-6 pb-8 md:hidden">
+					<div className="flex flex-col gap-5">
+						{NAV_LINKS.map((link) => (
+							<a
+								key={link.href}
+								href={link.href}
+								className="text-base font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)]"
+								onClick={close}
+							>
+								{link.label}
+							</a>
+						))}
+						<a
+							href="https://github.com/appwrite/arena"
+							target="_blank"
+							rel="noreferrer"
+							className="inline-flex w-fit items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)]"
+							onClick={close}
+						>
+							<StarIcon />
+							<span>Star on GitHub</span>
+							<span
+								className="rounded-md px-2 py-0.5 text-xs font-semibold text-[var(--text-secondary)]"
+								style={{ background: "var(--line)" }}
+							>
+								{formatStars(stars)}
+							</span>
+						</a>
+					</div>
+				</div>
+			)}
 		</header>
 	);
 }

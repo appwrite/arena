@@ -1,11 +1,17 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowDown, ArrowUp, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { useCallback, useMemo } from "react";
+import CategoriesGrid from "#/components/CategoriesGrid";
 import FilterChip from "#/components/FilterChip";
+import HeroSection from "#/components/HeroSection";
+import HowItWorks from "#/components/HowItWorks";
 import LeaderboardTable from "#/components/LeaderboardTable";
-import MethodologySection from "#/components/MethodologySection";
 import ModelCard from "#/components/ModelCard";
+import OpenSourceCTA from "#/components/OpenSourceCTA";
+import ScoringApproach from "#/components/ScoringApproach";
 import ScoringInfo from "#/components/ScoringInfo";
+import StatsBar from "#/components/StatsBar";
+import TwoModes from "#/components/TwoModes";
 import ViewToggle from "#/components/ViewToggle";
 import withSkillsData from "#/data/results-with-skills.json";
 import withoutSkillsData from "#/data/results-without-skills.json";
@@ -16,6 +22,7 @@ import type {
 	ScoringMode,
 	SortField,
 } from "#/lib/types";
+import { CATEGORY_LABELS } from "#/lib/types";
 
 const withSkills = withSkillsData as BenchmarkResults;
 const withoutSkills = withoutSkillsData as BenchmarkResults;
@@ -186,120 +193,96 @@ function App() {
 
 	return (
 		<main className="flex flex-1 flex-col">
-			{/* Hero */}
-			<section className="rise-in border-b border-[var(--line)] px-4 py-20 md:py-28">
-				<div className="arena-container flex flex-col items-start gap-8">
-					<h1 className="font-heading text-4xl font-normal tracking-[-1%] leading-tight text-[var(--text-primary)] md:text-5xl md:leading-tight">
-						Appwrite Arena
-					</h1>
-					<p className="max-w-[480px] text-lg leading-relaxed text-[var(--text-secondary)] md:text-xl">
-						Benchmark AI models on Appwrite. Compare with and without docs to pick
-						the right model for your stack.
-					</p>
-					<a
-						href="#leaderboard"
-						className="inline-flex items-center gap-2 rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-white no-underline transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
-					>
-						View leaderboard
-						<ChevronDown size={16} className="rotate-[-90deg]" aria-hidden />
-					</a>
-				</div>
-			</section>
-
-			{/* Leaderboard */}
-			<section
-				id="leaderboard"
-				className="rise-in scroll-mt-20 px-4 py-14 md:py-20"
-				aria-labelledby="leaderboard-heading"
-			>
-				<div className="arena-container">
-					<h2
-						id="leaderboard-heading"
-						className="mb-6 font-heading text-2xl font-semibold tracking-[-0.5%] text-[var(--text-primary)] md:text-3xl"
-					>
-						Leaderboard
-					</h2>
-					<div className="mb-4 flex flex-wrap items-center gap-2">
-						<FilterChip
-							label="Dataset"
-							value={dataset}
-							options={[
-								{ value: "with-skills", label: "With skills" },
-								{ value: "without-skills", label: "Without skills" },
-							]}
-							onChange={(v) =>
-								setFilter({ dataset: v as "with-skills" | "without-skills" })
-							}
-						/>
-						<FilterChip
-							label="Scoring"
-							value={scoringMode}
-							options={[
-								{ value: "all", label: "All" },
-								{ value: "mcq", label: "Deterministic" },
-								{ value: "freeform", label: "AI-Judged" },
-							]}
-							onChange={(v) => setFilter({ scoring: v as ScoringMode })}
-						/>
-						<span className="ml-auto inline-flex items-center gap-2">
-							<span className="inline-flex items-center gap-1 text-xs text-[var(--text-secondary)]">
-								Sorted by
-								<button
-									type="button"
-									onClick={handleSortClick}
-									className="cursor-pointer border-none bg-transparent font-medium text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
-								>
-									{currentSortLabel}
-								</button>
-								<button
-									type="button"
-									onClick={handleDirectionClick}
-									className="cursor-pointer border-none bg-transparent text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
-								>
-									{sortDirection === "desc" ? (
-										<ArrowDown size={12} />
-									) : (
-										<ArrowUp size={12} />
-									)}
-								</button>
-							</span>
-							<ViewToggle
-								view={viewMode}
-								onChange={(v) => setFilter({ view: v })}
-							/>
+			<HeroSection>
+				<div className="mb-4 flex flex-wrap items-center gap-2">
+					<FilterChip
+						label="Dataset"
+						value={dataset}
+						options={[
+							{ value: "with-skills", label: "With skills" },
+							{ value: "without-skills", label: "Without skills" },
+						]}
+						onChange={(v) =>
+							setFilter({ dataset: v as "with-skills" | "without-skills" })
+						}
+					/>
+					<FilterChip
+						label="Scoring"
+						value={scoringMode}
+						options={[
+							{ value: "all", label: "All" },
+							{ value: "mcq", label: "Deterministic" },
+							{ value: "freeform", label: "AI-Judged" },
+						]}
+						onChange={(v) => setFilter({ scoring: v as ScoringMode })}
+					/>
+					<span className="ml-auto inline-flex items-center gap-2">
+						<span className="inline-flex items-center gap-1 text-xs text-[var(--text-secondary)]">
+							Sorted by
+							<button
+								type="button"
+								onClick={handleSortClick}
+								className="cursor-pointer border-none bg-transparent font-medium text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
+							>
+								{currentSortLabel}
+							</button>
+							<button
+								type="button"
+								onClick={handleDirectionClick}
+								className="cursor-pointer border-none bg-transparent text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
+							>
+								{sortDirection === "desc" ? (
+									<ArrowDown size={12} />
+								) : (
+									<ArrowUp size={12} />
+								)}
+							</button>
 						</span>
-					</div>
-
-					{viewMode === "list" ? (
-						<LeaderboardTable
-							models={sortedModels}
-							scoringMode={scoringMode}
+						<ViewToggle
+							view={viewMode}
+							onChange={(v) => setFilter({ view: v })}
 						/>
-					) : (
-						<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-							{sortedModels.map((model) => (
-								<ModelCard
-									key={model.modelId}
-									model={model}
-									scoringMode={scoringMode}
-								/>
-							))}
-						</div>
-					)}
-
-					<ScoringInfo runDate={activeData.runDate} />
+					</span>
 				</div>
-			</section>
 
-			{/* Methodology */}
-			<section
-				id="methodology"
-				className="rise-in scroll-mt-20 border-t border-[var(--line)] px-4 py-14 md:py-20"
-			>
-				<div className="arena-container">
-					<MethodologySection />
-				</div>
-			</section>
+				{viewMode === "list" ? (
+					<LeaderboardTable
+						models={sortedModels}
+						scoringMode={scoringMode}
+					/>
+				) : (
+					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+						{sortedModels.map((model) => (
+							<ModelCard
+								key={model.modelId}
+								model={model}
+								scoringMode={scoringMode}
+							/>
+						))}
+					</div>
+				)}
+
+				<ScoringInfo runDate={activeData.runDate} />
+			</HeroSection>
+
+			<StatsBar
+				modelCount={withSkills.models.length}
+				questionCount={withSkills.totalQuestions}
+				categoryCount={Object.keys(CATEGORY_LABELS).length}
+			/>
+
+			<HowItWorks questionCount={withSkills.totalQuestions} />
+
+			<TwoModes />
+
+			<CategoriesGrid />
+
+			<ScoringApproach
+				mcqCount={withSkills.totalMcq}
+				freeformCount={withSkills.totalFreeform}
+			/>
+
+			<OpenSourceCTA />
 		</main>
 	);
 }
