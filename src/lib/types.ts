@@ -30,6 +30,8 @@ export interface CategoryScores {
 	storage: number;
 	sites: number;
 	messaging: number;
+	realtime: number;
+	cli: number;
 }
 
 export interface ModelResult {
@@ -59,6 +61,8 @@ export const CATEGORY_LABELS: Record<string, string> = {
 	storage: "Storage",
 	sites: "Sites",
 	messaging: "Messaging",
+	realtime: "Realtime",
+	cli: "CLI",
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<string, string> = {
@@ -69,6 +73,8 @@ export const CATEGORY_DESCRIPTIONS: Record<string, string> = {
 	storage: "File uploads, buckets, and file management",
 	sites: "Static site hosting, domains, and deployments",
 	messaging: "Push notifications, SMS, email, and providers",
+	realtime: "WebSocket subscriptions, channels, and live events",
+	cli: "CLI installation, configuration, and deployment workflows",
 };
 
 export type CategoryKey = keyof ModelResult["scores"];

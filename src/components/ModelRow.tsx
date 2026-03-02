@@ -12,6 +12,8 @@ const CATEGORIES: CategoryKey[] = [
 	"storage",
 	"sites",
 	"messaging",
+	"realtime",
+	"cli",
 ];
 
 interface ModelRowProps {
