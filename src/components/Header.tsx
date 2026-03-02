@@ -59,17 +59,29 @@ export default function Header() {
 					className="inline-flex items-center gap-2.5 text-[var(--text-primary)] no-underline"
 				>
 					<AppwriteLogo />
-					<span className="font-heading text-[var(--text-primary)] text-lg font-normal tracking-[-1%] leading-[34px]">
-						AI Benchmark
+					<span className="font-heading text-lg font-normal tracking-[-1%] leading-[34px]">
+						Appwrite Arena
 					</span>
 				</a>
 
-				<div className="ml-auto flex items-center gap-2">
+				<div className="ml-auto flex items-center gap-4">
+					<a
+						href="/#leaderboard"
+						className="text-sm font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+					>
+						Leaderboard
+					</a>
+					<a
+						href="/#methodology"
+						className="text-sm font-medium text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+					>
+						Methodology
+					</a>
 					<a
 						href="https://github.com/appwrite/arena"
 						target="_blank"
 						rel="noreferrer"
-						className="inline-flex items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] p-1.5 pl-3 text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+						className="inline-flex items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
 					>
 						<StarIcon />
 						<span>Star on GitHub</span>
