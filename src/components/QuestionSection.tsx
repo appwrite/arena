@@ -18,7 +18,7 @@ export default function QuestionSection({
 
 	return (
 		<section id={category} className="mb-10 scroll-mt-20">
-			<div className="sticky top-0 z-20 bg-[var(--bg-base)] pb-4 pt-4">
+			<div className="sticky top-[4.125rem] z-20 bg-[var(--bg-base)] pb-4 pt-4">
 				<h3 className="group font-heading text-xl font-normal tracking-[-1%] text-[var(--text-primary)] md:text-2xl">
 					<a href={`#${category}`} className="hover:underline">
 						{CATEGORY_LABELS[category] ?? category}
@@ -64,7 +64,7 @@ function TypeGroup({
 }) {
 	return (
 		<div className="mb-5 last:mb-0">
-			<div className="mb-2">
+			<div className="sticky top-[9.625rem] z-10 mb-2 bg-[var(--bg-base)] py-2">
 				<span className="text-sm font-medium text-[var(--text-primary)]">
 					{label}
 				</span>
