@@ -23,6 +23,12 @@ export const MODELS: ModelConfig[] = [
 		provider: "Anthropic",
 		openRouterId: "anthropic/claude-opus-4.6",
 	},
+	{
+		id: "kimi-k-2-5",
+		name: "Kimi K2.5",
+		provider: "MoonshotAI",
+		openRouterId: "moonshotai/kimi-k2.5",
+	},
 ];
 
 export const JUDGE_MODEL = "anthropic/claude-sonnet-4.6";
