@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-02T20:08:13.814Z",
+  "runDate": "2026-03-02T20:39:44.624Z",
   "mode": "with-skills",
   "totalQuestions": 90,
   "totalMcq": 73,
@@ -49,7 +49,7 @@
       "freeformOverall": 89.1,
       "totalQuestions": 90,
       "totalCorrect": 89,
-      "runDate": "2026-03-02T20:08:13.814Z",
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -1468,7 +1468,7 @@
       "freeformOverall": 92.6,
       "totalQuestions": 90,
       "totalCorrect": 90,
-      "runDate": "2026-03-02T20:08:13.814Z",
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2887,7 +2887,7 @@
       "freeformOverall": 95.9,
       "totalQuestions": 90,
       "totalCorrect": 90,
-      "runDate": "2026-03-02T20:08:13.814Z",
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -4306,7 +4306,7 @@
       "freeformOverall": 92.4,
       "totalQuestions": 90,
       "totalCorrect": 89,
-      "runDate": "2026-03-02T20:08:13.814Z",
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
