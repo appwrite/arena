@@ -211,7 +211,7 @@ function ModelDetailPage() {
 				</div>
 
 				<div className="mb-6">
-					<LeaderboardTable models={[model]} scoringMode={scoring} />
+					<LeaderboardTable models={[model]} scoringMode={scoring} disableLink />
 				</div>
 
 				<div className="mb-6 flex flex-wrap items-center gap-2">

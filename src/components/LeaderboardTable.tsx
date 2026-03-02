@@ -18,11 +18,13 @@ const CATEGORIES: CategoryKey[] = [
 interface LeaderboardTableProps {
 	models: ModelResult[];
 	scoringMode: ScoringMode;
+	disableLink?: boolean;
 }
 
 export default function LeaderboardTable({
 	models,
 	scoringMode,
+	disableLink,
 }: LeaderboardTableProps) {
 	const navigate = useNavigate();
 	if (models.length === 0) {
@@ -76,6 +78,7 @@ export default function LeaderboardTable({
 							key={model.modelId}
 							model={model}
 							scoringMode={scoringMode}
+							disableLink={disableLink}
 						/>
 					))}
 				</tbody>

@@ -90,51 +90,55 @@ function computeOverall(
 	);
 }
 
-interface ProgressData {
-	mode: string;
-	models: Record<
-		string,
-		{
-			modelId: string;
-			modelName: string;
-			provider: string;
-			costPerMillionTokens: number;
-			results: QuestionResult[];
-		}
-	>;
+interface ModelProgress {
+	modelId: string;
+	modelName: string;
+	provider: string;
+	costPerMillionTokens: number;
+	results: QuestionResult[];
 }
 
-function getProgressPath(mode: string): string {
-	return resolve(import.meta.dir, `../progress-${mode}.json`);
-}
-
-function getOutputPath(mode: string): string {
+function getResultsPath(mode: string): string {
 	return resolve(import.meta.dir, `../../src/data/results-${mode}.json`);
 }
 
-function loadProgress(mode: string): ProgressData {
-	const path = getProgressPath(mode);
+function loadExistingResults(mode: string): Record<string, ModelProgress> {
+	const path = getResultsPath(mode);
 	if (existsSync(path)) {
 		try {
 			const raw = readFileSync(path, "utf-8");
-			return JSON.parse(raw) as ProgressData;
+			const data = JSON.parse(raw) as BenchmarkResults;
+			const models: Record<string, ModelProgress> = {};
+			for (const m of data.models) {
+				models[m.modelId] = {
+					modelId: m.modelId,
+					modelName: m.modelName,
+					provider: m.provider,
+					costPerMillionTokens: m.costPerMillionTokens,
+					results: m.questionDetails.map((d) => ({
+						questionId: d.questionId,
+						category: d.category,
+						type: d.type,
+						modelAnswer: d.modelAnswer,
+						correct: d.correct,
+						score: d.score,
+						judgeReasoning: d.judgeReasoning,
+					})),
+				};
+			}
+			return models;
 		} catch {
-			console.warn("Warning: Could not parse progress file, starting fresh");
+			console.warn("Warning: Could not parse results file, starting fresh");
 		}
 	}
-	return { mode, models: {} };
+	return {};
 }
 
-function saveProgress(progress: ProgressData): void {
-	const path = getProgressPath(progress.mode);
-	writeFileSync(path, JSON.stringify(progress, null, 2));
-}
-
-function saveOutput(
-	progress: ProgressData,
+function saveResults(
+	models: Record<string, ModelProgress>,
 	mode: "with-skills" | "without-skills",
 ): void {
-	const models = Object.values(progress.models).map((m) => {
+	const modelEntries = Object.values(models).map((m) => {
 		const scores = aggregateScores(m.results, allQuestions);
 		const mcqScores = aggregateScores(m.results, allQuestions, "mcq");
 		const freeformScores = aggregateScores(
@@ -194,10 +198,10 @@ function saveOutput(
 		totalQuestions: allQuestions.length,
 		totalMcq,
 		totalFreeform,
-		models,
+		models: modelEntries,
 	};
 
-	const path = getOutputPath(mode);
+	const path = getResultsPath(mode);
 	writeFileSync(path, JSON.stringify(output, null, 2));
 }
 
@@ -208,15 +212,15 @@ async function main() {
 	console.log(`Models: ${MODELS.length}`);
 	console.log(`Questions: ${allQuestions.length}`);
 
-	const progress = loadProgress(mode);
-	const existingModels = Object.keys(progress.models).length;
-	if (existingModels > 0) {
-		const totalExistingResults = Object.values(progress.models).reduce(
+	const models = loadExistingResults(mode);
+	const existingModelCount = Object.keys(models).length;
+	if (existingModelCount > 0) {
+		const totalExistingResults = Object.values(models).reduce(
 			(sum, m) => sum + m.results.length,
 			0,
 		);
 		console.log(
-			`Resuming: ${existingModels} models with ${totalExistingResults} results found`,
+			`Resuming: ${existingModelCount} models with ${totalExistingResults} results found`,
 		);
 	}
 
@@ -241,8 +245,8 @@ async function main() {
 
 		const costPerMillionTokens = pricing[model.id] ?? 0;
 
-		if (!progress.models[model.id]) {
-			progress.models[model.id] = {
+		if (!models[model.id]) {
+			models[model.id] = {
 				modelId: model.id,
 				modelName: model.name,
 				provider: model.provider,
@@ -251,10 +255,10 @@ async function main() {
 			};
 		} else {
 			// Always update pricing to latest
-			progress.models[model.id].costPerMillionTokens = costPerMillionTokens;
+			models[model.id].costPerMillionTokens = costPerMillionTokens;
 		}
 
-		const existingResults = progress.models[model.id].results;
+		const existingResults = models[model.id].results;
 
 		const results = await runBenchmark({
 			model,
@@ -262,16 +266,14 @@ async function main() {
 			systemPrompt,
 			existingResults,
 			onQuestionComplete: (result: QuestionResult) => {
-				progress.models[model.id].results.push(result);
-				saveProgress(progress);
-				saveOutput(progress, mode);
+				models[model.id].results.push(result);
+				saveResults(models, mode);
 			},
 		});
 
 		// Ensure final state is saved for this model
-		progress.models[model.id].results = results;
-		saveProgress(progress);
-		saveOutput(progress, mode);
+		models[model.id].results = results;
+		saveResults(models, mode);
 
 		const totalCorrect = results.filter((r) => r.correct).length;
 		const overall =
@@ -286,8 +288,7 @@ async function main() {
 		);
 	}
 
-	console.log(`\nDone. Results at: ${getOutputPath(mode)}`);
-	console.log(`Progress saved at: ${getProgressPath(mode)}`);
+	console.log(`\nDone. Results at: ${getResultsPath(mode)}`);
 }
 
 main().catch((err) => {

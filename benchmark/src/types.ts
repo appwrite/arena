@@ -39,19 +39,6 @@ export interface ModelConfig {
 	openRouterId: string;
 }
 
-export interface ModelBenchmarkRun {
-	modelId: string;
-	modelName: string;
-	provider: string;
-	costPerMillionTokens: number;
-	results: QuestionResult[];
-	scores: Record<string, number>;
-	overall: number;
-	totalQuestions: number;
-	totalCorrect: number;
-	runDate: string;
-}
-
 export interface BenchmarkResults {
 	version: string;
 	runDate: string;
@@ -65,7 +52,11 @@ export interface BenchmarkResults {
 		provider: string;
 		costPerMillionTokens: number;
 		scores: Record<string, number>;
+		mcqScores: Record<string, number>;
+		freeformScores: Record<string, number>;
 		overall: number;
+		mcqOverall: number;
+		freeformOverall: number;
 		totalQuestions: number;
 		totalCorrect: number;
 		runDate: string;
