@@ -59,7 +59,7 @@ export default function Header() {
 					className="inline-flex items-center gap-2.5 text-[var(--text-primary)] no-underline"
 				>
 					<AppwriteLogo />
-					<span className="font-heading text-[var(--text-primary)] text-lg font-medium tracking-tight">
+					<span className="font-heading text-[var(--text-primary)] text-lg font-normal tracking-[-1%] leading-[34px]">
 						Benchmark
 					</span>
 				</a>

@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-@import url("https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&display=swap");
 @import "tailwindcss";
 
 @font-face {
@@ -51,9 +50,8 @@
 }
 
 @theme {
-  --font-sans: "Aeonik Pro", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Aeonik Pro", "General Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Aeonik Pro", ui-sans-serif, system-ui, sans-serif;
   --breakpoint-xs: 540px;
 }
 
@@ -142,11 +140,19 @@ a {
   transition: background-color 200ms ease, color 200ms ease;
 }
 
-.group:hover .score-high,
-.group:hover .score-mid,
-.group:hover .score-low {
+.group:hover .score-high {
   background-color: rgba(133, 219, 216, 0.15);
   color: #85DBD8;
+}
+
+.group:hover .score-mid {
+  background-color: rgba(254, 149, 103, 0.15);
+  color: #FE9567;
+}
+
+.group:hover .score-low {
+  background-color: rgba(255, 69, 58, 0.15);
+  color: #FF453A;
 }
 
 .rise-in {

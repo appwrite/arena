@@ -119,10 +119,10 @@ function App() {
 	return (
 		<main className="flex-1 arena-container px-2 pb-0 pt-8 md:px-4 md:pt-14">
 			<section className="rise-in mb-6 md:mb-10">
-				<h1 className="mb-4 font-heading text-3xl font-medium tracking-tight text-[var(--text-primary)] md:text-4xl">
+				<h1 className="mb-4 font-heading text-3xl font-normal tracking-[-1%] leading-[34px] text-[var(--text-primary)] md:text-4xl">
 					Appwrite Arena
 				</h1>
-				<p className="max-w-[400px] text-base text-[var(--text-secondary)] md:text-lg">
+				<p className="max-w-[400px] text-base font-medium tracking-[-1.4%] leading-[28px] text-[var(--text-secondary)] md:text-lg">
 					Benchmark AI models on their understanding of Appwrite services
 				</p>
 			</section>
