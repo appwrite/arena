@@ -33,9 +33,9 @@ All models are accessed via [OpenRouter](https://openrouter.ai) with temperature
 
 ## Tech Stack
 
-**Frontend:** React 19, TanStack Start/Router, Tailwind CSS 4, Vite 7, TypeScript
+**Frontend:** React, TanStack Start, Tailwind CSS, Vite, TypeScript
 
-**Benchmark:** Bun, OpenRouter API
+**Benchmark:** Bun, OpenRouter
 
 ## Getting Started
 
@@ -80,7 +80,8 @@ The benchmark suite lives in the `benchmark/` directory and requires an [OpenRou
 
 ```bash
 cd benchmark
-export OPENROUTER_API_KEY=your_key_here
+cp .env.example .env
+# Fill in your API key in .env
 
 # Run both modes
 bun run bench:all
@@ -89,6 +90,8 @@ bun run bench:all
 bun run bench:with-skills
 bun run bench:without-skills
 ```
+
+Keep in mind, the benchmark only fills missing data in result JSON files, to minimize cost. If you intend to re-run the benchmark on existing results, you should delete the contents of the JSON files first.
 
 Results are saved to `src/data/results-with-skills.json` and `src/data/results-without-skills.json`, which the frontend reads at build time.
 
