@@ -77,7 +77,7 @@ export default function ModelRow({ model, scoringMode, disableLink }: ModelRowPr
 					</Link>
 				)}
 			</td>
-			<td className="px-3 text-left text-sm text-[var(--text-secondary)]">
+			<td className="px-3 text-left text-sm whitespace-nowrap text-[var(--text-secondary)]">
 				${model.costPerMillionTokens.toFixed(2)}
 			</td>
 			<ScoreCell score={overall} isOverall />
