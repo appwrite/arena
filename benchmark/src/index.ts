@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { MODELS } from "./config";
 import { fetchPricing } from "./pricing";
@@ -19,29 +19,26 @@ function parseArgs(): { mode: "with-skills" | "without-skills" } {
 }
 
 function loadSkills(): string {
-	const skillsDir = resolve(import.meta.dir, "skills");
-	const indexPath = join(skillsDir, "llms.txt");
+	const skillsDir = resolve(import.meta.dir, "../agent-skills/skills");
 
 	try {
-		const index = readFileSync(indexPath, "utf-8");
-		const files = index
-			.split("\n")
-			.map((line) => line.trim())
-			.filter((line) => line.endsWith(".md"));
+		const entries = readdirSync(skillsDir, { withFileTypes: true });
+		const dirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
 
 		let combined = "";
-		for (const file of files) {
+		for (const dir of dirs) {
+			const skillPath = join(skillsDir, dir, "SKILL.md");
 			try {
-				const content = readFileSync(join(skillsDir, file), "utf-8");
+				const content = readFileSync(skillPath, "utf-8");
 				combined += `${content}\n\n`;
 			} catch {
-				console.warn(`  Warning: Could not read skill file: ${file}`);
+				console.warn(`  Warning: No SKILL.md in ${dir}`);
 			}
 		}
 
 		return combined.trim();
 	} catch {
-		console.warn("Warning: Could not read skills index (llms.txt)");
+		console.warn("Warning: Could not read agent-skills directory. Run 'bun run prepare-skills' first.");
 		return "";
 	}
 }
