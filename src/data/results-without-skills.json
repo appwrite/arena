@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-02-28T18:51:10.836Z",
+  "runDate": "2026-03-02T14:32:45.632Z",
   "mode": "without-skills",
   "totalQuestions": 70,
   "totalMcq": 57,
@@ -43,7 +43,7 @@
       "freeformOverall": 91.9,
       "totalQuestions": 70,
       "totalCorrect": 69,
-      "runDate": "2026-02-28T18:51:10.836Z"
+      "runDate": "2026-03-02T14:32:45.632Z"
     },
     {
       "modelId": "gpt-5-3-codex",
@@ -82,7 +82,7 @@
       "freeformOverall": 93.5,
       "totalQuestions": 70,
       "totalCorrect": 70,
-      "runDate": "2026-02-28T18:51:10.836Z"
+      "runDate": "2026-03-02T14:32:45.632Z"
     },
     {
       "modelId": "claude-opus-4-6",
@@ -121,7 +121,46 @@
       "freeformOverall": 99.6,
       "totalQuestions": 70,
       "totalCorrect": 70,
-      "runDate": "2026-02-28T18:51:10.836Z"
+      "runDate": "2026-03-02T14:32:45.632Z"
+    },
+    {
+      "modelId": "kimi-k-2-5",
+      "modelName": "Kimi K2.5",
+      "provider": "MoonshotAI",
+      "costPerMillionTokens": 0.45,
+      "scores": {
+        "fundamental": 99.5,
+        "auth": 99.5,
+        "databases": 98.5,
+        "functions": 96.5,
+        "storage": 100,
+        "sites": 100,
+        "messaging": 99.5
+      },
+      "mcqScores": {
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 100,
+        "functions": 100,
+        "storage": 100,
+        "sites": 100,
+        "messaging": 100
+      },
+      "freeformScores": {
+        "fundamental": 97.5,
+        "auth": 97.5,
+        "databases": 92.5,
+        "functions": 82.5,
+        "storage": 100,
+        "sites": 100,
+        "messaging": 97.5
+      },
+      "overall": 99.1,
+      "mcqOverall": 100,
+      "freeformOverall": 95,
+      "totalQuestions": 70,
+      "totalCorrect": 70,
+      "runDate": "2026-03-02T14:32:45.632Z"
     }
   ]
 }

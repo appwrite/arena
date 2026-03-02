@@ -1743,6 +1743,587 @@
           "score": 1
         }
       ]
+    },
+    "kimi-k-2-5": {
+      "modelId": "kimi-k-2-5",
+      "modelName": "Kimi K2.5",
+      "provider": "MoonshotAI",
+      "costPerMillionTokens": 0.45,
+      "results": [
+        {
+          "questionId": "fund-1",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-2",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-3",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-4",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-5",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-6",
+          "category": "fundamental",
+          "type": "free-form",
+          "modelAnswer": " In Appwrite, the distinction between client-side and server-side SDKs centers on **authentication**, **permission levels**, and **execution environment**.\n\n## Client-Side SDKs\n**Environment**: Browser, mobile apps (iOS/Android), desktop, or any untrusted user device  \n**Authentication**: User sessions (cookies, JWT tokens, OAuth)  \n**Permissions**: Respects Access Control Lists (ACLs) and user-specific permissions\n\n**Use when**:\n- Building frontend applications (React, Vue, Flutter, Swift, etc.)\n- Handling direct user interactions (login, file uploads, real-time subscriptions)\n- You want Appwrite to enforce security rules automatically per authenticated user\n- Listening to real-time events (database changes, file updates)\n\n**Example**: A user updating their own profile or uploading a file to their personal storage bucket.\n\n## Server-Side SDKs\n**Environment**: Backend servers, serverless functions (Appwrite Functions), CLI tools, or any trusted environment  \n**Authentication**: API keys with specific scopes (e.g., `users.read`, `database.write`)  \n**Permissions**: Can bypass standard permissions (when API key has sufficient scopes) or act on behalf of any user\n\n**Use when**:\n- Performing admin operations (creating users, deleting teams, managing API keys)\n- Executing background jobs or scheduled tasks (cleanup scripts, data aggregation)\n- Processing webhooks or Appwrite Functions\n- Operations requiring elevated privileges (reading all documents regardless of permissions)\n- Server-to-server communication where you need to impersonate users or access resources across user boundaries\n\n**Example**: A payment webhook that updates order statuses across multiple user accounts, or a nightly script that deletes old anonymous sessions.\n\n## Key Differences Summary\n\n| Feature | Client-Side | Server-Side |\n|---------|-------------|-------------|\n| **Auth Method** | Email/password, OAuth, Magic URL, Anonymous | API Key (scoped permissions) |\n| **Permission Scope** | Current user only | Any user or global admin |\n| **Real-time** | ✅ Supported | ❌ Not supported |\n| **Security** | Cannot read secrets (DB credentials, API keys) | Can access sensitive data |\n| **Rate Limiting** | Per user/session | Per API key |\n\n**Security Note**: Never expose server-side SDKs or API keys in client code (browser bundles, mobile app binaries). Server SDKs grant administrative access that could compromise your entire project if leaked.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer covers all four required rubric points: 1) Client SDKs for frontend/user-facing apps (explicitly mentioned with examples like React, Vue, Flutter), 2) Server SDKs use API keys (clearly stated with scope examples), 3) Server SDKs can bypass permissions (mentioned as 'Can bypass standard permissions'), and 4) Client SDKs require user sessions (stated as 'User sessions (cookies, JWT tokens, OAuth)'). The answer goes well beyond the reference answer with additional useful details like a comparison table, security notes, and concrete examples, all of which are accurate and relevant."
+        },
+        {
+          "questionId": "fund-7",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-8",
+          "category": "fundamental",
+          "type": "free-form",
+          "modelAnswer": " Appwrite uses a **role-based access control (RBAC)** model where permissions are defined as strings in the format `action:role`. Permissions can be set at the collection/bucket level (defaults) and overridden at the individual document/file level.\n\n## Permission Types (Actions)\n\n| Type | Description |\n|------|-------------|\n| `read` | View or access the resource |\n| `create` | Create new resources (collections/buckets only) |\n| `update` | Modify existing resources |\n| `delete` | Remove resources |\n| `execute` | Trigger functions |\n\n## Role Types (Subjects)\n\n| Role | Description |\n|------|-------------|\n| `any` | Anyone (public/unrestricted access) |\n| `guests` | Unauthenticated users only |\n| `users` | Any authenticated user |\n| `user:[ID]` | Specific user by ID |\n| `users/verified` | Verified users only |\n| `users/unverified` | Unverified users only |\n| `team:[ID]` | All members of a specific team |\n| `team:[ID]/[ROLE]` | Specific team role (e.g., `/owner`, `/admin`, `/developer`) |\n| `member:[ID]` | Specific team membership |\n| `label:[ID]` | Users with a specific label (Appwrite 1.4+) |\n\n## How It Works\n\n**Two-Level Granularity:**\n- **Collection/Bucket level**: Default permissions for all child documents/files\n- **Document/File level**: Overrides for specific instances (requires \"Document Security\" to be enabled)\n\n**Permission Logic:**\n- **OR-based**: Within the same level, satisfying any single permission grants access (e.g., `read:users` OR `read:team:abc` both work)\n- **AND-based between levels**: When Document Security is enabled, users must satisfy permissions at **both** the collection level AND the document level\n\n**Examples:**\n- `read:any` — Public read access\n- `create:users` — Any authenticated user can create documents\n- `update:team:5f8d.../admin` — Only team admins can update\n- `delete:user:63a9...` — Only a specific user can delete\n\n**Note:** If Document Security is disabled on a collection/bucket, only collection-level permissions are checked, and document-level permissions are ignored.",
+          "correct": true,
+          "score": 0.95,
+          "judgeReasoning": "The model's answer excellently covers all three rubric requirements: 1) Permission types (read, create, update, delete) are clearly listed with an additional 'execute' type for functions, 2) More than 3 role types are mentioned including any, guests, users, user:[ID], team:[ID], member:[ID], and label:[ID], 3) Permissions being set on resources is explained with the two-level granularity (collection/bucket level and document/file level). The answer uses slightly different syntax (action:role string format vs Permission.read/Role.any() API style from the reference), but the conceptual content is accurate and comprehensive. The additional details about OR/AND logic, document security, and verified/unverified users add value beyond the reference answer."
+        },
+        {
+          "questionId": "fund-9",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-10",
+          "category": "fundamental",
+          "type": "mcq",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-1",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": " A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-2",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-3",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-4",
+          "category": "auth",
+          "type": "free-form",
+          "modelAnswer": "Here's a complete implementation using the Appwrite Web SDK (v1.4.x+):\n\n```javascript\nimport { Client, Account, ID } from 'appwrite';\n\n// 1. Initialize the client\nconst client = new Client()\n    .setEndpoint('https://cloud.appwrite.io/v1') // Your API endpoint\n    .setProject('YOUR_PROJECT_ID');              // Your project ID\n\n// 2. Initialize the Account service\nconst account = new Account(client);\n\n// 3. Sign up (Create account)\nasync function signUp(email, password, name = '') {\n    try {\n        const user = await account.create(\n            ID.unique(),    // Unique ID for the user\n            email,          // User email\n            password,       // User password (min 8 chars)\n            name            // Optional: user name\n        );\n        \n        console.log('User created:', user);\n        \n        // Optional: Login immediately after signup\n        await login(email, password);\n        \n        return user;\n    } catch (error) {\n        console.error('Signup error:', error.message);\n        throw error;\n    }\n}\n\n// 4. Login (Create session)\nasync function login(email, password) {\n    try {\n        const session = await account.createEmailPasswordSession(\n            email,\n            password\n        );\n        \n        console.log('Session created:', session);\n        \n        // Session is automatically stored in cookies/localStorage\n        // You can now access user data\n        const user = await account.get();\n        console.log('Current user:', user);\n        \n        return session;\n    } catch (error) {\n        console.error('Login error:', error.message);\n        throw error;\n    }\n}\n\n// 5. Get current user (check if logged in)\nasync function getCurrentUser() {\n    try {\n        const user = await account.get();\n        return user;\n    } catch (error) {\n        // No active session\n        return null;\n    }\n}\n\n// 6. Logout\nasync function logout() {\n    try {\n        await account.deleteSession('current');\n        console.log('Logged out successfully');\n    } catch (error) {\n        console.error('Logout error:', error.message);\n    }\n}\n\n// Usage examples:\n// signUp('user@example.com', 'password123', 'John Doe');\n// login('user@example.com', 'password123');\n```\n\n**Key points:**\n\n1. **Client setup**: Replace `YOUR_PROJECT_ID` with your Appwrite project ID. Use `https://cloud.appwrite.io/v1` for Appwrite Cloud or your self-hosted URL.\n\n2. **Password requirements**: Appwrite requires passwords to be at least 8 characters by default (configurable in project settings).\n\n3. **Session persistence**: The SDK automatically handles session cookies/storage. Once `createEmailPasswordSession` succeeds, subsequent requests are authenticated.\n\n4. **User verification**: If email verification is enabled in your project, new users will have `emailVerification: false` until they verify their email.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer fully satisfies all rubric requirements: 1) Client initialization with both setEndpoint and setProject (chained), 2) Account service instantiation with 'new Account(client)', 3) account.create() with ID.unique(), email, password, and optional name parameter, 4) account.createEmailPasswordSession() with email and password, 5) Correct imports from 'appwrite' package including Client, Account, and ID. The answer goes beyond the minimum requirements by also including logout, getCurrentUser functions, and helpful explanatory notes, all of which are accurate and relevant."
+        },
+        {
+          "questionId": "auth-5",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-6",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-7",
+          "category": "auth",
+          "type": "free-form",
+          "modelAnswer": "Appwrite sessions manage authenticated user state across devices. Here's how they work:\n\n## Creation\n\nSessions are created upon successful authentication:\n- **Client-side**: `account.createSession()` (after email/password login, OAuth, magic URL, or phone verification)\n- **Server-side**: `users.createSession()` (admin-generated sessions)\n\nThe server generates:\n- A **session ID** (unique identifier)\n- A **session secret** (JWT token or cookie, depending on platform)\n- Metadata: IP address, user agent, expiration time (default: 1 year)\n\nClient SDKs automatically store tokens (localStorage/cookies for web, secure storage for mobile).\n\n## Management\n\n- **Validation**: Every authenticated request validates the session token against the database\n- **Refresh**: Sessions can be extended using `account.updateSession()` or automatically refreshed by SDKs\n- **Tracking**: View active sessions via `account.listSessions()` (shows device info, location, last activity)\n- **Security**: Sessions bind to IP/user agent; suspicious activity can trigger invalidation\n\n## Deletion\n\n- **Single logout**: `account.deleteSession('current')` or by specific session ID\n- **Global logout**: `account.deleteSessions()` invalidates all user sessions across all devices\n- **Admin deletion**: `users.deleteSession()` or `users.deleteSessions()` for any user\n- **Automatic**: Expired sessions are cleaned up by background jobs\n\n## Session Limits\n\n**Concurrent Session Limit**: \n- Default: **10 active sessions per user**\n- When exceeded, the **oldest session is automatically invalidated** (FIFO)\n- Configurable via environment variable: `_APP_CONSOLE_SESSION_LIMIT` (affects Console sessions; user session limits are typically hardcoded at 10 but may vary by version)\n\n**Other Constraints**:\n- Session length: Configurable per project (default 365 days)\n- Rate limits: Creation attempts are rate-limited to prevent brute force attacks\n\n**Best Practice**: Implement \"Log out all devices\" functionality in your app settings, and use short session durations for sensitive applications.",
+          "correct": true,
+          "score": 0.95,
+          "judgeReasoning": "The model's answer covers all 5 rubric criteria: 1) Sessions created on authentication (email/password, OAuth, etc.), 2) Session tokens/cookies (mentions JWT tokens, cookies, localStorage, secure storage), 3) Session limit of 10 per user with FIFO eviction, 4) Methods to list/delete sessions (account.listSessions(), account.deleteSession(), account.deleteSessions()), 5) Session expiry (default 365 days, configurable). The answer is comprehensive and accurate, going beyond the reference answer with additional useful details like server-side session creation, refresh mechanisms, and admin deletion methods. Minor note: the reference mentions HTTP-only cookies specifically, while the model mentions cookies more generally alongside other storage methods. The environment variable name mentioned (_APP_CONSOLE_SESSION_LIMIT) is specifically for console sessions, not user sessions, which could be slightly misleading, but the core 10-session limit for users is correctly stated."
+        },
+        {
+          "questionId": "auth-8",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-9",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-10",
+          "category": "auth",
+          "type": "mcq",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-1",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-2",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-3",
+          "category": "databases",
+          "type": "free-form",
+          "modelAnswer": "```javascript\nimport { Client, Databases, ID } from 'appwrite';\n\n// Initialize Appwrite client\nconst client = new Client()\n    .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint\n    .setProject('YOUR_PROJECT_ID'); // Your project ID\n\nconst databases = new Databases(client);\n\nasync function setupTasksDatabase() {\n    try {\n        // 1. Create Database\n        const database = await databases.create(\n            ID.unique(),      // Database ID\n            'TasksDB'         // Name\n        );\n        console.log('Database created:', database.$id);\n\n        // 2. Create Collection\n        const collection = await databases.createCollection(\n            database.$id,     // Database ID\n            ID.unique(),      // Collection ID\n            'tasks'           // Name\n        );\n        console.log('Collection created:', collection.$id);\n\n        // 3. Create Attributes\n        // Title (string, required, max 255 chars)\n        await databases.createStringAttribute(\n            database.$id,\n            collection.$id,\n            'title',\n            255,      // size\n            true      // required\n        );\n\n        // Completed (boolean, required)\n        await databases.createBooleanAttribute(\n            database.$id,\n            collection.$id,\n            'completed',\n            true      // required\n        );\n\n        // Due Date (datetime, optional)\n        await databases.createDatetimeAttribute(\n            database.$id,\n            collection.$id,\n            'dueDate',\n            false     // required (false = optional)\n        );\n\n        console.log('Attributes created');\n\n        // 4. Insert a Document\n        const document = await databases.createDocument(\n            database.$id,\n            collection.$id,\n            ID.unique(),      // Document ID\n            {\n                title: 'Complete Appwrite integration',\n                completed: false,\n                dueDate: new Date('2024-12-31T23:59:00.000Z').toISOString()\n            }\n        );\n        \n        console.log('Document created:', document.$id);\n\n    } catch (error) {\n        console.error('Error:', error);\n    }\n}\n\n// Execute\nsetupTasksDatabase();\n```\n\n**Important Notes:**\n\n1. **Permissions**: Creating databases, collections, and attributes typically requires **Admin** or **Developer** role permissions. Ensure your API key or authenticated user has the necessary scope (`databases.write`, `collections.write`, `attributes.write`).\n\n2. **Async Attributes**: Attribute creation is asynchronous. In production, you should poll the attribute status or wait before creating documents to ensure the schema is ready.\n\n3. **Client vs Server**: While this uses the Web SDK, database/collection creation is often done server-side with an API key for security. The Web SDK is typically used for document operations (`createDocument`, `listDocuments`, etc.) on existing collections.",
+          "correct": true,
+          "score": 0.85,
+          "judgeReasoning": "The model's answer covers most of the required rubric items: 1) Client + Databases setup ✓, 2) databases.create() for database ✓, 3) databases.createCollection() - present but missing explicit permissions parameter ✓/partial, 4) Creating string, boolean, datetime attributes ✓, 5) databases.createDocument() with data ✓. The main deduction is that createCollection() is called without permissions (the reference answer specifically mentions 'with permissions'). The Appwrite SDK's createCollection accepts permissions as additional parameters, and the reference answer explicitly calls this out. The code is otherwise well-structured, functional, and includes helpful notes about async attribute creation and security considerations. The missing permissions in createCollection prevents a perfect score."
+        },
+        {
+          "questionId": "db-4",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-5",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-6",
+          "category": "databases",
+          "type": "free-form",
+          "modelAnswer": "To query documents in Appwrite, you use the static methods on the `Query` class to build query strings, passing them as an array to `listDocuments()`.\n\n**Note:** Attributes must be [indexed](https://appwrite.io/docs/products/databases/collections#indexes) in your collection settings before they can be queried.\n\n## Basic Setup\n\n```javascript\nimport { Client, Databases, Query } from 'appwrite';\n\nconst client = new Client();\nconst databases = new Databases(client);\n\n// Python syntax note: Use snake_case (e.g., Query.equal, Query.order_desc)\n```\n\n## 1. Filtering\n\n```javascript\n// Equality\nQuery.equal('status', 'active')\nQuery.notEqual('role', 'admin')\n\n// Comparisons\nQuery.greaterThan('views', 100)\nQuery.greaterThanEqual('createdAt', '2024-01-01')\nQuery.lessThan('price', 50.00)\nQuery.between('age', 18, 65)\n\n// Arrays (contains checks if value exists in array attribute)\nQuery.contains('tags', 'javascript')\n\n// Strings\nQuery.startsWith('email', 'user@')\nQuery.endsWith('email', '@company.com')\nQuery.search('title', 'database') // Full-text search (requires index)\n\n// Null checks\nQuery.isNull('deletedAt')\nQuery.isNotNull('publishedAt')\n```\n\n## 2. Sorting\n\n```javascript\nQuery.orderAsc('createdAt')   // Oldest first\nQuery.orderDesc('createdAt')  // Newest first (common for feeds)\n```\n\n## 3. Limiting & Pagination\n\n**Offset-based** (simple but slower for large offsets):\n```javascript\nQuery.limit(25)          // Max 100 documents per request\nQuery.offset(100)        // Skip first 100 (page 5 if limit is 25)\n```\n\n**Cursor-based** (efficient for large datasets):\n```javascript\n// First page\nconst response = await databases.listDocuments(\n    'db_id',\n    'collection_id',\n    [Query.limit(25), Query.orderDesc('createdAt')]\n);\n\n// Next page (use last document ID)\nconst lastId = response.documents[response.documents.length - 1].$id;\n\nconst nextPage = await databases.listDocuments(\n    'db_id',\n    'collection_id',\n    [\n        Query.limit(25),\n        Query.orderDesc('createdAt'),\n        Query.cursorAfter(lastId)  // Fetch documents after this ID\n    ]\n);\n\n// Previous page\nQuery.cursorBefore(firstDocumentId)\n```\n\n## 4. Combining Queries (AND / OR)\n\n**AND logic** (default): Pass multiple queries in the array—all must match.\n```javascript\nqueries: [\n    Query.equal('status', 'published'),\n    Query.greaterThan('views', 1000),\n    Query.orderDesc('createdAt'),\n    Query.limit(20)\n]\n```\n\n**OR logic**: Use `Query.or()` (requires Appwrite 1.4+).\n```javascript\nQuery.or([\n    Query.equal('status', 'draft'),\n    Query.equal('status', 'review')\n])\n```\n\n## 5. Projection (Selecting Fields)\n\nReturn only specific attributes to reduce payload size:\n```javascript\nQuery.select(['title', 'content', 'author'])  // Only return these fields\n```\n\n## Complete Example\n\n```javascript\nconst result = await databases.listDocuments(\n    '64a5f...',      // databaseId\n    '64b2e...',      // collectionId\n    [\n        // Filters\n        Query.equal('category', 'tutorial'),\n        Query.greaterThanEqual('publishedAt', '2024-01-01'),\n        Query.search('title', 'Appwrite'),\n        \n        // Sorting\n        Query.orderDesc('publishedAt'),\n        \n        // Pagination\n        Query.limit(10),\n        Query.offset(0)\n    ]\n);\n\nconsole.log(result.documents);  // Array of documents\nconsole.log(result.total);      // Total matching documents (for UI pagination)\n```\n\n**Limits:** Maximum 100 queries per request, and complex queries may require corresponding indexes to be created in the Appwrite Console or via the API.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer fully satisfies all rubric requirements: 1) Query.equal() for filtering is demonstrated with multiple examples, 2) Query.orderDesc() and orderAsc() for sorting are both shown, 3) Query.limit() and Query.offset() for pagination are clearly explained, 4) Passing queries array to listDocuments() is demonstrated in the complete example, 5) Multiple additional query methods are shown including greaterThan(), lessThan(), between(), search(), isNull(), cursorAfter(), cursorBefore(), select(), and more. The answer goes well beyond the minimum requirements with comprehensive examples of cursor-based pagination, OR logic, field projection, and a complete working example combining multiple query types."
+        },
+        {
+          "questionId": "db-7",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-8",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-9",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-10",
+          "category": "databases",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-1",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-2",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-3",
+          "category": "functions",
+          "type": "free-form",
+          "modelAnswer": "Here is a complete Appwrite Function for Node.js that handles JSON input and returns a personalized greeting:\n\n```javascript\nmodule.exports = async ({ req, res, log, error }) => {\n  try {\n    // Parse body - Appwrite provides req.bodyJson when Content-Type is application/json\n    // Fallback to parsing req.body string if needed\n    const body = req.bodyJson || JSON.parse(req.body || '{}');\n    const { name } = body;\n\n    // Validation\n    if (!name || typeof name !== 'string') {\n      return res.json(\n        { success: false, message: 'Missing or invalid \"name\" field' }, \n        400\n      );\n    }\n\n    log(`Generating greeting for: ${name}`);\n\n    // Return personalized greeting\n    return res.json({\n      success: true,\n      greeting: `Hello, ${name}! Welcome to Appwrite Functions.`,\n      timestamp: new Date().toISOString()\n    }, 200);\n\n  } catch (err) {\n    error(`Function error: ${err.message}`);\n    return res.json(\n      { success: false, message: 'Internal server error' }, \n      500\n    );\n  }\n};\n```\n\n**Key details:**\n- **Runtime**: Use `node-18.0` or `node-20.0` when deploying\n- **Request body**: Accessed via `req.bodyJson` (automatically parsed when Content-Type is `application/json`)\n- **Response**: Use `res.json(object, statusCode)` for JSON responses\n- **Logging**: Use `log()` for info and `error()` for errors (visible in function execution logs)",
+          "correct": true,
+          "score": 0.7,
+          "judgeReasoning": "The model's answer is mostly correct but uses `module.exports` instead of `export default` for the function signature. The rubric specifically requires a 'Default export of async function' (criterion 1), which in modern Appwrite Functions uses ES module syntax (`export default async ({ req, res, log, error }) => {}`). The answer does correctly: destructure context with req, res, log, error (criterion 2); parse req.body (criterion 3); use res.json() for response (criterion 4). The function signature pattern (criterion 5) is partially correct in structure but uses CommonJS exports rather than ES module default export. The rest of the implementation is solid with good error handling, validation, and logging usage. The mention of req.bodyJson is a nice addition showing knowledge of Appwrite's API."
+        },
+        {
+          "questionId": "func-4",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-5",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-6",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-7",
+          "category": "functions",
+          "type": "free-form",
+          "modelAnswer": "Deploying an Appwrite Function via the CLI involves initializing your function, configuring its metadata, and deploying the code. Here is the step-by-step process and key configuration options.\n\n### Prerequisites\n1.  **Install the CLI:** `npm install -g appwrite-cli` or use the [standalone binary](https://appwrite.io/docs/tooling/command-line/installation).\n2.  **Login:** Run `appwrite login` and authenticate with your Appwrite instance.\n3.  **Project Context:** Ensure you are in a project directory initialized with `appwrite init` or use `appwrite init project`.\n\n---\n\n### Deployment Steps\n\n#### 1. Initialize the Function\nCreate the function scaffold. This generates a directory with boilerplate code and updates your configuration file (`appwrite.toml` or `appwrite.json`).\n\n```bash\nappwrite init function\n# Follow prompts: select runtime (e.g., Node.js 18), name your function\n```\n\n#### 2. Configure the Function\nEdit the generated configuration file (`appwrite.toml` is the modern standard) to define execution parameters.\n\n**Example `appwrite.toml`:**\n```toml\n[functions.my-function]\nid = \"unique-function-id\"           # Auto-generated or custom\nname = \"Process Payments\"\nruntime = \"node-18.0\"\nentrypoint = \"src/main.js\"          # Main executable file\ncommands = \"npm install\"            # Build/dependency install command\nignore = [\"node_modules\", \".git\"]   # Files excluded from deployment\n\n# Execution limits\ntimeout = 30                        # Seconds (1-900)\nmemory = 256                        # MB (128-512+ depending on plan)\n\n# Triggers\nevents = [\"databases.*.collections.*.documents.*.create\"]  # Database triggers\nschedule = \"0 * * * *\"              # Cron schedule (optional)\nscopes = [\"users.read\", \"databases.write\", \"storage.read\"] # Permissions\n```\n\n#### 3. Develop Your Function\nWrite your logic in the `src/` directory. Ensure the file specified in `entrypoint` exports the handler (e.g., `module.exports = async (context) => { ... }` for Node.js).\n\n#### 4. Deploy\nPush the code to your Appwrite instance.\n\n```bash\n# Deploy all functions defined in config\nappwrite deploy function\n\n# Deploy a specific function\nappwrite deploy function --function-id=\"unique-function-id\"\n```\n\n---\n\n### Key Configuration Options Explained\n\n| Option | Description | Example |\n|--------|-------------|---------|\n| **`runtime`** | Language and version environment | `node-18.0`, `python-3.9`, `php-8.1` |\n| **`entrypoint`** | Path to the main executable file relative to function root | `src/index.js`, `main.py` |\n| **`commands`** | Shell commands to install dependencies or build before execution | `npm ci`, `pip install -r requirements.txt` |\n| **`timeout`** | Maximum execution time in seconds (1-900) | `30` |\n| **`memory`** | RAM allocated in MB (affects cold start and CPU allocation) | `256` |\n| **`events`** | Array of Appwrite event strings to trigger the function automatically | `[\"users.*.create\"]` |\n| **`schedule`** | Cron expression for recurring execution | `0 9 * * 1` (Mondays at 9am) |\n| **`scopes`** | Permissions the function has (least privilege principle) | `[\"databases.read\"]` |\n\n**Pro Tip:** Use `appwrite run function` to test your function locally in a simulated Appwrite environment before deploying.",
+          "correct": true,
+          "score": 0.95,
+          "judgeReasoning": "The model's answer covers all 5 rubric criteria: 1) CLI installation via npm install -g appwrite-cli, 2) appwrite init function for initialization, 3) Configuration in appwrite.json/appwrite.toml with detailed examples, 4) appwrite deploy function command, 5) Key options including runtime, entrypoint, build commands (commands), plus additional options like timeout, memory, events, schedule, and scopes. The answer is comprehensive and well-structured. Minor deduction for mentioning appwrite.toml as 'modern standard' when the reference answer specifically mentions appwrite.json, though this is a minor discrepancy. Overall, the answer is thorough and accurate."
+        },
+        {
+          "questionId": "func-8",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-9",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-10",
+          "category": "functions",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-1",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " The correct answer is **B. A container for organizing and managing file uploads with shared permissions**.\n\n**Explanation:**\n\nIn Appwrite's Storage service, a **bucket** acts as a top-level container for storing and organizing files. Key characteristics include:\n\n- **File Organization**: Buckets group related files together (e.g., \"user-avatars\", \"documents\", \"images\")\n- **Permission Management**: You can set shared permissions at the bucket level (read, write, create, update, delete) that apply to all files within that bucket\n- **Configuration**: Buckets have settings like allowed file types, maximum file size, compression, and encryption\n- **Distinct from Database**: Unlike database collections (Option A), which store structured JSON documents, buckets specifically handle file storage and binary data\n\nThis is different from Appwrite's Database service, where collections store structured documents/records rather than files.",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-2",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-3",
+          "category": "storage",
+          "type": "free-form",
+          "modelAnswer": " ```javascript\nimport { Client, Storage, Permission, Role, ID } from 'appwrite';\n\n// Initialize Appwrite client\nconst client = new Client()\n    .setEndpoint('https://cloud.appwrite.io/v1') // Your API endpoint\n    .setProject('YOUR_PROJECT_ID');               // Your project ID\n\nconst storage = new Storage(client);\n\nasync function setupStorage(file) {\n    try {\n        // 1. CREATE BUCKET with permissions\n        // fileSecurity: true allows file-level permissions to override bucket permissions\n        const bucket = await storage.createBucket(\n            ID.unique(),           // Unique bucket ID\n            'Image Bucket',        // Bucket name\n            [\n                Permission.read(Role.any()),      // Anyone can view files\n                Permission.write(Role.users())    // Only authenticated users can upload\n            ],\n            true,                  // fileSecurity enabled\n            true                   // enabled (bucket is active)\n        );\n\n        console.log('Bucket created:', bucket.$id);\n\n        // 2. UPLOAD FILE with file-level permissions\n        const uploadedFile = await storage.createFile(\n            bucket.$id,\n            ID.unique(),           // Unique file ID\n            file,                  // File object from input\n            [\n                Permission.read(Role.any()),           // Public access to view\n                Permission.update(Role.user('USER_ID')), // Specific user can update\n                Permission.delete(Role.user('USER_ID'))  // Specific user can delete\n            ]\n        );\n\n        console.log('File uploaded:', uploadedFile.$id);\n\n        // 3. GET PREVIEW URL for image\n        // Returns a URL string with transformations applied\n        const previewUrl = storage.getFilePreview(\n            bucket.$id,\n            uploadedFile.$id,\n            800,        // width (optional)\n            600,        // height (optional)\n            'center',   // gravity (optional: center, top, bottom, left, right)\n            90,         // quality 0-100 (optional)\n            0,          // border width (optional)\n            '',         // border color (optional)\n            0,          // border radius (optional)\n            1,          // opacity 0-1 (optional)\n            0,          // rotation degrees (optional)\n            'FFFFFF',   // background color (optional)\n            'jpg'       // output format (optional: jpg, png, webp, gif)\n        );\n\n        return {\n            bucketId: bucket.$id,\n            fileId: uploadedFile.$id,\n            previewUrl: previewUrl\n        };\n\n    } catch (error) {\n        console.error('Storage operation failed:', error);\n        throw error;\n    }\n}\n\n// Usage with HTML file input:\n// <input type=\"file\" accept=\"image/*\" id=\"fileInput\" />\ndocument.getElementById('fileInput').addEventListener('change', async (e) => {\n    const file = e.target.files[0];\n    if (file) {\n        const result = await setupStorage(file);\n        console.log('Image preview URL:', result.previewUrl);\n        // Use result.previewUrl in an <img> tag: <img src={result.previewUrl} />\n    }\n});\n```\n\n**Key Notes:**\n- **Permissions**: Bucket-level permissions control general access; file-level permissions (when `fileSecurity: true`) allow granular control per file\n- **Authentication**: The user uploading must have a valid session (unless you use `Role.any()` or `Role.guests()` for write permissions)\n- **Preview**: `getFilePreview()` is synchronous and returns a URL string immediately—no network request needed to generate the URL\n- **File Security**: Set to `true` to enable file-level permissions; `false` means only bucket permissions apply",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer fully satisfies all 5 rubric criteria: 1) Storage service instantiation with `new Storage(client)`, 2) Bucket creation with permissions using `Permission` and `Role` classes, 3) `storage.createFile()` with bucket ID, file ID, and File object, 4) `storage.getFilePreview()` for image preview with transformation parameters, 5) Correct imports from 'appwrite' including Client, Storage, Permission, Role, and ID. The code is well-structured, includes error handling, demonstrates file-level permissions, shows practical usage with an HTML file input, and includes helpful explanatory comments. The implementation goes beyond the minimum requirements with additional details about fileSecurity, image transformation parameters, and usage examples."
+        },
+        {
+          "questionId": "stor-4",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-5",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-6",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-7",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-8",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-9",
+          "category": "storage",
+          "type": "free-form",
+          "modelAnswer": " In Appwrite's Storage API, these three methods serve different purposes regarding how files are served and processed:\n\n## **storage.getFileView()**\n**Purpose:** Returns a URL that displays the file **inline** in the browser.\n\n- Sets `Content-Disposition: inline` header\n- Browser attempts to render the file directly (images, PDFs, videos, audio)\n- Best for: Embedding images in `<img>` tags, displaying PDFs in iframes, streaming video content\n\n```javascript\n// Display an image in your app\nconst imageUrl = storage.getFileView(bucketId, fileId);\n// Use in HTML: <img src={imageUrl} />\n```\n\n## **storage.getFileDownload()**\n**Purpose:** Returns a URL that forces the browser to **download** the file.\n\n- Sets `Content-Disposition: attachment` header\n- Triggers the browser's \"Save As\" dialog regardless of file type\n- Best for: Export buttons, saving documents, backup downloads, forcing download of viewable files (like PDFs that shouldn't open in browser)\n\n```javascript\n// Force download when user clicks a button\nconst downloadUrl = storage.getFileDownload(bucketId, fileId);\nwindow.location.href = downloadUrl; // Triggers download\n```\n\n## **storage.getFilePreview()**\n**Purpose:** Returns a URL to a **transformed/processed** version of an image.\n\n- Only works with image files (JPEG, PNG, GIF, WebP, etc.)\n- Supports real-time transformations: resize, crop, rotate, quality adjustment, format conversion\n- Best for: Thumbnails, responsive images, avatars, optimized delivery, reducing bandwidth\n\n```javascript\n// Generate a 200x200 thumbnail with 80% quality\nconst thumbnailUrl = storage.getFilePreview(\n  bucketId, \n  fileId, \n  200,      // width\n  200,      // height\n  'center', // gravity (crop focus)\n  80        // quality\n);\n```\n\n## **Quick Reference**\n\n| Method | Use When | Headers | Transformations |\n|--------|----------|---------|----------------|\n| **getFileView** | Displaying content in browser | `inline` | None (original) |\n| **getFileDownload** | Saving file to disk | `attachment` | None (original) |\n| **getFilePreview** | Need thumbnails or image resizing | `inline` | Yes (resize, crop, quality, format) |\n\n**Important:** All three require the user to have **read** permission on the file. The preview endpoint consumes slightly more resources since it processes images on-the-fly, so for frequently accessed images, consider caching strategies or using the preview to generate once and save the result.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer fully covers all four rubric requirements: 1) getFileView() for inline/browser display with Content-Disposition: inline, 2) getFileDownload() for triggering downloads with Content-Disposition: attachment, 3) getFilePreview() for image transformations including resize, crop, format conversion, and quality adjustment, 4) clear use cases for each method. The answer goes beyond the reference with helpful code examples, a comparison table, and additional context about permissions and caching, all of which are accurate and relevant."
+        },
+        {
+          "questionId": "stor-10",
+          "category": "storage",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-1",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-2",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-3",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-4",
+          "category": "sites",
+          "type": "free-form",
+          "modelAnswer": " Appwrite Sites is a static hosting service for deploying websites, SPAs, and static-generated applications (Next.js, Nuxt, etc.). Here's how to deploy and configure builds:\n\n## Deployment Methods\n\n### 1. Git Integration (Recommended)\nConnect your repository for automatic deployments:\n- Link GitHub, GitLab, or Bitbucket repository\n- Select target branch (e.g., `main`, `production`)\n- Configure **Root Directory** if your app is in a subfolder (monorepo support)\n- Appwrite automatically builds and deploys on every push\n- Supports pull request previews (optional)\n\n### 2. Appwrite CLI\nDeploy from local environment or CI/CD pipelines:\n```bash\n# Install and login\nnpm install -g appwrite-cli\nappwrite login\n\n# Initialize and deploy\nappwrite init site\nappwrite push site\n```\n\n### 3. Manual Upload (Console)\n- Build your site locally\n- Zip the output directory\n- Upload via Appwrite Console → Sites → **Create Site** → **Manual Upload**\n\n## Build Configuration Options\n\nConfigure these in the Console or `appwrite.json`:\n\n| Option | Description | Example |\n|--------|-------------|---------|\n| **Framework Preset** | Auto-configures common settings | React, Vue, Next.js, Svelte, Angular |\n| **Build Command** | Command to generate static files | `npm run build`, `yarn build` |\n| **Output Directory** | Folder containing built assets | `dist`, `build`, `out`, `.next` (for Next.js static export) |\n| **Install Command** | Dependency installation | `npm ci`, `yarn install --frozen-lockfile` |\n| **Root Directory** | Location of package.json relative to repo root | `./apps/web` (for monorepos) |\n| **Environment Variables** | Build-time secrets/vars | `PUBLIC_API_ENDPOINT`, `NODE_ENV` |\n| **Node.js Version** | Runtime for build process | 18, 20 (LTS versions) |\n\n## Deployment Steps\n\n**Via Git:**\n1. Console → Sites → **Create Site** → **Git**\n2. Select repository and branch\n3. Choose framework preset or configure custom build settings\n4. Add environment variables (if needed)\n5. Deploy (first build triggers automatically)\n\n**Via CLI:**\n1. Run `appwrite init site` in project root\n2. Select framework or configure `appwrite.json`:\n   ```json\n   {\n     \"sites\": [{\n       \"name\": \"my-site\",\n       \"buildCommand\": \"npm run build\",\n       \"outputDirectory\": \"dist\",\n       \"rootDirectory\": \"./frontend\"\n     }]\n   }\n   ```\n3. Run `appwrite push site`\n\n## Key Considerations\n\n- **Static Only**: Output must be static files (HTML/CSS/JS). For SSR/server logic, use Appwrite Functions\n- **Build Logs**: Real-time logs available in Console for debugging failed builds\n- **Custom Domains**: Add under Site Settings → Domains (automatic SSL via Let's Encrypt)\n- **Redirects**: Configure SPA routing (404 → index.html) in Advanced Settings\n- **Size Limits**: Check your plan's build output limits (typically 2GB uncompressed)\n\n**Pro Tip**: For Next.js, ensure `output: 'export'` is set in `next.config.js` since Appwrite Sites serves static content only.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer comprehensively covers all 5 rubric requirements: 1) Multiple deployment methods mentioned (Git integration, CLI, and manual upload - all 3 options), 2) Build command configuration explicitly covered in the table and examples, 3) Output directory setting explicitly covered, 4) Framework presets/support explicitly mentioned with examples (React, Vue, Next.js, Svelte, Angular), 5) Environment variables explicitly covered. The answer goes beyond the reference answer with additional helpful details like install command, root directory, CLI examples, and JSON configuration examples, all of which align with the reference answer's mention of these features."
+        },
+        {
+          "questionId": "sites-5",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-6",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-7",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-8",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-9",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-10",
+          "category": "sites",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-1",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-2",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-3",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-4",
+          "category": "messaging",
+          "type": "free-form",
+          "modelAnswer": " To set up push notifications with **Appwrite Messaging**, follow these steps:\n\n## 1. Configure Providers\n\nNavigate to **Console > Messaging > Providers** and add your push provider credentials:\n\n- **FCM** (Firebase): Upload your Service Account JSON (for Android & Web)\n- **APNS** (Apple): Upload your `.p8` authentication key + Key ID, Team ID, and Bundle ID (for iOS/macOS)\n- **OneSignal**: Add your App ID and REST API Key (cross-platform)\n\n## 2. Register Device Targets\n\nOn the client side, request permission and register the device token:\n\n```javascript\n// Client SDK (e.g., Flutter/React Native)\nconst permission = await messaging.requestPermission();\nconst token = await messaging.getToken();\n\n// Create a target for the current user\nawait account.createPushTarget('[TARGET_ID]', token, '[PROVIDER_ID]');\n```\n\n## 3. Create a Topic & Subscribe Targets\n\nUse the Server SDK to manage topics:\n\n```javascript\nconst sdk = require('node-appwrite');\n\nconst client = new sdk.Client()\n    .setEndpoint('https://cloud.appwrite.io/v1')\n    .setProject('[PROJECT_ID]')\n    .setKey('[API_KEY]');\n\nconst messaging = new sdk.Messaging(client);\n\n// Create topic\nawait messaging.createTopic('[TOPIC_ID]', 'News Updates');\n\n// Subscribe a target to the topic\nawait messaging.createSubscriber('[TOPIC_ID]', '[TARGET_ID]', '[USER_ID]');\n```\n\n## 4. Send Push Notification to Topic\n\n```javascript\n// Send to all subscribers of the topic\nawait messaging.createPush(\n    ID.unique(),           // Message ID\n    'New Article',         // Title\n    'Check out our latest update!', // Body\n    [],                    // Topics (array of topic IDs)\n    ['[TOPIC_ID]'],        // Topics to send to\n    [],                    // Users (optional)\n    [],                    // Targets (optional)\n    {                      // Data payload (optional)\n        articleId: '123',\n        url: '/article/123'\n    },\n    [],                    // Permissions (optional)\n    false                  // Draft (set true to save without sending)\n);\n```\n\n**Key Parameters:**\n- `topics`: Array of topic IDs to broadcast to\n- `data`: Custom key-value pairs sent with the notification\n- `draft`: Set to `true` to save as draft; `false` to send immediately\n\n## Supported Providers\n\n| Provider | Platform | Credentials Needed |\n|----------|----------|-------------------|\n| **FCM** | Android, Web | Service Account JSON |\n| **APNS** | iOS, macOS, watchOS | `.p8` key, Key ID, Team ID, Bundle ID |\n| **OneSignal** | All platforms | App ID, REST API Key |\n\n**Note:** You can also send directly to specific `targets` (device tokens) or `users` instead of topics by passing those arrays to `createPush()` instead of `topics`.",
+          "correct": true,
+          "score": 0.95,
+          "judgeReasoning": "The model's answer covers all 5 rubric criteria: 1) FCM and APNS providers are mentioned (plus OneSignal as a bonus), 2) Topic creation is demonstrated with code, 3) User subscription/targets are covered with createSubscriber() and createPushTarget(), 4) messaging.createPush() method is shown with proper parameters, 5) Device token registration is explained with account.createPushTarget(). The answer is comprehensive, well-structured, and includes working code examples. Minor issue: the createPush() call has a slight parameter confusion (showing empty array then topics array separately), but the overall intent and usage is clear and correct."
+        },
+        {
+          "questionId": "msg-5",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-6",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-7",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-8",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-9",
+          "category": "messaging",
+          "type": "free-form",
+          "modelAnswer": " Appwrite Messaging provides flexible targeting through three primary mechanisms when creating a message: **Users**, **Topics**, and **Targets**. You can use these individually or combine them to reach your desired audience.\n\n## Targeting Methods\n\n### 1. Specific Users (`users`)\nSend messages to all active targets associated with specific user accounts by providing an array of user IDs. Appwrite automatically delivers the message to every valid target (push tokens, email addresses, phone numbers) linked to those users.\n\n```javascript\nconst message = await messaging.createEmail(\n    ID.unique(),\n    'Welcome!',\n    'Hello user content',\n    [], // topics (optional)\n    ['user_id_1', 'user_id_2'], // users\n    []  // targets (optional)\n);\n```\n\n### 2. Topics (`topics`)\nTopics implement a pub/sub model. Users subscribe to topics (via `messaging.createSubscriber()`), and messages published to a topic reach all current subscribers. This is ideal for broadcast notifications like newsletters or announcement channels.\n\n```javascript\n// Users subscribe first\nawait messaging.createSubscriber(\n    ID.unique(),\n    'topic_alerts', \n    'user_target_id'\n);\n\n// Then send to the topic\nawait messaging.createPush(\n    ID.unique(),\n    'Alert',\n    'Breaking news',\n    ['topic_alerts'], // topics\n    [], // users\n    []  // targets\n);\n```\n\n### 3. Individual Targets (`targets`)\nFor granular control, target specific provider endpoints directly using target IDs. Targets represent individual delivery channels—such as a specific FCM device token, email address, or phone number—created via `messaging.createTarget()` or automatically generated when users add contact methods.\n\n```javascript\nawait messaging.createSMS(\n    ID.unique(),\n    'Your code is 12345',\n    [], // topics\n    [], // users  \n    ['target_sms_abc123'] // specific phone target\n);\n```\n\n## Combining Strategies\n\nYou can mix targeting methods in a single message. Appwrite sends to the **union** of all specified recipients (deduplicated to prevent duplicate delivery to the same endpoint):\n\n```javascript\nawait messaging.createPush(\n    ID.unique(),\n    'Maintenance',\n    'System update tonight',\n    ['topic_all_users', 'topic_admins'], // All subscribers of both topics\n    ['user_specific_id'],                // Plus this specific user\n    ['target_device_emergency']          // Plus this specific device\n);\n```\n\n## Key Behaviors\n\n- **User targeting** sends to all *active* targets for that user across all configured providers (Push, Email, SMS)\n- **Topic subscriptions** persist until explicitly deleted via `messaging.deleteSubscriber()`\n- **Target validation** occurs at send time; invalid/expired tokens (like stale FCM tokens) are automatically marked inactive\n- **Provider routing** is handled automatically based on target type (FCM/APNS for push, Twilio/Vonage for SMS, etc.)\n\nUse the Users console, Server SDK, or REST API to create messages with the `users`, `topics`, and `targets` parameters to implement your targeting strategy.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer fully covers all four rubric requirements: 1) Three targeting methods (topics, users, targets) are clearly described with dedicated sections; 2) Topic subscription mechanism is explained including the pub/sub model and createSubscriber() method; 3) How messages are sent to each target type is detailed (users get all their active targets, topics reach all subscribers, targets specify individual delivery endpoints); 4) Combining targeting methods is explicitly covered with a code example showing all three used together in a single message call. The answer goes beyond the reference answer with helpful code examples and additional context about behaviors, all of which appear accurate."
+        },
+        {
+          "questionId": "msg-10",
+          "category": "messaging",
+          "type": "mcq",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        }
+      ]
     }
   }
 }
