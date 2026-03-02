@@ -1,8 +1,8 @@
-import type { ComponentType, SVGProps } from "react";
 import Claude from "@lobehub/icons/es/Claude/components/Mono";
-import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
 import Gemini from "@lobehub/icons/es/Gemini/components/Mono";
 import Kimi from "@lobehub/icons/es/Kimi/components/Mono";
+import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
+import type { ComponentType, SVGProps } from "react";
 
 interface ProviderLogoProps {
 	provider: string;
