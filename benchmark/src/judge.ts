@@ -12,16 +12,13 @@ export async function judgeAnswer(
 	question: Question,
 	modelAnswer: string,
 ): Promise<JudgeResult> {
-	const prompt = `You are an expert judge evaluating an AI model's answer about Appwrite.
+	const systemPrompt = `You are an expert judge evaluating an AI model's answer about Appwrite.
 
 Question: ${question.question}
 
 Reference Answer: ${question.correctAnswer}
 
 ${question.rubric ? `Rubric: ${question.rubric}` : ""}
-
-Model's Answer:
-${modelAnswer}
 
 Score the model's answer from 0.0 to 1.0 where:
 - 0.0 = completely wrong or irrelevant
@@ -40,7 +37,10 @@ Respond in this exact JSON format:
 		body: JSON.stringify({
 			model: JUDGE_MODEL,
 			temperature: TEMPERATURE,
-			messages: [{ role: "user", content: prompt }],
+			messages: [
+				{ role: "system", content: systemPrompt },
+				{ role: "user", content: modelAnswer },
+			],
 		}),
 	});
 
