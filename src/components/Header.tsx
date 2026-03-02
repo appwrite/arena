@@ -66,7 +66,7 @@ export default function Header() {
 
 				<div className="ml-auto flex items-center gap-2">
 					<a
-						href="https://github.com/meldiron/appwrite-arena"
+						href="https://github.com/appwrite/arena"
 						target="_blank"
 						rel="noreferrer"
 						className="inline-flex items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] p-1.5 pl-3 text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"

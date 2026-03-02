@@ -1,4 +1,4 @@
-const res = await fetch('https://api.github.com/repos/meldiron/appwrite-arena')
+const res = await fetch('https://api.github.com/repos/appwrite/arena')
 const data = await res.json()
 const stars = typeof data.stargazers_count === 'number' ? data.stargazers_count : 0
 
