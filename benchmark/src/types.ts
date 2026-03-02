@@ -18,24 +18,25 @@ export interface QuestionResult {
 	judgeReasoning?: string;
 }
 
+export interface QuestionDetail {
+	questionId: string;
+	category: string;
+	type: "mcq" | "free-form";
+	question: string;
+	choices?: string[];
+	correctAnswer: string;
+	rubric?: string;
+	modelAnswer: string;
+	correct: boolean;
+	score: number;
+	judgeReasoning?: string;
+}
+
 export interface ModelConfig {
 	id: string;
 	name: string;
 	provider: string;
 	openRouterId: string;
-}
-
-export interface ModelBenchmarkRun {
-	modelId: string;
-	modelName: string;
-	provider: string;
-	costPerMillionTokens: number;
-	results: QuestionResult[];
-	scores: Record<string, number>;
-	overall: number;
-	totalQuestions: number;
-	totalCorrect: number;
-	runDate: string;
 }
 
 export interface BenchmarkResults {
@@ -51,9 +52,14 @@ export interface BenchmarkResults {
 		provider: string;
 		costPerMillionTokens: number;
 		scores: Record<string, number>;
+		mcqScores: Record<string, number>;
+		freeformScores: Record<string, number>;
 		overall: number;
+		mcqOverall: number;
+		freeformOverall: number;
 		totalQuestions: number;
 		totalCorrect: number;
 		runDate: string;
+		questionDetails: QuestionDetail[];
 	}>;
 }

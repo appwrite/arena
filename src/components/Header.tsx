@@ -60,7 +60,7 @@ export default function Header() {
 				>
 					<AppwriteLogo />
 					<span className="font-heading text-[var(--text-primary)] text-lg font-normal tracking-[-1%] leading-[34px]">
-						Benchmark
+						AI Benchmark
 					</span>
 				</a>
 
