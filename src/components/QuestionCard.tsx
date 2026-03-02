@@ -137,7 +137,7 @@ function FreeFormAnswer({ detail }: { detail: QuestionDetail }) {
 		<div className="space-y-3">
 			{detail.rubric && (
 				<div>
-					<span className="text-xs font-medium text-[var(--text-secondary)]">
+					<span className="text-xs font-medium text-[var(--text-primary)]">
 						Rubric
 					</span>
 					<p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">
@@ -147,7 +147,7 @@ function FreeFormAnswer({ detail }: { detail: QuestionDetail }) {
 			)}
 
 			<div>
-				<span className="text-xs font-medium text-[var(--text-secondary)]">
+				<span className="text-xs font-medium text-[var(--text-primary)]">
 					Reference answer
 				</span>
 				<p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">
@@ -156,7 +156,7 @@ function FreeFormAnswer({ detail }: { detail: QuestionDetail }) {
 			</div>
 
 			<div>
-				<span className="text-xs font-medium text-[var(--text-secondary)]">
+				<span className="text-xs font-medium text-[var(--text-primary)]">
 					Model answer
 				</span>
 				<div className="mt-2 max-h-[400px] overflow-y-auto rounded-md border border-[var(--line-subtle)] bg-[rgba(255,255,255,0.02)] p-3">
@@ -168,7 +168,7 @@ function FreeFormAnswer({ detail }: { detail: QuestionDetail }) {
 
 			{detail.judgeReasoning && (
 				<div>
-					<span className="text-xs font-medium text-[var(--text-secondary)]">
+					<span className="text-xs font-medium text-[var(--text-primary)]">
 						Judge reasoning
 					</span>
 					<p className="mt-1 text-xs leading-relaxed text-[var(--text-secondary)]">
