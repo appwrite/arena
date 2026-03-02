@@ -1,47 +1,66 @@
-Welcome to your new TanStack Start app! 
+# Appwrite Arena
 
-# Getting Started
+LLM benchmarking leaderboard that evaluates how well AI models understand [Appwrite](https://appwrite.io) services. Compare model performance with and without skill file context across 70 questions spanning 7 Appwrite product categories.
 
-To run this application:
+Live at **[arena.appwrite.network](https://arena.appwrite.network)**
+
+## How It Works
+
+The benchmark tests leading AI models on their knowledge of Appwrite through two modes:
+
+- **With skills** — Models receive comprehensive Appwrite documentation as context
+- **Without skills** — Models answer based solely on their training data
+
+Questions are split into **57 multiple-choice** (auto-scored) and **13 free-form** (AI-judged by Claude Sonnet 4.6) across these categories:
+
+| Category | Topics |
+|---|---|
+| Fundamental | Core Appwrite concepts and architecture |
+| Auth | Authentication, users, teams, OAuth |
+| Databases | Collections, documents, queries, permissions |
+| Functions | Serverless functions, runtimes, triggers |
+| Storage | File uploads, buckets, previews |
+| Sites | Web hosting and deployment |
+| Messaging | Email, SMS, push notifications |
+
+### Models Tested
+
+- **Claude Opus 4.6** — Anthropic
+- **GPT 5.3 Codex** — OpenAI
+- **Gemini 3.1 Pro (Preview)** — Google
+
+All models are accessed via [OpenRouter](https://openrouter.ai) with temperature set to 0 for deterministic results.
+
+## Tech Stack
+
+**Frontend:** React 19, TanStack Start/Router, Tailwind CSS 4, Vite 7, TypeScript
+
+**Benchmark:** Bun, OpenRouter API
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- [Bun](https://bun.sh) (for benchmark scripts and pre-build step)
+
+### Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-# Building For Production
+The app runs at `http://localhost:3000`.
 
-To build this application for production:
+### Production Build
 
 ```bash
 npm run build
+npm run preview
 ```
 
-## Testing
-
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
-
-```bash
-npm run test
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `npm install @tailwindcss/vite tailwindcss -D`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
+### Linting & Formatting
 
 ```bash
 npm run lint
@@ -49,156 +68,50 @@ npm run format
 npm run check
 ```
 
+### Tests
 
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
+```bash
+npm run test
 ```
 
-Then anywhere in your JSX you can use it like so:
+## Running Benchmarks
 
-```tsx
-<Link to="/about">About</Link>
+The benchmark suite lives in the `benchmark/` directory and requires an [OpenRouter API key](https://openrouter.ai/keys).
+
+```bash
+cd benchmark
+export OPENROUTER_API_KEY=your_key_here
+
+# Run both modes
+bun run bench:all
+
+# Or run individually
+bun run bench:with-skills
+bun run bench:without-skills
 ```
 
-This will create a link that will navigate to the `/about` route.
+Results are saved to `src/data/results-with-skills.json` and `src/data/results-without-skills.json`, which the frontend reads at build time.
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+## Project Structure
 
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
+```
+├── src/                    # Frontend application
+│   ├── components/         # React UI components
+│   ├── routes/             # File-based routes (TanStack Router)
+│   ├── data/               # Static benchmark result JSON files
+│   └── lib/                # Types, utilities, site config
+├── benchmark/              # Benchmark suite
+│   ├── src/
+│   │   ├── questions/      # 70 questions across 7 categories
+│   │   ├── skills/         # Appwrite documentation for context mode
+│   │   ├── runner.ts       # Test execution logic
+│   │   ├── judge.ts        # AI judge for free-form answers
+│   │   └── config.ts       # Model definitions and settings
+│   └── package.json
+├── scripts/                # Build-time scripts (GitHub stars fetcher)
+└── public/                 # Static assets
 ```
 
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
+## License
 
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+MIT — see [LICENSE](LICENSE).
