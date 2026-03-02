@@ -1,10 +1,17 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useCallback, useMemo } from "react";
+import CategoriesGrid from "#/components/CategoriesGrid";
 import FilterChip from "#/components/FilterChip";
+import HeroSection from "#/components/HeroSection";
+import HowItWorks from "#/components/HowItWorks";
 import LeaderboardTable from "#/components/LeaderboardTable";
 import ModelCard from "#/components/ModelCard";
+import OpenSourceCTA from "#/components/OpenSourceCTA";
+import ScoringApproach from "#/components/ScoringApproach";
 import ScoringInfo from "#/components/ScoringInfo";
+import StatsBar from "#/components/StatsBar";
+import TwoModes from "#/components/TwoModes";
 import ViewToggle from "#/components/ViewToggle";
 import withSkillsData from "#/data/results-with-skills.json";
 import withoutSkillsData from "#/data/results-without-skills.json";
@@ -15,6 +22,7 @@ import type {
 	ScoringMode,
 	SortField,
 } from "#/lib/types";
+import { CATEGORY_LABELS } from "#/lib/types";
 
 const withSkills = withSkillsData as BenchmarkResults;
 const withoutSkills = withoutSkillsData as BenchmarkResults;
@@ -184,35 +192,18 @@ function App() {
 	}
 
 	return (
-		<main className="flex-1 arena-container px-2 pb-0 pt-8 md:px-4 md:pt-14">
-			<section className="rise-in mb-6 md:mb-10">
-				<h1 className="mb-4 font-heading text-3xl font-normal tracking-[-1%] leading-[34px] text-[var(--text-primary)] md:text-4xl">
-					Appwrite Arena
-				</h1>
-				<p className="max-w-[400px] text-base font-medium tracking-[-1.4%] leading-[28px] text-[var(--text-secondary)] md:text-lg">
-					Benchmark AI models on their understanding of Appwrite services
-				</p>
-			</section>
-
-			<section className="rise-in" style={{ animationDelay: "100ms" }}>
+		<main className="flex flex-1 flex-col">
+			<HeroSection>
 				<div className="mb-4 flex flex-wrap items-center gap-2">
 					<FilterChip
 						label="Dataset"
 						value={dataset}
 						options={[
-							{
-								value: "with-skills",
-								label: "With skills.md",
-							},
-							{
-								value: "without-skills",
-								label: "Without skills.md",
-							},
+							{ value: "with-skills", label: "With skills" },
+							{ value: "without-skills", label: "Without skills" },
 						]}
 						onChange={(v) =>
-							setFilter({
-								dataset: v as "with-skills" | "without-skills",
-							})
+							setFilter({ dataset: v as "with-skills" | "without-skills" })
 						}
 					/>
 					<FilterChip
@@ -231,14 +222,14 @@ function App() {
 							<button
 								type="button"
 								onClick={handleSortClick}
-								className="cursor-pointer border-none bg-transparent font-medium text-[var(--text-primary)] transition hover:opacity-70"
+								className="cursor-pointer border-none bg-transparent font-medium text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
 							>
 								{currentSortLabel}
 							</button>
 							<button
 								type="button"
 								onClick={handleDirectionClick}
-								className="cursor-pointer border-none bg-transparent text-[var(--text-primary)] transition hover:opacity-70"
+								className="cursor-pointer border-none bg-transparent text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
 							>
 								{sortDirection === "desc" ? (
 									<ArrowDown size={12} />
@@ -255,7 +246,10 @@ function App() {
 				</div>
 
 				{viewMode === "list" ? (
-					<LeaderboardTable models={sortedModels} scoringMode={scoringMode} />
+					<LeaderboardTable
+						models={sortedModels}
+						scoringMode={scoringMode}
+					/>
 				) : (
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 						{sortedModels.map((model) => (
@@ -269,7 +263,26 @@ function App() {
 				)}
 
 				<ScoringInfo runDate={activeData.runDate} />
-			</section>
+			</HeroSection>
+
+			<StatsBar
+				modelCount={withSkills.models.length}
+				questionCount={withSkills.totalQuestions}
+				categoryCount={Object.keys(CATEGORY_LABELS).length}
+			/>
+
+			<HowItWorks questionCount={withSkills.totalQuestions} />
+
+			<TwoModes />
+
+			<CategoriesGrid />
+
+			<ScoringApproach
+				mcqCount={withSkills.totalMcq}
+				freeformCount={withSkills.totalFreeform}
+			/>
+
+			<OpenSourceCTA />
 		</main>
 	);
 }

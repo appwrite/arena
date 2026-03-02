@@ -42,14 +42,14 @@ export default function LeaderboardTable({
 			className="arena-card max-w-full overflow-x-auto"
 			style={{ viewTransitionName: "leaderboard" }}
 		>
-			<table className="w-full min-w-[960px] border-collapse table-fixed">
+			<table className="w-full min-w-[1100px] border-collapse table-fixed">
 				<colgroup>
 					<col style={{ width: "48px" }} />
-					<col style={{ width: "20%" }} />
-					<col style={{ width: "8.4%" }} />
-					<col style={{ width: "8.4%" }} />
+					<col style={{ width: "20%", minWidth: "160px" }} />
+					<col style={{ width: "8.4%", minWidth: "80px" }} />
+					<col style={{ width: "8.4%", minWidth: "80px" }} />
 					{CATEGORIES.map((cat) => (
-						<col key={cat} style={{ width: "8.4%" }} />
+						<col key={cat} style={{ width: "8.4%", minWidth: "80px" }} />
 					))}
 				</colgroup>
 				<thead>
