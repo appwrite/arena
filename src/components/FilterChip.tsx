@@ -133,12 +133,16 @@ export default function FilterChip(props: FilterChipProps) {
 								<span
 									className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded border ${
 										isSelected(option.value)
-											? "border-[#85DBD8] bg-[#85DBD8]/20"
+											? "border-white bg-white"
 											: "border-[var(--line)]"
 									}`}
 								>
 									{isSelected(option.value) && (
-										<Check size={10} className="text-[#85DBD8]" />
+										<Check
+											size={10}
+											strokeWidth={3}
+											className="text-[var(--bg-base)]"
+										/>
 									)}
 								</span>
 							)}

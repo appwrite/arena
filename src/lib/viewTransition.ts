@@ -1,3 +1,15 @@
 export function withViewTransition(fn: () => void | Promise<void>) {
-	fn();
+	if (document.startViewTransition) {
+		const transition = document.startViewTransition(() => {
+			document.documentElement.classList.add("vt-active");
+			flushSync(() => {
+				fn();
+			});
+		});
+		transition.finished.then(() => {
+			document.documentElement.classList.remove("vt-active");
+		});
+	} else {
+		fn();
+	}
 }
