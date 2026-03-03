@@ -246,10 +246,7 @@ function App() {
 				</div>
 
 				{viewMode === "list" ? (
-					<LeaderboardTable
-						models={sortedModels}
-						scoringMode={scoringMode}
-					/>
+					<LeaderboardTable models={sortedModels} scoringMode={scoringMode} />
 				) : (
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 						{sortedModels.map((model) => (

@@ -10,10 +10,10 @@ export default function ScoringApproach({
 	freeformCount,
 }: ScoringApproachProps) {
 	return (
-		<section className="rise-in border-b border-[var(--line)] px-4 py-14 md:py-20">
+		<section className="rise-in px-4 py-14 md:py-20">
 			<div className="arena-container">
-				<h2 className="mb-4 text-center font-heading text-2xl font-semibold tracking-[-0.5%] text-[var(--text-primary)] md:text-3xl">
-				Fair and predictable scoring
+				<h2 className="mb-4 text-center font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
+					Fair and predictable scoring
 				</h2>
 				<p className="mx-auto mb-12 max-w-lg text-center text-sm leading-relaxed text-[var(--text-secondary)]">
 					We combine two scoring methods to measure both factual accuracy and
@@ -21,7 +21,7 @@ export default function ScoringApproach({
 				</p>
 				<div className="mx-auto max-w-4xl grid grid-cols-1 gap-5 md:grid-cols-2">
 					<div className="arena-card flex flex-col gap-4 p-6">
-						<h3 className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+						<h3 className="font-heading text-lg font-normal tracking-[-2.2%] text-[var(--text-primary)]">
 							Deterministic (MCQ)
 						</h3>
 						<p className="text-sm leading-relaxed text-[var(--text-secondary)]">
@@ -35,12 +35,12 @@ export default function ScoringApproach({
 						</ul>
 					</div>
 					<div className="arena-card flex flex-col gap-4 p-6">
-						<h3 className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+						<h3 className="font-heading text-lg font-normal tracking-[-2.2%] text-[var(--text-primary)]">
 							AI-Judged (Open-ended)
 						</h3>
 						<p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-							{freeformCount} open-ended questions scored between 0 and 1 by a separate AI judge
-							using a rubric and reference answer.
+							{freeformCount} open-ended questions scored between 0 and 1 by a
+							separate AI judge using a rubric and reference answer.
 						</p>
 						<ul className="flex flex-col gap-2 text-sm">
 							<ProItem>Tests reasoning and explanation quality</ProItem>

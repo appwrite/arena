@@ -13,11 +13,12 @@ export default function OpenSourceCTA() {
 	return (
 		<section className="rise-in px-4 py-14 md:py-20">
 			<div className="arena-container flex flex-col items-center text-center">
-				<h2 className="mb-4 font-heading text-2xl font-semibold tracking-[-0.5%] text-[var(--text-primary)] md:text-3xl">
+				<h2 className="mb-4 font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
 					Fully open source
 				</h2>
 				<p className="mx-auto mb-12 max-w-lg text-sm leading-relaxed text-[var(--text-secondary)]">
-					Every question, answer, rubric, and score is public. Run the benchmark yourself, add models, or contribute new questions.
+					Every question, answer, rubric, and score is public. Run the benchmark
+					yourself, add models, or contribute new questions.
 				</p>
 				<a
 					href="https://github.com/appwrite/arena"
@@ -27,9 +28,7 @@ export default function OpenSourceCTA() {
 				>
 					<Github size={18} aria-hidden />
 					Star on GitHub
-					<span
-						className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold"
-					>
+					<span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold">
 						{formatStars(githubStars.stars)}
 					</span>
 				</a>

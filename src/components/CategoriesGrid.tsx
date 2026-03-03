@@ -4,9 +4,9 @@ const entries = Object.entries(CATEGORY_LABELS);
 
 export default function CategoriesGrid() {
 	return (
-		<section className="rise-in border-b border-[var(--line)] px-4 py-14 md:py-20">
+		<section className="rise-in px-4 py-14 md:py-20">
 			<div className="arena-container">
-				<h2 className="mb-4 text-center font-heading text-2xl font-semibold tracking-[-0.5%] text-[var(--text-primary)] md:text-3xl">
+				<h2 className="mb-4 text-center font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
 					All Appwrite services covered
 				</h2>
 				<p className="mx-auto mb-12 max-w-lg text-center text-sm leading-relaxed text-[var(--text-secondary)]">

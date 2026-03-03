@@ -27,15 +27,15 @@ export default function HowItWorks({ questionCount }: HowItWorksProps) {
 	return (
 		<section
 			id="how-it-works"
-			className="rise-in scroll-mt-20 border-b border-[var(--line)] px-4 py-14 md:py-20"
+			className="rise-in scroll-mt-20 px-4 py-14 md:py-20"
 		>
 			<div className="arena-container">
-				<h2 className="mb-4 text-center font-heading text-2xl font-semibold tracking-[-0.5%] text-[var(--text-primary)] md:text-3xl">
+				<h2 className="mb-4 text-center font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
 					How it works
 				</h2>
 				<p className="mx-auto mb-12 max-w-lg text-center text-sm leading-relaxed text-[var(--text-secondary)]">
-					Every model goes through the same three-step process so results are deterministic, and
-					directly comparable.
+					Every model goes through the same three-step process so results are
+					deterministic, and directly comparable.
 				</p>
 				<div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
 					{steps.map((step) => (
@@ -46,11 +46,11 @@ export default function HowItWorks({ questionCount }: HowItWorksProps) {
 							<div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface)]">
 								<step.icon
 									size={24}
-									className="text-[var(--accent)]"
+									className="text-[var(--text-secondary)]"
 									aria-hidden
 								/>
 							</div>
-							<h3 className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+							<h3 className="font-heading text-lg font-normal tracking-[-2.2%] text-[var(--text-primary)]">
 								{step.title}
 							</h3>
 							<p className="max-w-xs text-sm leading-relaxed text-[var(--text-secondary)]">
