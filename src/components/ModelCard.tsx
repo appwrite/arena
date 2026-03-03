@@ -1,7 +1,6 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
-import { withViewTransition } from "#/lib/viewTransition";
 import ProviderLogo from "./ProviderLogo";
 
 const CATEGORIES: CategoryKey[] = [
@@ -25,7 +24,6 @@ function formatScore(score: number | undefined) {
 }
 
 export default function ModelCard({ model, scoringMode }: ModelCardProps) {
-	const navigate = useNavigate();
 	const scores =
 		scoringMode === "mcq"
 			? model.mcqScores
@@ -47,15 +45,6 @@ export default function ModelCard({ model, scoringMode }: ModelCardProps) {
 			to="/model/$modelId"
 			params={{ modelId: model.modelId }}
 			className="group arena-card flex flex-col p-5"
-			onClick={(e) => {
-				e.preventDefault();
-				withViewTransition(() =>
-					navigate({
-						to: "/model/$modelId",
-						params: { modelId: model.modelId },
-					}),
-				);
-			}}
 		>
 			<div className="mb-4 flex items-center gap-3">
 				<ProviderLogo provider={model.provider} size={20} />
