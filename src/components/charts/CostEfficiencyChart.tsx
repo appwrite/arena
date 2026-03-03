@@ -25,7 +25,7 @@ export default function CostEfficiencyChart({ models }: Props) {
 	const data = useMemo(() => buildCostEfficiencyData(models), [models]);
 
 	return (
-		<ResponsiveContainer width="100%" height={250}>
+		<ResponsiveContainer width="100%" height={400}>
 			<BarChart data={data} layout="vertical" barCategoryGap="25%">
 				<CartesianGrid
 					stroke="rgba(237,237,240,0.1)"
@@ -37,6 +37,7 @@ export default function CostEfficiencyChart({ models }: Props) {
 					tick={{ fill: "#9ca3af", fontSize: 12 }}
 					axisLine={{ stroke: "rgba(237,237,240,0.1)" }}
 					tickLine={false}
+					tickFormatter={(v: number) => `$${v}`}
 				/>
 				<YAxis
 					type="category"
@@ -51,16 +52,11 @@ export default function CostEfficiencyChart({ models }: Props) {
 					labelStyle={tooltipLabelStyle}
 					itemStyle={tooltipItemStyle}
 					cursor={{ fill: "rgba(237,237,240,0.05)" }}
-					formatter={(
-						value: number,
-						_name: string,
-						props: { payload: { cost: number } },
-					) => [
-						`${value} score/$ (at $${props.payload.cost}/M tokens)`,
-						"Efficiency",
-					]}
+					formatter={
+						((value: number) => [`$${value}/M tokens`, "Cost"]) as never
+					}
 				/>
-				<Bar dataKey="efficiency" radius={[0, 4, 4, 0]}>
+				<Bar dataKey="cost" radius={[0, 4, 4, 0]}>
 					{data.map((entry) => (
 						<Cell key={entry.name} fill={entry.color} />
 					))}

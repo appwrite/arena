@@ -4,6 +4,7 @@ import {
 	BarChart,
 	CartesianGrid,
 	Cell,
+	Rectangle,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
@@ -11,22 +12,31 @@ import {
 } from "recharts";
 import type { ModelResult } from "#/lib/types";
 import {
-	buildMcqFreeformData,
+	buildSkillsComparisonData,
+	round2,
+	type SkillsComparisonDataPoint,
 	tooltipContentStyle,
 	tooltipItemStyle,
 	tooltipLabelStyle,
 } from "./chartConfig";
 
 interface Props {
-	models: ModelResult[];
+	withSkills: ModelResult[];
+	withoutSkills: ModelResult[];
 }
 
-export default function McqVsFreeformChart({ models }: Props) {
-	const data = useMemo(() => buildMcqFreeformData(models), [models]);
+export default function SkillsComparisonChart({
+	withSkills,
+	withoutSkills,
+}: Props) {
+	const data = useMemo(
+		() => buildSkillsComparisonData(withSkills, withoutSkills),
+		[withSkills, withoutSkills],
+	);
 
 	return (
-		<ResponsiveContainer width="100%" height={400}>
-			<BarChart data={data} barGap={2} barCategoryGap="25%">
+		<ResponsiveContainer width="100%" height="100%" minHeight={300}>
+			<BarChart data={data} barCategoryGap="25%" stackOffset="none">
 				<CartesianGrid stroke="rgba(237,237,240,0.1)" strokeDasharray="3 3" />
 				<XAxis
 					dataKey="name"
@@ -35,11 +45,11 @@ export default function McqVsFreeformChart({ models }: Props) {
 					tickLine={false}
 				/>
 				<YAxis
-					domain={[75, 100]}
+					domain={[0, 25]}
 					tick={{ fill: "#9ca3af", fontSize: 12 }}
 					axisLine={{ stroke: "rgba(237,237,240,0.1)" }}
 					tickLine={false}
-					tickFormatter={(v: number) => `${v}%`}
+					tickFormatter={(v: number) => `${v + 75}%`}
 				/>
 				<Tooltip
 					contentStyle={tooltipContentStyle}
@@ -48,33 +58,34 @@ export default function McqVsFreeformChart({ models }: Props) {
 					cursor={{ fill: "rgba(237,237,240,0.05)" }}
 					formatter={
 						((value: number, name: string) => [
-							`${value}%`,
-							name.toLowerCase().includes("mcq")
-								? "Deterministic"
-								: "AI-Judged",
+							name === "base" ? `${round2(value + 75)}%` : `+${value}%`,
+							name === "base" ? "Without Skills" : "Skills Boost",
 						]) as never
 					}
 				/>
 				<Bar
-					dataKey="mcq"
-					name="Deterministic (MCQ)"
+					dataKey="base"
+					stackId="score"
 					fill="#EDEDF0"
-					fillOpacity={0.85}
-					radius={[4, 4, 0, 0]}
+					shape={(props: Record<string, unknown>) => {
+						const payload = props.payload as SkillsComparisonDataPoint;
+						const r = payload.boost === 0 ? [4, 4, 0, 0] : [0, 0, 0, 0];
+						return <Rectangle {...props} radius={r} />;
+					}}
 				>
 					{data.map((entry) => (
 						<Cell key={entry.name} fill={entry.color} fillOpacity={0.85} />
 					))}
 				</Bar>
 				<Bar
-					dataKey="freeform"
-					name="AI-Judged (Freeform)"
+					dataKey="boost"
+					stackId="score"
 					fill="#EDEDF0"
-					fillOpacity={0.45}
+					fillOpacity={0.35}
 					radius={[4, 4, 0, 0]}
 				>
 					{data.map((entry) => (
-						<Cell key={entry.name} fill={entry.color} fillOpacity={0.45} />
+						<Cell key={entry.name} fill={entry.color} fillOpacity={0.35} />
 					))}
 				</Bar>
 			</BarChart>

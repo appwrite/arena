@@ -40,6 +40,11 @@ export function getShortName(modelName: string): string {
 	return modelName.split(" ")[0];
 }
 
+/** Round to at most 2 decimal places, stripping trailing zeroes. */
+export function round2(n: number): number {
+	return Math.round(n * 100) / 100;
+}
+
 const CATEGORY_KEYS = Object.keys(CATEGORY_LABELS) as CategoryKey[];
 
 export interface RadarDataPoint {
@@ -55,7 +60,7 @@ export function buildRadarData(models: ModelResult[]): RadarDataPoint[] {
 			fullCategory: CATEGORY_LABELS[key],
 		};
 		for (const m of models) {
-			point[getShortName(m.modelName)] = m.scores[key];
+			point[getShortName(m.modelName)] = round2(Math.max(m.scores[key], 80));
 		}
 		return point;
 	});
@@ -73,16 +78,69 @@ export function buildMcqFreeformData(
 ): McqFreeformDataPoint[] {
 	return models.map((m) => ({
 		name: getShortName(m.modelName),
-		mcq: m.mcqOverall,
-		freeform: m.freeformOverall,
+		mcq: round2(m.mcqOverall),
+		freeform: round2(m.freeformOverall),
 		color: getModelColor(m.provider),
 	}));
 }
 
+export interface SkillsComparisonDataPoint {
+	name: string;
+	base: number;
+	boost: number;
+	color: string;
+}
+
+export function buildSkillsComparisonData(
+	withSkills: ModelResult[],
+	withoutSkills: ModelResult[],
+): SkillsComparisonDataPoint[] {
+	return withSkills.map((ws) => {
+		const wo = withoutSkills.find((m) => m.modelId === ws.modelId);
+		const baseScore = wo?.overall ?? 0;
+		return {
+			name: getShortName(ws.modelName),
+			base: round2(Math.max(baseScore - 75, 0)),
+			boost: round2(Math.max(ws.overall - baseScore, 0)),
+			color: getModelColor(ws.provider),
+		};
+	});
+}
+
+export interface OverallValueDataPoint {
+	name: string;
+	value: number;
+	score: number;
+	costScore: number;
+	cost: number;
+	color: string;
+}
+
+export function buildOverallValueData(
+	models: ModelResult[],
+	category?: CategoryKey,
+): OverallValueDataPoint[] {
+	const minCost = Math.min(...models.map((m) => m.costPerMillionTokens));
+	return models
+		.map((m) => {
+			const score = category ? m.scores[category] : m.overall;
+			const costScore = round2((minCost / m.costPerMillionTokens) * 100);
+			return {
+				name: getShortName(m.modelName),
+				value: round2((score + costScore) / 2),
+				score: round2(score),
+				costScore,
+				cost: m.costPerMillionTokens,
+				color: getModelColor(m.provider),
+			};
+		})
+		.sort((a, b) => b.value - a.value);
+}
+
 export interface CostEfficiencyDataPoint {
 	name: string;
-	efficiency: number;
 	cost: number;
+	score: number;
 	color: string;
 }
 
@@ -92,9 +150,9 @@ export function buildCostEfficiencyData(
 	return models
 		.map((m) => ({
 			name: getShortName(m.modelName),
-			efficiency: Math.round((m.overall / m.costPerMillionTokens) * 10) / 10,
 			cost: m.costPerMillionTokens,
+			score: round2(m.overall),
 			color: getModelColor(m.provider),
 		}))
-		.sort((a, b) => b.efficiency - a.efficiency);
+		.sort((a, b) => a.cost - b.cost);
 }

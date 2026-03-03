@@ -269,7 +269,11 @@ function App() {
 				categoryCount={Object.keys(CATEGORY_LABELS).length}
 			/>
 
-			<ChartsSection models={activeData.models} />
+			<ChartsSection
+				models={activeData.models}
+				withSkillsModels={withSkills.models}
+				withoutSkillsModels={withoutSkills.models}
+			/>
 
 			<HowItWorks questionCount={withSkills.totalQuestions} />
 
