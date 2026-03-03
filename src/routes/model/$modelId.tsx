@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
+import CategoryTabs from "#/components/CategoryTabs";
 import FilterChip from "#/components/FilterChip";
 import LeaderboardTable from "#/components/LeaderboardTable";
 import ProviderLogo from "#/components/ProviderLogo";
@@ -10,7 +11,6 @@ import withoutSkillsData from "#/data/results-without-skills.json";
 import { SITE_URL } from "#/lib/site";
 import type { BenchmarkResults, ModelResult, ScoringMode } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
-import { withViewTransition } from "#/lib/viewTransition";
 
 const withSkills = withSkillsData as BenchmarkResults;
 const withoutSkills = withoutSkillsData as BenchmarkResults;
@@ -28,7 +28,7 @@ function findModel(
 interface SearchParams {
 	dataset?: "with-skills" | "without-skills";
 	scoring?: ScoringMode;
-	categories?: string;
+	category?: string;
 }
 
 export const Route = createFileRoute("/model/$modelId")({
@@ -40,8 +40,12 @@ export const Route = createFileRoute("/model/$modelId")({
 		if (search.scoring === "mcq" || search.scoring === "freeform") {
 			result.scoring = search.scoring as ScoringMode;
 		}
-		if (typeof search.categories === "string") {
-			result.categories = search.categories;
+		if (
+			typeof search.category === "string" &&
+			CATEGORY_ORDER.includes(search.category) &&
+			search.category !== CATEGORY_ORDER[0]
+		) {
+			result.category = search.category;
 		}
 		return result;
 	},
@@ -63,12 +67,6 @@ export const Route = createFileRoute("/model/$modelId")({
 	component: ModelDetailPage,
 });
 
-function parseCategories(raw: string | undefined): string[] {
-	if (raw === undefined) return CATEGORY_ORDER;
-	if (raw === "") return [];
-	return raw.split(",").filter((c) => CATEGORY_ORDER.includes(c));
-}
-
 function ModelDetailPage() {
 	const { modelId } = Route.useParams();
 	const search = Route.useSearch();
@@ -76,48 +74,50 @@ function ModelDetailPage() {
 
 	const dataset = search.dataset ?? "with-skills";
 	const scoring = search.scoring ?? "all";
-	const categories = useMemo(
-		() => parseCategories(search.categories),
-		[search.categories],
-	);
+	const activeCategory = search.category ?? CATEGORY_ORDER[0];
 
 	const setFilter = useCallback(
 		(updates: {
 			dataset?: "with-skills" | "without-skills";
 			scoring?: ScoringMode;
-			categories?: string[];
+			category?: string;
 		}) => {
-			withViewTransition(() =>
-				navigate({
-					search: (prev: SearchParams) => {
-						const curDataset = prev.dataset ?? "with-skills";
-						const curScoring = prev.scoring ?? "all";
-						const curCategories = parseCategories(prev.categories);
+			navigate({
+				search: (prev: SearchParams) => {
+					const newDataset = updates.dataset ?? prev.dataset ?? "with-skills";
+					const newScoring = updates.scoring ?? prev.scoring ?? "all";
+					const newCategory =
+						updates.category ?? prev.category ?? CATEGORY_ORDER[0];
 
-						const newDataset = updates.dataset ?? curDataset;
-						const newScoring = updates.scoring ?? curScoring;
-						const newCategories = updates.categories ?? curCategories;
-
-						const isAllCats =
-							newCategories.length === CATEGORY_ORDER.length &&
-							CATEGORY_ORDER.every((c) => newCategories.includes(c));
-
-						const result: SearchParams = {};
-						if (newDataset !== "with-skills")
-							result.dataset = newDataset as "without-skills";
-						if (newScoring !== "all")
-							result.scoring = newScoring as ScoringMode;
-						if (!isAllCats) result.categories = newCategories.join(",");
-						return result;
-					},
-					replace: true,
-				}),
-			);
+					const result: SearchParams = {};
+					if (newDataset !== "with-skills")
+						result.dataset = newDataset as "without-skills";
+					if (newScoring !== "all") result.scoring = newScoring as ScoringMode;
+					if (newCategory !== CATEGORY_ORDER[0]) result.category = newCategory;
+					return result;
+				},
+				replace: true,
+				resetScroll: false,
+			});
 		},
 		[navigate],
 	);
 
 	const model = findModel(modelId, dataset);
+
+	const categoryCounts = useMemo(() => {
+		if (!model?.questionDetails) return {};
+		let questions = model.questionDetails;
+		if (scoring === "mcq")
+			questions = questions.filter((q) => q.type === "mcq");
+		else if (scoring === "freeform")
+			questions = questions.filter((q) => q.type === "free-form");
+		const counts: Record<string, number> = {};
+		for (const cat of CATEGORY_ORDER) {
+			counts[cat] = questions.filter((q) => q.category === cat).length;
+		}
+		return counts;
+	}, [model?.questionDetails, scoring]);
 
 	const filteredQuestions = useMemo(() => {
 		if (!model?.questionDetails) return [];
@@ -126,27 +126,13 @@ function ModelDetailPage() {
 			questions = questions.filter((q) => q.type === "mcq");
 		else if (scoring === "freeform")
 			questions = questions.filter((q) => q.type === "free-form");
-		if (categories.length < CATEGORY_ORDER.length)
-			questions = questions.filter((q) => categories.includes(q.category));
-		return questions;
-	}, [model?.questionDetails, scoring, categories]);
-
-	const groupedByCategory = useMemo(() => {
-		const groups: Record<string, typeof filteredQuestions> = {};
-		for (const cat of CATEGORY_ORDER) {
-			const catQuestions = filteredQuestions.filter((q) => q.category === cat);
-			if (catQuestions.length > 0) {
-				groups[cat] = catQuestions;
-			}
-		}
-		return groups;
-	}, [filteredQuestions]);
+		return questions.filter((q) => q.category === activeCategory);
+	}, [model?.questionDetails, scoring, activeCategory]);
 
 	useEffect(() => {
 		const hash = window.location.hash.slice(1);
-		if (hash) {
-			const el = document.getElementById(hash);
-			el?.scrollIntoView({ behavior: "smooth" });
+		if (hash && CATEGORY_ORDER.includes(hash)) {
+			setFilter({ category: hash });
 		}
 	}, []);
 
@@ -157,23 +143,15 @@ function ModelDetailPage() {
 					<Link
 						to="/"
 						className="mb-6 inline-flex items-center gap-1.5 text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
-						onClick={(e) => {
-							e.preventDefault();
-							withViewTransition(() => navigate({ to: "/" }));
-						}}
 					>
 						<ArrowLeft size={14} />
-						Back to leaderboard
+						Back
 					</Link>
 					<div className="arena-card p-8 text-center">
 						<p className="text-[var(--text-secondary)]">Model not found.</p>
 						<Link
 							to="/"
 							className="mt-2 inline-block text-sm text-[var(--text-primary)] underline"
-							onClick={(e) => {
-								e.preventDefault();
-								withViewTransition(() => navigate({ to: "/" }));
-							}}
 						>
 							Return to leaderboard
 						</Link>
@@ -185,20 +163,13 @@ function ModelDetailPage() {
 
 	return (
 		<main className="flex-1 arena-container px-2 pb-0 pt-8 md:px-4 md:pt-14">
-			<div
-				className="rise-in relative z-10"
-				style={{ viewTransitionName: "header-area" }}
-			>
+			<div className="rise-in relative z-10">
 				<Link
 					to="/"
-					className="mb-6 inline-flex items-center gap-1.5 text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
-					onClick={(e) => {
-						e.preventDefault();
-						withViewTransition(() => navigate({ to: "/" }));
-					}}
+					className="mb-8 inline-flex items-center gap-1.5 text-sm text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] md:mb-10"
 				>
 					<ArrowLeft size={14} />
-					Back to leaderboard
+					Back
 				</Link>
 
 				<div className="mb-6 flex items-center gap-3">
@@ -210,15 +181,7 @@ function ModelDetailPage() {
 					</div>
 				</div>
 
-				<div className="mb-6">
-					<LeaderboardTable
-						models={[model]}
-						scoringMode={scoring}
-						disableLink
-					/>
-				</div>
-
-				<div className="mb-6 flex flex-wrap items-center gap-2">
+				<div className="mb-4 flex flex-wrap items-center gap-2">
 					<FilterChip
 						label="Dataset"
 						value={dataset}
@@ -242,23 +205,29 @@ function ModelDetailPage() {
 						]}
 						onChange={(v) => setFilter({ scoring: v as ScoringMode })}
 					/>
-					<FilterChip
-						label="Category"
-						multi
-						multiValue={categories}
-						options={CATEGORY_ORDER.map((cat) => ({
-							value: cat,
-							label: CATEGORY_LABELS[cat],
-						}))}
-						onMultiChange={(v) => setFilter({ categories: v })}
-					/>
 				</div>
+			</div>
+
+			<div className="rise-in mb-10" style={{ animationDelay: "50ms" }}>
+				<LeaderboardTable
+					models={[model]}
+					scoringMode={scoring}
+					disableLink
+					hideModel
+				/>
 			</div>
 
 			<div
 				className="rise-in bg-[var(--bg-base)]"
-				style={{ animationDelay: "100ms", viewTransitionName: "questions" }}
+				style={{ animationDelay: "100ms" }}
 			>
+				<CategoryTabs
+					categories={CATEGORY_ORDER}
+					activeCategory={activeCategory}
+					categoryCounts={categoryCounts}
+					onCategoryChange={(cat) => setFilter({ category: cat })}
+				/>
+
 				{filteredQuestions.length === 0 ? (
 					<div className="arena-card p-8 text-center">
 						<p className="text-sm text-[var(--text-secondary)]">
@@ -266,21 +235,17 @@ function ModelDetailPage() {
 						</p>
 						<button
 							type="button"
-							onClick={() =>
-								setFilter({
-									scoring: "all",
-									categories: CATEGORY_ORDER,
-								})
-							}
+							onClick={() => setFilter({ scoring: "all" })}
 							className="mt-3 cursor-pointer rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-4 py-1.5 text-xs font-medium text-[var(--text-primary)] transition hover:border-[var(--line)]"
 						>
 							Reset filters
 						</button>
 					</div>
 				) : (
-					Object.entries(groupedByCategory).map(([cat, questions]) => (
-						<QuestionSection key={cat} category={cat} questions={questions} />
-					))
+					<QuestionSection
+						category={activeCategory}
+						questions={filteredQuestions}
+					/>
 				)}
 			</div>
 		</main>

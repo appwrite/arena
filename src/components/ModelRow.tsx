@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
-import { withViewTransition } from "#/lib/viewTransition";
 import ProviderLogo from "./ProviderLogo";
 import ScoreCell from "./ScoreCell";
 
@@ -20,13 +19,18 @@ interface ModelRowProps {
 	model: ModelResult;
 	scoringMode: ScoringMode;
 	disableLink?: boolean;
+	hideModel?: boolean;
+	visibleCategories?: CategoryKey[];
 }
 
 export default function ModelRow({
 	model,
 	scoringMode,
 	disableLink,
+	hideModel,
+	visibleCategories,
 }: ModelRowProps) {
+	const categories = visibleCategories ?? CATEGORIES;
 	const navigate = useNavigate();
 	const scores =
 		scoringMode === "mcq"
@@ -48,47 +52,49 @@ export default function ModelRow({
 				disableLink
 					? undefined
 					: () =>
-							withViewTransition(() =>
-								navigate({
-									to: "/model/$modelId",
-									params: { modelId: model.modelId },
-								}),
-							)
+							navigate({
+								to: "/model/$modelId",
+								params: { modelId: model.modelId },
+							})
 			}
 		>
-			<td className="w-12 px-0 text-[var(--text-secondary)]">
-				<div className="flex h-full items-center justify-center">
-					<ProviderLogo provider={model.provider} size={16} />
-				</div>
-			</td>
-			<td className="px-3 text-left text-sm font-semibold text-[var(--text-primary)]">
-				{disableLink ? (
-					model.modelName
-				) : (
-					<Link
-						to="/model/$modelId"
-						params={{ modelId: model.modelId }}
-						className="hover:underline"
-						onClick={(e) => {
-							e.preventDefault();
-							e.stopPropagation();
-							withViewTransition(() =>
+			{!hideModel && (
+				<td className="w-12 px-0 text-[var(--text-secondary)]">
+					<div className="flex h-full items-center justify-center">
+						<ProviderLogo provider={model.provider} size={16} />
+					</div>
+				</td>
+			)}
+			{!hideModel && (
+				<td className="px-3 text-left text-sm font-semibold text-[var(--text-primary)]">
+					{disableLink ? (
+						model.modelName
+					) : (
+						<Link
+							to="/model/$modelId"
+							params={{ modelId: model.modelId }}
+							className="hover:underline"
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
 								navigate({
 									to: "/model/$modelId",
 									params: { modelId: model.modelId },
-								}),
-							);
-						}}
-					>
-						{model.modelName}
-					</Link>
-				)}
-			</td>
-			<td className="px-3 text-left text-sm whitespace-nowrap text-[var(--text-secondary)]">
+								});
+							}}
+						>
+							{model.modelName}
+						</Link>
+					)}
+				</td>
+			)}
+			<td
+				className={`px-3 text-left text-sm text-[var(--text-secondary)] ${hideModel ? "pl-5" : ""}`}
+			>
 				${model.costPerMillionTokens.toFixed(2)}
 			</td>
 			<ScoreCell score={overall} isOverall />
-			{CATEGORIES.map((cat, i) => (
+			{categories.map((cat, i) => (
 				<ScoreCell key={cat} score={scores?.[cat]} divider={i === 0} />
 			))}
 		</tr>

@@ -189,46 +189,13 @@ html.vt-active .rise-in {
   }
 }
 
-::view-transition-group(header-area) {
-  z-index: 10;
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-::view-transition-old(header-area),
-::view-transition-new(header-area) {
-  animation: none;
-}
-
-::view-transition-group(questions) {
-  z-index: 1;
-  background: var(--bg-base);
-}
-
-::view-transition-old(questions) {
-  animation: vt-fade-out 120ms ease-out both;
-}
-
-::view-transition-new(questions) {
-  animation: vt-fade-in 180ms ease-out both;
-}
-
-@keyframes vt-fade-out {
-  to { opacity: 0; }
-}
-
-@keyframes vt-fade-in {
-  from { opacity: 0; }
-}
-
-::view-transition-group(leaderboard) {
-  animation-duration: 300ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-::view-transition-old(leaderboard) {
-  animation: vt-fade-out 200ms ease-out both;
-}
-
-::view-transition-new(leaderboard) {
-  animation: vt-fade-in 250ms ease-out 50ms both;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
