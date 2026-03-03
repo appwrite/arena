@@ -8,7 +8,6 @@ import {
 	Tooltip,
 	XAxis,
 	YAxis,
-	ZAxis,
 } from "recharts";
 import type { CategoryKey, ModelResult } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
@@ -46,6 +45,7 @@ export default function OverallValueChart({ models }: Props) {
 					<XAxis
 						type="number"
 						dataKey="cost"
+						domain={[0, 6]}
 						tick={{ fill: "#9ca3af", fontSize: 12 }}
 						axisLine={{ stroke: "rgba(237,237,240,0.1)" }}
 						tickLine={false}
@@ -75,7 +75,6 @@ export default function OverallValueChart({ models }: Props) {
 							style={{ fill: "#6b7280", fontSize: 11 }}
 						/>
 					</YAxis>
-					<ZAxis range={[200, 200]} />
 					<Tooltip
 						cursor={{
 							strokeDasharray: "3 3",
@@ -108,6 +107,17 @@ export default function OverallValueChart({ models }: Props) {
 							name={entry.name}
 							data={[entry]}
 							fill={entry.color}
+							shape={(props: { cx?: number; cy?: number; fill?: string }) => (
+								<circle
+									cx={props.cx}
+									cy={props.cy}
+									r={7}
+									fill={props.fill}
+									fillOpacity={0.85}
+									stroke={props.fill}
+									strokeWidth={2}
+								/>
+							)}
 						/>
 					))}
 				</ScatterChart>
