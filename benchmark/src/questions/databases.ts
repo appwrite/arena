@@ -8,12 +8,12 @@ export const databasesQuestions: Question[] = [
 		question:
 			"What is the hierarchy of data organization in Appwrite Databases?",
 		choices: [
-			"Database > Table > Row",
 			"Database > Collection > Document",
+			"Database > Table > Row",
 			"Schema > Collection > Record",
 			"Project > Database > Table",
 		],
-		correctAnswer: "B",
+		correctAnswer: "A",
 	},
 	{
 		id: "db-2",
@@ -23,11 +23,11 @@ export const databasesQuestions: Question[] = [
 			"Which attribute types are supported in Appwrite database collections?",
 		choices: [
 			"String, Integer, Float only",
-			"String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship",
 			"String, Number, Boolean only",
 			"Any JSON type without schema validation",
+			"String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship",
 		],
-		correctAnswer: "B",
+		correctAnswer: "D",
 	},
 	{
 		id: "db-3",
@@ -47,12 +47,12 @@ export const databasesQuestions: Question[] = [
 		question:
 			"Which query method is used to filter documents where a field equals a specific value?",
 		choices: [
-			"Query.filter()",
 			"Query.equal()",
+			"Query.filter()",
 			"Query.where()",
 			"Query.match()",
 		],
-		correctAnswer: "B",
+		correctAnswer: "A",
 	},
 	{
 		id: "db-5",
@@ -61,11 +61,11 @@ export const databasesQuestions: Question[] = [
 		question: "What are indexes used for in Appwrite databases?",
 		choices: [
 			"To encrypt document fields",
-			"To improve query performance on specific attributes",
 			"To create foreign key relationships",
+			"To improve query performance on specific attributes",
 			"To auto-generate unique IDs",
 		],
-		correctAnswer: "B",
+		correctAnswer: "C",
 	},
 	{
 		id: "db-6",
@@ -85,12 +85,12 @@ export const databasesQuestions: Question[] = [
 		question:
 			"What types of relationships does Appwrite support between collections?",
 		choices: [
-			"Only one-to-one",
 			"One-to-one, one-to-many, many-to-one, and many-to-many",
+			"Only one-to-one",
 			"Only foreign key references",
 			"Relationships are not supported",
 		],
-		correctAnswer: "B",
+		correctAnswer: "A",
 	},
 	{
 		id: "db-8",
@@ -99,11 +99,11 @@ export const databasesQuestions: Question[] = [
 		question: "How do permissions work on documents in Appwrite?",
 		choices: [
 			"Documents inherit permissions from the project only",
-			"Each document can have its own permission list, or inherit from the collection",
 			"Permissions are set globally for all documents",
+			"Each document can have its own permission list, or inherit from the collection",
 			"Permissions are only managed through API keys",
 		],
-		correctAnswer: "B",
+		correctAnswer: "C",
 	},
 	{
 		id: "db-9",
@@ -112,11 +112,11 @@ export const databasesQuestions: Question[] = [
 		question: "What is the correct method to update a document in Appwrite?",
 		choices: [
 			"databases.update()",
-			"databases.updateDocument(databaseId, collectionId, documentId, data)",
 			"databases.patchDocument()",
+			"databases.updateDocument(databaseId, collectionId, documentId, data)",
 			"documents.update()",
 		],
-		correctAnswer: "B",
+		correctAnswer: "C",
 	},
 	{
 		id: "db-10",
@@ -125,11 +125,139 @@ export const databasesQuestions: Question[] = [
 		question:
 			"Which Query method performs a full-text search on a document attribute?",
 		choices: [
-			"Query.contains()",
 			"Query.search()",
+			"Query.contains()",
 			"Query.fullText()",
 			"Query.like()",
 		],
-		correctAnswer: "B",
+		correctAnswer: "A",
+	},
+	{
+		id: "db-11",
+		category: "databases",
+		type: "mcq",
+		question: "How do transactions work in Appwrite Databases?",
+		choices: [
+			"Transactions are not supported",
+			"Wrap operations in a single databases.transaction() call",
+			"Create a transaction, pass the transactionId to document create/update/delete operations, then commit the transaction",
+			"Use a special transaction collection",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "db-12",
+		category: "databases",
+		type: "mcq",
+		question: "What are the possible statuses of a database transaction?",
+		choices: [
+			"pending, committing, committed, failed",
+			"active, committed, rolled_back",
+			"open, closed",
+			"started, finished",
+		],
+		correctAnswer: "A",
+	},
+	{
+		id: "db-13",
+		category: "databases",
+		type: "mcq",
+		question: "Which Query method is used for cursor-based pagination (get next page after a document)?",
+		choices: [
+			"Query.cursorAfter(documentId) or Query.cursorBefore(documentId)",
+			"Query.offset()",
+			"Query.nextPage()",
+			"Query.cursor()",
+		],
+		correctAnswer: "A",
+	},
+	{
+		id: "db-14",
+		category: "databases",
+		type: "mcq",
+		question: "How do you delete a document in Appwrite?",
+		choices: [
+			"databases.delete()",
+			"documents.delete()",
+			"databases.removeDocument()",
+			"databases.deleteDocument(databaseId, collectionId, documentId)",
+		],
+		correctAnswer: "D",
+	},
+	{
+		id: "db-15",
+		category: "databases",
+		type: "mcq",
+		question: "When creating a document, can you set permissions on that document?",
+		choices: [
+			"Yes, pass a permissions array to createDocument",
+			"No, documents always inherit collection permissions",
+			"Only via the Console",
+			"Only for the document creator",
+		],
+		correctAnswer: "A",
+	},
+	{
+		id: "db-16",
+		category: "databases",
+		type: "mcq",
+		question: "What is a relationship attribute in Appwrite?",
+		choices: [
+			"A link to an external API",
+			"A special index type",
+			"An attribute that references documents in the same or another collection (one-to-one, one-to-many, etc.)",
+			"A computed field",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "db-17",
+		category: "databases",
+		type: "mcq",
+		question: "Which Query method limits the number of documents returned?",
+		choices: [
+			"Query.take()",
+			"Query.max()",
+			"Query.limit(limit)",
+			"Query.pageSize()",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "db-18",
+		category: "databases",
+		type: "mcq",
+		question: "How do you sort documents by a field in descending order?",
+		choices: [
+			"Query.orderDesc('attributeId')",
+			"Query.sort(field, 'desc')",
+			"Query.descending('attributeId')",
+			"Query.orderBy('attributeId', Query.DESC)",
+		],
+		correctAnswer: "A",
+	},
+	{
+		id: "db-19",
+		category: "databases",
+		type: "mcq",
+		question: "What happens if a transaction expires before it is committed?",
+		choices: [
+			"Operations are automatically rolled back and the transaction is deleted",
+			"The transaction is committed automatically",
+			"Staged operations fail with a transaction expired error; the transaction has a TTL",
+			"Nothing; transactions do not expire",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "db-20",
+		category: "databases",
+		type: "free-form",
+		question:
+			"Explain how to use Query to filter documents where a numeric field is greater than 100 and return at most 20 results sorted by that field descending.",
+		correctAnswer:
+			"Use databases.listDocuments() with queries array: Query.greaterThan('attributeId', 100), Query.orderDesc('attributeId'), Query.limit(20). Pass these to the listDocuments queries parameter.",
+		rubric:
+			"Must include: 1) Query.greaterThan for the filter, 2) Query.orderDesc for sort, 3) Query.limit(20), 4) Passing queries to listDocuments()",
 	},
 ];
