@@ -2,9 +2,9 @@ import { BookOpen, Brain } from "lucide-react";
 
 export default function TwoModes() {
 	return (
-		<section className="rise-in border-b border-[var(--line)] px-4 py-14 md:py-20">
+		<section className="rise-in px-4 py-14 md:py-20">
 			<div className="arena-container max-w-3xl">
-				<h2 className="mb-4 text-center font-heading text-2xl font-semibold tracking-[-0.5%] text-[var(--text-primary)] md:text-3xl">
+				<h2 className="mb-4 text-center font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
 					Two evaluation modes
 				</h2>
 				<p className="mx-auto mb-12 max-w-lg text-center text-sm leading-relaxed text-[var(--text-secondary)]">
@@ -18,10 +18,10 @@ export default function TwoModes() {
 						<div className="flex items-center gap-3">
 							<BookOpen
 								size={20}
-								className="shrink-0 text-[var(--accent)]"
+								className="shrink-0 text-[var(--text-secondary)]"
 								aria-hidden
 							/>
-							<h3 className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+							<h3 className="font-heading text-lg font-normal tracking-[-2.2%] text-[var(--text-primary)]">
 								With Skills.md
 							</h3>
 						</div>
@@ -44,10 +44,10 @@ export default function TwoModes() {
 						<div className="flex items-center gap-3">
 							<Brain
 								size={20}
-								className="shrink-0 text-[var(--accent)]"
+								className="shrink-0 text-[var(--text-secondary)]"
 								aria-hidden
 							/>
-							<h3 className="font-heading text-lg font-semibold text-[var(--text-primary)]">
+							<h3 className="font-heading text-lg font-normal tracking-[-2.2%] text-[var(--text-primary)]">
 								Without Skills.md
 							</h3>
 						</div>

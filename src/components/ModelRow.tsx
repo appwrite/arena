@@ -22,7 +22,11 @@ interface ModelRowProps {
 	disableLink?: boolean;
 }
 
-export default function ModelRow({ model, scoringMode, disableLink }: ModelRowProps) {
+export default function ModelRow({
+	model,
+	scoringMode,
+	disableLink,
+}: ModelRowProps) {
 	const navigate = useNavigate();
 	const scores =
 		scoringMode === "mcq"
@@ -40,13 +44,16 @@ export default function ModelRow({ model, scoringMode, disableLink }: ModelRowPr
 	return (
 		<tr
 			className={`group h-[52px] border-b border-[var(--line-subtle)] last:border-b-0 transition ${disableLink ? "" : "cursor-pointer hover:bg-[var(--link-bg-hover)]"}`}
-			onClick={disableLink ? undefined : () =>
-				withViewTransition(() =>
-					navigate({
-						to: "/model/$modelId",
-						params: { modelId: model.modelId },
-					}),
-				)
+			onClick={
+				disableLink
+					? undefined
+					: () =>
+							withViewTransition(() =>
+								navigate({
+									to: "/model/$modelId",
+									params: { modelId: model.modelId },
+								}),
+							)
 			}
 		>
 			<td className="w-12 px-0 text-[var(--text-secondary)]">

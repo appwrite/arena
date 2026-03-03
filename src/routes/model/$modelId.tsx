@@ -204,14 +204,18 @@ function ModelDetailPage() {
 				<div className="mb-6 flex items-center gap-3">
 					<ProviderLogo provider={model.provider} size={28} colorful />
 					<div>
-						<h1 className="font-heading text-2xl font-normal tracking-[-1%] text-[var(--text-primary)] md:text-3xl">
+						<h1 className="font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
 							{model.modelName}
 						</h1>
 					</div>
 				</div>
 
 				<div className="mb-6">
-					<LeaderboardTable models={[model]} scoringMode={scoring} disableLink />
+					<LeaderboardTable
+						models={[model]}
+						scoringMode={scoring}
+						disableLink
+					/>
 				</div>
 
 				<div className="mb-6 flex flex-wrap items-center gap-2">

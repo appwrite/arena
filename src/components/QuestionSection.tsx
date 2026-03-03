@@ -19,7 +19,7 @@ export default function QuestionSection({
 	return (
 		<section id={category} className="mb-10 scroll-mt-20">
 			<div className="sticky top-[4.125rem] z-20 bg-[var(--bg-base)] pb-4 pt-4">
-				<h3 className="group font-heading text-xl font-normal tracking-[-1%] text-[var(--text-primary)] md:text-2xl">
+				<h3 className="group font-heading text-xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-2xl">
 					<a href={`#${category}`} className="hover:underline">
 						{CATEGORY_LABELS[category] ?? category}
 						<span className="ml-2 text-[var(--text-secondary)] opacity-0 transition-opacity group-hover:opacity-100">

@@ -17,17 +17,17 @@ export default function StatsBar({
 	];
 
 	return (
-		<section className="rise-in border-b border-[var(--line)] px-4 py-10">
-			<div className="arena-container flex flex-col items-center gap-6 md:flex-row md:justify-center md:gap-0 md:divide-x md:divide-[var(--line)]">
+		<section className="rise-in px-4 py-10">
+			<div className="arena-container grid grid-cols-4 gap-3">
 				{stats.map((stat) => (
 					<div
 						key={stat.label}
-						className="flex flex-col items-center gap-1 md:px-12"
+						className="arena-card flex flex-col items-center gap-1 rounded-xl px-4 py-5"
 					>
-						<span className="font-heading text-3xl font-semibold text-[var(--accent)]">
+						<span className="font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)]">
 							{stat.value}
 						</span>
-						<span className="text-sm text-[var(--text-secondary)]">
+						<span className="text-xs text-[var(--text-secondary)]">
 							{stat.label}
 						</span>
 					</div>
