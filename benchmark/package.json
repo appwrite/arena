@@ -3,10 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare-skills": "rm -rf agent-skills && git clone --depth 1 https://github.com/appwrite/agent-skills.git agent-skills",
     "bench": "bun run src/index.ts",
-    "bench:with-skills": "bun run src/index.ts --mode with-skills",
+    "bench:with-skills": "bun run prepare-skills && bun run src/index.ts --mode with-skills",
     "bench:without-skills": "bun run src/index.ts --mode without-skills",
-    "bench:all": "bun run src/index.ts --mode with-skills && bun run src/index.ts --mode without-skills"
+    "bench:all": "bun run prepare-skills && bun run src/index.ts --mode with-skills && bun run src/index.ts --mode without-skills"
   },
   "devDependencies": {
     "@types/bun": "latest",

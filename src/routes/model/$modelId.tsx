@@ -52,7 +52,7 @@ export const Route = createFileRoute("/model/$modelId")({
 	head: ({ params }) => {
 		const model = findModel(params.modelId, "with-skills");
 		const name = model?.modelName ?? params.modelId;
-		const title = `${name} — Appwrite Arena`;
+		const title = `${name} - Appwrite Arena`;
 		const description = `Detailed benchmark results for ${name} on Appwrite Arena.`;
 		return {
 			meta: [

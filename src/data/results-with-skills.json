@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-02T17:16:28.783Z",
+  "runDate": "2026-03-02T20:39:44.624Z",
   "mode": "with-skills",
-  "totalQuestions": 70,
-  "totalMcq": 57,
-  "totalFreeform": 13,
+  "totalQuestions": 90,
+  "totalMcq": 73,
+  "totalFreeform": 17,
   "models": [
     {
       "modelId": "gemini-3-1-pro-preview",
@@ -18,7 +18,9 @@
         "functions": 100,
         "storage": 99,
         "sites": 92,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 97,
+        "cli": 98
       },
       "mcqScores": {
         "fundamental": 100,
@@ -27,7 +29,9 @@
         "functions": 100,
         "storage": 100,
         "sites": 100,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 100,
+        "cli": 100
       },
       "freeformScores": {
         "fundamental": 100,
@@ -36,14 +40,16 @@
         "functions": 100,
         "storage": 95,
         "sites": 20,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 85,
+        "cli": 90
       },
-      "overall": 98.1,
+      "overall": 97.9,
       "mcqOverall": 100,
-      "freeformOverall": 89.6,
-      "totalQuestions": 70,
-      "totalCorrect": 69,
-      "runDate": "2026-03-02T17:16:28.782Z",
+      "freeformOverall": 89.1,
+      "totalQuestions": 90,
+      "totalCorrect": 89,
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -1112,6 +1118,310 @@
           "modelAnswer": "B",
           "correct": true,
           "score": 1
+        },
+        {
+          "questionId": "rt-1",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What protocol does Appwrite Realtime use?",
+          "choices": [
+            "HTTP Long Polling",
+            "WebSocket",
+            "Server-Sent Events (SSE)",
+            "gRPC streaming"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-2",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which method subscribes to realtime events in the Web SDK?",
+          "choices": [
+            "client.realtime(channels)",
+            "client.subscribe(channels, callback)",
+            "client.on(event, handler)",
+            "client.listen(channels)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-3",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens when you subscribe to a new channel on an existing connection?",
+          "choices": [
+            "The new channel is added to the existing connection",
+            "An error is thrown because only one subscription is allowed",
+            "Connection is recreated (old closed, new opened)",
+            "A separate parallel connection is opened"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-4",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which of these is a valid Realtime channel?",
+          "choices": [
+            "realtime.documents.[DOCUMENT_ID]",
+            "databases.[DB_ID].collections.[COLL_ID].documents",
+            "subscribe.databases.collections",
+            "events.databases.documents.create"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-5",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What does the Realtime response payload contain for a document event?",
+          "choices": [
+            "Only the document $id and the event type",
+            "The document data including $id, $createdAt, $updatedAt, and custom fields",
+            "A reference URL to fetch the document",
+            "Only the fields that changed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-6",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How is authentication handled for Realtime connections?",
+          "choices": [
+            "Through an API key passed as a query parameter",
+            "Through a separate authentication WebSocket",
+            "Through cookies/session tokens passed during WebSocket handshake",
+            "Authentication is not supported for Realtime"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-7",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens if a user authenticates after creating a Realtime subscription?",
+          "choices": [
+            "The subscription automatically updates with the new permissions",
+            "Subscription must be recreated to receive events for the authenticated user",
+            "An authentication event is fired on the existing subscription",
+            "The server rejects the authentication until the subscription is closed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-8",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How do you unsubscribe from a Realtime channel in the Web SDK?",
+          "choices": [
+            "client.unsubscribe(channel)",
+            "Call the function returned by `client.subscribe()`",
+            "client.realtime.close()",
+            "subscription.remove()"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-9",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Write code using the Appwrite Web SDK to subscribe to realtime document changes and file uploads simultaneously, handling each event type differently.",
+          "correctAnswer": "Use client.subscribe() with an array of channels for both databases documents and storage files, then check the event string in the callback to differentiate between document and file events and handle them accordingly.",
+          "rubric": "Must mention: 1) client.subscribe() with array of channels, 2) Channel for documents (databases.[ID].collections.[ID].documents), 3) Channel for files (buckets.[ID].files), 4) Event type checking in callback, 5) Different handling logic per event type",
+          "modelAnswer": "Here is how you can use the Appwrite Web SDK to subscribe to multiple real-time channels simultaneously and route the events based on the channel that triggered them.\n\nYou can pass an array of channels to `client.subscribe()` and then inspect the `response.channels` or `response.events` arrays to determine how to handle the `payload`.\n\n```typescript\nimport { Client } from 'appwrite';\n\n// 1. Initialize the Appwrite client\nconst client = new Client()\n    .setEndpoint('https://cloud.appwrite.io/v1') // Replace with your endpoint\n    .setProject('<YOUR_PROJECT_ID>');            // Replace with your project ID\n\nconst DATABASE_ID = '<YOUR_DATABASE_ID>';\nconst TABLE_ID = '<YOUR_TABLE_ID>';\nconst BUCKET_ID = '<YOUR_BUCKET_ID>';\n\n// Define the channels you want to listen to\nconst channels = [\n    `databases.${DATABASE_ID}.tables.${TABLE_ID}.rows`,\n    `buckets.${BUCKET_ID}.files`\n];\n\n// 2. Subscribe to the channels\nconst unsubscribe = client.subscribe(channels, (response) => {\n    // The response object contains:\n    // - events: array of event strings (e.g., ['databases.*.tables.*.rows.*.create'])\n    // - channels: array of channels that matched the event\n    // - payload: the actual resource data (the row or the file object)\n    // - timestamp: ISO 8601 timestamp\n\n    // --- Handle Database Row Events ---\n    if (response.channels.includes(`databases.${DATABASE_ID}.tables.${TABLE_ID}.rows`)) {\n        console.log('📦 Database event received!');\n        \n        // You can further narrow down the specific action using response.events\n        const isCreate = response.events.some(event => event.includes('.create'));\n        const isUpdate = response.events.some(event => event.includes('.update'));\n        const isDelete = response.events.some(event => event.includes('.delete'));\n\n        if (isCreate) {\n            console.log('New row added:', response.payload);\n        } else if (isUpdate) {\n            console.log('Row updated:', response.payload);\n        } else if (isDelete) {\n            console.log('Row deleted:', response.payload);\n        }\n        return;\n    }\n\n    // --- Handle Storage File Events ---\n    if (response.channels.includes(`buckets.${BUCKET_ID}.files`)) {\n        console.log('📁 Storage event received!');\n        \n        const isCreate = response.events.some(event => event.includes('.create'));\n        const isDelete = response.events.some(event => event.includes('.delete'));\n\n        if (isCreate) {\n            console.log('New file uploaded:', response.payload);\n            // Example: payload.$id is the file ID, payload.name is the file name\n        } else if (isDelete) {\n            console.log('File deleted:', response.payload);\n        }\n        return;\n    }\n});\n\n// Optional: Call unsubscribe() when your component unmounts or you no longer need the listener\n// unsubscribe();\n```\n\n### How it works:\n1. **Multiple Channels:** By passing an array of strings to `client.subscribe()`, a single WebSocket connection is used to listen to both database and storage events, which is highly efficient.\n2. **`response.channels`**: This array tells you exactly which of your subscribed channels triggered the callback. It's the safest way to know if the `payload` is a database row or a storage file.\n3. **`response.events`**: This array contains the specific system events that occurred (e.g., `buckets.*.files.*.create`). Checking this allows you to differentiate between a file being uploaded (`.create`) versus a file being removed (`.delete`).",
+          "correct": true,
+          "score": 0.7,
+          "judgeReasoning": "The answer correctly demonstrates: 1) client.subscribe() with an array of channels, 2) A channel for storage files (buckets.[ID].files), 3) Event type checking in callback using response.events, 4) Different handling logic per event type. However, it uses incorrect terminology for the database channel - it uses 'tables' and 'rows' instead of the correct Appwrite terminology 'collections' and 'documents' (databases.[ID].collections.[ID].documents). This is a notable error since the rubric specifically requires the channel format 'databases.[ID].collections.[ID].documents'. The overall structure and approach is correct, but this terminology mistake is significant enough to reduce the score."
+        },
+        {
+          "questionId": "rt-10",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Explain the differences between Appwrite Realtime and Webhooks. When would you use each?",
+          "correctAnswer": "Realtime uses WebSockets for client-side live updates (e.g., chat apps, live dashboards), while Webhooks are server-to-server HTTP callbacks triggered by events (e.g., sending notifications, syncing with external services). Use Realtime for instant UI updates and Webhooks for backend integrations.",
+          "rubric": "Must mention: 1) Realtime uses WebSockets for client-side, 2) Webhooks use HTTP callbacks server-to-server, 3) Realtime for live UI updates, 4) Webhooks for backend/external integrations, 5) At least one concrete use case for each",
+          "modelAnswer": "Both **Appwrite Realtime** and **Webhooks** are event-driven features that allow you to react to changes in your Appwrite project (like a new user signing up, a database row being created, or a file being uploaded). However, they serve entirely different architectural purposes, use different protocols, and handle security differently.\n\nHere is a breakdown of the differences and when to use each.\n\n---\n\n### 1. Appwrite Realtime (Client-Side)\nAppwrite Realtime uses **WebSockets** to maintain a persistent, stateful connection between your Appwrite server and your client applications (Web, iOS, Android, etc.). \n\n* **How it works:** Your frontend code subscribes to specific \"channels\" (e.g., `databases.[DB_ID].tables.[TABLE_ID].rows`). When an event occurs, Appwrite pushes the update down the WebSocket connection instantly.\n* **Security & Permissions:** Realtime is **permission-aware**. It strictly respects Appwrite's document and file-level permissions. A user will *only* receive a real-time event if they have `read` access to the specific resource that was changed.\n* **Protocol:** WebSockets (ws/wss).\n\n**Example (TypeScript):**\n```typescript\nclient.subscribe('databases.[DB_ID].tables.[TABLE_ID].rows', (response) => {\n    console.log('New row added or updated:', response.payload);\n});\n```\n\n### 2. Webhooks (Server-Side)\nWebhooks use **HTTP POST requests** to send data from Appwrite to an external server or third-party API when an event occurs. \n\n* **How it works:** You configure a Webhook in the Appwrite Console (or via the Server SDK/CLI) by providing a target URL and selecting the events that should trigger it (e.g., `users.*.create`). When the event happens, Appwrite makes a stateless HTTP POST request to your URL containing the event payload.\n* **Security & Permissions:** Webhooks operate at the **system level**. They bypass user permissions entirely. If a webhook is triggered, the target server receives the data regardless of who triggered the event or what the read permissions are.\n* **Protocol:** HTTP/HTTPS.\n\n---\n\n### Key Differences at a Glance\n\n| Feature | Appwrite Realtime | Webhooks |\n| :--- | :--- | :--- |\n| **Target Audience** | Client-side apps (Browsers, Mobile apps) | Server-side apps, 3rd-party APIs |\n| **Protocol** | WebSockets (Persistent connection) | HTTP POST (Stateless request) |\n| **Permissions** | **User-scoped:** Respects document/file `read` permissions. | **System-scoped:** Bypasses permissions; sends all data to the server. |\n| **Delivery** | Pushed directly to active users currently viewing the app. | Pushed to a backend server/API endpoint. |\n| **Reliability** | If the client is offline, they miss the event (though they can fetch the latest state upon reconnecting). | Appwrite will attempt to deliver the HTTP request to your server. |\n\n---\n\n### When to use Appwrite Realtime\n\nUse Realtime when you need to update the **User Interface (UI)** instantly without requiring the user to refresh the page. \n\n**Common Use Cases:**\n* **Live Chat Applications:** Instantly displaying new messages in a chat room.\n* **Collaborative Tools:** Showing live updates on a shared document, Kanban board, or to-do list.\n* **Live Dashboards:** Updating charts, stock prices, or live sports scores.\n* **In-App Notifications:** Showing a toast notification when a user receives a friend request or an alert.\n\n### When to use Webhooks\n\nUse Webhooks when you need to trigger **backend business logic**, synchronize data with external systems, or perform tasks that require elevated privileges.\n\n**Common Use Cases:**\n* **Sending Emails/SMS:** Triggering a webhook to SendGrid or Twilio when a new user signs up (`users.*.create`) to send a welcome email.\n* **Payment Processing:** Updating a user's premium status in your database when Stripe sends a successful payment webhook, or vice versa.\n* **Data Synchronization:** Sending new database rows to Algolia, Meilisearch, or Elasticsearch to keep your full-text search indexes up to date.\n* **CI/CD & Automation:** Triggering a static site rebuild (like Vercel or Netlify) when content in your Appwrite database changes.\n\n### Summary\nThink of **Realtime** as Appwrite talking directly to your **users** (safely, respecting what they are allowed to see), and **Webhooks** as Appwrite talking to your **servers** (securely passing system-level data for backend processing).",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully covers all rubric requirements: (1) Realtime uses WebSockets for client-side connections, (2) Webhooks use HTTP POST callbacks server-to-server, (3) Realtime is for live UI updates, (4) Webhooks are for backend/external integrations, and (5) multiple concrete use cases are provided for each (chat apps, live dashboards for Realtime; sending emails, payment processing, data sync for Webhooks). The answer goes beyond the reference with additional details about permissions, reliability, and a comparison table, all of which are accurate and relevant."
+        },
+        {
+          "questionId": "cli-1",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you install the Appwrite CLI using npm?",
+          "choices": [
+            "npm install appwrite",
+            "npm install -g appwrite-cli",
+            "npm install -g @appwrite/cli",
+            "npx appwrite-cli install"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-2",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What is the standard workflow for deploying resources with the CLI?",
+          "choices": [
+            "create → build → deploy",
+            "init → modify → push",
+            "setup → configure → upload",
+            "new → edit → publish"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-3",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command initializes a new Appwrite Function via the CLI?",
+          "choices": [
+            "appwrite create function",
+            "appwrite new function",
+            "appwrite init function",
+            "appwrite functions init"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-4",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What configuration file does the Appwrite CLI use?",
+          "choices": [
+            "appwrite.config.js",
+            ".appwriterc",
+            "appwrite.yaml",
+            "appwrite.json"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-5",
+          "category": "cli",
+          "type": "mcq",
+          "question": "Which flag makes CLI commands non-interactive for CI/CD?",
+          "choices": [
+            "--yes",
+            "--force",
+            "--ci",
+            "--non-interactive"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-6",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command deploys functions to Appwrite?",
+          "choices": [
+            "appwrite deploy functions",
+            "appwrite functions deploy",
+            "appwrite push functions",
+            "appwrite upload functions"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-7",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you run functions locally for development?",
+          "choices": [
+            "appwrite functions serve",
+            "appwrite dev function",
+            "appwrite run function",
+            "appwrite local function"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-8",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command pulls existing remote resources into your local project?",
+          "choices": [
+            "appwrite fetch",
+            "appwrite sync",
+            "appwrite download",
+            "appwrite pull"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-9",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Explain how to set up a CI/CD pipeline using the Appwrite CLI. What commands and flags are needed for non-interactive deployment?",
+          "correctAnswer": "Set up API key authentication with environment variables, use appwrite login with --endpoint and --key flags, then run appwrite push with --force flag for non-interactive deployment. Configure these as CI/CD pipeline steps.",
+          "rubric": "Must mention: 1) API key or service account authentication, 2) --force flag for non-interactive mode, 3) appwrite push command, 4) Environment variable configuration, 5) Login/authentication step in the pipeline",
+          "modelAnswer": "To set up a CI/CD pipeline using the Appwrite CLI, you need to use its **Non-Interactive Mode**. This allows you to authenticate and deploy resources headlessly without requiring manual browser logins or interactive terminal prompts.\n\nHere is how to configure your pipeline and the exact commands and flags you need.\n\n### Step 1: Authenticate Non-Interactively\nIn a CI/CD environment, you cannot use `appwrite login`. Instead, you must configure the CLI using an API Key. \n\nYou should store your API Key and Project ID as secure environment variables (secrets) in your CI/CD platform (e.g., GitHub Actions, GitLab CI). Then, run the following command to configure the CLI:\n\n```bash\nappwrite client \\\n    --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n    --project-id <PROJECT_ID> \\\n    --key <API_KEY>\n```\n*Note: Replace `<REGION>` with your Appwrite Cloud region, or use your custom endpoint if you are self-hosting.*\n\n### Step 2: Deploy Resources\nTo deploy resources without the CLI asking for confirmation, you must use the `--force` (or `-f`) flag to automatically accept all warnings, and the `--all` (or `-a`) flag to select all resources of a given type.\n\nMake sure your `appwrite.config.json` file is committed to your repository, as the CLI uses this file to know what to deploy.\n\n**To deploy absolutely everything in your `appwrite.config.json`:**\n```bash\nappwrite push all --all --force\n```\n\n**To deploy specific resources:**\nIf you only want to deploy certain parts of your project (for example, just your functions or databases), you can target them specifically:\n\n```bash\n# Deploy all functions\nappwrite push functions --all --force\n\n# Deploy a specific function by its ID\nappwrite push functions --function-id <FUNCTION_ID> --force\n\n# Deploy all databases and tables\nappwrite push tables --all --force\n\n# Deploy all storage buckets\nappwrite push buckets --all --force\n\n# Deploy all sites\nappwrite push sites --all --force\n\n# Deploy all teams\nappwrite push teams --all --force\n\n# Deploy all messaging topics\nappwrite push topics --all --force\n```\n\n### Example: GitHub Actions Workflow\nHere is a quick example of how this looks in a standard CI/CD pipeline like GitHub Actions:\n\n```yaml\nname: Deploy to Appwrite\n\non:\n  push:\n    branches:\n      - main\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v3\n\n      - name: Install Appwrite CLI\n        run: npm install -g appwrite-cli\n\n      - name: Configure Appwrite CLI\n        run: |\n          appwrite client \\\n            --endpoint https://cloud.appwrite.io/v1 \\\n            --project-id ${{ secrets.APPWRITE_PROJECT_ID }} \\\n            --key ${{ secrets.APPWRITE_API_KEY }}\n\n      - name: Deploy All Resources\n        run: appwrite push all --all --force\n```\n\n### Summary of Required Flags\n*   `--force` (`-f`): Bypasses interactive confirmation prompts.\n*   `--all` (`-a`): Selects all resources defined in your `appwrite.config.json` for the specified command.\n*   `--id`: (Optional) Used if you want to pass a specific list of IDs instead of using `--all`.",
+          "correct": true,
+          "score": 0.9,
+          "judgeReasoning": "The model's answer covers all 5 rubric criteria: 1) API key authentication is clearly explained, 2) --force flag for non-interactive mode is mentioned and explained, 3) appwrite push command is covered extensively, 4) environment variable configuration is mentioned (storing secrets in CI/CD platform), 5) authentication step in the pipeline is covered. The answer goes beyond the reference by providing detailed examples, GitHub Actions workflow, and additional flags like --all. The only minor discrepancy is using 'appwrite client' instead of 'appwrite login' for authentication, which is actually the correct non-interactive approach. The answer is comprehensive and accurate."
+        },
+        {
+          "questionId": "cli-10",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "modelAnswer": "Here is the complete workflow for creating, configuring, and deploying an Appwrite Function using the Appwrite CLI. \n\n*Note: Appwrite uses `appwrite.config.json` (rather than `appwrite.json`) at the root of your project to store configuration.*\n\n### Step 1: Initialize the Function\nTo create a new function, open your terminal at the root of your Appwrite project and run:\n\n```bash\nappwrite init functions\n```\nThe CLI will prompt you to:\n1. Name your function (e.g., `userAuth`).\n2. Choose a runtime (e.g., Node.js, Python, Dart, etc.).\n3. Select the folder name for your function.\n\nThis command generates the boilerplate code for your function and automatically registers it in your `appwrite.config.json` file.\n\n*(If you already created a function in the Appwrite Console and want to bring it into your local project, you can run `appwrite pull functions` instead).*\n\n### Step 2: Configure `appwrite.config.json`\nWhen the function is initialized, the CLI updates the `functions` array in your `appwrite.config.json` file. You can manually edit this file to configure how your function builds and triggers.\n\nHere are the key configuration options:\n\n```json\n{\n    \"functions\": [\n        {\n            \"$id\": \"<FUNCTION_ID>\",\n            \"name\": \"userAuth\",\n            \"runtime\": \"node-18.0\",\n            \"path\": \"functions/userAuth\",\n            \"entrypoint\": \"src/main.js\",\n            \"commands\": \"npm install\",\n            \"events\": [\"users.*.create\"],\n            \"schedule\": \"0 0 * * *\",\n            \"timeout\": 15,\n            \"enabled\": true,\n            \"logging\": true,\n            \"vars\": []\n        }\n    ]\n}\n```\n\n**Key Configuration Options:**\n*   **`path`**: The relative path to your function's source code folder.\n*   **`entrypoint`**: The file Appwrite should execute when the function is triggered (e.g., `src/main.js` or `main.py`).\n*   **`commands`**: The build commands executed before deployment (e.g., `npm install` or `pip install -r requirements.txt`).\n*   **`events`**: An array of Appwrite system events that will automatically trigger the function (e.g., `users.*.create` to run when a new user signs up).\n*   **`schedule`**: A CRON expression to trigger the function on a recurring schedule (e.g., `0 0 * * *` for daily).\n*   **`timeout`**: Maximum allowed execution time in seconds (default is usually 15).\n*   **`vars`**: An array of environment variables required by the function.\n\n### Step 3: Local Development (Optional)\nWhile writing your function's code, you can test it locally without deploying it to your live Appwrite instance by running:\n\n```bash\nappwrite run functions\n```\n\n### Step 4: Deploy the Function\nOnce your code is ready and your `appwrite.config.json` is configured, deploy the function to your Appwrite project using the `push` command:\n\n```bash\nappwrite push functions\n```\nThe CLI will package your code from the specified `\"path\"`, run the `\"commands\"` to build it, and deploy it to the Appwrite server. \n\n*(If you want to bypass interactive prompts in a CI/CD pipeline, you can use `appwrite push functions --all --force`)*.\n\n### Step 5: Execute the Function (Optional)\nIf your function is not triggered by an event or a schedule, you can manually trigger an execution directly from the CLI to test it:\n\n```bash\nappwrite functions create-execution \\\n    --function-id <FUNCTION_ID> \\\n    --body '{\"key\": \"value\"}'\n```\n\nYou can then check the execution logs using:\n```bash\nappwrite functions list-executions --function-id <FUNCTION_ID>\n```",
+          "correct": true,
+          "score": 0.9,
+          "judgeReasoning": "The answer covers all 5 required rubric points: 1) appwrite init functions to scaffold, 2) runtime selection during initialization, 3) detailed appwrite.json configuration options (though incorrectly calls it appwrite.config.json - the actual file is appwrite.json), 4) local development with appwrite run functions, 5) deployment with appwrite push functions. The answer is comprehensive and well-structured with additional useful details like CI/CD flags and manual execution. The only notable issue is the incorrect claim that the config file is named 'appwrite.config.json' rather than 'appwrite.json', which is factually wrong but doesn't detract from the overall workflow description significantly."
         }
       ]
     },
@@ -1127,7 +1437,9 @@
         "functions": 98.5,
         "storage": 100,
         "sites": 100,
-        "messaging": 99.5
+        "messaging": 99.5,
+        "realtime": 97,
+        "cli": 96
       },
       "mcqScores": {
         "fundamental": 100,
@@ -1136,7 +1448,9 @@
         "functions": 100,
         "storage": 100,
         "sites": 100,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 100,
+        "cli": 100
       },
       "freeformScores": {
         "fundamental": 100,
@@ -1145,14 +1459,16 @@
         "functions": 92.5,
         "storage": 100,
         "sites": 100,
-        "messaging": 97.5
+        "messaging": 97.5,
+        "realtime": 85,
+        "cli": 80
       },
-      "overall": 99.2,
+      "overall": 98.6,
       "mcqOverall": 100,
-      "freeformOverall": 95.8,
-      "totalQuestions": 70,
-      "totalCorrect": 70,
-      "runDate": "2026-03-02T17:16:28.783Z",
+      "freeformOverall": 92.6,
+      "totalQuestions": 90,
+      "totalCorrect": 90,
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2221,6 +2537,310 @@
           "modelAnswer": "B",
           "correct": true,
           "score": 1
+        },
+        {
+          "questionId": "rt-1",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What protocol does Appwrite Realtime use?",
+          "choices": [
+            "HTTP Long Polling",
+            "WebSocket",
+            "Server-Sent Events (SSE)",
+            "gRPC streaming"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-2",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which method subscribes to realtime events in the Web SDK?",
+          "choices": [
+            "client.realtime(channels)",
+            "client.subscribe(channels, callback)",
+            "client.on(event, handler)",
+            "client.listen(channels)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-3",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens when you subscribe to a new channel on an existing connection?",
+          "choices": [
+            "The new channel is added to the existing connection",
+            "An error is thrown because only one subscription is allowed",
+            "Connection is recreated (old closed, new opened)",
+            "A separate parallel connection is opened"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-4",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which of these is a valid Realtime channel?",
+          "choices": [
+            "realtime.documents.[DOCUMENT_ID]",
+            "databases.[DB_ID].collections.[COLL_ID].documents",
+            "subscribe.databases.collections",
+            "events.databases.documents.create"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-5",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What does the Realtime response payload contain for a document event?",
+          "choices": [
+            "Only the document $id and the event type",
+            "The document data including $id, $createdAt, $updatedAt, and custom fields",
+            "A reference URL to fetch the document",
+            "Only the fields that changed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-6",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How is authentication handled for Realtime connections?",
+          "choices": [
+            "Through an API key passed as a query parameter",
+            "Through a separate authentication WebSocket",
+            "Through cookies/session tokens passed during WebSocket handshake",
+            "Authentication is not supported for Realtime"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-7",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens if a user authenticates after creating a Realtime subscription?",
+          "choices": [
+            "The subscription automatically updates with the new permissions",
+            "Subscription must be recreated to receive events for the authenticated user",
+            "An authentication event is fired on the existing subscription",
+            "The server rejects the authentication until the subscription is closed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-8",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How do you unsubscribe from a Realtime channel in the Web SDK?",
+          "choices": [
+            "client.unsubscribe(channel)",
+            "Call the function returned by `client.subscribe()`",
+            "client.realtime.close()",
+            "subscription.remove()"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-9",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Write code using the Appwrite Web SDK to subscribe to realtime document changes and file uploads simultaneously, handling each event type differently.",
+          "correctAnswer": "Use client.subscribe() with an array of channels for both databases documents and storage files, then check the event string in the callback to differentiate between document and file events and handle them accordingly.",
+          "rubric": "Must mention: 1) client.subscribe() with array of channels, 2) Channel for documents (databases.[ID].collections.[ID].documents), 3) Channel for files (buckets.[ID].files), 4) Event type checking in callback, 5) Different handling logic per event type",
+          "modelAnswer": "```ts\nimport { Client } from \"appwrite\";\n\n// 1) Init Appwrite client\nconst client = new Client()\n  .setEndpoint(\"https://<REGION>.cloud.appwrite.io/v1\")\n  .setProject(\"<PROJECT_ID>\");\n\nconst DATABASE_ID = \"<DATABASE_ID>\";\nconst TABLE_ID = \"<TABLE_ID>\";\nconst BUCKET_ID = \"<BUCKET_ID>\";\n\n// 2) Subscribe to BOTH channels at once\nconst unsubscribe = client.subscribe(\n  [\n    `databases.${DATABASE_ID}.tables.${TABLE_ID}.rows`, // document/row changes\n    `buckets.${BUCKET_ID}.files`,                       // file uploads/changes\n  ],\n  (event) => {\n    const { events, payload, channels } = event;\n\n    const isRowEvent = channels.some((c) =>\n      c.startsWith(`databases.${DATABASE_ID}.tables.${TABLE_ID}.rows`)\n    );\n\n    const isFileEvent = channels.some((c) =>\n      c.startsWith(`buckets.${BUCKET_ID}.files`)\n    );\n\n    // 3) Handle row (document) events\n    if (isRowEvent) {\n      if (events.some((e) => e.endsWith(\".create\"))) {\n        console.log(\"🆕 Row created:\", payload);\n      } else if (events.some((e) => e.endsWith(\".update\"))) {\n        console.log(\"✏️ Row updated:\", payload);\n      } else if (events.some((e) => e.endsWith(\".delete\"))) {\n        console.log(\"🗑️ Row deleted:\", payload);\n      } else {\n        console.log(\"📄 Row event:\", events, payload);\n      }\n      return;\n    }\n\n    // 4) Handle file events (uploads are .create)\n    if (isFileEvent) {\n      if (events.some((e) => e.endsWith(\".create\"))) {\n        console.log(\"📤 File uploaded:\", payload);\n      } else if (events.some((e) => e.endsWith(\".update\"))) {\n        console.log(\"🧾 File metadata updated:\", payload);\n      } else if (events.some((e) => e.endsWith(\".delete\"))) {\n        console.log(\"❌ File deleted:\", payload);\n      } else {\n        console.log(\"📁 File event:\", events, payload);\n      }\n    }\n  }\n);\n\n// Later (cleanup): call unsubscribe()\n// unsubscribe();\n```\n\nIf you want, I can also give you a React hook version (`useEffect`) with automatic cleanup.",
+          "correct": true,
+          "score": 0.7,
+          "judgeReasoning": "The answer correctly uses client.subscribe() with an array of channels (criterion 1), includes a channel for files using buckets.[ID].files format (criterion 3), checks event types in the callback (criterion 4), and handles different event types differently (criterion 5). However, the document channel uses 'databases.[ID].tables.[ID].rows' instead of the correct Appwrite format 'databases.[ID].collections.[ID].documents' (criterion 2 is wrong). Appwrite uses 'collections' not 'tables', and 'documents' not 'rows'. This is a notable error in the channel naming convention for documents, though the overall structure and approach is correct."
+        },
+        {
+          "questionId": "rt-10",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Explain the differences between Appwrite Realtime and Webhooks. When would you use each?",
+          "correctAnswer": "Realtime uses WebSockets for client-side live updates (e.g., chat apps, live dashboards), while Webhooks are server-to-server HTTP callbacks triggered by events (e.g., sending notifications, syncing with external services). Use Realtime for instant UI updates and Webhooks for backend integrations.",
+          "rubric": "Must mention: 1) Realtime uses WebSockets for client-side, 2) Webhooks use HTTP callbacks server-to-server, 3) Realtime for live UI updates, 4) Webhooks for backend/external integrations, 5) At least one concrete use case for each",
+          "modelAnswer": "Great question — they solve different problems.\n\n## Quick difference\n\n- **Realtime** = live event stream to connected clients (usually app UI) over a persistent connection.\n- **Webhooks** = server-to-server HTTP callbacks sent when events happen (for backend automation/integrations).\n\n---\n\n## Appwrite Realtime\n\nUse Realtime when your app needs to **update immediately in the UI**.\n\nExamples:\n- New chat message appears instantly\n- Live dashboard counters update\n- Reacting to row/file/team changes while user is online\n\nCharacteristics:\n- Client subscribes to channels (e.g. `databases.[DB_ID].tables.[TABLE_ID].rows`)\n- Best for **interactive, low-latency UX**\n- Works while the client is connected/subscribed\n- Not meant to be your durable background integration pipeline\n\n---\n\n## Appwrite Webhooks\n\nUse Webhooks when you need to **trigger backend logic outside Appwrite**.\n\nExamples:\n- Send data to Stripe/HubSpot/Slack\n- Start CI/CD workflow\n- Audit logging in your own backend\n- Trigger long-running business logic on your server\n\nCharacteristics:\n- Appwrite sends an HTTP request to your endpoint when an event occurs\n- Best for **automation, integrations, and backend side effects**\n- Runs without a user being online\n- Better fit for server workflows than UI updates\n\n---\n\n## When to use each\n\n- Use **Realtime** for: “User should see this change now.”\n- Use **Webhooks** for: “A server/system should do something when this happens.”\n\nYou can also use both:\n- Realtime updates the UI instantly\n- Webhook kicks off backend processing for the same event",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully covers all rubric requirements: (1) Realtime uses persistent connections (WebSockets implied) for client-side updates, (2) Webhooks use HTTP callbacks server-to-server, (3) Realtime is for live UI updates, (4) Webhooks are for backend/external integrations, and (5) multiple concrete use cases are provided for each (chat messages, dashboards for Realtime; Stripe/Slack/CI-CD for Webhooks). The answer is well-structured, accurate, and even adds value by noting they can be used together."
+        },
+        {
+          "questionId": "cli-1",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you install the Appwrite CLI using npm?",
+          "choices": [
+            "npm install appwrite",
+            "npm install -g appwrite-cli",
+            "npm install -g @appwrite/cli",
+            "npx appwrite-cli install"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-2",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What is the standard workflow for deploying resources with the CLI?",
+          "choices": [
+            "create → build → deploy",
+            "init → modify → push",
+            "setup → configure → upload",
+            "new → edit → publish"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-3",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command initializes a new Appwrite Function via the CLI?",
+          "choices": [
+            "appwrite create function",
+            "appwrite new function",
+            "appwrite init function",
+            "appwrite functions init"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-4",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What configuration file does the Appwrite CLI use?",
+          "choices": [
+            "appwrite.config.js",
+            ".appwriterc",
+            "appwrite.yaml",
+            "appwrite.json"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-5",
+          "category": "cli",
+          "type": "mcq",
+          "question": "Which flag makes CLI commands non-interactive for CI/CD?",
+          "choices": [
+            "--yes",
+            "--force",
+            "--ci",
+            "--non-interactive"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-6",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command deploys functions to Appwrite?",
+          "choices": [
+            "appwrite deploy functions",
+            "appwrite functions deploy",
+            "appwrite push functions",
+            "appwrite upload functions"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-7",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you run functions locally for development?",
+          "choices": [
+            "appwrite functions serve",
+            "appwrite dev function",
+            "appwrite run function",
+            "appwrite local function"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-8",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command pulls existing remote resources into your local project?",
+          "choices": [
+            "appwrite fetch",
+            "appwrite sync",
+            "appwrite download",
+            "appwrite pull"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-9",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Explain how to set up a CI/CD pipeline using the Appwrite CLI. What commands and flags are needed for non-interactive deployment?",
+          "correctAnswer": "Set up API key authentication with environment variables, use appwrite login with --endpoint and --key flags, then run appwrite push with --force flag for non-interactive deployment. Configure these as CI/CD pipeline steps.",
+          "rubric": "Must mention: 1) API key or service account authentication, 2) --force flag for non-interactive mode, 3) appwrite push command, 4) Environment variable configuration, 5) Login/authentication step in the pipeline",
+          "modelAnswer": "Great question. For CI/CD, Appwrite CLI supports a **headless (non-interactive) mode** so your pipeline can deploy without `appwrite login` prompts.\n\n## 1) Install Appwrite CLI in your pipeline\n\n```bash\nnpm install -g appwrite-cli\nappwrite -v\n```\n\n(Use Homebrew/script/Scoop if your runner prefers those.)\n\n## 2) Authenticate non-interactively (required)\n\nUse an API key + project + endpoint:\n\n```bash\nappwrite client \\\n  --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n  --project-id <PROJECT_ID> \\\n  --key <API_KEY>\n```\n\nThis is the key step for CI/CD.  \nIt avoids local sessions and works in headless runners.\n\n## 3) Deploy resources\n\n### Deploy everything\n```bash\nappwrite push all --all --force\n```\n\n### Deploy specific resource types\n```bash\nappwrite push functions --all --force\nappwrite push sites --all --force\nappwrite push tables --all --force\nappwrite push teams --all --force\nappwrite push buckets --all --force\nappwrite push topics --all --force\n```\n\n### Deploy one specific function\n```bash\nappwrite push functions --function-id <FUNCTION_ID> --force\n```\n\n---\n\n## Flags you’ll use most in CI/CD\n\n- `--all` (`-a`): select all resources of that type\n- `--force` (`-f`): auto-confirm warnings/prompts\n- `--json` (`-j`): machine-readable output (useful for logs/parsing)\n- `--verbose` (`-V`): full error output for debugging failures\n\n---\n\n## Practical CI tips\n\n- Store `<API_KEY>`, `<PROJECT_ID>`, and endpoint as **CI secrets/env vars**\n- Commit and maintain `appwrite.config.json` in repo (for `push` workflows)\n- Use `--verbose` on failure steps for easier troubleshooting\n\nIf you want, I can also provide a ready-to-use GitHub Actions workflow file.",
+          "correct": true,
+          "score": 0.9,
+          "judgeReasoning": "The answer covers all 5 rubric criteria: 1) API key authentication via `appwrite client --key`, 2) --force flag for non-interactive mode, 3) appwrite push command with various examples, 4) environment variable configuration mentioned in CI tips, 5) authentication step using `appwrite client` instead of `appwrite login`. The main minor deviation is using `appwrite client` instead of `appwrite login --endpoint --key`, but this is a valid alternative approach for non-interactive CI/CD. The answer is comprehensive and practical, covering additional useful flags and deployment patterns."
+        },
+        {
+          "questionId": "cli-10",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "modelAnswer": "Great question. Here’s the **end-to-end CLI workflow** for Appwrite Functions.\n\n> Small naming note: the CLI uses **`appwrite.config.json`** (not `appwrite.json`).\n\n---\n\n## 1) Install and authenticate CLI\n\n```bash\nnpm install -g appwrite-cli\nappwrite -v\nappwrite login\n# or self-hosted:\n# appwrite login --endpoint \"https://your-instance.com/v1\"\n```\n\nIf needed, set client config explicitly:\n\n```bash\nappwrite client --endpoint https://<REGION>.cloud.appwrite.io/v1\nappwrite client --key <API_KEY>\n```\n\n---\n\n## 2) Initialize your project\n\nIn your project root:\n\n```bash\nappwrite init project\n```\n\nThis creates `appwrite.config.json` with project metadata and resource arrays.\n\n---\n\n## 3) Initialize Function scaffolding\n\n```bash\nappwrite init functions\n```\n\nThis adds a function entry to `appwrite.config.json` and creates function folder/files.\n\nIf your function already exists in Console, you can import it instead:\n\n```bash\nappwrite pull functions\n```\n\n---\n\n## 4) Configure Function in `appwrite.config.json`\n\nA function entry looks like:\n\n```json\n{\n  \"functions\": [\n    {\n      \"$id\": \"<FUNCTION_ID>\",\n      \"name\": \"userAuth\",\n      \"enabled\": true,\n      \"live\": true,\n      \"logging\": true,\n      \"runtime\": \"node-18.0\",\n      \"deployment\": \"<DEPLOYMENT_ID>\",\n      \"vars\": [],\n      \"events\": [],\n      \"schedule\": \"\",\n      \"timeout\": 15,\n      \"entrypoint\": \"userAuth.js\",\n      \"commands\": \"npm install\",\n      \"version\": \"v3\",\n      \"path\": \"functions/userAuth\"\n    }\n  ]\n}\n```\n\n### Key options (what to set carefully)\n- **`$id`**: Function ID.\n- **`name`**: Display name.\n- **`enabled`**: Turn function on/off.\n- **`live`**: Whether it serves live traffic.\n- **`logging`**: Store execution logs.\n- **`runtime`**: Runtime (check available via `appwrite functions list-runtimes`).\n- **`vars`**: Environment variables.\n- **`events`**: Event triggers.\n- **`schedule`**: Cron schedule for timed execution.\n- **`timeout`**: Max execution time in seconds.\n- **`entrypoint`**: Main source file.\n- **`commands`**: Build/install commands run during deployment.\n- **`deployment`**: Active deployment ID (managed after deploy).\n- **`path`**: Local folder containing function code.\n- **`version`**: Config/runtime version marker.\n\n---\n\n## 5) Deploy Function\n\n```bash\nappwrite push functions\n```\n\nThis uploads and deploys functions defined in config.\n\nUseful alternatives:\n```bash\nappwrite push functions --all --force\nappwrite push functions --function-id <FUNCTION_ID> --force\n```\n\n---\n\n## 6) Test and verify\n\n### Trigger execution manually\n```bash\nappwrite functions create-execution --function-id <FUNCTION_ID>\n```\n\nWith JSON body:\n```bash\nappwrite functions create-execution \\\n  --function-id <FUNCTION_ID> \\\n  --body '{\"key\":\"value\"}'\n```\n\n### Check logs/executions\n```bash\nappwrite functions list-executions --function-id <FUNCTION_ID>\nappwrite functions get-execution --function-id <FUNCTION_ID> --execution-id <EXECUTION_ID>\n```\n\n---\n\n## 7) Local development loop (optional)\n\n```bash\nappwrite run functions\n```\n\nUse this while iterating, then `appwrite push functions` for remote deploy.\n\n---\n\n## 8) CI/CD (non-interactive)\n\nFor pipelines, configure client once (no interactive login/session):\n\n```bash\nappwrite client \\\n  --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n  --project-id <PROJECT_ID> \\\n  --key <API_KEY>\n```\n\nThen deploy:\n\n```bash\nappwrite push functions --all --force\n```\n\n---\n\nIf you want, I can also give you a **minimal real `appwrite.config.json` template** for Node, Python, or Go functions you can paste directly.",
+          "correct": true,
+          "score": 0.7,
+          "judgeReasoning": "The answer covers most of the required rubric points: (1) appwrite init functions for scaffolding, (2) runtime selection is mentioned in the config options, (3) appwrite.json configuration options are detailed (though incorrectly named as appwrite.config.json - the actual file is appwrite.json), (4) local development with 'appwrite run functions' is mentioned in step 7 (though the reference uses 'appwrite run function' singular), and (5) deployment with 'appwrite push functions' is covered. The answer is comprehensive and detailed. The main issues are: the incorrect claim that the file is named 'appwrite.config.json' rather than 'appwrite.json', and the local development command is mentioned only briefly at the end rather than as a primary workflow step. The execute permissions configuration is also missing from the appwrite.json example. Despite these issues, all 5 rubric points are addressed, earning a reasonably high score, but the incorrect filename claim is a notable error."
         }
       ]
     },
@@ -2236,7 +2856,9 @@
         "functions": 100,
         "storage": 99.5,
         "sites": 100,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 95,
+        "cli": 98.5
       },
       "mcqScores": {
         "fundamental": 100,
@@ -2245,7 +2867,9 @@
         "functions": 100,
         "storage": 100,
         "sites": 100,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 100,
+        "cli": 100
       },
       "freeformScores": {
         "fundamental": 100,
@@ -2254,14 +2878,16 @@
         "functions": 100,
         "storage": 97.5,
         "sites": 100,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 75,
+        "cli": 92.5
       },
-      "overall": 99.9,
+      "overall": 99.2,
       "mcqOverall": 100,
-      "freeformOverall": 99.6,
-      "totalQuestions": 70,
-      "totalCorrect": 70,
-      "runDate": "2026-03-02T17:16:28.783Z",
+      "freeformOverall": 95.9,
+      "totalQuestions": 90,
+      "totalCorrect": 90,
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -3330,6 +3956,310 @@
           "modelAnswer": "B",
           "correct": true,
           "score": 1
+        },
+        {
+          "questionId": "rt-1",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What protocol does Appwrite Realtime use?",
+          "choices": [
+            "HTTP Long Polling",
+            "WebSocket",
+            "Server-Sent Events (SSE)",
+            "gRPC streaming"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-2",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which method subscribes to realtime events in the Web SDK?",
+          "choices": [
+            "client.realtime(channels)",
+            "client.subscribe(channels, callback)",
+            "client.on(event, handler)",
+            "client.listen(channels)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-3",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens when you subscribe to a new channel on an existing connection?",
+          "choices": [
+            "The new channel is added to the existing connection",
+            "An error is thrown because only one subscription is allowed",
+            "Connection is recreated (old closed, new opened)",
+            "A separate parallel connection is opened"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-4",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which of these is a valid Realtime channel?",
+          "choices": [
+            "realtime.documents.[DOCUMENT_ID]",
+            "databases.[DB_ID].collections.[COLL_ID].documents",
+            "subscribe.databases.collections",
+            "events.databases.documents.create"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-5",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What does the Realtime response payload contain for a document event?",
+          "choices": [
+            "Only the document $id and the event type",
+            "The document data including $id, $createdAt, $updatedAt, and custom fields",
+            "A reference URL to fetch the document",
+            "Only the fields that changed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-6",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How is authentication handled for Realtime connections?",
+          "choices": [
+            "Through an API key passed as a query parameter",
+            "Through a separate authentication WebSocket",
+            "Through cookies/session tokens passed during WebSocket handshake",
+            "Authentication is not supported for Realtime"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-7",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens if a user authenticates after creating a Realtime subscription?",
+          "choices": [
+            "The subscription automatically updates with the new permissions",
+            "Subscription must be recreated to receive events for the authenticated user",
+            "An authentication event is fired on the existing subscription",
+            "The server rejects the authentication until the subscription is closed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-8",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How do you unsubscribe from a Realtime channel in the Web SDK?",
+          "choices": [
+            "client.unsubscribe(channel)",
+            "Call the function returned by `client.subscribe()`",
+            "client.realtime.close()",
+            "subscription.remove()"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-9",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Write code using the Appwrite Web SDK to subscribe to realtime document changes and file uploads simultaneously, handling each event type differently.",
+          "correctAnswer": "Use client.subscribe() with an array of channels for both databases documents and storage files, then check the event string in the callback to differentiate between document and file events and handle them accordingly.",
+          "rubric": "Must mention: 1) client.subscribe() with array of channels, 2) Channel for documents (databases.[ID].collections.[ID].documents), 3) Channel for files (buckets.[ID].files), 4) Event type checking in callback, 5) Different handling logic per event type",
+          "modelAnswer": "\n\n```typescript\nimport { Client, TablesDB, Storage, ID, Query } from 'appwrite';\n\n// Initialize the client\nconst client = new Client()\n    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1')\n    .setProject('[PROJECT_ID]');\n\nconst tablesDB = new TablesDB(client);\nconst storage = new Storage(client);\n\n// Subscribe to both row changes and file uploads simultaneously\nconst unsubscribe = client.subscribe(\n    [\n        'databases.[DATABASE_ID].tables.[TABLE_ID].rows',\n        'buckets.[BUCKET_ID].files',\n    ],\n    (response) => {\n        const { events, payload, channels, timestamp } = response;\n\n        // Handle row (document) events\n        if (events.some((e) => e.includes('.rows.'))) {\n            if (events.some((e) => e.endsWith('.create'))) {\n                console.log('Row created:', payload.$id);\n                handleRowCreated(payload);\n            } else if (events.some((e) => e.endsWith('.update'))) {\n                console.log('Row updated:', payload.$id);\n                handleRowUpdated(payload);\n            } else if (events.some((e) => e.endsWith('.delete'))) {\n                console.log('Row deleted:', payload.$id);\n                handleRowDeleted(payload);\n            }\n        }\n\n        // Handle file events\n        if (events.some((e) => e.includes('.files.'))) {\n            if (events.some((e) => e.endsWith('.create'))) {\n                console.log('File uploaded:', payload.$id, payload.name);\n                handleFileUploaded(payload);\n            } else if (events.some((e) => e.endsWith('.update'))) {\n                console.log('File updated:', payload.$id);\n                handleFileUpdated(payload);\n            } else if (events.some((e) => e.endsWith('.delete'))) {\n                console.log('File deleted:', payload.$id);\n                handleFileDeleted(payload);\n            }\n        }\n\n        console.log(`Event at ${timestamp} on channels:`, channels);\n    }\n);\n\n// --- Row event handlers ---\n\nfunction handleRowCreated(row: Record<string, any>) {\n    // e.g., append to a list in the UI\n    const listEl = document.getElementById('row-list');\n    if (listEl) {\n        const item = document.createElement('li');\n        item.id = `row-${row.$id}`;\n        item.textContent = row.title ?? row.$id;\n        listEl.appendChild(item);\n    }\n}\n\nfunction handleRowUpdated(row: Record<string, any>) {\n    // e.g., update the existing item in the UI\n    const item = document.getElementById(`row-${row.$id}`);\n    if (item) {\n        item.textContent = row.title ?? row.$id;\n    }\n}\n\nfunction handleRowDeleted(row: Record<string, any>) {\n    // e.g., remove the item from the UI\n    const item = document.getElementById(`row-${row.$id}`);\n    if (item) {\n        item.remove();\n    }\n}\n\n// --- File event handlers ---\n\nfunction handleFileUploaded(file: Record<string, any>) {\n    // e.g., show a preview of the uploaded file\n    const gallery = document.getElementById('file-gallery');\n    if (gallery) {\n        const preview = document.createElement('div');\n        preview.id = `file-${file.$id}`;\n\n        const img = document.createElement('img');\n        img.src = storage.getFilePreview({\n            bucketId: '[BUCKET_ID]',\n            fileId: file.$id,\n            width: 200,\n            height: 200,\n        }).toString();\n        img.alt = file.name;\n\n        const label = document.createElement('span');\n        label.textContent = `${file.name} (${(file.sizeOriginal / 1024).toFixed(1)} KB)`;\n\n        preview.appendChild(img);\n        preview.appendChild(label);\n        gallery.appendChild(preview);\n    }\n}\n\nfunction handleFileUpdated(file: Record<string, any>) {\n    const label = document.querySelector(`#file-${file.$id} span`);\n    if (label) {\n        label.textContent = `${file.name} (${(file.sizeOriginal / 1024).toFixed(1)} KB)`;\n    }\n}\n\nfunction handleFileDeleted(file: Record<string, any>) {\n    const preview = document.getElementById(`file-${file.$id}`);\n    if (preview) {\n        preview.remove();\n    }\n}\n\n// --- Cleanup when no longer needed (e.g., component unmount) ---\n// unsubscribe();\n```\n\n**Key points:**\n\n- **Single `subscribe` call** with an array of two channels handles both row changes and file uploads through one WebSocket connection.\n- **Event routing** uses `events.some()` to check the event strings — `.rows.` vs `.files.` distinguishes the resource type, and the `.create` / `.update` / `.delete` suffix identifies the action.\n- The `response` object provides `events` (array of matched event strings), `payload` (the affected resource with all its fields), `channels` (which subscribed channels matched), and `timestamp` (ISO 8601).\n- Call `unsubscribe()` to close the subscription when you no longer need it (e.g., on component unmount in React/Vue/Svelte).",
+          "correct": true,
+          "score": 0.5,
+          "judgeReasoning": "The answer demonstrates the core concepts correctly: using client.subscribe() with an array of channels, subscribing to both document/row and file channels simultaneously, and handling different event types in the callback. However, there are notable issues: 1) The channel format for documents uses 'databases.[DATABASE_ID].tables.[TABLE_ID].rows' instead of the correct Appwrite format 'databases.[ID].collections.[ID].documents'. Appwrite uses 'collections' not 'tables', and 'documents' not 'rows'. 2) The import uses 'TablesDB' which is not a real Appwrite SDK class - it should be 'Databases'. 3) The channel for files ('buckets.[BUCKET_ID].files') is correct. 4) Event type checking in the callback is present and well-implemented. 5) Different handling logic per event type is clearly demonstrated. The answer gets partial credit for the correct structure and concepts, but the wrong channel format for documents and incorrect SDK class names are significant errors."
+        },
+        {
+          "questionId": "rt-10",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Explain the differences between Appwrite Realtime and Webhooks. When would you use each?",
+          "correctAnswer": "Realtime uses WebSockets for client-side live updates (e.g., chat apps, live dashboards), while Webhooks are server-to-server HTTP callbacks triggered by events (e.g., sending notifications, syncing with external services). Use Realtime for instant UI updates and Webhooks for backend integrations.",
+          "rubric": "Must mention: 1) Realtime uses WebSockets for client-side, 2) Webhooks use HTTP callbacks server-to-server, 3) Realtime for live UI updates, 4) Webhooks for backend/external integrations, 5) At least one concrete use case for each",
+          "modelAnswer": "# Appwrite Realtime vs Webhooks\n\nThese are two distinct mechanisms for reacting to events in Appwrite, designed for different architectures and use cases.\n\n---\n\n## Realtime (Client-Side Subscriptions)\n\nRealtime uses **WebSocket connections** initiated from client-side SDKs. The client subscribes to specific channels and receives push notifications whenever matching events occur.\n\n```typescript\n// Client subscribes to changes in a table\nconst unsubscribe = client.subscribe(\n    'databases.[DATABASE_ID].tables.[TABLE_ID].rows',\n    (response) => {\n        console.log(response.events);   // e.g. ['databases.*.tables.*.rows.*.create']\n        console.log(response.payload);  // the created/updated/deleted resource\n    }\n);\n```\n\n### Key Characteristics\n\n- **Connection model:** Persistent WebSocket from client → Appwrite\n- **Direction:** Appwrite pushes to connected clients\n- **Auth-aware:** Respects permissions — users only receive events for resources they have access to\n- **Available in:** Web, Flutter, Android, iOS, React Native (client SDKs only)\n- **Granularity:** Subscribe to specific channels (a table, a single row, a bucket, a team, etc.)\n\n### Available Channels\n\n| Channel | Description |\n|---------|-------------|\n| `account` | Changes to the authenticated user's account |\n| `databases.[DB_ID].tables.[TABLE_ID].rows` | All rows in a table |\n| `databases.[DB_ID].tables.[TABLE_ID].rows.[ROW_ID]` | A specific row |\n| `buckets.[BUCKET_ID].files` | All files in a bucket |\n| `buckets.[BUCKET_ID].files.[FILE_ID]` | A specific file |\n| `teams` | Changes to teams the user belongs to |\n| `teams.[TEAM_ID]` | A specific team |\n| `memberships` | The user's team memberships |\n| `functions.[FUNCTION_ID].executions` | Function execution updates |\n\n---\n\n## Webhooks (Server-Side Callbacks)\n\nWebhooks are **HTTP POST requests** that Appwrite sends to a URL you configure in the Appwrite Console whenever specific events occur. They are configured at the project level, not in code.\n\n### Key Characteristics\n\n- **Connection model:** Appwrite makes an outbound HTTP request to your server\n- **Direction:** Appwrite pushes to your backend endpoint\n- **Not auth-aware:** Fires for *all* matching events regardless of user permissions — your server receives everything\n- **Configuration:** Set up in the Appwrite Console (project → Webhooks), not in SDK code\n- **Payload:** Includes the event type, the affected resource, and metadata (timestamps, project info, etc.)\n- **Security:** Verified via a signature header you should validate on your server to ensure the request came from Appwrite\n\n---\n\n## Side-by-Side Comparison\n\n| Aspect | Realtime | Webhooks |\n|--------|----------|----------|\n| **Runs on** | Client (browser, mobile app) | Your server/backend |\n| **Protocol** | WebSocket (persistent) | HTTP POST (per-event) |\n| **Setup** | SDK code | Appwrite Console |\n| **Permission-filtered** | Yes — users only see what they can access | No — receives all events |\n| **Requires server** | No | Yes — you need a publicly reachable endpoint |\n| **Offline handling** | Missed events while disconnected are lost | Appwrite retries failed deliveries |\n| **Scalability concern** | Many concurrent WebSocket connections | Your endpoint must handle burst traffic |\n\n---\n\n## When to Use Each\n\n### Use Realtime when:\n\n- **Updating a UI in real time** — live dashboards, chat apps, collaborative editors, notification badges\n- **You want permission-scoped events** — each user only sees changes to resources they can read\n- **No backend needed** — the client reacts directly without a middleman\n\n```typescript\n// Example: Live chat — each user sees only messages they have permission to read\nconst unsubscribe = client.subscribe(\n    'databases.[DB_ID].tables.[MESSAGES_TABLE_ID].rows',\n    (response) => {\n        if (response.events.includes('databases.*.tables.*.rows.*.create')) {\n            addMessageToUI(response.payload);\n        }\n    }\n);\n```\n\n### Use Webhooks when:\n\n- **Triggering server-side workflows** — sending emails, syncing with third-party APIs, processing payments, updating search indexes\n- **You need to react to *all* events globally** — not scoped to a single user's permissions\n- **Audit logging or analytics** — recording every create/update/delete across the project\n- **The client doesn't need to know** — background processing that happens invisibly\n\n### Use both together when:\n\n- A new order is created → **Webhook** triggers fulfillment logic on your server, while **Realtime** updates the customer's dashboard instantly\n- A file is uploaded → **Webhook** kicks off server-side processing (thumbnails, virus scan), while **Realtime** shows an upload confirmation in the UI\n\n---\n\nThe short version: **Realtime is for clients reacting to changes they can see; Webhooks are for servers reacting to changes across the entire project.**",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully covers all rubric requirements: (1) Realtime uses WebSockets for client-side connections, (2) Webhooks use HTTP POST callbacks server-to-server, (3) Realtime is for live UI updates with concrete examples like chat apps and live dashboards, (4) Webhooks are for backend/external integrations like sending emails, syncing with third-party APIs, and processing payments, (5) Multiple concrete use cases are provided for each. The answer goes well beyond the minimum requirements with detailed comparisons, code examples, available channels, and even a 'use both together' section."
+        },
+        {
+          "questionId": "cli-1",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you install the Appwrite CLI using npm?",
+          "choices": [
+            "npm install appwrite",
+            "npm install -g appwrite-cli",
+            "npm install -g @appwrite/cli",
+            "npx appwrite-cli install"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-2",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What is the standard workflow for deploying resources with the CLI?",
+          "choices": [
+            "create → build → deploy",
+            "init → modify → push",
+            "setup → configure → upload",
+            "new → edit → publish"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-3",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command initializes a new Appwrite Function via the CLI?",
+          "choices": [
+            "appwrite create function",
+            "appwrite new function",
+            "appwrite init function",
+            "appwrite functions init"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-4",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What configuration file does the Appwrite CLI use?",
+          "choices": [
+            "appwrite.config.js",
+            ".appwriterc",
+            "appwrite.yaml",
+            "appwrite.json"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-5",
+          "category": "cli",
+          "type": "mcq",
+          "question": "Which flag makes CLI commands non-interactive for CI/CD?",
+          "choices": [
+            "--yes",
+            "--force",
+            "--ci",
+            "--non-interactive"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-6",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command deploys functions to Appwrite?",
+          "choices": [
+            "appwrite deploy functions",
+            "appwrite functions deploy",
+            "appwrite push functions",
+            "appwrite upload functions"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-7",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you run functions locally for development?",
+          "choices": [
+            "appwrite functions serve",
+            "appwrite dev function",
+            "appwrite run function",
+            "appwrite local function"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-8",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command pulls existing remote resources into your local project?",
+          "choices": [
+            "appwrite fetch",
+            "appwrite sync",
+            "appwrite download",
+            "appwrite pull"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-9",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Explain how to set up a CI/CD pipeline using the Appwrite CLI. What commands and flags are needed for non-interactive deployment?",
+          "correctAnswer": "Set up API key authentication with environment variables, use appwrite login with --endpoint and --key flags, then run appwrite push with --force flag for non-interactive deployment. Configure these as CI/CD pipeline steps.",
+          "rubric": "Must mention: 1) API key or service account authentication, 2) --force flag for non-interactive mode, 3) appwrite push command, 4) Environment variable configuration, 5) Login/authentication step in the pipeline",
+          "modelAnswer": "# CI/CD Pipeline with the Appwrite CLI\n\n## Core Concept\n\nIn CI/CD environments, there's no interactive terminal for prompts or login sessions. Instead, you configure the CLI entirely through command-line flags and use `--force` to skip confirmation prompts.\n\n---\n\n## Step 1: Configure the Client\n\nAuthenticate using an API key instead of `appwrite login`:\n\n```bash\nappwrite client \\\n    --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n    --project-id <PROJECT_ID> \\\n    --key <API_KEY>\n```\n\n> Store `PROJECT_ID` and `API_KEY` as secrets in your CI provider (GitHub Actions secrets, GitLab CI variables, etc.) — never hardcode them.\n\n---\n\n## Step 2: Ensure `appwrite.config.json` Exists\n\nYour repository must contain an `appwrite.config.json` at the project root. This file defines all your resources — functions, sites, tables, buckets, teams, and topics:\n\n```json\n{\n    \"projectId\": \"<PROJECT_ID>\",\n    \"endpoint\": \"https://<REGION>.cloud.appwrite.io/v1\",\n    \"functions\": [\n        {\n            \"$id\": \"my-function\",\n            \"name\": \"My Function\",\n            \"runtime\": \"node-18.0\",\n            \"entrypoint\": \"main.js\",\n            \"commands\": \"npm install\",\n            \"path\": \"functions/my-function\"\n        }\n    ],\n    \"sites\": [],\n    \"tablesDB\": [],\n    \"tables\": [],\n    \"buckets\": [],\n    \"teams\": [],\n    \"topics\": []\n}\n```\n\nCommit this file to your repository so the CI runner has it available.\n\n---\n\n## Step 3: Deploy Non-Interactively\n\n### Key Flags\n\n| Flag | Purpose |\n|------|---------|\n| `--force` (`-f`) | Skips all confirmation prompts |\n| `--all` (`-a`) | Selects all resources of that type |\n| `--id [id...]` | Targets specific resource(s) by ID |\n\n### Deploy Everything\n\n```bash\nappwrite push all --all --force\n```\n\n### Deploy Specific Resource Types\n\n```bash\n# All functions\nappwrite push functions --all --force\n\n# A single function by ID\nappwrite push functions --function-id <FUNCTION_ID> --force\n\n# All sites\nappwrite push sites --all --force\n\n# All tables (database schema)\nappwrite push tables --all --force\n\n# All buckets\nappwrite push buckets --all --force\n\n# All teams\nappwrite push teams --all --force\n\n# All topics\nappwrite push topics --all --force\n```\n\n---\n\n## Full GitHub Actions Example\n\n```yaml\nname: Deploy to Appwrite\n\non:\n  push:\n    branches: [main]\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v4\n\n      - name: Install Appwrite CLI\n        run: npm install -g appwrite-cli\n\n      - name: Configure Appwrite client\n        run: |\n          appwrite client \\\n            --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n            --project-id ${{ secrets.APPWRITE_PROJECT_ID }} \\\n            --key ${{ secrets.APPWRITE_API_KEY }}\n\n      - name: Deploy functions\n        run: appwrite push functions --all --force\n\n      - name: Deploy tables\n        run: appwrite push tables --all --force\n\n      - name: Deploy buckets\n        run: appwrite push buckets --all --force\n```\n\n---\n\n## Full GitLab CI Example\n\n```yaml\ndeploy:\n  image: node:18\n  stage: deploy\n  only:\n    - main\n  script:\n    - npm install -g appwrite-cli\n    - appwrite client\n        --endpoint https://<REGION>.cloud.appwrite.io/v1\n        --project-id $APPWRITE_PROJECT_ID\n        --key $APPWRITE_API_KEY\n    - appwrite push all --all --force\n```\n\n---\n\n## Self-Signed SSL Certificates\n\nIf deploying to a self-hosted Appwrite instance with a self-signed certificate, add:\n\n```bash\nappwrite client --self-signed true\n```\n\n---\n\n## Debugging Failures\n\n| Flag | Purpose |\n|------|---------|\n| `--verbose` (`-V`) | Prints the full error stack trace |\n| `--json` (`-j`) | Outputs results in JSON for programmatic parsing |\n| `--report` | Generates a GitHub issue link with error details |\n\n```bash\n# Example: deploy with verbose output for CI logs\nappwrite push functions --all --force --verbose\n```\n\n---\n\n## Summary\n\nThe entire non-interactive flow is three steps:\n\n1. **`appwrite client --endpoint ... --project-id ... --key ...`** — authenticate with an API key\n2. **Commit `appwrite.config.json`** — declare your resources\n3. **`appwrite push <resource> --all --force`** — deploy without prompts",
+          "correct": true,
+          "score": 0.95,
+          "judgeReasoning": "The model's answer is comprehensive and covers all five rubric criteria: 1) API key authentication via `appwrite client --key`, 2) `--force` flag for non-interactive mode, 3) `appwrite push` command with various resource types, 4) environment variable configuration using CI provider secrets, and 5) authentication step in the pipeline. The answer goes beyond the reference by providing detailed examples for GitHub Actions and GitLab CI, explaining the `appwrite.config.json` requirement, and covering debugging flags. The minor difference from the reference is using `appwrite client` instead of `appwrite login --key`, which is actually the correct modern CLI approach for non-interactive authentication. The answer is thorough, well-structured, and practically useful."
+        },
+        {
+          "questionId": "cli-10",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "modelAnswer": "\n\n# Complete Workflow for Creating, Configuring, and Deploying an Appwrite Function via the CLI\n\n## 1. Prerequisites\n\nBefore starting, ensure the CLI is installed and you're authenticated with a project initialized:\n\n```bash\n# Install the CLI\nnpm install -g appwrite-cli\n\n# Login to your Appwrite account\nappwrite login\n\n# Initialize a project (creates appwrite.config.json)\nappwrite init project\n```\n\n---\n\n## 2. Create a New Function\n\n```bash\nappwrite init functions\n```\n\nThis interactive command prompts you to choose a runtime (e.g., `node-18.0`), give the function a name, and scaffolds a starter function in a local directory (e.g., `functions/myFunction/`).\n\n---\n\n## 3. Configure the Function in `appwrite.config.json`\n\nAfter creation, the function is registered in your `appwrite.config.json`. Here's a breakdown of every key configuration option:\n\n```json\n{\n    \"projectId\": \"<PROJECT_ID>\",\n    \"endpoint\": \"https://<REGION>.cloud.appwrite.io/v1\",\n    \"functions\": [\n        {\n            \"$id\": \"myFunction\",\n            \"name\": \"userAuth\",\n            \"enabled\": true,\n            \"live\": true,\n            \"logging\": true,\n            \"runtime\": \"node-18.0\",\n            \"deployment\": \"<DEPLOYMENT_ID>\",\n            \"vars\": [],\n            \"events\": [],\n            \"schedule\": \"\",\n            \"timeout\": 15,\n            \"entrypoint\": \"userAuth.js\",\n            \"commands\": \"npm install\",\n            \"version\": \"v3\",\n            \"path\": \"functions/userAuth\"\n        }\n    ]\n}\n```\n\n### Key Configuration Options Explained\n\n| Option | Description |\n|---|---|\n| `$id` | Unique identifier for the function |\n| `name` | Human-readable display name |\n| `enabled` | Whether the function can be executed (`true`/`false`) |\n| `live` | Whether the function is live in production |\n| `logging` | Enable execution logging for debugging |\n| `runtime` | Language runtime (e.g., `node-18.0`, `python-3.9`, `dart-3.0`, `ruby-3.1`, etc.) |\n| `deployment` | ID of the currently active deployment |\n| `vars` | Array of environment variables available to the function |\n| `events` | Array of system events that trigger the function (e.g., `databases.*.tables.*.rows.*.create`) |\n| `schedule` | Cron expression for scheduled execution (e.g., `\"0 */6 * * *\"` for every 6 hours) |\n| `timeout` | Max execution time in seconds before the function is killed |\n| `entrypoint` | The file that serves as the function's entry point |\n| `commands` | Build/install commands run before deployment (e.g., `npm install`) |\n| `version` | Function version format (`v3` is current) |\n| `path` | Local directory path containing the function source code |\n\n---\n\n## 4. Write the Function Code\n\nEdit the entry point file in the function's directory. For example, for a Node.js function at `functions/userAuth/userAuth.js`:\n\n```typescript\nexport default async ({ req, res, log, error }) => {\n    log('Processing: ' + req.method + ' ' + req.path);\n\n    if (req.method === 'GET') {\n        return res.json({ message: 'Hello from Appwrite Function!' });\n    }\n\n    const data = req.bodyJson;\n    if (!data?.name) {\n        error('Missing name field');\n        return res.json({ error: 'Name is required' }, 400);\n    }\n\n    return res.json({ success: true, name: data.name });\n};\n```\n\n---\n\n## 5. Test Locally\n\nBefore deploying, run the function locally to verify it works:\n\n```bash\nappwrite run functions\n```\n\nThis starts a local development server that simulates the Appwrite Function runtime.\n\n---\n\n## 6. Manage Environment Variables\n\nAdd environment variables your function needs, either via the CLI or by populating the `vars` array in the config:\n\n```bash\n# Create a variable\nappwrite functions create-variable \\\n    --function-id myFunction \\\n    --key API_SECRET \\\n    --value \"s3cr3t-value\"\n\n# List variables\nappwrite functions list-variables --function-id myFunction\n\n# Update a variable\nappwrite functions update-variable \\\n    --function-id myFunction \\\n    --variable-id <VARIABLE_ID> \\\n    --key API_SECRET \\\n    --value \"new-s3cr3t\"\n\n# Delete a variable\nappwrite functions delete-variable \\\n    --function-id myFunction \\\n    --variable-id <VARIABLE_ID>\n```\n\n---\n\n## 7. Deploy the Function\n\n```bash\n# Deploy all functions defined in appwrite.config.json\nappwrite push functions\n\n# Deploy a specific function by ID\nappwrite push functions --function-id myFunction\n```\n\nThis uploads the source code from the `path` directory, runs the `commands` (e.g., `npm install`), builds the function, and activates the deployment.\n\n---\n\n## 8. Verify and Manage Deployments\n\n```bash\n# List all deployments for the function\nappwrite functions list-deployments --function-id myFunction\n\n# Set a specific deployment as active (rollback)\nappwrite functions update-deployment \\\n    --function-id myFunction \\\n    --deployment-id <DEPLOYMENT_ID>\n\n# Download a deployment's source code\nappwrite functions download-deployment \\\n    --function-id myFunction \\\n    --deployment-id <DEPLOYMENT_ID>\n\n# Delete an old deployment\nappwrite functions delete-deployment \\\n    --function-id myFunction \\\n    --deployment-id <DEPLOYMENT_ID>\n```\n\n---\n\n## 9. Trigger and Monitor Executions\n\n```bash\n# Trigger the function manually\nappwrite functions create-execution --function-id myFunction\n\n# Trigger with a JSON body\nappwrite functions create-execution \\\n    --function-id myFunction \\\n    --body '{\"name\": \"Walter\"}'\n\n# List execution logs\nappwrite functions list-executions --function-id myFunction\n\n# Get a specific execution log\nappwrite functions get-execution \\\n    --function-id myFunction \\\n    --execution-id <EXECUTION_ID>\n```\n\n---\n\n## 10. Pull Remote Changes\n\nIf the function was modified in the Appwrite Console by another team member, sync those changes locally:\n\n```bash\nappwrite pull functions\n```\n\nThis updates both the `appwrite.config.json` and the local source files.\n\n---\n\n## 11. CI/CD (Non-Interactive) Deployment\n\nFor automated pipelines where there's no interactive prompt, configure the client inline and use `--force` to skip confirmations:\n\n```bash\n# Configure credentials\nappwrite client \\\n    --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n    --project-id <PROJECT_ID> \\\n    --key <API_KEY>\n\n# Deploy all functions non-interactively\nappwrite push functions --all --force\n\n# Or deploy a specific function\nappwrite push functions --function-id myFunction --force\n```\n\n---\n\n## Summary: End-to-End Flow\n\n```\nappwrite login\n       ↓\nappwrite init project\n       ↓\nappwrite init functions          ← scaffold function + register in config\n       ↓\nEdit source code                 ← write your handler logic\n       ↓\nEdit appwrite.config.json        ← configure runtime, timeout, events, schedule, vars\n       ↓\nappwrite run functions           ← test locally\n       ↓\nappwrite push functions          ← deploy to Appwrite\n       ↓\nappwrite functions create-execution --function-id <ID>   ← trigger & verify\n       ↓\nappwrite functions list-executions --function-id <ID>    ← monitor logs\n```",
+          "correct": true,
+          "score": 0.9,
+          "judgeReasoning": "The answer covers all 5 required rubric points: 1) appwrite init function/functions to scaffold, 2) runtime selection (node-18.0, python-3.9, etc.), 3) appwrite.json/appwrite.config.json configuration options (name, runtime, execute permissions via events, variables, schedule, timeout, etc.), 4) local development with appwrite run functions, 5) deployment with appwrite push functions. The answer uses 'appwrite.config.json' instead of 'appwrite.json' and 'appwrite init functions' instead of 'appwrite init function' (minor naming variations), and it's extremely comprehensive with additional details beyond the rubric. The slight deduction is for the config file naming discrepancy (appwrite.config.json vs appwrite.json) and missing explicit mention of 'execute permissions' as a configuration option, though vars/events/schedule are well covered."
         }
       ]
     },
@@ -3345,7 +4275,9 @@
         "functions": 99.5,
         "storage": 100,
         "sites": 100,
-        "messaging": 97
+        "messaging": 97,
+        "realtime": 85,
+        "cli": 97.5
       },
       "mcqScores": {
         "fundamental": 100,
@@ -3354,7 +4286,9 @@
         "functions": 100,
         "storage": 100,
         "sites": 100,
-        "messaging": 100
+        "messaging": 100,
+        "realtime": 87.5,
+        "cli": 100
       },
       "freeformScores": {
         "fundamental": 100,
@@ -3363,14 +4297,16 @@
         "functions": 97.5,
         "storage": 100,
         "sites": 100,
-        "messaging": 85
+        "messaging": 85,
+        "realtime": 75,
+        "cli": 87.5
       },
-      "overall": 99.2,
-      "mcqOverall": 100,
-      "freeformOverall": 95.8,
-      "totalQuestions": 70,
-      "totalCorrect": 70,
-      "runDate": "2026-03-02T17:16:28.783Z",
+      "overall": 97.4,
+      "mcqOverall": 98.6,
+      "freeformOverall": 92.4,
+      "totalQuestions": 90,
+      "totalCorrect": 89,
+      "runDate": "2026-03-02T20:39:44.624Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -4439,6 +5375,310 @@
           "modelAnswer": " B",
           "correct": true,
           "score": 1
+        },
+        {
+          "questionId": "rt-1",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What protocol does Appwrite Realtime use?",
+          "choices": [
+            "HTTP Long Polling",
+            "WebSocket",
+            "Server-Sent Events (SSE)",
+            "gRPC streaming"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-2",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which method subscribes to realtime events in the Web SDK?",
+          "choices": [
+            "client.realtime(channels)",
+            "client.subscribe(channels, callback)",
+            "client.on(event, handler)",
+            "client.listen(channels)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-3",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens when you subscribe to a new channel on an existing connection?",
+          "choices": [
+            "The new channel is added to the existing connection",
+            "An error is thrown because only one subscription is allowed",
+            "Connection is recreated (old closed, new opened)",
+            "A separate parallel connection is opened"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "A",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "rt-4",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which of these is a valid Realtime channel?",
+          "choices": [
+            "realtime.documents.[DOCUMENT_ID]",
+            "databases.[DB_ID].collections.[COLL_ID].documents",
+            "subscribe.databases.collections",
+            "events.databases.documents.create"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-5",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What does the Realtime response payload contain for a document event?",
+          "choices": [
+            "Only the document $id and the event type",
+            "The document data including $id, $createdAt, $updatedAt, and custom fields",
+            "A reference URL to fetch the document",
+            "Only the fields that changed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-6",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How is authentication handled for Realtime connections?",
+          "choices": [
+            "Through an API key passed as a query parameter",
+            "Through a separate authentication WebSocket",
+            "Through cookies/session tokens passed during WebSocket handshake",
+            "Authentication is not supported for Realtime"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-7",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What happens if a user authenticates after creating a Realtime subscription?",
+          "choices": [
+            "The subscription automatically updates with the new permissions",
+            "Subscription must be recreated to receive events for the authenticated user",
+            "An authentication event is fired on the existing subscription",
+            "The server rejects the authentication until the subscription is closed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-8",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "How do you unsubscribe from a Realtime channel in the Web SDK?",
+          "choices": [
+            "client.unsubscribe(channel)",
+            "Call the function returned by `client.subscribe()`",
+            "client.realtime.close()",
+            "subscription.remove()"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-9",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Write code using the Appwrite Web SDK to subscribe to realtime document changes and file uploads simultaneously, handling each event type differently.",
+          "correctAnswer": "Use client.subscribe() with an array of channels for both databases documents and storage files, then check the event string in the callback to differentiate between document and file events and handle them accordingly.",
+          "rubric": "Must mention: 1) client.subscribe() with array of channels, 2) Channel for documents (databases.[ID].collections.[ID].documents), 3) Channel for files (buckets.[ID].files), 4) Event type checking in callback, 5) Different handling logic per event type",
+          "modelAnswer": " Here's a complete example using the Appwrite Web SDK to subscribe to both database changes and file uploads simultaneously, with differentiated event handling:\n\n```typescript\nimport { Client, Databases, Storage, ID } from 'appwrite';\n\n// Initialize client\nconst client = new Client()\n    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1')\n    .setProject('[PROJECT_ID]');\n\n// Subscribe to multiple channels simultaneously\nconst unsubscribe = client.subscribe([\n    'databases.[DATABASE_ID].tables.[TABLE_ID].rows',\n    'buckets.[BUCKET_ID].files'\n], (response) => {\n    // Check which channel triggered the event\n    const isDatabaseEvent = response.channels.some(ch => \n        ch.startsWith('databases.') && ch.includes('.tables.') && ch.includes('.rows')\n    );\n    \n    const isStorageEvent = response.channels.some(ch => \n        ch.startsWith('buckets.') && ch.includes('.files')\n    );\n\n    if (isDatabaseEvent) {\n        handleDatabaseEvent(response);\n    } else if (isStorageEvent) {\n        handleStorageEvent(response);\n    }\n});\n\n// Handle database row changes\nfunction handleDatabaseEvent(response: any) {\n    const events = response.events as string[];\n    const payload = response.payload;\n    \n    // Check specific event types\n    if (events.some(e => e.endsWith('.create'))) {\n        console.log('📄 New row created:', {\n            id: payload.$id,\n            data: payload,\n            createdAt: payload.$createdAt\n        });\n        // Update UI to show new item\n        addRowToUI(payload);\n        \n    } else if (events.some(e => e.endsWith('.update'))) {\n        console.log('✏️ Row updated:', {\n            id: payload.$id,\n            changes: payload,\n            updatedAt: payload.$updatedAt\n        });\n        // Update existing item in UI\n        updateRowInUI(payload);\n        \n    } else if (events.some(e => e.endsWith('.delete'))) {\n        console.log('🗑️ Row deleted:', {\n            id: payload.$id\n        });\n        // Remove item from UI\n        removeRowFromUI(payload.$id);\n    }\n}\n\n// Handle file storage events\nfunction handleStorageEvent(response: any) {\n    const events = response.events as string[];\n    const payload = response.payload;\n    \n    if (events.some(e => e.endsWith('.create'))) {\n        console.log('📁 New file uploaded:', {\n            id: payload.$id,\n            name: payload.name,\n            size: payload.sizeOriginal,\n            type: payload.mimeType,\n            bucketId: payload.bucketId\n        });\n        // Show new file in gallery/list\n        addFileToGallery(payload);\n        \n    } else if (events.some(e => e.endsWith('.update'))) {\n        console.log('📝 File metadata updated:', {\n            id: payload.$id,\n            name: payload.name,\n            updatedAt: payload.$updatedAt\n        });\n        updateFileInUI(payload);\n        \n    } else if (events.some(e => e.endsWith('.delete'))) {\n        console.log('🗑️ File deleted:', {\n            id: payload.$id,\n            name: payload.name\n        });\n        removeFileFromUI(payload.$id);\n    }\n}\n\n// Specific channel subscriptions (alternative approach)\n// If you need separate handlers instead of a unified one:\n\n// Database-only subscription\nconst unsubscribeDB = client.subscribe(\n    'databases.[DATABASE_ID].tables.[TABLE_ID].rows',\n    (response) => {\n        console.log('Database change detected:', response.events);\n        // Handle database-specific logic\n    }\n);\n\n// Storage-only subscription  \nconst unsubscribeStorage = client.subscribe(\n    'buckets.[BUCKET_ID].files',\n    (response) => {\n        console.log('File change detected:', response.events);\n        // Handle storage-specific logic\n    }\n);\n\n// Subscribe to specific resources only\nconst unsubscribeSpecificRow = client.subscribe(\n    'databases.[DATABASE_ID].tables.[TABLE_ID].rows.[ROW_ID]',\n    (response) => {\n        console.log('Specific row changed:', response.payload);\n    }\n);\n\n// Cleanup when component unmounts or user logs out\nfunction cleanup() {\n    unsubscribe();           // Unsubscribe from combined channels\n    unsubscribeDB();         // Unsubscribe from database\n    unsubscribeStorage();    // Unsubscribe from storage\n    unsubscribeSpecificRow(); // Unsubscribe from specific row\n}\n\n// Example: React hook usage\nfunction useAppwriteRealtime(databaseId: string, tableId: string, bucketId: string) {\n    useEffect(() => {\n        const unsubscribe = client.subscribe([\n            `databases.${databaseId}.tables.${tableId}.rows`,\n            `buckets.${bucketId}.files`\n        ], (response) => {\n            // Route to appropriate handler based on event type\n            if (response.events.some(e => e.includes('databases'))) {\n                handleDatabaseEvent(response);\n            } else {\n                handleStorageEvent(response);\n            }\n        });\n\n        return () => unsubscribe();\n    }, [databaseId, tableId, bucketId]);\n}\n```\n\n**Key patterns demonstrated:**\n\n1. **Multi-channel subscription**: Pass an array of channel strings to listen to both databases and storage with one callback\n2. **Event differentiation**: Use `response.events` array (contains strings like `databases.*.tables.*.rows.*.create` or `buckets.*.files.*.create`) to determine what happened\n3. **Channel checking**: Use `response.channels` to identify which resource type triggered the event\n4. **Payload handling**: `response.payload` contains the full document/file object that was changed\n5. **Cleanup**: Always store and call the unsubscribe function to prevent memory leaks\n\n**Available event suffixes:**\n- `.create` — New resource created\n- `.update` — Resource modified  \n- `.delete` — Resource removed\n- `.metadata` — Metadata changes (files only)",
+          "correct": true,
+          "score": 0.5,
+          "judgeReasoning": "The answer demonstrates client.subscribe() with an array of channels (criterion 1), includes a channel for files using 'buckets.[BUCKET_ID].files' (criterion 3), shows event type checking in the callback (criterion 4), and implements different handling logic per event type (criterion 5). However, the document channel uses incorrect Appwrite terminology - it uses 'databases.[DATABASE_ID].tables.[TABLE_ID].rows' instead of the correct 'databases.[ID].collections.[ID].documents' format (criterion 2). Appwrite uses 'collections' not 'tables' and 'documents' not 'rows'. This is a significant error in the channel naming convention that would cause the subscription to fail in practice."
+        },
+        {
+          "questionId": "rt-10",
+          "category": "realtime",
+          "type": "free-form",
+          "question": "Explain the differences between Appwrite Realtime and Webhooks. When would you use each?",
+          "correctAnswer": "Realtime uses WebSockets for client-side live updates (e.g., chat apps, live dashboards), while Webhooks are server-to-server HTTP callbacks triggered by events (e.g., sending notifications, syncing with external services). Use Realtime for instant UI updates and Webhooks for backend integrations.",
+          "rubric": "Must mention: 1) Realtime uses WebSockets for client-side, 2) Webhooks use HTTP callbacks server-to-server, 3) Realtime for live UI updates, 4) Webhooks for backend/external integrations, 5) At least one concrete use case for each",
+          "modelAnswer": "Based on the Appwrite documentation, here are the key differences between **Realtime** and **Webhooks**, and when to use each:\n\n## Realtime (Client-Side)\n\n**Realtime** is a client-side subscription system that uses WebSocket connections to push live updates to connected clients (browsers, mobile apps).\n\n**Key characteristics:**\n- **Direction**: Server → Client (bidirectional connection)\n- **Protocol**: WebSocket (persistent connection)\n- **SDK Support**: Available in client SDKs (Dart/Flutter, Kotlin/Android, Swift/iOS, TypeScript/Web)\n- **Usage**: Subscribe to specific channels and receive instant updates when data changes\n\n**Example from the docs:**\n```typescript\n// Subscribe to row changes\nconst unsubscribe = client.subscribe('databases.[DB_ID].tables.[TABLE_ID].rows', (response) => {\n    console.log(response.events);   // ['databases.*.tables.*.rows.*.create']\n    console.log(response.payload);  // the affected resource\n});\n```\n\n**Available channels include:**\n- `databases.[DB_ID].tables.[TABLE_ID].rows` — Database changes\n- `buckets.[BUCKET_ID].files` — File uploads/deletions\n- `teams` — Team membership changes\n- `account` — User auth state changes\n- `functions.[FUNCTION_ID].executions` — Function execution updates\n\n## Webhooks (Server-Side)\n\n**Webhooks** are server-to-server HTTP callbacks that send POST requests to your backend URL when specific events occur in Appwrite.\n\n**Key characteristics:**\n- **Direction**: Server → Server (unidirectional)\n- **Protocol**: HTTP/HTTPS (stateless requests)\n- **SDK Support**: Not applicable (configured in Appwrite Console or via CLI)\n- **Usage**: Trigger backend processes when data changes, even when no client is connected\n\n**Typical payload:** JSON payload sent to your endpoint containing the event type and affected resource data.\n\n## When to Use Each\n\n### Use **Realtime** when:\n- **Building live UI updates**: Chat applications, live notifications, real-time dashboards\n- **Client is active**: The user has the app open and needs immediate feedback\n- **Collaborative features**: Multi-user editing where all clients need to see changes instantly\n- **Optimistic updates**: Showing data changes before server confirmation\n\n**Example**: A messaging app where new messages appear instantly without refreshing, or a stock ticker that updates live prices.\n\n### Use **Webhooks** when:\n- **Processing data asynchronously**: Sending welcome emails when a user signs up, resizing images after upload\n- **Integrating with external systems**: Syncing Appwrite data to CRM, Slack notifications, or payment processors\n- **Server-side logic**: Triggering CI/CD pipelines, updating search indexes, or cleaning up resources\n- **Reliability is critical**: Webhooks retry on failure, ensuring the event is processed even if your server is temporarily down\n- **Client is offline**: Processing that must happen regardless of whether a user has the app open\n\n**Example**: When a user uploads a video, a webhook triggers a function to transcode it; or when a new order is created, a webhook sends the data to a shipping API.\n\n## Summary Comparison\n\n| Feature | Realtime | Webhooks |\n|---------|----------|----------|\n| **Target** | Client apps (UI) | Backend servers |\n| **Connection** | Persistent WebSocket | HTTP POST requests |\n| **Requires client online?** | Yes | No |\n| **Retry on failure?** | No (fire-and-forget) | Yes (built-in retry logic) |\n| **Best for** | Live UI updates, chat | Backend processing, integrations |\n| **Setup** | Client SDK code | Console/CLI configuration + HTTP endpoint |\n\n**Pro tip**: You can use both together—Realtime to update the client UI instantly, and Webhooks to handle server-side processing like sending emails or syncing with external databases.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully covers all rubric requirements: 1) Realtime uses WebSockets for client-side connections, 2) Webhooks use HTTP callbacks server-to-server, 3) Realtime is for live UI updates, 4) Webhooks are for backend/external integrations, and 5) multiple concrete use cases are provided for each (chat apps, stock tickers for Realtime; email notifications, CRM sync, shipping API for Webhooks). The answer goes beyond the minimum requirements with a detailed comparison table, code examples, and additional nuances like retry behavior and offline processing."
+        },
+        {
+          "questionId": "cli-1",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you install the Appwrite CLI using npm?",
+          "choices": [
+            "npm install appwrite",
+            "npm install -g appwrite-cli",
+            "npm install -g @appwrite/cli",
+            "npx appwrite-cli install"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-2",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What is the standard workflow for deploying resources with the CLI?",
+          "choices": [
+            "create → build → deploy",
+            "init → modify → push",
+            "setup → configure → upload",
+            "new → edit → publish"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-3",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command initializes a new Appwrite Function via the CLI?",
+          "choices": [
+            "appwrite create function",
+            "appwrite new function",
+            "appwrite init function",
+            "appwrite functions init"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-4",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What configuration file does the Appwrite CLI use?",
+          "choices": [
+            "appwrite.config.js",
+            ".appwriterc",
+            "appwrite.yaml",
+            "appwrite.json"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-5",
+          "category": "cli",
+          "type": "mcq",
+          "question": "Which flag makes CLI commands non-interactive for CI/CD?",
+          "choices": [
+            "--yes",
+            "--force",
+            "--ci",
+            "--non-interactive"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-6",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command deploys functions to Appwrite?",
+          "choices": [
+            "appwrite deploy functions",
+            "appwrite functions deploy",
+            "appwrite push functions",
+            "appwrite upload functions"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-7",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you run functions locally for development?",
+          "choices": [
+            "appwrite functions serve",
+            "appwrite dev function",
+            "appwrite run function",
+            "appwrite local function"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-8",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What command pulls existing remote resources into your local project?",
+          "choices": [
+            "appwrite fetch",
+            "appwrite sync",
+            "appwrite download",
+            "appwrite pull"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-9",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Explain how to set up a CI/CD pipeline using the Appwrite CLI. What commands and flags are needed for non-interactive deployment?",
+          "correctAnswer": "Set up API key authentication with environment variables, use appwrite login with --endpoint and --key flags, then run appwrite push with --force flag for non-interactive deployment. Configure these as CI/CD pipeline steps.",
+          "rubric": "Must mention: 1) API key or service account authentication, 2) --force flag for non-interactive mode, 3) appwrite push command, 4) Environment variable configuration, 5) Login/authentication step in the pipeline",
+          "modelAnswer": "To set up a CI/CD pipeline with the Appwrite CLI, you need to use **non-interactive mode** with an API key. This bypasses the interactive login flow and allows headless automation.\n\n## 1. Configure the Client (Non-Interactive)\n\nFirst, configure the CLI with your endpoint, project ID, and API key. Do this in your CI environment before running deployment commands:\n\n```bash\nappwrite client \\\n    --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n    --project-id <PROJECT_ID> \\\n    --key <API_KEY>\n```\n\n**Requirements:**\n- Use an **API key** (not user credentials) with appropriate scopes (e.g., `functions.write`, `databases.write`, `storage.write`)\n- Store the API key as a secret/environment variable in your CI platform (e.g., `APPWRITE_API_KEY`)\n\n## 2. Deployment Commands\n\nUse the `push` command with `--force` to skip confirmation prompts. You can deploy everything or specific resources:\n\n### Deploy All Resources\n```bash\nappwrite push all --all --force\n```\n\n### Deploy Specific Resource Types\n```bash\n# Functions\nappwrite push functions --all --force\nappwrite push functions --function-id <FUNCTION_ID> --force\n\n# Sites\nappwrite push sites --all --force\n\n# Database tables\nappwrite push tables --all --force\n\n# Storage buckets\nappwrite push buckets --all --force\n\n# Teams\nappwrite push teams --all --force\n\n# Messaging topics\nappwrite push topics --all --force\n```\n\n## 3. Essential Flags for CI/CD\n\n| Flag | Description |\n|------|-------------|\n| `--force` (`-f`) | **Required** — confirms all warnings and skips interactive prompts |\n| `--all` (`-a`) | Selects all resources of the specified type (e.g., all functions) |\n| `--id [id...]` | Pass specific resource IDs to deploy (alternative to `--all`) |\n| `--json` (`-j`) | Output in JSON format (useful for parsing deployment results) |\n| `--verbose` (`-V`) | Show complete error logs if deployments fail |\n\n## 4. Complete CI/CD Example\n\nHere's a GitHub Actions workflow example:\n\n```yaml\nname: Deploy to Appwrite\n\non:\n  push:\n    branches: [main]\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      \n      - name: Install Appwrite CLI\n        run: npm install -g appwrite-cli\n      \n      - name: Configure Appwrite\n        run: |\n          appwrite client \\\n            --endpoint ${{ vars.APPWRITE_ENDPOINT }} \\\n            --project-id ${{ vars.APPWRITE_PROJECT_ID }} \\\n            --key ${{ secrets.APPWRITE_API_KEY }}\n      \n      - name: Deploy Functions\n        run: appwrite push functions --all --force\n      \n      - name: Deploy Sites\n        run: appwrite push sites --all --force\n      \n      - name: Deploy Database Schema\n        run: appwrite push tables --all --force\n```\n\n## 5. Configuration File (Optional)\n\nIf your repository contains an `appwrite.config.json` file at the root, the CLI will use it to determine which resources to deploy. You can generate this file locally using:\n\n```bash\nappwrite init project\nappwrite pull functions  # Pull existing functions into config\n```\n\nThen commit `appwrite.config.json` to your repository so the CI pipeline knows which functions, sites, and tables to deploy.\n\n## Key Points\n\n- **API Key vs. Login**: Never use `appwrite login` in CI/CD—it requires interactive browser authentication. Always use `appwrite client --key`.\n- **Self-hosted Instances**: If using a self-hosted instance with self-signed SSL certificates, add `--self-signed true` to the client configuration.\n- **Resource Dependencies**: Deploy tables before functions if your functions depend on those database schemas.\n- **Debugging**: Add `--verbose` to see full error details if a deployment fails in CI.",
+          "correct": true,
+          "score": 0.85,
+          "judgeReasoning": "The answer covers most of the required rubric points well: 1) API key authentication is clearly explained with appropriate scopes, 2) --force flag for non-interactive mode is mentioned and explained, 3) appwrite push command is covered extensively, 4) Environment variable configuration is mentioned (storing API key as secret/env var), 5) Authentication step is covered via 'appwrite client --key' rather than 'appwrite login'. The main deviation from the reference answer is using 'appwrite client --key' instead of 'appwrite login --key', which is actually more accurate for CI/CD (the model correctly notes that 'appwrite login' requires interactive browser auth). The answer is comprehensive and practical with a GitHub Actions example. Minor deduction because the reference specifically mentions 'appwrite login' with --endpoint and --key flags, while the model uses 'appwrite client' command instead - though the model's approach may be more technically accurate for non-interactive use."
+        },
+        {
+          "questionId": "cli-10",
+          "category": "cli",
+          "type": "free-form",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "modelAnswer": " Here is the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI, from initialization to production deployment.\n\n## 1. Prerequisites & Project Setup\n\nFirst, ensure you are logged in and have initialized a project:\n\n```bash\n# Login to Appwrite (Cloud or self-hosted)\nappwrite login\n\n# Initialize project (creates appwrite.config.json)\nappwrite init project\n```\n\nThis creates an `appwrite.config.json` file at your project root where all function configurations are stored.\n\n## 2. Create a New Function\n\nGenerate the function scaffold using the CLI:\n\n```bash\n# Interactive creation (prompts for runtime, name, etc.)\nappwrite init functions\n\n# Or specify options directly\nappwrite init functions --runtime node-18.0 --name \"processPayment\"\n```\n\nThis command:\n- Creates a directory structure (e.g., `functions/processPayment/`)\n- Generates starter code based on the runtime\n- Adds the function configuration to `appwrite.config.json`\n\n## 3. Configure the Function (appwrite.config.json)\n\nThe CLI manages function settings in `appwrite.config.json`. Here is the complete configuration structure with all key options:\n\n```json\n{\n    \"projectId\": \"<PROJECT_ID>\",\n    \"endpoint\": \"https://<REGION>.cloud.appwrite.io/v1\",\n    \"functions\": [\n        {\n            \"$id\": \"processPayment\",\n            \"name\": \"Process Payment\",\n            \"enabled\": true,\n            \"live\": true,\n            \"logging\": true,\n            \"runtime\": \"node-18.0\",\n            \"deployment\": \"<DEPLOYMENT_ID>\",\n            \"vars\": [\n                { \"key\": \"STRIPE_KEY\", \"value\": \"sk_live_...\" },\n                { \"key\": \"WEBHOOK_SECRET\", \"value\": \"whsec_...\" }\n            ],\n            \"events\": [\n                \"databases.*.tables.*.rows.*.create\",\n                \"users.*.create\"\n            ],\n            \"schedule\": \"0 9 * * *\",\n            \"timeout\": 30,\n            \"entrypoint\": \"src/main.js\",\n            \"commands\": \"npm install && npm run build\",\n            \"version\": \"v3\",\n            \"path\": \"functions/processPayment\"\n        }\n    ]\n}\n```\n\n### Key Configuration Options\n\n| Option | Description | Example |\n|--------|-------------|---------|\n| `$id` | Unique function identifier (auto-generated if not specified) | `\"processPayment\"` |\n| `runtime` | Language and version (e.g., `node-18.0`, `python-3.11`, `dart-3.0`) | `\"node-18.0\"` |\n| `entrypoint` | Main file executed when function is triggered | `\"src/main.js\"` |\n| `commands` | Build/install commands run during deployment | `\"npm install\"` |\n| `timeout` | Maximum execution time in seconds (max 900s/15min) | `30` |\n| `schedule` | Cron expression for scheduled execution (optional) | `\"0 9 * * *\"` |\n| `events` | Array of Appwrite events that trigger this function (optional) | `[\"databases.*.tables.*.rows.*.create\"]` |\n| `vars` | Environment variables as key-value pairs | `[{\"key\": \"API_KEY\", \"value\": \"xxx\"}]` |\n| `path` | Local directory path relative to config file | `\"functions/processPayment\"` |\n| `enabled` | Whether the function is active | `true` |\n| `logging` | Enable execution logging | `true` |\n| `live` | Enable live mode (production) | `true` |\n\n## 4. Local Development\n\nDevelop your function locally with hot-reload support:\n\n```bash\n# Run all functions locally\nappwrite run functions\n\n# Run specific function\nappwrite run functions --function-id processPayment\n```\n\nThe local runtime simulates the Appwrite environment, allowing you to test:\n- HTTP requests/responses\n- Environment variables (from `vars` in config)\n- Event payloads\n\n**Example Function Handler (Node.js):**\n```javascript\n// functions/processPayment/src/main.js\nexport default async ({ req, res, log, error }) => {\n    log('Processing payment...');\n    \n    if (req.method === 'POST') {\n        const data = req.bodyJson;\n        // Process payment logic here\n        \n        return res.json({ success: true, amount: data.amount });\n    }\n    \n    return res.text('Method not allowed', 405);\n};\n```\n\n## 5. Deploy the Function\n\nDeploy to Appwrite Cloud or your self-hosted instance:\n\n```bash\n# Deploy all functions\nappwrite push functions\n\n# Deploy specific function\nappwrite push functions --function-id processPayment\n\n# Force deploy without confirmation prompts (CI/CD)\nappwrite push functions --all --force\n```\n\nThe deployment process:\n1. Packages the code from the `path` directory\n2. Executes the `commands` (e.g., `npm install`)\n3. Creates a new deployment\n4. Activates the deployment (if `live: true`)\n\n## 6. Post-Deployment Management\n\n### Manage Environment Variables\n```bash\n# List variables\nappwrite functions list-variables --function-id processPayment\n\n# Add/update variable\nappwrite functions create-variable --function-id processPayment --key NEW_KEY --value \"value\"\n```\n\n### View Executions & Logs\n```bash\n# List recent executions\nappwrite functions list-executions --function-id processPayment\n\n# Get specific execution details\nappwrite functions get-execution --function-id processPayment --execution-id <ID>\n```\n\n### Manual Execution (Testing)\n```bash\nappwrite functions create-execution \\\n    --function-id processPayment \\\n    --body '{\"amount\": 100, \"currency\": \"USD\"}'\n```\n\n## 7. CI/CD Integration (Non-Interactive Mode)\n\nFor automated pipelines, configure the client and deploy without interaction:\n\n```bash\n# Configure client for CI/CD\nappwrite client \\\n    --endpoint https://<REGION>.cloud.appwrite.io/v1 \\\n    --project-id <PROJECT_ID> \\\n    --key <API_KEY>\n\n# Deploy with force flag\nappwrite push functions --all --force\n```\n\n## Complete Workflow Summary\n\n1. **Initialize**: `appwrite init project`\n2. **Create**: `appwrite init functions` (select runtime)\n3. **Configure**: Edit `appwrite.config.json` (timeout, vars, events, schedule)\n4. **Develop**: Write code in the generated directory, test with `appwrite run functions`\n5. **Deploy**: `appwrite push functions`\n6. **Monitor**: Check executions via CLI or Console\n\nThe `appwrite.config.json` serves as the single source of truth for your function infrastructure, allowing you to version control your entire Appwrite backend configuration alongside your application code.",
+          "correct": true,
+          "score": 0.9,
+          "judgeReasoning": "The answer covers all 5 required rubric points: 1) appwrite init function/functions to scaffold, 2) Runtime selection (mentioned interactively and with --runtime flag), 3) appwrite.json configuration options (comprehensive table and JSON example with name, runtime, execute permissions via enabled, variables, schedule, timeout, entrypoint, etc.), 4) Local development with appwrite run functions, 5) Deployment with appwrite push functions. Minor inaccuracies include using 'appwrite.config.json' instead of 'appwrite.json' and 'appwrite init functions' (plural) vs 'appwrite init function', but these are minor naming variations. The answer is thorough and covers all key aspects with additional useful detail about CI/CD and post-deployment management. The core workflow is correctly described."
         }
       ]
     }
