@@ -47,7 +47,7 @@ function TypeGroup({
 }) {
 	return (
 		<div className="mb-5 last:mb-0">
-			<div className="sticky top-[9.625rem] z-10 mb-2 bg-[var(--bg-base)] py-2">
+			<div className="sticky top-[4.3rem] z-10 mb-2 bg-[var(--bg-base)] py-2">
 				<span className="text-sm font-medium text-[var(--text-primary)]">
 					{label}
 				</span>
