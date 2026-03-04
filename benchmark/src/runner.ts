@@ -17,6 +17,31 @@ if (!apiKey) {
 
 const MAX_TOOL_ROUNDS = 5;
 
+const MCQ_LETTER_MAP: Record<string, string> = {
+	answer_a: "A",
+	answer_b: "B",
+	answer_c: "C",
+	answer_d: "D",
+};
+
+function buildMCQTools(choices: string[]): { tools: Tool[]; mcqToolNames: Set<string> } {
+	const tools: Tool[] = choices.map((choice, idx) => {
+		const letter = String.fromCharCode(97 + idx); // a, b, c, d
+		const upperLetter = String.fromCharCode(65 + idx);
+		const name = `answer_${letter}`;
+		return {
+			type: "function" as const,
+			function: {
+				name,
+				description: `Select this if the answer is ${upperLetter}. ${choice}`,
+				parameters: { type: "object", properties: {}, required: [] },
+			},
+		};
+	});
+	const mcqToolNames = new Set(tools.map(t => t.function.name));
+	return { tools, mcqToolNames };
+}
+
 interface ApiResponse {
 	choices: Array<{
 		message: {
@@ -109,6 +134,7 @@ async function callModel(
 	tools?: Tool[],
 	skillsMap?: Map<string, SkillInfo>,
 	debug?: boolean,
+	mcqToolNames?: Set<string>,
 ): Promise<string> {
 	const messages: ChatMessage[] = [
 		...(systemPrompt ? [{ role: "system" as const, content: systemPrompt }] : []),
@@ -149,6 +175,19 @@ async function callModel(
 					arguments: tc.function.arguments,
 				})),
 			});
+		}
+
+		// Check if any tool call is an MCQ answer
+		if (mcqToolNames) {
+			for (const toolCall of msg.tool_calls) {
+				const letter = MCQ_LETTER_MAP[toolCall.function.name];
+				if (letter) {
+					if (debug) {
+						debugLog(`MCQ ANSWER via tool call: ${toolCall.function.name}`, letter);
+					}
+					return letter;
+				}
+			}
 		}
 
 		// Model wants to call tools — need skillsMap to resolve
@@ -233,16 +272,23 @@ async function processQuestion(
 	debug?: boolean,
 ): Promise<QuestionResult> {
 	let prompt = question.question;
+	let mcqToolNames: Set<string> | undefined;
+	let effectiveTools = tools;
+
 	if (question.type === "mcq" && question.choices) {
-    prompt +=
-      "\n\nChoices:\n" +
-      question.choices
-        .map((c, idx) => `${String.fromCharCode(65 + idx)}. ${c}`)
-        .join("\n");
+		prompt +=
+			"\n\nChoices:\n" +
+			question.choices
+				.map((c, idx) => `${String.fromCharCode(65 + idx)}. ${c}`)
+				.join("\n");
+
+		const mcq = buildMCQTools(question.choices);
+		mcqToolNames = mcq.mcqToolNames;
+		effectiveTools = [...(tools ?? []), ...mcq.tools];
 	}
 
 	try {
-		const response = await callModel(model, systemPrompt, prompt, tools, skillsMap, debug);
+		const response = await callModel(model, systemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
 
 		let correct = false;
 		let score = 0;
@@ -321,7 +367,7 @@ export async function runBenchmark({
         running++;
 				
         if (question.type === "mcq") {
-          systemPrompt += "\nRespond with only the letter of the correct answer";
+          systemPrompt += "\nTo answer, you must call the tool corresponding to the correct answer (e.g. answer_a, answer_b, answer_c, or answer_d). Do not respond with text.";
         }
 
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {

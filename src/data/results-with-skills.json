@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-04T11:44:54.331Z",
+  "runDate": "2026-03-04T12:04:51.665Z",
   "mode": "with-skills",
   "totalQuestions": 180,
   "totalMcq": 154,
@@ -49,7 +49,7 @@
       "freeformOverall": 87.9,
       "totalQuestions": 180,
       "totalCorrect": 172,
-      "runDate": "2026-03-04T11:44:54.331Z",
+      "runDate": "2026-03-04T12:04:51.665Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2872,7 +2872,7 @@
       "freeformOverall": 89.2,
       "totalQuestions": 180,
       "totalCorrect": 178,
-      "runDate": "2026-03-04T11:44:54.331Z",
+      "runDate": "2026-03-04T12:04:51.665Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -5660,24 +5660,24 @@
       "scores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 93.2,
+        "databases": 93.5,
         "functions": 94.3,
         "storage": 99.7,
         "sites": 100,
         "messaging": 100,
-        "realtime": 91.9,
-        "cli": 92.4
+        "realtime": 88.5,
+        "cli": 92.7
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 93.8,
+        "databases": 94.1,
         "functions": 94.1,
         "storage": 100,
         "sites": 100,
         "messaging": 100,
-        "realtime": 100,
-        "cli": 93.8
+        "realtime": 94.1,
+        "cli": 94.1
       },
       "freeformScores": {
         "fundamental": 100,
@@ -5690,12 +5690,12 @@
         "realtime": 56.7,
         "cli": 85
       },
-      "overall": 96.9,
-      "mcqOverall": 97.9,
+      "overall": 96.5,
+      "mcqOverall": 97.4,
       "freeformOverall": 91.3,
       "totalQuestions": 180,
-      "totalCorrect": 167,
-      "runDate": "2026-03-04T11:44:54.331Z",
+      "totalCorrect": 175,
+      "runDate": "2026-03-04T12:04:51.665Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -8328,6 +8328,150 @@
           "correct": true,
           "score": 0.9,
           "judgeReasoning": "The answer covers all 5 required rubric points: 1) appwrite init function/functions to scaffold, 2) runtime selection (node-18.0, python-3.9, etc.), 3) appwrite.json/appwrite.config.json configuration options (name, runtime, execute permissions via events, variables, schedule, timeout, etc.), 4) local development with appwrite run functions, 5) deployment with appwrite push functions. The answer uses 'appwrite.config.json' instead of 'appwrite.json' and 'appwrite init functions' instead of 'appwrite init function' (minor naming variations), and it's extremely comprehensive with additional details beyond the rubric. The slight deduction is for the config file naming discrepancy (appwrite.config.json vs appwrite.json) and missing explicit mention of 'execute permissions' as a configuration option, though vars/events/schedule are well covered."
+        },
+        {
+          "questionId": "db-12",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the possible statuses of a database transaction?",
+          "choices": [
+            "pending, committing, committed, failed",
+            "active, committed, rolled_back",
+            "open, closed",
+            "started, finished"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-13",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Which push notification providers does Appwrite Messaging support?",
+          "choices": [
+            "FCM (Firebase Cloud Messaging) and APNS (Apple Push Notification service)",
+            "Only one custom provider",
+            "Only FCM",
+            "Only web push"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-16",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Can you send one message to both topics and specific users in the same request?",
+          "choices": [
+            "No, you must choose one targeting method",
+            "Only for email",
+            "Yes, targeting by topics, users, and targets can be combined in a single message",
+            "Only in the Console"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-17",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Which service do you use from the client or server SDK to send emails?",
+          "choices": [
+            "Messaging service (e.g. messaging.createEmail)",
+            "Email service",
+            "Mail service",
+            "Notifications service"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-15",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "What event types can you receive for a documents channel?",
+          "choices": [
+            "create, update, delete, and optionally other events depending on the resource",
+            "Only create and delete",
+            "Only update",
+            "custom events only"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-16",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "When you subscribe to a new channel on an existing Realtime connection, what happens?",
+          "choices": [
+            "The new channel is added and no reconnect occurs",
+            "An error is thrown",
+            "The connection is recreated: the old socket is closed and a new one is opened with all channels",
+            "A separate connection is opened for the new channel"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-17",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "Which channel format is used to subscribe to file changes in a bucket?",
+          "choices": [
+            "buckets.[bucketId].files",
+            "storage.[bucketId].files",
+            "files.[bucketId]",
+            "realtime.buckets.[bucketId].files"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "rt-19",
+          "category": "realtime",
+          "type": "mcq",
+          "question": "If a user logs in after already having a Realtime subscription, will they receive events for resources they can now access?",
+          "choices": [
+            "Yes, the subscription automatically updates",
+            "The server pushes an auth event and then updates",
+            "The subscription must be recreated to apply the new user's permissions",
+            "Realtime does not respect permissions"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "A",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "cli-12",
+          "category": "cli",
+          "type": "mcq",
+          "question": "How do you deploy database collections to Appwrite using the CLI?",
+          "choices": [
+            "appwrite deploy collections",
+            "appwrite sync collections",
+            "appwrite upload collections",
+            "appwrite push collections"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
         }
       ]
     },
@@ -8338,21 +8482,21 @@
       "costPerMillionTokens": 0.45,
       "scores": {
         "fundamental": 100,
-        "auth": 99.2,
-        "databases": 92.9,
+        "auth": 99.3,
+        "databases": 93.2,
         "functions": 99.7,
-        "storage": 93.2,
+        "storage": 93.5,
         "sites": 100,
-        "messaging": 98.2,
+        "messaging": 98.5,
         "realtime": 89,
         "cli": 92.3
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 93.8,
+        "databases": 94.1,
         "functions": 100,
-        "storage": 93.8,
+        "storage": 94.1,
         "sites": 100,
         "messaging": 100,
         "realtime": 94.1,
@@ -8369,12 +8513,12 @@
         "realtime": 60,
         "cli": 81.7
       },
-      "overall": 95.9,
-      "mcqOverall": 97.2,
+      "overall": 96.2,
+      "mcqOverall": 97.4,
       "freeformOverall": 88.8,
       "totalQuestions": 180,
-      "totalCorrect": 165,
-      "runDate": "2026-03-04T11:44:54.331Z",
+      "totalCorrect": 175,
+      "runDate": "2026-03-04T12:04:51.665Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -10989,6 +11133,166 @@
           ],
           "correctAnswer": "A",
           "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-13",
+          "category": "auth",
+          "type": "mcq",
+          "question": "What is the default maximum number of sessions per user in an Appwrite project?",
+          "choices": [
+            "1",
+            "5",
+            "10",
+            "Unlimited"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-17",
+          "category": "auth",
+          "type": "mcq",
+          "question": "When using createRecovery, what requirement applies to the redirect URL?",
+          "choices": [
+            "It must be HTTPS only",
+            "It can be any URL",
+            "It must match the app's origin exactly",
+            "It must be from a domain you added in the project's platforms in the Console"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-12",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the possible statuses of a database transaction?",
+          "choices": [
+            "pending, committing, committed, failed",
+            "active, committed, rolled_back",
+            "open, closed",
+            "started, finished"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-11",
+          "category": "functions",
+          "type": "mcq",
+          "question": "What are the possible statuses of an Appwrite Function execution?",
+          "choices": [
+            "pending, running, done, error",
+            "waiting, processing, completed, failed, and scheduled",
+            "queued, active, success, failure",
+            "created, started, finished, crashed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-16",
+          "category": "functions",
+          "type": "mcq",
+          "question": "When passing custom headers to createExecution, what restriction applies?",
+          "choices": [
+            "Headers are not allowed; only the request body is passed",
+            "Header names cannot start with 'x-appwrite-'; they are reserved by Appwrite",
+            "Only Content-Type is allowed",
+            "There are no restrictions on header names"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-18",
+          "category": "functions",
+          "type": "mcq",
+          "question": "What are the deployment build statuses for an Appwrite Function?",
+          "choices": [
+            "pending, building, ready",
+            "processing, building, ready, and canceled",
+            "queued, in_progress, success, failed",
+            "uploaded, compiling, deployed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-15",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "What is a target in Appwrite Messaging?",
+          "choices": [
+            "A delivery endpoint for a user (e.g. an email address, phone number, or push device token)",
+            "A message template",
+            "A user group",
+            "A provider configuration"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-16",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Can you send one message to both topics and specific users in the same request?",
+          "choices": [
+            "No, you must choose one targeting method",
+            "Only for email",
+            "Yes, targeting by topics, users, and targets can be combined in a single message",
+            "Only in the Console"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-19",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "What are message templates used for in Appwrite Messaging?",
+          "choices": [
+            "Predefined content (e.g. subject, body) that can be used when sending messages; you reference them by message ID",
+            "Only for email subject lines",
+            "Only for SMS",
+            "They are not supported"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-13",
+          "category": "storage",
+          "type": "mcq",
+          "question": "For large file uploads, how does Appwrite Storage support resumable or chunked uploads?",
+          "choices": [
+            "It does not; all uploads must be in one request",
+            "Only via the CLI",
+            "Using the Content-Range header to send chunks (e.g. max 5MB per chunk); first request creates the file, subsequent requests use x-appwrite-id",
+            "Only for files over 100MB"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
           "correct": true,
           "score": 1
         }
