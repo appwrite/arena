@@ -50,10 +50,10 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"appwrite.config.js",
 			".appwriterc",
+			"appwrite.config.json",
 			"appwrite.yaml",
-			"appwrite.json",
 		],
-		correctAnswer: "D",
+		correctAnswer: "C",
 	},
 	{
 		id: "cli-5",
@@ -120,17 +120,17 @@ export const cliQuestions: Question[] = [
 		category: "cli",
 		type: "free-form",
 		question:
-			"Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
+			"Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
 		correctAnswer:
-			"Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+			"Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
 		rubric:
-			"Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+			"Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
 	},
 	{
 		id: "cli-11",
 		category: "cli",
 		type: "mcq",
-		question: "What command initializes the CLI with your Appwrite project and creates appwrite.json?",
+		question: "What command initializes the CLI with your Appwrite project and creates appwrite.config.json?",
 		choices: [
 			"appwrite init project",
 			"appwrite setup",
@@ -169,7 +169,7 @@ export const cliQuestions: Question[] = [
 		id: "cli-14",
 		category: "cli",
 		type: "mcq",
-		question: "What does the appwrite.json file represent?",
+		question: "What does the appwrite.config.json file represent?",
 		choices: [
 			"Only function configurations",
 			"User credentials only",
@@ -225,7 +225,7 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"Pushes code to a Git repository",
 			"Uploads environment variables only",
-			"Deploys tracked resources (e.g. functions, collections) from appwrite.json to your Appwrite project",
+			"Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
 			"Syncs local config with the server and overwrites server state",
 		],
 		correctAnswer: "C",
@@ -253,5 +253,61 @@ export const cliQuestions: Question[] = [
 			"The data must be a valid JSON string with keys and values in double quotes. Permissions like read and write are passed as arrays with space-separated values, e.g. --data '{\"name\": \"John\"}' --permissions 'read(\"any\")' 'read(\"team:abc\")'.",
 		rubric:
 			"Must mention: 1) data as JSON string with double quotes, 2) permissions as array (space-separated in CLI), 3) Example or correct syntax for databases create-document",
+	},
+	{
+		id: "cli-21",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What happens if an Appwrite project contains an appwrite.json file but no appwrite.config.json?",
+		choices: [
+			"The CLI throws an error and requires appwrite.config.json",
+			"The CLI falls back to appwrite.json for legacy backwards compatibility",
+			"The CLI ignores it and uses default settings",
+			"The CLI automatically migrates appwrite.json to appwrite.config.json",
+		],
+		correctAnswer: "B",
+	},
+	{
+		id: "cli-22",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What does the appwrite types command do?",
+		choices: [
+			"Lists all data types supported by Appwrite databases",
+			"Generates typed models for your Appwrite project's collections and attributes",
+			"Converts documents between different data formats",
+			"Validates the types defined in appwrite.config.json",
+		],
+		correctAnswer: "B",
+	},
+	{
+		id: "cli-23",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What does the --strict flag do in the appwrite types command?",
+		choices: [
+			"Enforces type-safe null checks in generated code",
+			"Throws errors for missing or invalid collection attributes",
+			"Automatically converts field names to follow language conventions",
+			"Disables generation of optional fields",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "cli-24",
+		category: "cli",
+		type: "mcq",
+		question:
+			"A function works locally but fails after pushing because environment variables are missing. What flag was likely missing from the push command?",
+		choices: [
+			"--env",
+			"--with-variables",
+			"--include-env",
+			"--push-variables",
+		],
+		correctAnswer: "B",
 	},
 ];

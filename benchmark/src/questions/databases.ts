@@ -260,4 +260,18 @@ export const databasesQuestions: Question[] = [
 		rubric:
 			"Must include: 1) Query.greaterThan for the filter, 2) Query.orderDesc for sort, 3) Query.limit(20), 4) Passing queries to listDocuments()",
 	},
+	{
+		id: "db-21",
+		category: "databases",
+		type: "mcq",
+		question:
+			"What are the minimum and maximum values for an integer attribute in Appwrite?",
+		choices: [
+			"-2147483648 to 2147483647 (32-bit signed integer)",
+			"-9223372036854775808 to 9223372036854775807 (64-bit signed integer)",
+			"0 to 18446744073709551615 (64-bit unsigned integer)",
+			"-999999999999 to 999999999999 (12-digit limit)",
+		],
+		correctAnswer: "B",
+	},
 ];
