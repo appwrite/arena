@@ -1,4 +1,5 @@
-import { OPENROUTER_API_URL, TEMPERATURE } from "./config";
+import { OpenRouter } from "@openrouter/sdk";
+import { TEMPERATURE } from "./config";
 import { judgeAnswer } from "./judge";
 import type {
 	ChatMessage,
@@ -14,6 +15,8 @@ const apiKey = process.env.OPENROUTER_API_KEY;
 if (!apiKey) {
 	throw new Error("OPENROUTER_API_KEY environment variable is required");
 }
+
+const openrouter = new OpenRouter({ apiKey });
 
 const MAX_TOOL_ROUNDS = 5;
 
@@ -56,30 +59,17 @@ async function callModelRaw(
 	messages: ChatMessage[],
 	tools?: Tool[],
 ): Promise<ApiResponse> {
-	const body: Record<string, unknown> = {
+	const chatGenerationParams: Record<string, unknown> = {
 		model: model.openRouterId,
 		temperature: TEMPERATURE,
 		messages,
 	};
 	if (tools && tools.length > 0) {
-		body.tools = tools;
+		chatGenerationParams.tools = tools;
 	}
 
-	const response = await fetch(OPENROUTER_API_URL, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${apiKey}`,
-		},
-		body: JSON.stringify(body),
-	});
-
-	if (!response.ok) {
-		const text = await response.text();
-		throw new Error(`OpenRouter API error (${response.status}): ${text}`);
-	}
-
-	return (await response.json()) as ApiResponse;
+  const response = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]);
+	return response as unknown as ApiResponse;
 }
 
 function resolveToolCall(
