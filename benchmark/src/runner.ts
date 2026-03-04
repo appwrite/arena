@@ -222,7 +222,7 @@ export interface RunBenchmarkOptions {
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
-const CONCURRENCY_LIMIT = 1;
+const CONCURRENCY_LIMIT = 5;
 
 async function processQuestion(
 	question: Question,
