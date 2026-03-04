@@ -74,17 +74,58 @@ function resolveToolCall(
 	}
 }
 
+function truncate(str: string, max: number): string {
+	return str.length > max ? `${str.slice(0, max)}... (${str.length} chars)` : str;
+}
+
+function debugLog(label: string, data: unknown): void {
+	const sep = "─".repeat(60);
+	console.log(`\n${sep}`);
+	console.log(`[DEBUG] ${label}`);
+	console.log(sep);
+	if (typeof data === "string") {
+		console.log(data);
+	} else {
+		console.log(JSON.stringify(data, null, 2));
+	}
+}
+
+function debugMessages(messages: ChatMessage[]): void {
+	for (const msg of messages) {
+		if (msg.role === "system") {
+			debugLog("SYSTEM PROMPT", truncate(msg.content ?? "", 200));
+		} else if (msg.role === "user") {
+			debugLog("USER", msg.content ?? "");
+		} else if (msg.role === "tool") {
+			debugLog(`TOOL RESULT (call ${msg.tool_call_id})`, truncate(msg.content ?? "", 300));
+		}
+	}
+}
+
 async function callModel(
 	model: ModelConfig,
 	systemPrompt: string,
 	userPrompt: string,
 	tools?: Tool[],
 	skillsMap?: Map<string, SkillInfo>,
+	debug?: boolean,
 ): Promise<string> {
 	const messages: ChatMessage[] = [
 		...(systemPrompt ? [{ role: "system" as const, content: systemPrompt }] : []),
 		{ role: "user" as const, content: userPrompt },
 	];
+
+	if (debug) {
+		debugLog("REQUEST → " + model.name, "");
+		debugMessages(messages);
+		if (tools) {
+			debugLog("TOOLS", tools.map(t => ({
+				name: t.function.name,
+				description: t.function.description,
+				parameters: t.function.parameters,
+			})));
+		}
+	}
 
 	for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
 		const data = await callModelRaw(model, messages, tools);
@@ -93,7 +134,21 @@ async function callModel(
 
 		// If no tool calls, return the text content
 		if (!msg.tool_calls || msg.tool_calls.length === 0) {
+			if (debug) {
+				debugLog("RESPONSE ← (final text)", truncate(msg.content ?? "", 500));
+			}
 			return msg.content ?? "";
+		}
+
+		if (debug) {
+			debugLog(`RESPONSE ← (round ${round + 1}, ${msg.tool_calls.length} tool call(s))`, {
+				content: msg.content ? truncate(msg.content, 200) : null,
+				tool_calls: msg.tool_calls.map(tc => ({
+					id: tc.id,
+					function: tc.function.name,
+					arguments: tc.function.arguments,
+				})),
+			});
 		}
 
 		// Model wants to call tools — need skillsMap to resolve
@@ -111,6 +166,9 @@ async function callModel(
 		// Resolve each tool call and append results
 		for (const toolCall of msg.tool_calls) {
 			const result = resolveToolCall(toolCall, skillsMap);
+			if (debug) {
+				debugLog(`TOOL RESOLVE: ${toolCall.function.name}(${toolCall.function.arguments})`, truncate(result, 300));
+			}
 			messages.push({
 				role: "tool",
 				tool_call_id: toolCall.id,
@@ -119,9 +177,17 @@ async function callModel(
 		}
 	}
 
+	if (debug) {
+		debugLog("MAX TOOL ROUNDS REACHED", `Sending final request without tools`);
+	}
+
 	// Max rounds exceeded — make one final call without tools to force a text response
 	const finalData = await callModelRaw(model, messages);
-	return finalData.choices[0]?.message?.content ?? "";
+	const finalContent = finalData.choices[0]?.message?.content ?? "";
+	if (debug) {
+		debugLog("RESPONSE ← (forced final)", truncate(finalContent, 500));
+	}
+	return finalContent;
 }
 
 function extractMCQAnswer(response: string): string {
@@ -152,6 +218,7 @@ export interface RunBenchmarkOptions {
 	existingResults: QuestionResult[];
 	tools?: Tool[];
 	skillsMap?: Map<string, SkillInfo>;
+	debug?: boolean;
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
@@ -163,6 +230,7 @@ async function processQuestion(
 	systemPrompt: string,
 	tools?: Tool[],
 	skillsMap?: Map<string, SkillInfo>,
+	debug?: boolean,
 ): Promise<QuestionResult> {
 	let prompt = question.question;
 	if (question.type === "mcq" && question.choices) {
@@ -175,7 +243,7 @@ async function processQuestion(
 	}
 
 	try {
-		const response = await callModel(model, systemPrompt, prompt, tools, skillsMap);
+		const response = await callModel(model, systemPrompt, prompt, tools, skillsMap, debug);
 
 		let correct = false;
 		let score = 0;
@@ -222,6 +290,7 @@ export async function runBenchmark({
 	existingResults,
 	tools,
 	skillsMap,
+	debug,
 	onQuestionComplete,
 }: RunBenchmarkOptions): Promise<QuestionResult[]> {
 	const completedIds = new Set(existingResults.map((r) => r.questionId));
@@ -252,7 +321,7 @@ export async function runBenchmark({
 				const question = remaining[idx];
 				running++;
 
-				processQuestion(question, model, systemPrompt, tools, skillsMap).then((result) => {
+				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {
 					running--;
 					completed++;
 					console.log(

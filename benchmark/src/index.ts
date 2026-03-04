@@ -13,16 +13,18 @@ import type {
 	Tool,
 } from "./types";
 
-function parseArgs(): { mode: "with-skills" | "without-skills" } {
+function parseArgs(): { mode: "with-skills" | "without-skills"; debug: boolean } {
 	const args = process.argv.slice(2);
 	const modeIndex = args.indexOf("--mode");
+	let mode: "with-skills" | "without-skills" = "without-skills";
 	if (modeIndex !== -1 && args[modeIndex + 1]) {
-		const mode = args[modeIndex + 1];
-		if (mode === "with-skills" || mode === "without-skills") {
-			return { mode };
+		const m = args[modeIndex + 1];
+		if (m === "with-skills" || m === "without-skills") {
+			mode = m;
 		}
 	}
-	return { mode: "without-skills" };
+	const debug = args.includes("--debug");
+	return { mode, debug };
 }
 
 function parseFrontmatter(raw: string): { name: string; description: string; content: string } {
@@ -248,9 +250,9 @@ function saveResults(
 }
 
 async function main() {
-	const { mode } = parseArgs();
+	const { mode, debug } = parseArgs();
 	console.log(`\nAppwrite Arena Benchmark`);
-	console.log(`Mode: ${mode}`);
+	console.log(`Mode: ${mode}${debug ? " (debug)" : ""}`);
 	console.log(`Models: ${MODELS.length}`);
 	console.log(`Questions: ${allQuestions.length}`);
 
@@ -311,6 +313,7 @@ async function main() {
 			existingResults,
 			tools,
 			skillsMap,
+			debug,
 			onQuestionComplete: (result: QuestionResult) => {
 				models[model.id].results.push(result);
 				saveResults(models, mode);
