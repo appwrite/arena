@@ -64,6 +64,7 @@ export default function HowItWorks({
 			className="rise-in scroll-mt-20 px-4 py-14 md:py-20"
 		>
 			<div className="arena-container">
+				<div className="mx-auto mb-10 h-px w-full max-w-xs bg-gradient-to-r from-transparent via-[var(--line)] to-transparent md:mb-14" />
 				<div className="flex flex-col gap-0 md:flex-row md:items-start md:gap-0">
 					{steps.map((step, i) => (
 						<div key={step.title} className="flex flex-1 flex-col md:flex-row">

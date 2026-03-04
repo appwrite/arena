@@ -266,8 +266,8 @@ function App() {
 				models={activeData.models}
 				withSkillsModels={withSkills.models}
 				withoutSkillsModels={withoutSkills.models}
-      />
-			
+			/>
+
 			<HowItWorks
 				modelCount={withSkills.models.length}
 				questionCount={withSkills.totalQuestions}

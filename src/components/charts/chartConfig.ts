@@ -22,10 +22,10 @@ export const tooltipItemStyle: CSSProperties = {
 };
 
 export const MODEL_COLORS: Record<string, string> = {
-	Anthropic: "#D4A27F",
-	OpenAI: "#10A37F",
-	Google: "#4285F4",
-	MoonshotAI: "#A855F7",
+	Anthropic: "#FE9567",
+	OpenAI: "#10B981",
+	Google: "#68A3FE",
+	MoonshotAI: "#7C67FE",
 };
 
 export function getModelColor(provider: string): string {

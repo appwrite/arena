@@ -12,90 +12,84 @@ interface Props {
 	withoutSkillsModels: ModelResult[];
 }
 
+const TABS = [
+	"Category performance",
+	"Skills impact",
+	"Cost vs Value",
+	"MCQ vs Freeform",
+	"Cost efficiency",
+] as const;
+
+type Tab = (typeof TABS)[number];
+
 export default function ChartsSection({
 	models,
 	withSkillsModels,
 	withoutSkillsModels,
 }: Props) {
 	const [mounted, setMounted] = useState(false);
+	const [activeTab, setActiveTab] = useState<Tab>("Category performance");
 
 	useEffect(() => {
 		setMounted(true);
 	}, []);
 
 	return (
-		<section className="rise-in px-4 py-14 md:py-20">
+		<section className="rise-in px-4 pt-20 md:pt-28">
 			<div className="arena-container">
-				<h2 className="mb-4 text-center font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
-					Performance Insights
+				<h2 className="mb-4 text-center font-heading text-3xl font-normal tracking-[-2%] text-[var(--text-primary)] md:text-4xl">
+					Beyond the leaderboard
 				</h2>
-				<p className="mx-auto mb-12 max-w-lg text-center text-sm leading-relaxed text-[var(--text-secondary)]">
-					Visual breakdown of how each model performs across categories, scoring
-					types, and cost efficiency.
+				<p className="mx-auto mb-10 max-w-sm text-center text-base font-medium leading-relaxed tracking-[-1.4%] text-[var(--text-secondary)]">
+					A closer look at how each model performs across every dimension we
+					test.
 				</p>
 
+				<div className="scrollbar-hide mb-8 overflow-x-auto">
+					<div className="flex flex-wrap items-center justify-center gap-2">
+						{TABS.map((tab) => (
+							<button
+								key={tab}
+								type="button"
+								onClick={() => setActiveTab(tab)}
+								className={`inline-flex shrink-0 cursor-pointer items-center whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+									activeTab === tab
+										? "border-[var(--text-primary)] bg-[var(--text-primary)] text-[var(--bg-base)]"
+										: "border-[var(--chip-line)] bg-[var(--chip-bg)] text-[var(--text-secondary)] hover:border-[var(--line)] hover:text-[var(--text-primary)]"
+								}`}
+							>
+								{tab}
+							</button>
+						))}
+					</div>
+				</div>
+
 				{mounted ? (
-					<>
-						<div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-							<div className="arena-card p-3 md:p-5">
-								<h3 className="mb-4 text-center text-sm font-medium text-[var(--text-secondary)]">
-									Category Performance
-								</h3>
-								<RadarPerformance models={models} />
-							</div>
-							<div className="arena-card flex flex-col p-3 md:p-5">
-								<h3 className="mb-4 text-center text-sm font-medium text-[var(--text-secondary)]">
-									Skills Impact on Performance
-								</h3>
-								<div className="min-h-[300px] flex-1">
-									<SkillsComparisonChart
-										withSkills={withSkillsModels}
-										withoutSkills={withoutSkillsModels}
-									/>
-								</div>
-							</div>
-							<div className="arena-card p-3 md:p-5">
-								<h3 className="mb-4 text-center text-sm font-medium text-[var(--text-secondary)]">
-									Deterministic vs AI-Judged
-								</h3>
-								<McqVsFreeformChart models={models} />
-							</div>
-							<div className="arena-card p-3 md:p-5">
-								<h3 className="mb-4 text-center text-sm font-medium text-[var(--text-secondary)]">
-									Cost per Million Tokens
-								</h3>
-								<CostEfficiencyChart models={models} />
-							</div>
-						</div>
-						<div className="arena-card mt-5 p-3 md:p-5">
-							<h3 className="mb-4 text-center text-sm font-medium text-[var(--text-secondary)]">
-								Overall (Cost vs Value)
-							</h3>
+					<div className="min-h-[400px]">
+						{activeTab === "Category performance" && (
+							<RadarPerformance models={models} />
+						)}
+						{activeTab === "Skills impact" && (
+							<SkillsComparisonChart
+								withSkills={withSkillsModels}
+								withoutSkills={withoutSkillsModels}
+							/>
+						)}
+						{activeTab === "MCQ vs Freeform" && (
+							<McqVsFreeformChart models={models} />
+						)}
+						{activeTab === "Cost efficiency" && (
+							<CostEfficiencyChart models={models} />
+						)}
+						{activeTab === "Cost vs Value" && (
 							<OverallValueChart models={withSkillsModels} />
-						</div>
-					</>
+						)}
+					</div>
 				) : (
-					<div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-						<div className="arena-card flex h-[464px] items-center justify-center">
-							<span className="text-sm text-[var(--text-secondary)]">
-								Loading charts...
-							</span>
-						</div>
-						<div className="arena-card flex h-[364px] items-center justify-center">
-							<span className="text-sm text-[var(--text-secondary)]">
-								Loading charts...
-							</span>
-						</div>
-						<div className="arena-card flex h-[364px] items-center justify-center">
-							<span className="text-sm text-[var(--text-secondary)]">
-								Loading charts...
-							</span>
-						</div>
-						<div className="arena-card flex h-[314px] items-center justify-center">
-							<span className="text-sm text-[var(--text-secondary)]">
-								Loading charts...
-							</span>
-						</div>
+					<div className="flex h-[464px] items-center justify-center">
+						<span className="text-sm text-[var(--text-secondary)]">
+							Loading charts...
+						</span>
 					</div>
 				)}
 			</div>

@@ -13,7 +13,6 @@ import type { ModelResult } from "#/lib/types";
 import {
 	buildMcqFreeformData,
 	tooltipContentStyle,
-	tooltipItemStyle,
 	tooltipLabelStyle,
 } from "./chartConfig";
 
@@ -25,8 +24,8 @@ export default function McqVsFreeformChart({ models }: Props) {
 	const data = useMemo(() => buildMcqFreeformData(models), [models]);
 
 	return (
-		<ResponsiveContainer width="100%" height={400}>
-			<BarChart data={data} barGap={2} barCategoryGap="25%">
+		<ResponsiveContainer width="100%" height={350}>
+			<BarChart data={data} barSize={20} barGap={2} barCategoryGap="25%">
 				<CartesianGrid stroke="rgba(237,237,240,0.1)" strokeDasharray="3 3" />
 				<XAxis
 					dataKey="name"
@@ -42,18 +41,31 @@ export default function McqVsFreeformChart({ models }: Props) {
 					tickFormatter={(v: number) => `${v}%`}
 				/>
 				<Tooltip
-					contentStyle={tooltipContentStyle}
-					labelStyle={tooltipLabelStyle}
-					itemStyle={tooltipItemStyle}
 					cursor={{ fill: "rgba(237,237,240,0.05)" }}
-					formatter={
-						((value: number, name: string) => [
-							`${value}%`,
-							name.toLowerCase().includes("mcq")
-								? "Deterministic"
-								: "AI-Judged",
-						]) as never
-					}
+					content={({ active, payload, label }) => {
+						if (!active || !payload?.length) return null;
+						const mcq = payload.find((p) => p.dataKey === "mcq");
+						const freeform = payload.find((p) => p.dataKey === "freeform");
+						return (
+							<div style={{ ...tooltipContentStyle, padding: "10px 14px" }}>
+								<p style={tooltipLabelStyle}>{label}</p>
+								{mcq && (
+									<p
+										style={{ color: "#9ca3af", padding: "1px 0", fontSize: 13 }}
+									>
+										Deterministic: {mcq.value}%
+									</p>
+								)}
+								{freeform && (
+									<p
+										style={{ color: "#9ca3af", padding: "1px 0", fontSize: 13 }}
+									>
+										AI-Judged: {freeform.value}%
+									</p>
+								)}
+							</div>
+						);
+					}}
 				/>
 				<Bar
 					dataKey="mcq"

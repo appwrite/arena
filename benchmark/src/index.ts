@@ -43,13 +43,18 @@ function parseFrontmatter(raw: string): { name: string; description: string; con
 	};
 }
 
+const BENCHMARK_SKILLS = new Set(["appwrite-typescript", "appwrite-cli"]);
+
 function loadSkills(): Map<string, SkillInfo> {
 	const skillsDir = resolve(import.meta.dir, "../agent-skills/skills");
 	const skills = new Map<string, SkillInfo>();
 
 	try {
 		const entries = readdirSync(skillsDir, { withFileTypes: true });
-		const dirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+		const dirs = entries
+			.filter(e => e.isDirectory() && BENCHMARK_SKILLS.has(e.name))
+			.map(e => e.name)
+			.sort();
 
 		for (const dir of dirs) {
 			const skillPath = join(skillsDir, dir, "SKILL.md");
