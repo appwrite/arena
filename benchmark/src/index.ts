@@ -9,6 +9,8 @@ import type {
 	Question,
 	QuestionDetail,
 	QuestionResult,
+	SkillInfo,
+	Tool,
 } from "./types";
 
 function parseArgs(): { mode: "with-skills" | "without-skills" } {
@@ -23,29 +25,72 @@ function parseArgs(): { mode: "with-skills" | "without-skills" } {
 	return { mode: "without-skills" };
 }
 
-function loadSkills(): string {
+function parseFrontmatter(raw: string): { name: string; description: string; content: string } {
+	const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+	if (!match) {
+		return { name: "", description: "", content: raw.trim() };
+	}
+	const yaml = match[1];
+	const content = match[2].trim();
+	const nameMatch = yaml.match(/^name:\s*(.+)$/m);
+	const descMatch = yaml.match(/^description:\s*(.+)$/m);
+	return {
+		name: nameMatch?.[1]?.trim() ?? "",
+		description: descMatch?.[1]?.trim() ?? "",
+		content,
+	};
+}
+
+function loadSkills(): Map<string, SkillInfo> {
 	const skillsDir = resolve(import.meta.dir, "../agent-skills/skills");
+	const skills = new Map<string, SkillInfo>();
 
 	try {
 		const entries = readdirSync(skillsDir, { withFileTypes: true });
 		const dirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
 
-		let combined = "";
 		for (const dir of dirs) {
 			const skillPath = join(skillsDir, dir, "SKILL.md");
 			try {
-				const content = readFileSync(skillPath, "utf-8");
-				combined += `${content}\n\n`;
+				const raw = readFileSync(skillPath, "utf-8");
+				const { name, description, content } = parseFrontmatter(raw);
+				const skillName = name || dir;
+				skills.set(skillName, { description, content });
 			} catch {
 				console.warn(`  Warning: No SKILL.md in ${dir}`);
 			}
 		}
-
-		return combined.trim();
 	} catch {
 		console.warn("Warning: Could not read agent-skills directory. Run 'bun run prepare-skills' first.");
-		return "";
 	}
+
+	return skills;
+}
+
+function buildSkillTool(skillsMap: Map<string, SkillInfo>): Tool {
+	const skillNames = [...skillsMap.keys()];
+	const descriptions = skillNames
+		.map(name => `- "${name}": ${skillsMap.get(name)!.description}`)
+		.join("\n");
+
+	return {
+		type: "function",
+		function: {
+			name: "read_skill",
+			description: `Retrieve Appwrite SDK documentation for a specific skill. Available skills:\n${descriptions}`,
+			parameters: {
+				type: "object",
+				required: ["skill_name"],
+				properties: {
+					skill_name: {
+						type: "string",
+						enum: skillNames,
+						description: "The name of the skill to retrieve documentation for.",
+					},
+				},
+			},
+		},
+	};
 }
 
 function aggregateScores(
@@ -221,18 +266,20 @@ async function main() {
 		);
 	}
 
-	let skills = "";
+	let skillsMap: Map<string, SkillInfo> | undefined;
+	let tools: Tool[] | undefined;
 	if (mode === "with-skills") {
-		skills = loadSkills();
-		if (skills) {
-			console.log(`Loaded skills (${skills.length} chars)`);
+		skillsMap = loadSkills();
+		if (skillsMap.size > 0) {
+			tools = [buildSkillTool(skillsMap)];
+			console.log(`Loaded ${skillsMap.size} skills as tools`);
 		} else {
 			console.log("Warning: No skills loaded");
 		}
 	}
 
-	const systemPrompt = skills
-		? `You are an expert on Appwrite, the open-source backend-as-a-service platform. Use the following documentation to answer questions accurately.\n\n${skills}`
+	const systemPrompt = tools
+		? "You are an expert on Appwrite, the open-source backend-as-a-service platform. You have access to tools to look up Appwrite SDK documentation. Use them to answer questions accurately."
 		: "You are an expert on Appwrite, the open-source backend-as-a-service platform. Answer questions about Appwrite services accurately and concisely.";
 
 	const pricing = await fetchPricing(MODELS);
@@ -262,6 +309,8 @@ async function main() {
 			questions: allQuestions,
 			systemPrompt,
 			existingResults,
+			tools,
+			skillsMap,
 			onQuestionComplete: (result: QuestionResult) => {
 				models[model.id].results.push(result);
 				saveResults(models, mode);
