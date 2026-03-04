@@ -1,4 +1,4 @@
-import { OPENROUTER_API_URL, RATE_LIMIT_DELAY_MS, TEMPERATURE } from "./config";
+import { OPENROUTER_API_URL, TEMPERATURE } from "./config";
 import { judgeAnswer } from "./judge";
 import type { ModelConfig, Question, QuestionResult } from "./types";
 
@@ -60,16 +60,70 @@ function extractMCQAnswer(response: string): string {
 	return cleaned.charAt(0);
 }
 
-function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 export interface RunBenchmarkOptions {
 	model: ModelConfig;
 	questions: Question[];
 	systemPrompt: string;
 	existingResults: QuestionResult[];
 	onQuestionComplete: (result: QuestionResult) => void;
+}
+
+const CONCURRENCY_LIMIT = 10;
+
+async function processQuestion(
+	question: Question,
+	model: ModelConfig,
+	systemPrompt: string,
+): Promise<QuestionResult> {
+	let prompt = question.question;
+	if (question.type === "mcq" && question.choices) {
+		prompt +=
+			"\n\nChoices:\n" +
+			question.choices
+				.map((c, idx) => `${String.fromCharCode(65 + idx)}. ${c}`)
+				.join("\n") +
+			"\n\nRespond with only the letter of the correct answer.";
+	}
+
+	try {
+		const response = await callModel(model, systemPrompt, prompt);
+
+		let correct = false;
+		let score = 0;
+		let judgeReasoning: string | undefined;
+
+		if (question.type === "mcq") {
+			const extracted = extractMCQAnswer(response);
+			correct = extracted === question.correctAnswer.toUpperCase();
+			score = correct ? 1 : 0;
+		} else {
+			const judgeResult = await judgeAnswer(question, response);
+			score = judgeResult.score;
+			correct = score >= 0.5;
+			judgeReasoning = judgeResult.reasoning;
+		}
+
+		return {
+			questionId: question.id,
+			category: question.category,
+			type: question.type,
+			modelAnswer: response,
+			correct,
+			score,
+			judgeReasoning,
+		};
+	} catch (error) {
+		console.error(`    Error (${question.id}): ${error}`);
+		return {
+			questionId: question.id,
+			category: question.category,
+			type: question.type,
+			modelAnswer: "",
+			correct: false,
+			score: 0,
+			judgeReasoning: `Error: ${error}`,
+		};
+	}
 }
 
 export async function runBenchmark({
@@ -93,74 +147,40 @@ export async function runBenchmark({
 	}
 
 	console.log(
-		`  ${alreadyDone}/${questions.length} already done, running ${remaining.length} remaining`,
+		`  ${alreadyDone}/${questions.length} already done, running ${remaining.length} remaining (concurrency: ${CONCURRENCY_LIMIT})`,
 	);
 
-	for (let i = 0; i < remaining.length; i++) {
-		const question = remaining[i];
-		const totalIdx = alreadyDone + i + 1;
-		console.log(
-			`  [${totalIdx}/${questions.length}] ${question.category}/${question.id} (${question.type})`,
-		);
+	let completed = 0;
+	let running = 0;
+	let nextIndex = 0;
 
-		let prompt = question.question;
-		if (question.type === "mcq" && question.choices) {
-			prompt +=
-				"\n\nChoices:\n" +
-				question.choices
-					.map((c, idx) => `${String.fromCharCode(65 + idx)}. ${c}`)
-					.join("\n") +
-				"\n\nRespond with only the letter of the correct answer.";
-		}
+	await new Promise<void>((resolveAll) => {
+		function startNext() {
+			while (running < CONCURRENCY_LIMIT && nextIndex < remaining.length) {
+				const idx = nextIndex++;
+				const question = remaining[idx];
+				running++;
 
-		let result: QuestionResult;
+				processQuestion(question, model, systemPrompt).then((result) => {
+					running--;
+					completed++;
+					console.log(
+						`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${result.correct ? "✓" : "✗"}`,
+					);
+					results.push(result);
+					onQuestionComplete(result);
 
-		try {
-			const response = await callModel(model, systemPrompt, prompt);
-
-			let correct = false;
-			let score = 0;
-			let judgeReasoning: string | undefined;
-
-			if (question.type === "mcq") {
-				const extracted = extractMCQAnswer(response);
-				correct = extracted === question.correctAnswer.toUpperCase();
-				score = correct ? 1 : 0;
-			} else {
-				const judgeResult = await judgeAnswer(question, response);
-				score = judgeResult.score;
-				correct = score >= 0.5;
-				judgeReasoning = judgeResult.reasoning;
-				await delay(RATE_LIMIT_DELAY_MS);
+					if (completed === remaining.length) {
+						resolveAll();
+					} else {
+						startNext();
+					}
+				});
 			}
-
-			result = {
-				questionId: question.id,
-				category: question.category,
-				type: question.type,
-				modelAnswer: response,
-				correct,
-				score,
-				judgeReasoning,
-			};
-		} catch (error) {
-			console.error(`    Error: ${error}`);
-			result = {
-				questionId: question.id,
-				category: question.category,
-				type: question.type,
-				modelAnswer: "",
-				correct: false,
-				score: 0,
-				judgeReasoning: `Error: ${error}`,
-			};
 		}
 
-		results.push(result);
-		onQuestionComplete(result);
-
-		await delay(RATE_LIMIT_DELAY_MS);
-	}
+		startNext();
+	});
 
 	return results;
 }
