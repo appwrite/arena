@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-04T11:27:59.875Z",
+  "runDate": "2026-03-04T11:44:54.331Z",
   "mode": "with-skills",
   "totalQuestions": 180,
   "totalMcq": 154,
@@ -49,7 +49,7 @@
       "freeformOverall": 87.9,
       "totalQuestions": 180,
       "totalCorrect": 172,
-      "runDate": "2026-03-04T11:27:59.875Z",
+      "runDate": "2026-03-04T11:44:54.331Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2872,7 +2872,7 @@
       "freeformOverall": 89.2,
       "totalQuestions": 180,
       "totalCorrect": 178,
-      "runDate": "2026-03-04T11:27:59.875Z",
+      "runDate": "2026-03-04T11:44:54.331Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -5660,24 +5660,24 @@
       "scores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 88.5,
+        "databases": 93.2,
         "functions": 94.3,
         "storage": 99.7,
         "sites": 100,
         "messaging": 100,
-        "realtime": 88.5,
-        "cli": 92.7
+        "realtime": 91.9,
+        "cli": 92.4
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 88.2,
+        "databases": 93.8,
         "functions": 94.1,
         "storage": 100,
         "sites": 100,
         "messaging": 100,
-        "realtime": 94.1,
-        "cli": 94.1
+        "realtime": 100,
+        "cli": 93.8
       },
       "freeformScores": {
         "fundamental": 100,
@@ -5690,12 +5690,12 @@
         "realtime": 56.7,
         "cli": 85
       },
-      "overall": 96,
-      "mcqOverall": 96.8,
+      "overall": 96.9,
+      "mcqOverall": 97.9,
       "freeformOverall": 91.3,
       "totalQuestions": 180,
-      "totalCorrect": 174,
-      "runDate": "2026-03-04T11:27:59.875Z",
+      "totalCorrect": 167,
+      "runDate": "2026-03-04T11:44:54.331Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -8337,24 +8337,24 @@
       "provider": "MoonshotAI",
       "costPerMillionTokens": 0.45,
       "scores": {
-        "fundamental": 95,
-        "auth": 94.3,
-        "databases": 93.2,
-        "functions": 74.7,
-        "storage": 83.5,
-        "sites": 95,
-        "messaging": 93.5,
+        "fundamental": 100,
+        "auth": 99.2,
+        "databases": 92.9,
+        "functions": 99.7,
+        "storage": 93.2,
+        "sites": 100,
+        "messaging": 98.2,
         "realtime": 89,
         "cli": 92.3
       },
       "mcqScores": {
-        "fundamental": 94.1,
-        "auth": 94.1,
-        "databases": 94.1,
-        "functions": 70.6,
-        "storage": 82.4,
-        "sites": 94.4,
-        "messaging": 94.1,
+        "fundamental": 100,
+        "auth": 100,
+        "databases": 93.8,
+        "functions": 100,
+        "storage": 93.8,
+        "sites": 100,
+        "messaging": 100,
         "realtime": 94.1,
         "cli": 94.1
       },
@@ -8369,12 +8369,12 @@
         "realtime": 60,
         "cli": 81.7
       },
-      "overall": 90.1,
-      "mcqOverall": 90.3,
+      "overall": 95.9,
+      "mcqOverall": 97.2,
       "freeformOverall": 88.8,
       "totalQuestions": 180,
-      "totalCorrect": 164,
-      "runDate": "2026-03-04T11:27:59.875Z",
+      "totalCorrect": 165,
+      "runDate": "2026-03-04T11:44:54.331Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -10831,6 +10831,166 @@
           "correct": true,
           "score": 1,
           "judgeReasoning": "The answer comprehensively covers all four required rubric points: 1) Provider configuration (FCM/APNS) - clearly explained as a prerequisite with details about credentials; 2) Topic creation - demonstrated with CLI and config examples; 3) User targets/subscriptions to the topic - explained with subscriber creation including target IDs; 4) Sending push to the topic using createPush with topicIds - shown in multiple SDK examples. The answer goes beyond the minimum requirements with code examples in multiple languages, a summary table, and additional notes about server-side requirements."
+        },
+        {
+          "questionId": "fund-16",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "What does Role.guests() represent?",
+          "choices": [
+            "Users who have not verified their email",
+            "Users in a guest team",
+            "Unauthenticated users (no session)",
+            "Anonymous session users only"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-12",
+          "category": "auth",
+          "type": "mcq",
+          "question": "How long is the password recovery link sent by createRecovery valid?",
+          "choices": [
+            "1 hour",
+            "15 minutes",
+            "24 hours",
+            "Until used"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-17",
+          "category": "functions",
+          "type": "mcq",
+          "question": "Which environment variable is set at runtime to indicate how the function was triggered (e.g. http, event, schedule)?",
+          "choices": [
+            "APPWRITE_TRIGGER_TYPE",
+            "APPWRITE_FUNCTION_TRIGGER",
+            "APPWRITE_EXECUTION_SOURCE",
+            "APPWRITE_FUNCTION_EVENT"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": " B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-11",
+          "category": "storage",
+          "type": "mcq",
+          "question": "What does the fileSecurity bucket setting control?",
+          "choices": [
+            "Whether files can have their own permissions (true) or inherit only from the bucket (false)",
+            "Whether files are encrypted at rest",
+            "Whether the bucket is public",
+            "Maximum file size"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-13",
+          "category": "sites",
+          "type": "mcq",
+          "question": "Can you use a custom domain with an Appwrite Site?",
+          "choices": [
+            "No, only default *.appwrite.site domains",
+            "Only with a paid plan",
+            "Yes; add the domain in the Console and configure a CNAME record as instructed",
+            "Only for static sites"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": " C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "stor-17",
+          "category": "storage",
+          "type": "mcq",
+          "question": "What is maximumFileSize in bucket configuration?",
+          "choices": [
+            "Total storage quota for the bucket in bytes",
+            "Maximum number of files in the bucket",
+            "Maximum size in bytes for a single file upload",
+            "Maximum image dimensions in pixels"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-13",
+          "category": "functions",
+          "type": "mcq",
+          "question": "Can an Appwrite Function be triggered by an event from another function's execution (e.g. functions.*.executions.*.create)?",
+          "choices": [
+            "Yes, function execution events are supported like any other event",
+            "No; triggering a function on a function event (events starting with 'functions.') is not allowed",
+            "Only in the Console, not via event configuration",
+            "Yes, but only for completed executions"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-15",
+          "category": "sites",
+          "type": "mcq",
+          "question": "What is the root directory setting in Sites build configuration?",
+          "choices": [
+            "The directory in the repository that contains the app (e.g. monorepo subfolder)",
+            "The directory where build logs are stored",
+            "The directory for environment files",
+            "The document root for the web server"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-13",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Which push notification providers does Appwrite Messaging support?",
+          "choices": [
+            "FCM (Firebase Cloud Messaging) and APNS (Apple Push Notification service)",
+            "Only one custom provider",
+            "Only FCM",
+            "Only web push"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-17",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Which service do you use from the client or server SDK to send emails?",
+          "choices": [
+            "Messaging service (e.g. messaging.createEmail)",
+            "Email service",
+            "Mail service",
+            "Notifications service"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
         }
       ]
     }

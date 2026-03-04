@@ -222,7 +222,7 @@ export interface RunBenchmarkOptions {
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
-const CONCURRENCY_LIMIT = 5;
+const CONCURRENCY_LIMIT = 1;
 
 async function processQuestion(
 	question: Question,
@@ -234,12 +234,11 @@ async function processQuestion(
 ): Promise<QuestionResult> {
 	let prompt = question.question;
 	if (question.type === "mcq" && question.choices) {
-		prompt +=
-			"\n\nChoices:\n" +
-			question.choices
-				.map((c, idx) => `${String.fromCharCode(65 + idx)}. ${c}`)
-				.join("\n") +
-			"\n\nRespond with only the letter of the correct answer.";
+    prompt +=
+      "\n\nChoices:\n" +
+      question.choices
+        .map((c, idx) => `${String.fromCharCode(65 + idx)}. ${c}`)
+        .join("\n");
 	}
 
 	try {
@@ -319,7 +318,11 @@ export async function runBenchmark({
 			while (running < CONCURRENCY_LIMIT && nextIndex < remaining.length) {
 				const idx = nextIndex++;
 				const question = remaining[idx];
-				running++;
+        running++;
+				
+        if (question.type === "mcq") {
+          systemPrompt += "\nRespond with only the letter of the correct answer";
+        }
 
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {
 					running--;

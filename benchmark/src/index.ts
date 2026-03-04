@@ -280,10 +280,12 @@ async function main() {
 		}
 	}
 
-	const systemPrompt = tools
-		? "You are an expert on Appwrite, the open-source backend-as-a-service platform. You have access to tools to look up Appwrite SDK documentation. Use them to answer questions accurately."
-		: "You are an expert on Appwrite, the open-source backend-as-a-service platform. Answer questions about Appwrite services accurately and concisely.";
-
+  let systemPrompt = 'You are an expert on Appwrite, the open-source backend-as-a-service platform. Answer questions about Appwrite services accurately and concisely.';
+  
+  if (tools) {
+    systemPrompt += "\nYou have access to tools to look up Appwrite SDK documentation. Use them to answer questions accurately";
+  }
+  
 	const pricing = await fetchPricing(MODELS);
 
 	for (const model of MODELS) {
