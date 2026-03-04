@@ -145,6 +145,7 @@ export default function RadarPerformance({ models }: Props) {
 								}}
 							>
 								{(items ?? []).map((item) => (
+									// biome-ignore lint/a11y/useSemanticElements: interactive legend item within recharts
 									<span
 										key={item.value}
 										role="button"

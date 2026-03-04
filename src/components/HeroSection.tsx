@@ -6,6 +6,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ children }: HeroSectionProps) {
 	return (
+		// biome-ignore lint/correctness/useUniqueElementIds: static page landmark, only rendered once
 		<section
 			id="leaderboard"
 			className="rise-in relative scroll-mt-20 px-4 pt-12 pb-16 md:pt-20 md:pb-20 overflow-hidden"

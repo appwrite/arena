@@ -134,7 +134,7 @@ function ModelDetailPage() {
 		if (hash && CATEGORY_ORDER.includes(hash)) {
 			setFilter({ category: hash });
 		}
-	}, []);
+	}, [setFilter]);
 
 	if (!model) {
 		return (
