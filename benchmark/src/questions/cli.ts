@@ -50,10 +50,10 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"appwrite.config.js",
 			".appwriterc",
-			"appwrite.config.json",
 			"appwrite.yaml",
+			"appwrite.config.json",
 		],
-		correctAnswer: "C",
+		correctAnswer: "D",
 	},
 	{
 		id: "cli-5",
@@ -275,12 +275,12 @@ export const cliQuestions: Question[] = [
 		question:
 			"What does the appwrite types command do?",
 		choices: [
+		  "Generates typed models for your Appwrite project's collections and attributes",
 			"Lists all data types supported by Appwrite databases",
-			"Generates typed models for your Appwrite project's collections and attributes",
 			"Converts documents between different data formats",
 			"Validates the types defined in appwrite.config.json",
 		],
-		correctAnswer: "B",
+		correctAnswer: "A",
 	},
 	{
 		id: "cli-23",
@@ -318,11 +318,11 @@ export const cliQuestions: Question[] = [
 			"When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
 		choices: [
 			"The attribute is created with a default size of 255",
-			"The CLI throws a validation error because 'size' is required for string/varchar types",
 			"The attribute is created as an unlimited text field",
 			"The CLI automatically calculates the size based on sample data",
+			"The CLI throws a validation error because 'size' is required for string/varchar types",
 		],
-		correctAnswer: "B",
+		correctAnswer: "D",
 	},
 	{
 		id: "cli-26",
@@ -359,11 +359,11 @@ export const cliQuestions: Question[] = [
 		question:
 			"What's the key difference between `appwrite run function` and `appwrite push function`?",
 		choices: [
+		  "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
 			"`run` deploys to staging, `push` deploys to production",
-			"`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
 			"`run` is for testing, `push` is for CI/CD pipelines only",
 			"`run` requires internet connection, `push` works offline",
 		],
-		correctAnswer: "B",
+		correctAnswer: "A",
 	},
 ];

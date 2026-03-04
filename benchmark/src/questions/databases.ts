@@ -295,11 +295,11 @@ export const databasesQuestions: Question[] = [
 		question:
 			"Which of the following is NOT a valid format for a string attribute in Appwrite?",
 		choices: [
+		  "uuid",
 			"email",
 			"url",
-			"uuid",
 			"enum",
 		],
-		correctAnswer: "C",
+		correctAnswer: "A",
 	},
 ];
