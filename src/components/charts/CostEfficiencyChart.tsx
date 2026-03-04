@@ -13,7 +13,6 @@ import type { ModelResult } from "#/lib/types";
 import {
 	buildCostEfficiencyData,
 	tooltipContentStyle,
-	tooltipItemStyle,
 	tooltipLabelStyle,
 } from "./chartConfig";
 
@@ -25,7 +24,7 @@ export default function CostEfficiencyChart({ models }: Props) {
 	const data = useMemo(() => buildCostEfficiencyData(models), [models]);
 
 	return (
-		<ResponsiveContainer width="100%" height={400}>
+		<ResponsiveContainer width="100%" height={350}>
 			<BarChart data={data} layout="vertical" barCategoryGap="25%">
 				<CartesianGrid
 					stroke="rgba(237,237,240,0.1)"
@@ -48,17 +47,23 @@ export default function CostEfficiencyChart({ models }: Props) {
 					width={60}
 				/>
 				<Tooltip
-					contentStyle={tooltipContentStyle}
-					labelStyle={tooltipLabelStyle}
-					itemStyle={tooltipItemStyle}
 					cursor={{ fill: "rgba(237,237,240,0.05)" }}
-					formatter={
-						((value: number) => [`$${value}/M tokens`, "Cost"]) as never
-					}
+					content={({ active, payload, label }) => {
+						if (!active || !payload?.length) return null;
+						const cost = payload[0].value;
+						return (
+							<div style={{ ...tooltipContentStyle, padding: "10px 14px" }}>
+								<p style={tooltipLabelStyle}>{label}</p>
+								<p style={{ color: "#9ca3af", padding: "1px 0", fontSize: 13 }}>
+									Cost: ${cost}/M tokens
+								</p>
+							</div>
+						);
+					}}
 				/>
 				<Bar dataKey="cost" radius={[0, 4, 4, 0]}>
 					{data.map((entry) => (
-						<Cell key={entry.name} fill={entry.color} />
+						<Cell key={entry.name} fill={entry.color} fillOpacity={0.85} />
 					))}
 				</Bar>
 			</BarChart>
