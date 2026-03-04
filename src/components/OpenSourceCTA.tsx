@@ -1,36 +1,40 @@
-import { Github } from "lucide-react";
-import githubStars from "#/data/github-stars.json";
-
-function formatStars(count: number): string {
-	if (count >= 1000) {
-		const k = count / 1000;
-		return k % 1 === 0 ? `${k}K` : `${k.toFixed(1)}K`;
-	}
-	return String(count);
-}
+import { ExternalLink } from "lucide-react";
 
 export default function OpenSourceCTA() {
 	return (
-		<section className="rise-in px-4 py-14 md:py-20">
-			<div className="arena-container flex flex-col items-center text-center">
-				<h2 className="mb-4 font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
+		<section className="rise-in relative overflow-hidden px-4 py-28 md:py-40">
+			{/* Top gradient divider */}
+			<div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--line)] to-transparent" />
+			{/* Dot grid pattern — fading from bottom */}
+			<div
+				className="pointer-events-none absolute inset-0"
+				style={{
+					backgroundImage:
+						"radial-gradient(circle, rgba(228,228,231,0.12) 1.2px, transparent 1.2px)",
+					backgroundSize: "22px 22px",
+					maskImage:
+						"linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%)",
+					WebkitMaskImage:
+						"linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%)",
+				}}
+			/>
+			<div className="arena-container relative flex flex-col items-center text-center">
+				<h2 className="mb-6 font-heading text-4xl font-normal tracking-[-2%] text-[var(--text-primary)] md:text-6xl">
 					Fully open source
 				</h2>
-				<p className="mx-auto mb-12 max-w-lg text-sm leading-relaxed text-[var(--text-secondary)]">
-					Every question, answer, rubric, and score is public. Run the benchmark
-					yourself, add models, or contribute new questions.
+				<p className="mx-auto mb-10 max-w-md text-base font-medium leading-relaxed tracking-[-1.4%] text-[var(--text-secondary)]">
+					Every question, answer, and score is public.
+					<br />
+					Fork it, run it, improve it.
 				</p>
 				<a
 					href="https://github.com/appwrite/arena"
 					target="_blank"
 					rel="noreferrer"
-					className="inline-flex items-center gap-2.5 rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-medium text-white no-underline transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+					className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--text-primary)] underline decoration-[var(--line)] underline-offset-4 transition hover:decoration-[var(--text-primary)]"
 				>
-					<Github size={18} aria-hidden />
-					Star on GitHub
-					<span className="rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold">
-						{formatStars(githubStars.stars)}
-					</span>
+					View on GitHub
+					<ExternalLink size={14} aria-hidden />
 				</a>
 			</div>
 		</section>

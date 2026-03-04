@@ -56,22 +56,22 @@
 }
 
 :root {
-  --text-primary: #EDEDF0;
-  --text-secondary: #9ca3af;
+  --text-primary: #E4E4E7;
+  --text-secondary: #ADADB0;
   --accent-pink: #FD366E;
   --accent: #FD366E;
-  --surface: rgba(25, 25, 29, 0.8);
-  --surface-strong: rgba(25, 25, 29, 0.92);
+  --surface: rgba(25, 25, 28, 0.8);
+  --surface-strong: rgba(25, 25, 28, 0.92);
   --code-bg: rgba(45, 45, 52, 0.98);
-  --code-border: rgba(237, 237, 240, 0.12);
+  --code-border: rgba(228, 228, 231, 0.12);
   --code-text: #e5e5eb;
-  --line: rgba(237, 237, 240, 0.1);
-  --line-subtle: rgba(237, 237, 240, 0.05);
-  --bg-base: #19191D;
-  --header-bg: rgba(25, 25, 29, 0.88);
-  --chip-bg: rgba(25, 25, 29, 0.9);
-  --chip-line: rgba(237, 237, 240, 0.15);
-  --link-bg-hover: rgba(237, 237, 240, 0.03);
+  --line: rgba(228, 228, 231, 0.1);
+  --line-subtle: rgba(228, 228, 231, 0.05);
+  --bg-base: #19191C;
+  --header-bg: rgba(25, 25, 28, 0.6);
+  --chip-bg: rgba(25, 25, 28, 0.9);
+  --chip-line: rgba(228, 228, 231, 0.15);
+  --link-bg-hover: rgba(228, 228, 231, 0.03);
   --score-low: #f87171;
   --score-mid: #facc15;
   --score-high: #4ade80;
@@ -85,6 +85,12 @@
 html {
   min-height: 100%;
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -113,6 +119,50 @@ body {
   .arena-container {
     width: min(1200px, calc(100% - 2rem));
   }
+}
+
+/* Header theme transition */
+.header-themed {
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.header-themed a,
+.header-themed span,
+.header-themed svg {
+  transition: color 300ms ease, fill 300ms ease, border-color 300ms ease, background-color 300ms ease;
+}
+
+.header-light {
+  background-color: rgba(237, 237, 240, 0.6) !important;
+  border-color: rgba(25, 25, 28, 0.08) !important;
+}
+
+.header-light a,
+.header-light span {
+  color: #19191C !important;
+}
+
+.header-light .header-secondary {
+  color: #56565C !important;
+}
+
+.header-light .header-github-btn {
+  border-color: rgba(253, 54, 110, 0.4) !important;
+  background-color: rgba(253, 54, 110, 0.08) !important;
+  color: #FD366E !important;
+}
+
+.header-light .header-github-btn span {
+  color: #FD366E !important;
+}
+
+.header-light .header-github-btn:hover span {
+  color: #FD366E !important;
+}
+
+.header-light .header-stars-badge {
+  background: rgba(255, 64, 120, 0.1) !important;
+  color: #FF4078 !important;
 }
 
 .arena-card {

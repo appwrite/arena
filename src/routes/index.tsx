@@ -11,7 +11,6 @@ import ModelCard from "#/components/ModelCard";
 import OpenSourceCTA from "#/components/OpenSourceCTA";
 import ScoringApproach from "#/components/ScoringApproach";
 import ScoringInfo from "#/components/ScoringInfo";
-import StatsBar from "#/components/StatsBar";
 import TwoModes from "#/components/TwoModes";
 import ViewToggle from "#/components/ViewToggle";
 import withSkillsData from "#/data/results-with-skills.json";
@@ -263,19 +262,17 @@ function App() {
 				<ScoringInfo runDate={activeData.runDate} />
 			</HeroSection>
 
-			<StatsBar
-				modelCount={withSkills.models.length}
-				questionCount={withSkills.totalQuestions}
-				categoryCount={Object.keys(CATEGORY_LABELS).length}
-			/>
-
 			<ChartsSection
 				models={activeData.models}
 				withSkillsModels={withSkills.models}
 				withoutSkillsModels={withoutSkills.models}
+      />
+			
+			<HowItWorks
+				modelCount={withSkills.models.length}
+				questionCount={withSkills.totalQuestions}
+				categoryCount={Object.keys(CATEGORY_LABELS).length}
 			/>
-
-			<HowItWorks questionCount={withSkills.totalQuestions} />
 
 			<TwoModes />
 
