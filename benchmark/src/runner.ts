@@ -324,11 +324,17 @@ export async function runBenchmark({
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {
 					running--;
 					completed++;
-					console.log(
-						`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${result.correct ? "✓" : "✗"}`,
-					);
-					results.push(result);
-					onQuestionComplete(result);
+					if (result.modelAnswer === "") {
+						console.log(
+							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — skipping`,
+						);
+					} else {
+						console.log(
+							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${result.correct ? "✓" : "✗"}`,
+						);
+						results.push(result);
+						onQuestionComplete(result);
+					}
 
 					if (completed === remaining.length) {
 						resolveAll();
