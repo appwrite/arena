@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-04T08:26:42.508Z",
+  "runDate": "2026-03-04T08:50:57.815Z",
   "mode": "with-skills",
   "totalQuestions": 180,
   "totalMcq": 154,
@@ -49,7 +49,7 @@
       "freeformOverall": 86.9,
       "totalQuestions": 180,
       "totalCorrect": 172,
-      "runDate": "2026-03-04T08:26:42.508Z",
+      "runDate": "2026-03-04T08:50:57.814Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2872,7 +2872,7 @@
       "freeformOverall": 88.8,
       "totalQuestions": 180,
       "totalCorrect": 178,
-      "runDate": "2026-03-04T08:26:42.508Z",
+      "runDate": "2026-03-04T08:50:57.815Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -5661,7 +5661,7 @@
         "fundamental": 100,
         "auth": 100,
         "databases": 88.5,
-        "functions": 94.7,
+        "functions": 94.3,
         "storage": 99.7,
         "sites": 100,
         "messaging": 100
@@ -5679,17 +5679,17 @@
         "fundamental": 100,
         "auth": 100,
         "databases": 90,
-        "functions": 100,
-        "storage": 97.5,
+        "functions": 95,
+        "storage": 98.3,
         "sites": 100,
         "messaging": 100
       },
-      "overall": 97.4,
-      "mcqOverall": 97.3,
-      "freeformOverall": 97.8,
+      "overall": 97.5,
+      "mcqOverall": 97.5,
+      "freeformOverall": 97.4,
       "totalQuestions": 180,
-      "totalCorrect": 124,
-      "runDate": "2026-03-04T08:26:42.508Z",
+      "totalCorrect": 136,
+      "runDate": "2026-03-04T08:50:57.815Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -7658,6 +7658,186 @@
           "modelAnswer": "A",
           "correct": true,
           "score": 1
+        },
+        {
+          "questionId": "func-20",
+          "category": "functions",
+          "type": "free-form",
+          "question": "Name at least three APPWRITE_FUNCTION_* environment variables that are available inside an Appwrite Function at runtime, and what each is used for.",
+          "correctAnswer": "Examples: APPWRITE_FUNCTION_ID (function ID), APPWRITE_FUNCTION_NAME, APPWRITE_FUNCTION_PROJECT_ID, APPWRITE_FUNCTION_API_ENDPOINT (for SDK), APPWRITE_FUNCTION_TRIGGER (http/event/schedule), APPWRITE_FUNCTION_EVENT (event name when event-triggered), APPWRITE_FUNCTION_JWT (user JWT when present), APPWRITE_FUNCTION_USER_ID, APPWRITE_FUNCTION_DATA / APPWRITE_FUNCTION_EVENT_DATA (body), APPWRITE_FUNCTION_DEPLOYMENT, APPWRITE_FUNCTION_RUNTIME_NAME, APPWRITE_FUNCTION_RUNTIME_VERSION, APPWRITE_FUNCTION_CPUS, APPWRITE_FUNCTION_MEMORY.",
+          "rubric": "Must name at least 3 APPWRITE_FUNCTION_* variables with correct purpose. Accept any subset of the documented runtime env vars (ID, name, project ID, API endpoint, trigger, event, JWT, user ID, data, deployment, runtime, resources).",
+          "modelAnswer": "Based on the documentation, here are the key `APPWRITE_FUNCTION_*` environment variables available inside an Appwrite Function at runtime:\n\n---\n\n### 1. `APPWRITE_FUNCTION_ID`\n**What it's for:** Contains the unique ID of the currently executing function. This lets your function code identify *which* function it is, which is useful when you share handler logic across multiple functions or need to reference the function's own ID (e.g., for logging or self-invocation).\n\n---\n\n### 2. `APPWRITE_FUNCTION_PROJECT_ID`\n**What it's for:** Holds the ID of the Appwrite project the function belongs to. This is essential for initializing the Appwrite server SDK client inside your function so it can interact with databases, storage, users, and other project resources. For example:\n\n```typescript\nconst client = new Client()\n    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1')\n    .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)\n    .setKey(process.env.APPWRITE_FUNCTION_API_KEY);\n```\n\n---\n\n### 3. `APPWRITE_FUNCTION_API_KEY`\n**What it's for:** Provides a scoped API key that the function can use to authenticate with the Appwrite server SDK. This key is automatically provisioned by Appwrite and allows the function to perform server-side operations (like managing users, reading/writing database rows, or accessing storage) without you having to manually create and inject an API key.\n\n---\n\n### Bonus mentions:\n\n- **`APPWRITE_FUNCTION_DEPLOYMENT`** — The ID of the current active deployment of the function.\n- **`APPWRITE_FUNCTION_RUNTIME_NAME` / `APPWRITE_FUNCTION_RUNTIME_VERSION`** — The name and version of the runtime environment (e.g., `node`, `18.0`), useful for runtime-specific logic or diagnostics.\n\n---\n\n### How they're typically used together\n\nInside a function handler, these variables let you bootstrap a fully authenticated Appwrite client without hardcoding secrets:\n\n```typescript\n// Node.js function example\nimport { Client, TablesDB } from 'node-appwrite';\n\nexport default async ({ req, res, log }) => {\n    const client = new Client()\n        .setEndpoint(process.env.APPWRITE_FUNCTION_ENDPOINT)\n        .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)\n        .setKey(process.env.APPWRITE_FUNCTION_API_KEY);\n\n    const db = new TablesDB(client);\n    // ... interact with your project's resources\n};\n```\n\nThis pattern ensures your function code is portable and doesn't contain hardcoded credentials.",
+          "correct": true,
+          "score": 0.85,
+          "judgeReasoning": "The answer correctly identifies at least three APPWRITE_FUNCTION_* variables with accurate purposes: APPWRITE_FUNCTION_ID (function's unique ID), APPWRITE_FUNCTION_PROJECT_ID (project ID for SDK initialization), and bonus mentions of APPWRITE_FUNCTION_DEPLOYMENT, APPWRITE_FUNCTION_RUNTIME_NAME, and APPWRITE_FUNCTION_RUNTIME_VERSION. However, APPWRITE_FUNCTION_API_KEY is not actually a standard APPWRITE_FUNCTION_* runtime environment variable in Appwrite's documentation - it's typically a user-defined environment variable, not an automatically provisioned one with that specific prefix pattern. The reference answer lists variables like APPWRITE_FUNCTION_TRIGGER, APPWRITE_FUNCTION_EVENT, APPWRITE_FUNCTION_JWT, etc. that weren't mentioned. Despite this inaccuracy with APPWRITE_FUNCTION_API_KEY, the answer still correctly identifies at least 3 valid variables (ID, PROJECT_ID, DEPLOYMENT, RUNTIME_NAME, RUNTIME_VERSION) with correct purposes, meeting the rubric's minimum requirement."
+        },
+        {
+          "questionId": "stor-20",
+          "category": "storage",
+          "type": "free-form",
+          "question": "When should you use getFilePreview instead of getFileView for an image? What does getFilePreview support?",
+          "correctAnswer": "Use getFilePreview when you need image transformation (resize, crop, quality, format, border, opacity, rotation, etc.). getFileView just serves the original file inline. getFilePreview supports width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format.",
+          "rubric": "Must mention: 1) getFilePreview for image transformations vs getFileView for original, 2) At least 2 transformation options (e.g. width, height, quality, format)",
+          "modelAnswer": "Here's a comprehensive answer on **`getFilePreview` vs `getFileView`** and when to use each:\n\n---\n\n## `getFileView` — Raw File Access\n\n`getFileView` returns the **original, unmodified file** exactly as it was uploaded. It performs no processing or transformation. Use it when you need the raw file (e.g., a PDF, a video, or an image at its original resolution).\n\n---\n\n## `getFilePreview` — Image Manipulation on the Fly\n\n`getFilePreview` is specifically designed for **images** and supports a rich set of **server-side image transformations**. Use it whenever you want to display an optimized or transformed version of an image without having to pre-process it yourself.\n\n### Supported transformations include:\n\n| Parameter | Description |\n|-----------|-------------|\n| **`width`** | Resize to a specific width (in pixels) |\n| **`height`** | Resize to a specific height (in pixels) |\n| **`gravity`** | Crop gravity/focus point (e.g., center, top-left, face detection) |\n| **`quality`** | Output quality (0–100) for lossy formats |\n| **`borderWidth`** | Add a border with a specified width |\n| **`borderColor`** | Set the border color |\n| **`borderRadius`** | Round the corners of the image |\n| **`opacity`** | Adjust image opacity (0–1) |\n| **`rotation`** | Rotate the image (0, 90, 180, 270 degrees) |\n| **`background`** | Set a background color (useful for transparent images) |\n| **`output`** | Convert to a different format (e.g., `jpg`, `png`, `webp`, `gif`) |\n\n### Example (TypeScript):\n\n```typescript\nconst storage = new Storage(client);\n\n// Get a 300×300 preview of an image\nconst preview = storage.getFilePreview({\n    bucketId: '[BUCKET_ID]',\n    fileId: '[FILE_ID]',\n    width: 300,\n    height: 300\n});\n```\n\n### Example (Dart/Flutter):\n\n```dart\nfinal storage = Storage(client);\n\nfinal preview = storage.getFilePreview(\n    bucketId: '[BUCKET_ID]',\n    fileId: '[FILE_ID]',\n    width: 300,\n    height: 300,\n);\n```\n\n---\n\n## When to Use Which?\n\n| Scenario | Use |\n|----------|-----|\n| Display a **thumbnail** or resized image | `getFilePreview` |\n| Serve an image in a **different format** (e.g., convert PNG → WebP) | `getFilePreview` |\n| **Optimize image quality** for faster loading | `getFilePreview` (with `quality` param) |\n| Add **rounded corners, borders, or rotation** | `getFilePreview` |\n| Serve the **original, unmodified file** (any type) | `getFileView` |\n| Serve **non-image files** (PDFs, videos, etc.) | `getFileView` |\n| Need the **full-resolution original** image | `getFileView` |\n\n---\n\n### Key Takeaway\n\n**Use `getFilePreview`** whenever you're displaying images in your UI and want to control dimensions, quality, format, or apply visual effects — it saves bandwidth and improves performance by letting Appwrite handle the transformations server-side. **Use `getFileView`** when you need the raw, untouched file.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully addresses both criteria in the rubric: 1) It clearly distinguishes getFilePreview (image transformations) from getFileView (original/raw file), and 2) It lists well more than 2 transformation options including width, height, quality, format/output, gravity, borderWidth, borderColor, borderRadius, opacity, rotation, and background. The answer is comprehensive, accurate, and well-organized."
+        },
+        {
+          "questionId": "sites-17",
+          "category": "sites",
+          "type": "mcq",
+          "question": "When you connect a Git repository to a Site, what triggers a new deployment?",
+          "choices": [
+            "Only manual trigger in the Console",
+            "Only tag pushes",
+            "Push to the connected branch (e.g. main) triggers a new build and deployment",
+            "Pull requests only"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "sites-20",
+          "category": "sites",
+          "type": "free-form",
+          "question": "List at least three deployment or build configuration options for an Appwrite Site and what each is for.",
+          "correctAnswer": "Examples: build command (e.g. npm run build), output directory (e.g. dist, .next), install command (e.g. npm install), root directory (monorepo subfolder), environment variables (build and runtime), framework preset (Next.js, Nuxt, etc.).",
+          "rubric": "Must list at least 3 options with correct purpose. Accept build command, output directory, install command, root directory, env vars, framework preset, etc.",
+          "modelAnswer": "Here are **six** key deployment and build configuration options for an Appwrite Site, as defined in the site configuration within `appwrite.config.json`:\n\n---\n\n### 1. **`buildCommand`**\n- **Example:** `\"npm run build\"`\n- **What it's for:** Specifies the shell command Appwrite should run to build your site. This is typically the command that compiles or bundles your source code into production-ready output (e.g., `npm run build`, `yarn build`, etc.).\n\n---\n\n### 2. **`installCommand`**\n- **Example:** `\"npm install\"`\n- **What it's for:** Specifies the command to install your project's dependencies before the build step. This ensures all required packages (from `package.json`, `requirements.txt`, etc.) are available during the build.\n\n---\n\n### 3. **`outputDirectory`**\n- **Example:** `\"./dist\"`\n- **What it's for:** Tells Appwrite where to find the built/compiled site files after the build command finishes. This is the directory that will actually be deployed and served (e.g., `./dist`, `./build`, `./out`).\n\n---\n\n### 4. **`buildRuntime`**\n- **Example:** `\"node-22\"`\n- **What it's for:** Specifies the runtime environment (and its version) used during the build process. This determines which language runtime (e.g., Node.js 22) is available when your install and build commands execute.\n\n---\n\n### 5. **`framework`**\n- **Example:** `\"astro\"`\n- **What it's for:** Declares which web framework your site uses (e.g., Astro, Next.js, Nuxt, SvelteKit, etc.). Appwrite uses this to apply framework-specific build and deployment optimizations.\n\n---\n\n### 6. **`adapter`**\n- **Example:** `\"ssr\"`\n- **What it's for:** Determines the rendering mode for your site. For example, `\"ssr\"` enables **server-side rendering**, meaning pages are rendered on the server at request time. Other options may include static rendering. This affects how your site is served after deployment.\n\n---\n\n### Bonus options:\n\n| Option | Purpose |\n|---|---|\n| **`specification`** (e.g., `\"s-1vcpu-512mb\"`) | Sets the **machine size** (CPU/memory) allocated for building and running the site. |\n| **`timeout`** (e.g., `30`) | Sets the **maximum execution time** (in seconds) for server-side rendered requests. |\n| **`fallbackFile`** | Specifies a **fallback file** (e.g., `index.html`) to serve for routes that don't match a static file — useful for single-page applications (SPAs). |\n\nThese options give you fine-grained control over how your Appwrite Site is built, what resources it uses, and how it behaves at runtime.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The model's answer lists well more than three deployment/build configuration options, all of which are correct and align with the reference answer's accepted options. It covers buildCommand, installCommand, outputDirectory (matching the reference exactly), plus additional valid options like framework preset, build runtime, and adapter. Each option includes a clear explanation of its purpose. The answer is thorough, accurate, and exceeds the minimum requirement of three options with correct purposes."
+        },
+        {
+          "questionId": "msg-12",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "In Appwrite Messaging, how do topics and targets relate?",
+          "choices": [
+            "Topics are the same as targets",
+            "Targets are only for email",
+            "Users subscribe to topics; targets are a user's delivery endpoints (email, phone, push token). You send to topics and/or users and/or targets.",
+            "Topics replace the need for targets"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-13",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Which push notification providers does Appwrite Messaging support?",
+          "choices": [
+            "FCM (Firebase Cloud Messaging) and APNS (Apple Push Notification service)",
+            "Only one custom provider",
+            "Only FCM",
+            "Only web push"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "The documentation I retrieved doesn't specifically cover Messaging providers. Based on my knowledge of Appwrite, the answer is:\n\n**A**\n\nAppwrite Messaging supports both **FCM (Firebase Cloud Messaging)** and **APNS (Apple Push Notification service)** as push notification providers.",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-14",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Where do you configure messaging providers (e.g. Mailgun, Twilio)?",
+          "choices": [
+            "In each message send call",
+            "In environment variables only",
+            "In the Appwrite Console (or API): add and configure providers for the project",
+            "Providers are built-in and need no configuration"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-15",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "What is a target in Appwrite Messaging?",
+          "choices": [
+            "A delivery endpoint for a user (e.g. an email address, phone number, or push device token)",
+            "A message template",
+            "A user group",
+            "A provider configuration"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-16",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Can you send one message to both topics and specific users in the same request?",
+          "choices": [
+            "No, you must choose one targeting method",
+            "Only for email",
+            "Yes, targeting by topics, users, and targets can be combined in a single message",
+            "Only in the Console"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C\n\nC. Yes, targeting by topics, users, and targets can be combined in a single message",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-17",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Which service do you use from the client or server SDK to send emails?",
+          "choices": [
+            "Messaging service (e.g. messaging.createEmail)",
+            "Email service",
+            "Mail service",
+            "Notifications service"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A\n\nThe correct answer is **A**. The **Messaging service** (e.g., `messaging.createEmail`) is used to send emails in Appwrite.",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-18",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "Who can subscribe a user to a topic for push notifications?",
+          "choices": [
+            "Only the user from the client",
+            "Only the Console",
+            "The backend (with appropriate permissions) or the client; targets and topic subscriptions are managed via API",
+            "Only server SDK with API key"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "msg-19",
+          "category": "messaging",
+          "type": "mcq",
+          "question": "What are message templates used for in Appwrite Messaging?",
+          "choices": [
+            "Predefined content (e.g. subject, body) that can be used when sending messages; you reference them by message ID",
+            "Only for email subject lines",
+            "Only for SMS",
+            "They are not supported"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
         }
       ]
     },
@@ -7698,7 +7878,7 @@
       "freeformOverall": 95.8,
       "totalQuestions": 180,
       "totalCorrect": 70,
-      "runDate": "2026-03-04T08:26:42.508Z",
+      "runDate": "2026-03-04T08:50:57.815Z",
       "questionDetails": [
         {
           "questionId": "fund-1",

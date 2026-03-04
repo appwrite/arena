@@ -1,10 +1,10 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-02T17:16:28.789Z",
+  "runDate": "2026-03-04T08:58:34.882Z",
   "mode": "without-skills",
-  "totalQuestions": 70,
-  "totalMcq": 57,
-  "totalFreeform": 13,
+  "totalQuestions": 180,
+  "totalMcq": 154,
+  "totalFreeform": 26,
   "models": [
     {
       "modelId": "gemini-3-1-pro-preview",
@@ -13,8 +13,8 @@
       "costPerMillionTokens": 2,
       "scores": {
         "fundamental": 100,
-        "auth": 98.5,
-        "databases": 99,
+        "auth": 99.3,
+        "databases": 84.5,
         "functions": 100,
         "storage": 100,
         "sites": 92,
@@ -23,7 +23,7 @@
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 100,
+        "databases": 82.4,
         "functions": 100,
         "storage": 100,
         "sites": 100,
@@ -31,19 +31,19 @@
       },
       "freeformScores": {
         "fundamental": 100,
-        "auth": 92.5,
-        "databases": 95,
+        "auth": 95,
+        "databases": 96.7,
         "functions": 100,
         "storage": 100,
         "sites": 20,
         "messaging": 100
       },
-      "overall": 98.5,
-      "mcqOverall": 100,
-      "freeformOverall": 91.9,
-      "totalQuestions": 70,
-      "totalCorrect": 69,
-      "runDate": "2026-03-02T17:16:28.789Z",
+      "overall": 96.2,
+      "mcqOverall": 96.7,
+      "freeformOverall": 93.4,
+      "totalQuestions": 180,
+      "totalCorrect": 102,
+      "runDate": "2026-03-04T08:58:34.879Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -51,12 +51,12 @@
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
-            "A frontend JavaScript framework",
             "An open-source backend-as-a-service (BaaS) platform",
+            "A frontend JavaScript framework",
             "A cloud hosting provider",
             "A database management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -100,11 +100,11 @@
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
             "To encrypt database documents",
-            "To authenticate server-side requests with specific scope permissions",
             "To configure DNS settings",
+            "To authenticate server-side requests with specific scope permissions",
             "To manage SSL certificates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -143,12 +143,12 @@
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
-            "As a native OS application",
             "Using Docker containers",
+            "As a native OS application",
             "As a browser extension",
             "Through npm global install"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -172,11 +172,11 @@
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
             "A single database collection",
-            "An isolated container for your application's backend services and resources",
             "A Git repository connection",
+            "An isolated container for your application's backend services and resources",
             "A deployment environment"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -219,12 +219,12 @@
           "type": "mcq",
           "question": "What is the correct method to create an email/password session (log in) using the Appwrite client SDK?",
           "choices": [
-            "account.create()",
             "account.createEmailPasswordSession()",
             "account.login()",
-            "auth.signIn()"
+            "auth.signIn()",
+            "account.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -236,11 +236,11 @@
           "question": "How does Appwrite handle OAuth2 authentication?",
           "choices": [
             "It only supports OAuth2 through custom functions",
-            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "OAuth2 requires a separate plugin installation",
+            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "It uses JWT tokens exclusively"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -264,11 +264,11 @@
           "question": "What is the purpose of Teams in Appwrite Auth?",
           "choices": [
             "To organize database collections",
-            "To group users and manage role-based access to resources",
             "To create separate billing accounts",
-            "To manage deployment environments"
+            "To manage deployment environments",
+            "To group users and manage role-based access to resources"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -279,12 +279,12 @@
           "type": "mcq",
           "question": "How can you enable Multi-Factor Authentication (MFA) in Appwrite?",
           "choices": [
-            "MFA is always enabled by default",
             "Through the account.createMfaChallenge() and account.updateMFA() methods",
+            "MFA is always enabled by default",
             "By installing a third-party MFA plugin",
             "MFA is not supported in Appwrite"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -308,11 +308,11 @@
           "question": "What does Role.users() represent in Appwrite's permission system?",
           "choices": [
             "Only admin users",
-            "Any user who has an active session (authenticated users)",
             "Users in a specific team",
+            "Any user who has an active session (authenticated users)",
             "Users with verified email addresses only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -324,11 +324,11 @@
           "question": "How do you authenticate server-side requests in Appwrite?",
           "choices": [
             "Using user session tokens only",
-            "Using an API key with setKey() on the server SDK client",
             "Using OAuth2 tokens",
-            "Server-side requests don't need authentication"
+            "Server-side requests don't need authentication",
+            "Using an API key with setKey() on the server SDK client"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -355,12 +355,12 @@
           "type": "mcq",
           "question": "What is the hierarchy of data organization in Appwrite Databases?",
           "choices": [
-            "Database > Table > Row",
             "Database > Collection > Document",
+            "Database > Table > Row",
             "Schema > Collection > Record",
             "Project > Database > Table"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -372,11 +372,11 @@
           "question": "Which attribute types are supported in Appwrite database collections?",
           "choices": [
             "String, Integer, Float only",
-            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship",
             "String, Number, Boolean only",
-            "Any JSON type without schema validation"
+            "Any JSON type without schema validation",
+            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -399,12 +399,12 @@
           "type": "mcq",
           "question": "Which query method is used to filter documents where a field equals a specific value?",
           "choices": [
-            "Query.filter()",
             "Query.equal()",
+            "Query.filter()",
             "Query.where()",
             "Query.match()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -416,11 +416,11 @@
           "question": "What are indexes used for in Appwrite databases?",
           "choices": [
             "To encrypt document fields",
-            "To improve query performance on specific attributes",
             "To create foreign key relationships",
+            "To improve query performance on specific attributes",
             "To auto-generate unique IDs"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -443,12 +443,12 @@
           "type": "mcq",
           "question": "What types of relationships does Appwrite support between collections?",
           "choices": [
-            "Only one-to-one",
             "One-to-one, one-to-many, many-to-one, and many-to-many",
+            "Only one-to-one",
             "Only foreign key references",
             "Relationships are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -460,11 +460,11 @@
           "question": "How do permissions work on documents in Appwrite?",
           "choices": [
             "Documents inherit permissions from the project only",
-            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are set globally for all documents",
+            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are only managed through API keys"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -476,11 +476,11 @@
           "question": "What is the correct method to update a document in Appwrite?",
           "choices": [
             "databases.update()",
-            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "databases.patchDocument()",
+            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "documents.update()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -491,12 +491,12 @@
           "type": "mcq",
           "question": "Which Query method performs a full-text search on a document attribute?",
           "choices": [
-            "Query.contains()",
             "Query.search()",
+            "Query.contains()",
             "Query.fullText()",
             "Query.like()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -659,12 +659,12 @@
           "type": "mcq",
           "question": "What is a \"bucket\" in Appwrite Storage?",
           "choices": [
-            "A type of database collection",
             "A container for organizing and managing file uploads with shared permissions and settings",
+            "A type of database collection",
             "A caching layer for static assets",
             "A backup storage location"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -675,12 +675,12 @@
           "type": "mcq",
           "question": "How do you upload a file to Appwrite Storage?",
           "choices": [
-            "storage.upload()",
             "storage.createFile(bucketId, fileId, file)",
+            "storage.upload()",
             "storage.putObject()",
             "files.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -703,12 +703,12 @@
           "type": "mcq",
           "question": "Which Appwrite Storage method provides image manipulation like resizing and cropping?",
           "choices": [
-            "storage.transformImage()",
             "storage.getFilePreview()",
+            "storage.transformImage()",
             "storage.processImage()",
             "storage.getFileView()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -720,11 +720,11 @@
           "question": "What parameters does getFilePreview() support for image transformation?",
           "choices": [
             "Only width and height",
-            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "Only format conversion",
+            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "CSS filter strings"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -735,12 +735,12 @@
           "type": "mcq",
           "question": "How are file permissions handled in Appwrite Storage?",
           "choices": [
-            "All files in a bucket share the same permissions",
             "Files can have individual permissions, or inherit from the bucket depending on fileSecurity setting",
+            "All files in a bucket share the same permissions",
             "Permissions are only at the project level",
             "Files are always public"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -752,11 +752,11 @@
           "question": "What is the method to download a file from Appwrite Storage?",
           "choices": [
             "storage.downloadFile()",
-            "storage.getFileDownload(bucketId, fileId)",
             "storage.fetchFile()",
+            "storage.getFileDownload(bucketId, fileId)",
             "storage.read()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -767,12 +767,12 @@
           "type": "mcq",
           "question": "Which bucket setting restricts the types of files that can be uploaded?",
           "choices": [
-            "fileFilter",
             "allowedFileExtensions",
+            "fileFilter",
             "mimeTypes",
             "uploadRestrictions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -796,11 +796,11 @@
           "question": "What is the maximumFileSize parameter in Appwrite bucket configuration?",
           "choices": [
             "The total storage limit for the bucket",
-            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum number of files",
+            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum image dimensions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -811,12 +811,12 @@
           "type": "mcq",
           "question": "What is Appwrite Sites?",
           "choices": [
-            "A DNS management service",
             "A web hosting and deployment service for static and dynamic sites within Appwrite",
+            "A DNS management service",
             "A site analytics platform",
             "A content management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -828,11 +828,11 @@
           "question": "Which types of sites can Appwrite Sites deploy?",
           "choices": [
             "Only static HTML sites",
-            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only WordPress sites",
+            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only single-page applications"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -843,12 +843,12 @@
           "type": "mcq",
           "question": "How do you connect a custom domain to an Appwrite Site?",
           "choices": [
-            "Through DNS A record pointing to Appwrite's IP",
             "By adding the domain in the Appwrite Console and configuring a CNAME record",
+            "Through DNS A record pointing to Appwrite's IP",
             "Through a reverse proxy configuration",
             "Custom domains are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -872,11 +872,11 @@
           "question": "What happens when you push to a connected Git repository for an Appwrite Site?",
           "choices": [
             "Nothing, you must manually trigger deployments",
-            "A new deployment is automatically triggered, building and deploying the latest code",
             "Only a notification is sent",
+            "A new deployment is automatically triggered, building and deploying the latest code",
             "The repository is cloned but not deployed"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -887,12 +887,12 @@
           "type": "mcq",
           "question": "Which of the following frameworks is supported by Appwrite Sites for dynamic rendering?",
           "choices": [
-            "Ruby on Rails",
             "Next.js",
+            "Ruby on Rails",
             "Django",
             "Laravel"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -903,12 +903,12 @@
           "type": "mcq",
           "question": "How does Appwrite Sites handle SSL/TLS certificates?",
           "choices": [
-            "You must purchase and upload your own certificates",
             "SSL certificates are automatically provisioned and renewed for custom domains",
+            "You must purchase and upload your own certificates",
             "SSL is only available on paid plans",
             "SSL is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -920,11 +920,11 @@
           "question": "What is the purpose of the \"output directory\" in Appwrite Sites build configuration?",
           "choices": [
             "The directory where logs are stored",
-            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for source code",
+            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for environment files"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -935,12 +935,12 @@
           "type": "mcq",
           "question": "Can Appwrite Sites be used with environment variables?",
           "choices": [
-            "No, environment variables are only for Functions",
             "Yes, environment variables can be set for the build process and runtime",
+            "No, environment variables are only for Functions",
             "Only hardcoded values are supported",
             "Environment variables require a separate plugin"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -951,12 +951,12 @@
           "type": "mcq",
           "question": "How do you deploy an Appwrite Site using the CLI?",
           "choices": [
-            "appwrite upload site",
             "appwrite deploy site",
+            "appwrite upload site",
             "appwrite publish site",
             "appwrite sites create"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -967,12 +967,12 @@
           "type": "mcq",
           "question": "What channels does Appwrite Messaging support?",
           "choices": [
-            "Email only",
             "Email, SMS, and Push Notifications",
+            "Email only",
             "Email and SMS only",
             "Push Notifications only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -984,11 +984,11 @@
           "question": "What is a \"provider\" in Appwrite Messaging?",
           "choices": [
             "An Appwrite hosting partner",
-            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A user role with messaging permissions",
+            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A database collection for messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -999,12 +999,12 @@
           "type": "mcq",
           "question": "What is a \"topic\" in Appwrite Messaging?",
           "choices": [
-            "A message subject line",
             "A group that users can subscribe to for receiving targeted messages",
+            "A message subject line",
             "A message priority level",
             "A message template category"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1028,11 +1028,11 @@
           "question": "Which email providers can be configured with Appwrite Messaging?",
           "choices": [
             "Only Appwrite's built-in SMTP",
-            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Gmail only",
+            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Amazon SES only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1043,12 +1043,12 @@
           "type": "mcq",
           "question": "How do you send an email using Appwrite Messaging?",
           "choices": [
-            "messaging.send()",
             "messaging.createEmail(messageId, subject, content, topics, users, targets)",
+            "messaging.send()",
             "email.create()",
             "messaging.dispatch()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1060,11 +1060,11 @@
           "question": "What are \"targets\" in Appwrite Messaging?",
           "choices": [
             "IP addresses for message routing",
-            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Server endpoints for message processing",
+            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Message templates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1075,12 +1075,12 @@
           "type": "mcq",
           "question": "Which SMS providers does Appwrite Messaging support?",
           "choices": [
-            "Only built-in SMS",
             "Twilio, Vonage, Textmagic, and other supported providers",
+            "Only built-in SMS",
             "Twilio only",
             "SMS is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1104,9 +1104,573 @@
           "question": "Can Appwrite Messaging schedule messages for future delivery?",
           "choices": [
             "No, messages are always sent immediately",
-            "Yes, using the scheduledAt parameter when creating a message",
             "Only through custom Functions",
+            "Yes, using the scheduledAt parameter when creating a message",
             "Only for email messages"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-11",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "What is required when initializing the Appwrite client in a frontend app?",
+          "choices": [
+            "Only the API key",
+            "Project ID only",
+            "Endpoint, Project ID, and a secret key",
+            "Endpoint and Project ID at minimum"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-12",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "How do Webhooks differ from Realtime in Appwrite?",
+          "choices": [
+            "Realtime uses WebSockets for live client updates; Webhooks are HTTP callbacks to your server when events occur",
+            "They are the same feature with different names",
+            "Webhooks are for client-side only",
+            "Realtime is server-to-server only"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-13",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "What are API key scopes in Appwrite?",
+          "choices": [
+            "Geographic regions for the key",
+            "Rate limit tiers",
+            "Permissions that limit what the API key can access (e.g. databases.read, users.write)",
+            "Encryption levels"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-14",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "Which role allows access to any user (including unauthenticated)?",
+          "choices": [
+            "Role.any()",
+            "Role.users()",
+            "Role.guests()",
+            "Role.public()"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-15",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "How is Appwrite typically run in production?",
+          "choices": [
+            "As a single PHP script",
+            "Only on Appwrite Cloud",
+            "Using Docker containers (e.g. docker compose)",
+            "As a serverless deployment"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-16",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "What does Role.guests() represent?",
+          "choices": [
+            "Users who have not verified their email",
+            "Users in a guest team",
+            "Unauthenticated users (no session)",
+            "Anonymous session users only"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-17",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "Can you use both REST and GraphQL in the same Appwrite project?",
+          "choices": [
+            "Yes, Appwrite supports both REST and GraphQL APIs for the same data",
+            "No, you must choose one",
+            "Only if you use separate projects",
+            "GraphQL is only for the Console"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-18",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "Which permission type allows creating a new resource?",
+          "choices": [
+            "Permission.read()",
+            "Permission.write()",
+            "Permission.create()",
+            "Permission.insert()"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-19",
+          "category": "fundamental",
+          "type": "mcq",
+          "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
+          "choices": [
+            "To enable billing for that platform",
+            "To install a plugin",
+            "To register allowed origins/hosts for auth redirects and API access",
+            "To assign a subdomain"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "fund-20",
+          "category": "fundamental",
+          "type": "free-form",
+          "question": "Name at least three Appwrite services (product areas) and what each is used for.",
+          "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
+          "rubric": "Must name at least 3 services with correct purpose. Accept Auth, Databases, Storage, Functions, Realtime, Messaging, Sites, GraphQL, CLI, etc. with accurate descriptions.",
+          "modelAnswer": "Here are four core Appwrite services and what they are used for:\n\n1. **Authentication (Auth):** Used for managing user identities, sign-ups, and logins. It supports multiple authentication methods, including email/password, OAuth (Google, GitHub, Apple, etc.), magic URLs, anonymous logins, and SMS, as well as managing user roles and teams.\n2. **Databases:** Used for storing, managing, and querying structured application data. It allows developers to create databases, collections, and documents with defined schemas, relationships, and robust access control (permissions).\n3. **Storage:** Used for managing file uploads and downloads. It securely stores assets like images, videos, and documents, and provides built-in utilities for file compression, image cropping, and format conversion.\n4. **Functions:** Used for running custom backend logic. It allows developers to deploy serverless functions in various languages (Node.js, Python, Dart, PHP, etc.) that can be triggered by HTTP requests, scheduled via CRON, or activated by Appwrite system events (like a new user signing up).",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer correctly names four Appwrite services (Auth, Databases, Storage, Functions) and provides accurate, detailed descriptions of each. All four services are listed in the reference answer, and the descriptions align well with their actual purposes. The answer exceeds the minimum requirement of three services and includes specific details like OAuth support, collection/document structure, file management utilities, and serverless function triggers."
+        },
+        {
+          "questionId": "auth-11",
+          "category": "auth",
+          "type": "mcq",
+          "question": "How do you implement password recovery (forgot password) in Appwrite?",
+          "choices": [
+            "account.resetPassword(email)",
+            "Only through the Console",
+            "account.createRecovery(email, url) to send the email, then account.updateRecovery(userId, secret, password, passwordAgain) when the user submits the new password",
+            "account.sendPasswordReset(email)"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-12",
+          "category": "auth",
+          "type": "mcq",
+          "question": "How long is the password recovery link sent by createRecovery valid?",
+          "choices": [
+            "1 hour",
+            "15 minutes",
+            "24 hours",
+            "Until used"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-13",
+          "category": "auth",
+          "type": "mcq",
+          "question": "What is the default maximum number of sessions per user in an Appwrite project?",
+          "choices": [
+            "1",
+            "5",
+            "10",
+            "Unlimited"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-14",
+          "category": "auth",
+          "type": "mcq",
+          "question": "Which method deletes all sessions for the current user?",
+          "choices": [
+            "account.logout()",
+            "account.deleteAllSessions()",
+            "account.deleteSession() with no arguments",
+            "account.deleteSessions()"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-15",
+          "category": "auth",
+          "type": "mcq",
+          "question": "What does Role.team(teamId) represent in Appwrite permissions?",
+          "choices": [
+            "Only users who are members of the specified team",
+            "Any user who is in any team",
+            "Team administrators only",
+            "The team resource itself"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-16",
+          "category": "auth",
+          "type": "mcq",
+          "question": "Can you create anonymous (guest) sessions in Appwrite?",
+          "choices": [
+            "No, anonymous sessions are not supported",
+            "Only with a special API key",
+            "Yes, using account.createAnonymousSession()",
+            "Only in development mode"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-17",
+          "category": "auth",
+          "type": "mcq",
+          "question": "When using createRecovery, what requirement applies to the redirect URL?",
+          "choices": [
+            "It must be HTTPS only",
+            "It can be any URL",
+            "It must match the app's origin exactly",
+            "It must be from a domain you added in the project's platforms in the Console"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-18",
+          "category": "auth",
+          "type": "mcq",
+          "question": "Which MFA factor types does Appwrite support?",
+          "choices": [
+            "TOTP, phone (SMS), and email",
+            "TOTP only",
+            "TOTP and hardware keys only",
+            "Email only"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-19",
+          "category": "auth",
+          "type": "mcq",
+          "question": "How do you add a user to a team using the client SDK?",
+          "choices": [
+            "teams.addMember(teamId, userId)",
+            "account.joinTeam(teamId)",
+            "teams.createMembership(teamId, roles, email or userId, etc.)",
+            "users.assignTeam(userId, teamId)"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "auth-20",
+          "category": "auth",
+          "type": "free-form",
+          "question": "Explain the difference between account.deleteSession(sessionId) and account.deleteSessions(). When would you use each?",
+          "correctAnswer": "deleteSession(sessionId) removes a single session by ID (e.g. logout on current device). deleteSessions() removes all sessions for the current user (e.g. logout everywhere). Use deleteSession for single-device logout; use deleteSessions for security when user wants to sign out of all devices.",
+          "rubric": "Must mention: 1) deleteSession removes one session by ID, 2) deleteSessions removes all sessions for the user, 3) Use case for each (e.g. logout one device vs logout everywhere)",
+          "modelAnswer": "The difference between these two Appwrite methods lies in their scope: one targets a single session, while the other targets every active session tied to a user.\n\n**`account.deleteSession(sessionId)`**\n*   **What it does:** Deletes a single, specific session. \n*   **When to use it:**\n    *   **Standard Logout:** Passing `'current'` as the parameter (i.e., `account.deleteSession('current')`) is the standard way to log a user out of the device or browser they are currently using.\n    *   **Targeted Remote Logout:** If you build a \"Manage Devices\" or \"Active Sessions\" page, you can pass a specific `sessionId` to log the user out of a specific device (e.g., a work computer) without interrupting their current session on their phone.\n\n**`account.deleteSessions()`**\n*   **What it does:** Deletes *all* active sessions for the user across every device, browser, and application simultaneously.\n*   **When to use it:**\n    *   **Security Breaches:** When a user suspects their account has been compromised or they have lost a device.\n    *   **Password Changes:** It is a security best practice to force a logout across all devices after a user changes or resets their password.\n    *   **\"Log out everywhere\" feature:** When providing a global panic button in your app's security settings to instantly revoke all access to the account.",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully covers all three rubric requirements: 1) deleteSession removes one session by ID (including the 'current' special case), 2) deleteSessions removes all sessions for the user, and 3) clear use cases for each - single device logout vs logout everywhere/security scenarios. The answer is comprehensive and accurate."
+        },
+        {
+          "questionId": "db-11",
+          "category": "databases",
+          "type": "mcq",
+          "question": "How do transactions work in Appwrite Databases?",
+          "choices": [
+            "Transactions are not supported",
+            "Wrap operations in a single databases.transaction() call",
+            "Create a transaction, pass the transactionId to document create/update/delete operations, then commit the transaction",
+            "Use a special transaction collection"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "A",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "db-12",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the possible statuses of a database transaction?",
+          "choices": [
+            "pending, committing, committed, failed",
+            "active, committed, rolled_back",
+            "open, closed",
+            "started, finished"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "B",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "db-14",
+          "category": "databases",
+          "type": "mcq",
+          "question": "How do you delete a document in Appwrite?",
+          "choices": [
+            "databases.delete()",
+            "documents.delete()",
+            "databases.removeDocument()",
+            "databases.deleteDocument(databaseId, collectionId, documentId)"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-15",
+          "category": "databases",
+          "type": "mcq",
+          "question": "When creating a document, can you set permissions on that document?",
+          "choices": [
+            "Yes, pass a permissions array to createDocument",
+            "No, documents always inherit collection permissions",
+            "Only via the Console",
+            "Only for the document creator"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-16",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What is a relationship attribute in Appwrite?",
+          "choices": [
+            "A link to an external API",
+            "A special index type",
+            "An attribute that references documents in the same or another collection (one-to-one, one-to-many, etc.)",
+            "A computed field"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-17",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which Query method limits the number of documents returned?",
+          "choices": [
+            "Query.take()",
+            "Query.max()",
+            "Query.limit(limit)",
+            "Query.pageSize()"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-18",
+          "category": "databases",
+          "type": "mcq",
+          "question": "How do you sort documents by a field in descending order?",
+          "choices": [
+            "Query.orderDesc('attributeId')",
+            "Query.sort(field, 'desc')",
+            "Query.descending('attributeId')",
+            "Query.orderBy('attributeId', Query.DESC)"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-19",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What happens if a transaction expires before it is committed?",
+          "choices": [
+            "Operations are automatically rolled back and the transaction is deleted",
+            "The transaction is committed automatically",
+            "Staged operations fail with a transaction expired error; the transaction has a TTL",
+            "Nothing; transactions do not expire"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "A",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "db-20",
+          "category": "databases",
+          "type": "free-form",
+          "question": "Explain how to use Query to filter documents where a numeric field is greater than 100 and return at most 20 results sorted by that field descending.",
+          "correctAnswer": "Use databases.listDocuments() with queries array: Query.greaterThan('attributeId', 100), Query.orderDesc('attributeId'), Query.limit(20). Pass these to the listDocuments queries parameter.",
+          "rubric": "Must include: 1) Query.greaterThan for the filter, 2) Query.orderDesc for sort, 3) Query.limit(20), 4) Passing queries to listDocuments()",
+          "modelAnswer": "To achieve this in Appwrite, you need to pass an array of `Query` methods to the `listDocuments` endpoint. \n\nHere is how you combine the `greaterThan`, `orderDesc`, and `limit` queries:\n\n### JavaScript / Web SDK Example\n\n```javascript\nimport { Client, Databases, Query } from \"appwrite\";\n\nconst client = new Client()\n    .setEndpoint('https://cloud.appwrite.io/v1')\n    .setProject('<YOUR_PROJECT_ID>');\n\nconst databases = new Databases(client);\n\nasync function fetchDocuments() {\n    try {\n        const response = await databases.listDocuments(\n            '<DATABASE_ID>',\n            '<COLLECTION_ID>',\n            [\n                // 1. Filter where the numeric field is greater than 100\n                Query.greaterThan('yourNumericField', 100),\n                \n                // 2. Sort by the same field in descending order\n                Query.orderDesc('yourNumericField'),\n                \n                // 3. Limit the results to a maximum of 20\n                Query.limit(20)\n            ]\n        );\n        \n        console.log(response.documents);\n    } catch (error) {\n        console.error(error);\n    }\n}\n```\n\n### Breakdown of the Queries used:\n* **`Query.greaterThan('field', value)`**: Filters the collection to only include documents where the specified attribute is strictly greater than the provided value.\n* **`Query.orderDesc('field')`**: Sorts the returned documents from highest to lowest based on the specified attribute.\n* **`Query.limit(value)`**: Restricts the payload to return no more than the specified number of documents (Appwrite's default limit is 25, maximum is 100). \n\n*Note: Ensure that you have created an **Index** on `yourNumericField` in your Appwrite collection settings, otherwise the query will fail.*",
+          "correct": true,
+          "score": 1,
+          "judgeReasoning": "The answer fully satisfies all four rubric requirements: 1) Uses Query.greaterThan() for filtering, 2) Uses Query.orderDesc() for descending sort, 3) Uses Query.limit(20) for result count, and 4) Passes all queries to listDocuments(). The response includes a complete working code example, clear explanations of each query method, and a helpful note about indexing requirements."
+        },
+        {
+          "questionId": "func-11",
+          "category": "functions",
+          "type": "mcq",
+          "question": "What are the possible statuses of an Appwrite Function execution?",
+          "choices": [
+            "pending, running, done, error",
+            "waiting, processing, completed, failed, and scheduled",
+            "queued, active, success, failure",
+            "created, started, finished, crashed"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-13",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which Query method is used for cursor-based pagination (get next page after a document)?",
+          "choices": [
+            "Query.cursorAfter(documentId) or Query.cursorBefore(documentId)",
+            "Query.offset()",
+            "Query.nextPage()",
+            "Query.cursor()"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-12",
+          "category": "functions",
+          "type": "mcq",
+          "question": "When you call the SDK's createExecution with async: true, what happens?",
+          "choices": [
+            "The request fails because async is not supported",
+            "The API returns immediately with execution status 'waiting'; the function runs in the background and you can poll Get Execution for updates",
+            "The client must provide a webhook URL to receive the result",
+            "The execution is queued but never runs"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-13",
+          "category": "functions",
+          "type": "mcq",
+          "question": "Can an Appwrite Function be triggered by an event from another function's execution (e.g. functions.*.executions.*.create)?",
+          "choices": [
+            "Yes, function execution events are supported like any other event",
+            "No; triggering a function on a function event (events starting with 'functions.') is not allowed",
+            "Only in the Console, not via event configuration",
+            "Yes, but only for completed executions"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-14",
+          "category": "functions",
+          "type": "mcq",
+          "question": "When can you successfully execute an Appwrite Function via the API?",
+          "choices": [
+            "As soon as the function resource is created",
+            "Only after the function has an active deployment whose build status is 'ready'",
+            "After the first deployment is created, regardless of build status",
+            "Only when the deployment status is 'building'"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-15",
+          "category": "functions",
+          "type": "mcq",
+          "question": "Besides functionId and data, what parameters does the createExecution API support?",
+          "choices": [
+            "None",
+            "async only",
+            "async, path, method, headers, and scheduledAt (ISO 8601)",
+            "path and method only"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "func-16",
+          "category": "functions",
+          "type": "mcq",
+          "question": "When passing custom headers to createExecution, what restriction applies?",
+          "choices": [
+            "Headers are not allowed; only the request body is passed",
+            "Header names cannot start with 'x-appwrite-'; they are reserved by Appwrite",
+            "Only Content-Type is allowed",
+            "There are no restrictions on header names"
           ],
           "correctAnswer": "B",
           "modelAnswer": "B",
@@ -1150,9 +1714,9 @@
       "overall": 98.8,
       "mcqOverall": 100,
       "freeformOverall": 93.5,
-      "totalQuestions": 70,
+      "totalQuestions": 180,
       "totalCorrect": 70,
-      "runDate": "2026-03-02T17:16:28.789Z",
+      "runDate": "2026-03-04T08:58:34.882Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -1160,12 +1724,12 @@
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
-            "A frontend JavaScript framework",
             "An open-source backend-as-a-service (BaaS) platform",
+            "A frontend JavaScript framework",
             "A cloud hosting provider",
             "A database management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1209,11 +1773,11 @@
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
             "To encrypt database documents",
-            "To authenticate server-side requests with specific scope permissions",
             "To configure DNS settings",
+            "To authenticate server-side requests with specific scope permissions",
             "To manage SSL certificates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1252,12 +1816,12 @@
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
-            "As a native OS application",
             "Using Docker containers",
+            "As a native OS application",
             "As a browser extension",
             "Through npm global install"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1281,11 +1845,11 @@
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
             "A single database collection",
-            "An isolated container for your application's backend services and resources",
             "A Git repository connection",
+            "An isolated container for your application's backend services and resources",
             "A deployment environment"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1328,12 +1892,12 @@
           "type": "mcq",
           "question": "What is the correct method to create an email/password session (log in) using the Appwrite client SDK?",
           "choices": [
-            "account.create()",
             "account.createEmailPasswordSession()",
             "account.login()",
-            "auth.signIn()"
+            "auth.signIn()",
+            "account.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1345,11 +1909,11 @@
           "question": "How does Appwrite handle OAuth2 authentication?",
           "choices": [
             "It only supports OAuth2 through custom functions",
-            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "OAuth2 requires a separate plugin installation",
+            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "It uses JWT tokens exclusively"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1373,11 +1937,11 @@
           "question": "What is the purpose of Teams in Appwrite Auth?",
           "choices": [
             "To organize database collections",
-            "To group users and manage role-based access to resources",
             "To create separate billing accounts",
-            "To manage deployment environments"
+            "To manage deployment environments",
+            "To group users and manage role-based access to resources"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1388,12 +1952,12 @@
           "type": "mcq",
           "question": "How can you enable Multi-Factor Authentication (MFA) in Appwrite?",
           "choices": [
-            "MFA is always enabled by default",
             "Through the account.createMfaChallenge() and account.updateMFA() methods",
+            "MFA is always enabled by default",
             "By installing a third-party MFA plugin",
             "MFA is not supported in Appwrite"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1417,11 +1981,11 @@
           "question": "What does Role.users() represent in Appwrite's permission system?",
           "choices": [
             "Only admin users",
-            "Any user who has an active session (authenticated users)",
             "Users in a specific team",
+            "Any user who has an active session (authenticated users)",
             "Users with verified email addresses only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1433,11 +1997,11 @@
           "question": "How do you authenticate server-side requests in Appwrite?",
           "choices": [
             "Using user session tokens only",
-            "Using an API key with setKey() on the server SDK client",
             "Using OAuth2 tokens",
-            "Server-side requests don't need authentication"
+            "Server-side requests don't need authentication",
+            "Using an API key with setKey() on the server SDK client"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1464,12 +2028,12 @@
           "type": "mcq",
           "question": "What is the hierarchy of data organization in Appwrite Databases?",
           "choices": [
-            "Database > Table > Row",
             "Database > Collection > Document",
+            "Database > Table > Row",
             "Schema > Collection > Record",
             "Project > Database > Table"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1481,11 +2045,11 @@
           "question": "Which attribute types are supported in Appwrite database collections?",
           "choices": [
             "String, Integer, Float only",
-            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship",
             "String, Number, Boolean only",
-            "Any JSON type without schema validation"
+            "Any JSON type without schema validation",
+            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1508,12 +2072,12 @@
           "type": "mcq",
           "question": "Which query method is used to filter documents where a field equals a specific value?",
           "choices": [
-            "Query.filter()",
             "Query.equal()",
+            "Query.filter()",
             "Query.where()",
             "Query.match()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1525,11 +2089,11 @@
           "question": "What are indexes used for in Appwrite databases?",
           "choices": [
             "To encrypt document fields",
-            "To improve query performance on specific attributes",
             "To create foreign key relationships",
+            "To improve query performance on specific attributes",
             "To auto-generate unique IDs"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1552,12 +2116,12 @@
           "type": "mcq",
           "question": "What types of relationships does Appwrite support between collections?",
           "choices": [
-            "Only one-to-one",
             "One-to-one, one-to-many, many-to-one, and many-to-many",
+            "Only one-to-one",
             "Only foreign key references",
             "Relationships are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1569,11 +2133,11 @@
           "question": "How do permissions work on documents in Appwrite?",
           "choices": [
             "Documents inherit permissions from the project only",
-            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are set globally for all documents",
+            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are only managed through API keys"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1585,11 +2149,11 @@
           "question": "What is the correct method to update a document in Appwrite?",
           "choices": [
             "databases.update()",
-            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "databases.patchDocument()",
+            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "documents.update()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1600,12 +2164,12 @@
           "type": "mcq",
           "question": "Which Query method performs a full-text search on a document attribute?",
           "choices": [
-            "Query.contains()",
             "Query.search()",
+            "Query.contains()",
             "Query.fullText()",
             "Query.like()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1768,12 +2332,12 @@
           "type": "mcq",
           "question": "What is a \"bucket\" in Appwrite Storage?",
           "choices": [
-            "A type of database collection",
             "A container for organizing and managing file uploads with shared permissions and settings",
+            "A type of database collection",
             "A caching layer for static assets",
             "A backup storage location"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1784,12 +2348,12 @@
           "type": "mcq",
           "question": "How do you upload a file to Appwrite Storage?",
           "choices": [
-            "storage.upload()",
             "storage.createFile(bucketId, fileId, file)",
+            "storage.upload()",
             "storage.putObject()",
             "files.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1812,12 +2376,12 @@
           "type": "mcq",
           "question": "Which Appwrite Storage method provides image manipulation like resizing and cropping?",
           "choices": [
-            "storage.transformImage()",
             "storage.getFilePreview()",
+            "storage.transformImage()",
             "storage.processImage()",
             "storage.getFileView()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1829,11 +2393,11 @@
           "question": "What parameters does getFilePreview() support for image transformation?",
           "choices": [
             "Only width and height",
-            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "Only format conversion",
+            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "CSS filter strings"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1844,12 +2408,12 @@
           "type": "mcq",
           "question": "How are file permissions handled in Appwrite Storage?",
           "choices": [
-            "All files in a bucket share the same permissions",
             "Files can have individual permissions, or inherit from the bucket depending on fileSecurity setting",
+            "All files in a bucket share the same permissions",
             "Permissions are only at the project level",
             "Files are always public"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1861,11 +2425,11 @@
           "question": "What is the method to download a file from Appwrite Storage?",
           "choices": [
             "storage.downloadFile()",
-            "storage.getFileDownload(bucketId, fileId)",
             "storage.fetchFile()",
+            "storage.getFileDownload(bucketId, fileId)",
             "storage.read()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1876,12 +2440,12 @@
           "type": "mcq",
           "question": "Which bucket setting restricts the types of files that can be uploaded?",
           "choices": [
-            "fileFilter",
             "allowedFileExtensions",
+            "fileFilter",
             "mimeTypes",
             "uploadRestrictions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1905,11 +2469,11 @@
           "question": "What is the maximumFileSize parameter in Appwrite bucket configuration?",
           "choices": [
             "The total storage limit for the bucket",
-            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum number of files",
+            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum image dimensions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1920,12 +2484,12 @@
           "type": "mcq",
           "question": "What is Appwrite Sites?",
           "choices": [
-            "A DNS management service",
             "A web hosting and deployment service for static and dynamic sites within Appwrite",
+            "A DNS management service",
             "A site analytics platform",
             "A content management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1937,11 +2501,11 @@
           "question": "Which types of sites can Appwrite Sites deploy?",
           "choices": [
             "Only static HTML sites",
-            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only WordPress sites",
+            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only single-page applications"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1952,12 +2516,12 @@
           "type": "mcq",
           "question": "How do you connect a custom domain to an Appwrite Site?",
           "choices": [
-            "Through DNS A record pointing to Appwrite's IP",
             "By adding the domain in the Appwrite Console and configuring a CNAME record",
+            "Through DNS A record pointing to Appwrite's IP",
             "Through a reverse proxy configuration",
             "Custom domains are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1981,11 +2545,11 @@
           "question": "What happens when you push to a connected Git repository for an Appwrite Site?",
           "choices": [
             "Nothing, you must manually trigger deployments",
-            "A new deployment is automatically triggered, building and deploying the latest code",
             "Only a notification is sent",
+            "A new deployment is automatically triggered, building and deploying the latest code",
             "The repository is cloned but not deployed"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -1996,12 +2560,12 @@
           "type": "mcq",
           "question": "Which of the following frameworks is supported by Appwrite Sites for dynamic rendering?",
           "choices": [
-            "Ruby on Rails",
             "Next.js",
+            "Ruby on Rails",
             "Django",
             "Laravel"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2012,12 +2576,12 @@
           "type": "mcq",
           "question": "How does Appwrite Sites handle SSL/TLS certificates?",
           "choices": [
-            "You must purchase and upload your own certificates",
             "SSL certificates are automatically provisioned and renewed for custom domains",
+            "You must purchase and upload your own certificates",
             "SSL is only available on paid plans",
             "SSL is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2029,11 +2593,11 @@
           "question": "What is the purpose of the \"output directory\" in Appwrite Sites build configuration?",
           "choices": [
             "The directory where logs are stored",
-            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for source code",
+            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for environment files"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2044,12 +2608,12 @@
           "type": "mcq",
           "question": "Can Appwrite Sites be used with environment variables?",
           "choices": [
-            "No, environment variables are only for Functions",
             "Yes, environment variables can be set for the build process and runtime",
+            "No, environment variables are only for Functions",
             "Only hardcoded values are supported",
             "Environment variables require a separate plugin"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2060,12 +2624,12 @@
           "type": "mcq",
           "question": "How do you deploy an Appwrite Site using the CLI?",
           "choices": [
-            "appwrite upload site",
             "appwrite deploy site",
+            "appwrite upload site",
             "appwrite publish site",
             "appwrite sites create"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2076,12 +2640,12 @@
           "type": "mcq",
           "question": "What channels does Appwrite Messaging support?",
           "choices": [
-            "Email only",
             "Email, SMS, and Push Notifications",
+            "Email only",
             "Email and SMS only",
             "Push Notifications only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2093,11 +2657,11 @@
           "question": "What is a \"provider\" in Appwrite Messaging?",
           "choices": [
             "An Appwrite hosting partner",
-            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A user role with messaging permissions",
+            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A database collection for messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2108,12 +2672,12 @@
           "type": "mcq",
           "question": "What is a \"topic\" in Appwrite Messaging?",
           "choices": [
-            "A message subject line",
             "A group that users can subscribe to for receiving targeted messages",
+            "A message subject line",
             "A message priority level",
             "A message template category"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2137,11 +2701,11 @@
           "question": "Which email providers can be configured with Appwrite Messaging?",
           "choices": [
             "Only Appwrite's built-in SMTP",
-            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Gmail only",
+            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Amazon SES only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2152,12 +2716,12 @@
           "type": "mcq",
           "question": "How do you send an email using Appwrite Messaging?",
           "choices": [
-            "messaging.send()",
             "messaging.createEmail(messageId, subject, content, topics, users, targets)",
+            "messaging.send()",
             "email.create()",
             "messaging.dispatch()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2169,11 +2733,11 @@
           "question": "What are \"targets\" in Appwrite Messaging?",
           "choices": [
             "IP addresses for message routing",
-            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Server endpoints for message processing",
+            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Message templates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2184,12 +2748,12 @@
           "type": "mcq",
           "question": "Which SMS providers does Appwrite Messaging support?",
           "choices": [
-            "Only built-in SMS",
             "Twilio, Vonage, Textmagic, and other supported providers",
+            "Only built-in SMS",
             "Twilio only",
             "SMS is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2213,11 +2777,11 @@
           "question": "Can Appwrite Messaging schedule messages for future delivery?",
           "choices": [
             "No, messages are always sent immediately",
-            "Yes, using the scheduledAt parameter when creating a message",
             "Only through custom Functions",
+            "Yes, using the scheduledAt parameter when creating a message",
             "Only for email messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2259,9 +2823,9 @@
       "overall": 99.9,
       "mcqOverall": 100,
       "freeformOverall": 99.6,
-      "totalQuestions": 70,
+      "totalQuestions": 180,
       "totalCorrect": 70,
-      "runDate": "2026-03-02T17:16:28.789Z",
+      "runDate": "2026-03-04T08:58:34.882Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2269,12 +2833,12 @@
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
-            "A frontend JavaScript framework",
             "An open-source backend-as-a-service (BaaS) platform",
+            "A frontend JavaScript framework",
             "A cloud hosting provider",
             "A database management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2318,11 +2882,11 @@
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
             "To encrypt database documents",
-            "To authenticate server-side requests with specific scope permissions",
             "To configure DNS settings",
+            "To authenticate server-side requests with specific scope permissions",
             "To manage SSL certificates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2361,12 +2925,12 @@
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
-            "As a native OS application",
             "Using Docker containers",
+            "As a native OS application",
             "As a browser extension",
             "Through npm global install"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2390,11 +2954,11 @@
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
             "A single database collection",
-            "An isolated container for your application's backend services and resources",
             "A Git repository connection",
+            "An isolated container for your application's backend services and resources",
             "A deployment environment"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2437,12 +3001,12 @@
           "type": "mcq",
           "question": "What is the correct method to create an email/password session (log in) using the Appwrite client SDK?",
           "choices": [
-            "account.create()",
             "account.createEmailPasswordSession()",
             "account.login()",
-            "auth.signIn()"
+            "auth.signIn()",
+            "account.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2454,11 +3018,11 @@
           "question": "How does Appwrite handle OAuth2 authentication?",
           "choices": [
             "It only supports OAuth2 through custom functions",
-            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "OAuth2 requires a separate plugin installation",
+            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "It uses JWT tokens exclusively"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2482,11 +3046,11 @@
           "question": "What is the purpose of Teams in Appwrite Auth?",
           "choices": [
             "To organize database collections",
-            "To group users and manage role-based access to resources",
             "To create separate billing accounts",
-            "To manage deployment environments"
+            "To manage deployment environments",
+            "To group users and manage role-based access to resources"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2497,12 +3061,12 @@
           "type": "mcq",
           "question": "How can you enable Multi-Factor Authentication (MFA) in Appwrite?",
           "choices": [
-            "MFA is always enabled by default",
             "Through the account.createMfaChallenge() and account.updateMFA() methods",
+            "MFA is always enabled by default",
             "By installing a third-party MFA plugin",
             "MFA is not supported in Appwrite"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2526,11 +3090,11 @@
           "question": "What does Role.users() represent in Appwrite's permission system?",
           "choices": [
             "Only admin users",
-            "Any user who has an active session (authenticated users)",
             "Users in a specific team",
+            "Any user who has an active session (authenticated users)",
             "Users with verified email addresses only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2542,11 +3106,11 @@
           "question": "How do you authenticate server-side requests in Appwrite?",
           "choices": [
             "Using user session tokens only",
-            "Using an API key with setKey() on the server SDK client",
             "Using OAuth2 tokens",
-            "Server-side requests don't need authentication"
+            "Server-side requests don't need authentication",
+            "Using an API key with setKey() on the server SDK client"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2573,12 +3137,12 @@
           "type": "mcq",
           "question": "What is the hierarchy of data organization in Appwrite Databases?",
           "choices": [
-            "Database > Table > Row",
             "Database > Collection > Document",
+            "Database > Table > Row",
             "Schema > Collection > Record",
             "Project > Database > Table"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2590,11 +3154,11 @@
           "question": "Which attribute types are supported in Appwrite database collections?",
           "choices": [
             "String, Integer, Float only",
-            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship",
             "String, Number, Boolean only",
-            "Any JSON type without schema validation"
+            "Any JSON type without schema validation",
+            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2617,12 +3181,12 @@
           "type": "mcq",
           "question": "Which query method is used to filter documents where a field equals a specific value?",
           "choices": [
-            "Query.filter()",
             "Query.equal()",
+            "Query.filter()",
             "Query.where()",
             "Query.match()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2634,11 +3198,11 @@
           "question": "What are indexes used for in Appwrite databases?",
           "choices": [
             "To encrypt document fields",
-            "To improve query performance on specific attributes",
             "To create foreign key relationships",
+            "To improve query performance on specific attributes",
             "To auto-generate unique IDs"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2661,12 +3225,12 @@
           "type": "mcq",
           "question": "What types of relationships does Appwrite support between collections?",
           "choices": [
-            "Only one-to-one",
             "One-to-one, one-to-many, many-to-one, and many-to-many",
+            "Only one-to-one",
             "Only foreign key references",
             "Relationships are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2678,11 +3242,11 @@
           "question": "How do permissions work on documents in Appwrite?",
           "choices": [
             "Documents inherit permissions from the project only",
-            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are set globally for all documents",
+            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are only managed through API keys"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2694,11 +3258,11 @@
           "question": "What is the correct method to update a document in Appwrite?",
           "choices": [
             "databases.update()",
-            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "databases.patchDocument()",
+            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "documents.update()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2709,12 +3273,12 @@
           "type": "mcq",
           "question": "Which Query method performs a full-text search on a document attribute?",
           "choices": [
-            "Query.contains()",
             "Query.search()",
+            "Query.contains()",
             "Query.fullText()",
             "Query.like()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2877,12 +3441,12 @@
           "type": "mcq",
           "question": "What is a \"bucket\" in Appwrite Storage?",
           "choices": [
-            "A type of database collection",
             "A container for organizing and managing file uploads with shared permissions and settings",
+            "A type of database collection",
             "A caching layer for static assets",
             "A backup storage location"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2893,12 +3457,12 @@
           "type": "mcq",
           "question": "How do you upload a file to Appwrite Storage?",
           "choices": [
-            "storage.upload()",
             "storage.createFile(bucketId, fileId, file)",
+            "storage.upload()",
             "storage.putObject()",
             "files.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2921,12 +3485,12 @@
           "type": "mcq",
           "question": "Which Appwrite Storage method provides image manipulation like resizing and cropping?",
           "choices": [
-            "storage.transformImage()",
             "storage.getFilePreview()",
+            "storage.transformImage()",
             "storage.processImage()",
             "storage.getFileView()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2938,11 +3502,11 @@
           "question": "What parameters does getFilePreview() support for image transformation?",
           "choices": [
             "Only width and height",
-            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "Only format conversion",
+            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "CSS filter strings"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2953,12 +3517,12 @@
           "type": "mcq",
           "question": "How are file permissions handled in Appwrite Storage?",
           "choices": [
-            "All files in a bucket share the same permissions",
             "Files can have individual permissions, or inherit from the bucket depending on fileSecurity setting",
+            "All files in a bucket share the same permissions",
             "Permissions are only at the project level",
             "Files are always public"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2970,11 +3534,11 @@
           "question": "What is the method to download a file from Appwrite Storage?",
           "choices": [
             "storage.downloadFile()",
-            "storage.getFileDownload(bucketId, fileId)",
             "storage.fetchFile()",
+            "storage.getFileDownload(bucketId, fileId)",
             "storage.read()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -2985,12 +3549,12 @@
           "type": "mcq",
           "question": "Which bucket setting restricts the types of files that can be uploaded?",
           "choices": [
-            "fileFilter",
             "allowedFileExtensions",
+            "fileFilter",
             "mimeTypes",
             "uploadRestrictions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3014,11 +3578,11 @@
           "question": "What is the maximumFileSize parameter in Appwrite bucket configuration?",
           "choices": [
             "The total storage limit for the bucket",
-            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum number of files",
+            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum image dimensions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3029,12 +3593,12 @@
           "type": "mcq",
           "question": "What is Appwrite Sites?",
           "choices": [
-            "A DNS management service",
             "A web hosting and deployment service for static and dynamic sites within Appwrite",
+            "A DNS management service",
             "A site analytics platform",
             "A content management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3046,11 +3610,11 @@
           "question": "Which types of sites can Appwrite Sites deploy?",
           "choices": [
             "Only static HTML sites",
-            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only WordPress sites",
+            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only single-page applications"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3061,12 +3625,12 @@
           "type": "mcq",
           "question": "How do you connect a custom domain to an Appwrite Site?",
           "choices": [
-            "Through DNS A record pointing to Appwrite's IP",
             "By adding the domain in the Appwrite Console and configuring a CNAME record",
+            "Through DNS A record pointing to Appwrite's IP",
             "Through a reverse proxy configuration",
             "Custom domains are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3090,11 +3654,11 @@
           "question": "What happens when you push to a connected Git repository for an Appwrite Site?",
           "choices": [
             "Nothing, you must manually trigger deployments",
-            "A new deployment is automatically triggered, building and deploying the latest code",
             "Only a notification is sent",
+            "A new deployment is automatically triggered, building and deploying the latest code",
             "The repository is cloned but not deployed"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3105,12 +3669,12 @@
           "type": "mcq",
           "question": "Which of the following frameworks is supported by Appwrite Sites for dynamic rendering?",
           "choices": [
-            "Ruby on Rails",
             "Next.js",
+            "Ruby on Rails",
             "Django",
             "Laravel"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3121,12 +3685,12 @@
           "type": "mcq",
           "question": "How does Appwrite Sites handle SSL/TLS certificates?",
           "choices": [
-            "You must purchase and upload your own certificates",
             "SSL certificates are automatically provisioned and renewed for custom domains",
+            "You must purchase and upload your own certificates",
             "SSL is only available on paid plans",
             "SSL is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3138,11 +3702,11 @@
           "question": "What is the purpose of the \"output directory\" in Appwrite Sites build configuration?",
           "choices": [
             "The directory where logs are stored",
-            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for source code",
+            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for environment files"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3153,12 +3717,12 @@
           "type": "mcq",
           "question": "Can Appwrite Sites be used with environment variables?",
           "choices": [
-            "No, environment variables are only for Functions",
             "Yes, environment variables can be set for the build process and runtime",
+            "No, environment variables are only for Functions",
             "Only hardcoded values are supported",
             "Environment variables require a separate plugin"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3169,12 +3733,12 @@
           "type": "mcq",
           "question": "How do you deploy an Appwrite Site using the CLI?",
           "choices": [
-            "appwrite upload site",
             "appwrite deploy site",
+            "appwrite upload site",
             "appwrite publish site",
             "appwrite sites create"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3185,12 +3749,12 @@
           "type": "mcq",
           "question": "What channels does Appwrite Messaging support?",
           "choices": [
-            "Email only",
             "Email, SMS, and Push Notifications",
+            "Email only",
             "Email and SMS only",
             "Push Notifications only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3202,11 +3766,11 @@
           "question": "What is a \"provider\" in Appwrite Messaging?",
           "choices": [
             "An Appwrite hosting partner",
-            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A user role with messaging permissions",
+            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A database collection for messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3217,12 +3781,12 @@
           "type": "mcq",
           "question": "What is a \"topic\" in Appwrite Messaging?",
           "choices": [
-            "A message subject line",
             "A group that users can subscribe to for receiving targeted messages",
+            "A message subject line",
             "A message priority level",
             "A message template category"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3246,11 +3810,11 @@
           "question": "Which email providers can be configured with Appwrite Messaging?",
           "choices": [
             "Only Appwrite's built-in SMTP",
-            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Gmail only",
+            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Amazon SES only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3261,12 +3825,12 @@
           "type": "mcq",
           "question": "How do you send an email using Appwrite Messaging?",
           "choices": [
-            "messaging.send()",
             "messaging.createEmail(messageId, subject, content, topics, users, targets)",
+            "messaging.send()",
             "email.create()",
             "messaging.dispatch()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3278,11 +3842,11 @@
           "question": "What are \"targets\" in Appwrite Messaging?",
           "choices": [
             "IP addresses for message routing",
-            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Server endpoints for message processing",
+            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Message templates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3293,12 +3857,12 @@
           "type": "mcq",
           "question": "Which SMS providers does Appwrite Messaging support?",
           "choices": [
-            "Only built-in SMS",
             "Twilio, Vonage, Textmagic, and other supported providers",
+            "Only built-in SMS",
             "Twilio only",
             "SMS is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3322,11 +3886,11 @@
           "question": "Can Appwrite Messaging schedule messages for future delivery?",
           "choices": [
             "No, messages are always sent immediately",
-            "Yes, using the scheduledAt parameter when creating a message",
             "Only through custom Functions",
+            "Yes, using the scheduledAt parameter when creating a message",
             "Only for email messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3368,9 +3932,9 @@
       "overall": 99.1,
       "mcqOverall": 100,
       "freeformOverall": 95,
-      "totalQuestions": 70,
+      "totalQuestions": 180,
       "totalCorrect": 70,
-      "runDate": "2026-03-02T17:16:28.789Z",
+      "runDate": "2026-03-04T08:58:34.882Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -3378,12 +3942,12 @@
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
-            "A frontend JavaScript framework",
             "An open-source backend-as-a-service (BaaS) platform",
+            "A frontend JavaScript framework",
             "A cloud hosting provider",
             "A database management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3427,11 +3991,11 @@
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
             "To encrypt database documents",
-            "To authenticate server-side requests with specific scope permissions",
             "To configure DNS settings",
+            "To authenticate server-side requests with specific scope permissions",
             "To manage SSL certificates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3470,12 +4034,12 @@
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
-            "As a native OS application",
             "Using Docker containers",
+            "As a native OS application",
             "As a browser extension",
             "Through npm global install"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3499,11 +4063,11 @@
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
             "A single database collection",
-            "An isolated container for your application's backend services and resources",
             "A Git repository connection",
+            "An isolated container for your application's backend services and resources",
             "A deployment environment"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3546,12 +4110,12 @@
           "type": "mcq",
           "question": "What is the correct method to create an email/password session (log in) using the Appwrite client SDK?",
           "choices": [
-            "account.create()",
             "account.createEmailPasswordSession()",
             "account.login()",
-            "auth.signIn()"
+            "auth.signIn()",
+            "account.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3563,11 +4127,11 @@
           "question": "How does Appwrite handle OAuth2 authentication?",
           "choices": [
             "It only supports OAuth2 through custom functions",
-            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "OAuth2 requires a separate plugin installation",
+            "It provides built-in OAuth2 support with createOAuth2Session() for 40+ providers",
             "It uses JWT tokens exclusively"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3591,11 +4155,11 @@
           "question": "What is the purpose of Teams in Appwrite Auth?",
           "choices": [
             "To organize database collections",
-            "To group users and manage role-based access to resources",
             "To create separate billing accounts",
-            "To manage deployment environments"
+            "To manage deployment environments",
+            "To group users and manage role-based access to resources"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3606,12 +4170,12 @@
           "type": "mcq",
           "question": "How can you enable Multi-Factor Authentication (MFA) in Appwrite?",
           "choices": [
-            "MFA is always enabled by default",
             "Through the account.createMfaChallenge() and account.updateMFA() methods",
+            "MFA is always enabled by default",
             "By installing a third-party MFA plugin",
             "MFA is not supported in Appwrite"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3635,11 +4199,11 @@
           "question": "What does Role.users() represent in Appwrite's permission system?",
           "choices": [
             "Only admin users",
-            "Any user who has an active session (authenticated users)",
             "Users in a specific team",
+            "Any user who has an active session (authenticated users)",
             "Users with verified email addresses only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3651,11 +4215,11 @@
           "question": "How do you authenticate server-side requests in Appwrite?",
           "choices": [
             "Using user session tokens only",
-            "Using an API key with setKey() on the server SDK client",
             "Using OAuth2 tokens",
-            "Server-side requests don't need authentication"
+            "Server-side requests don't need authentication",
+            "Using an API key with setKey() on the server SDK client"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3682,12 +4246,12 @@
           "type": "mcq",
           "question": "What is the hierarchy of data organization in Appwrite Databases?",
           "choices": [
-            "Database > Table > Row",
             "Database > Collection > Document",
+            "Database > Table > Row",
             "Schema > Collection > Record",
             "Project > Database > Table"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3699,11 +4263,11 @@
           "question": "Which attribute types are supported in Appwrite database collections?",
           "choices": [
             "String, Integer, Float only",
-            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship",
             "String, Number, Boolean only",
-            "Any JSON type without schema validation"
+            "Any JSON type without schema validation",
+            "String, Integer, Float, Boolean, DateTime, Email, URL, IP, Enum, Relationship"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "D",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3726,12 +4290,12 @@
           "type": "mcq",
           "question": "Which query method is used to filter documents where a field equals a specific value?",
           "choices": [
-            "Query.filter()",
             "Query.equal()",
+            "Query.filter()",
             "Query.where()",
             "Query.match()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3743,11 +4307,11 @@
           "question": "What are indexes used for in Appwrite databases?",
           "choices": [
             "To encrypt document fields",
-            "To improve query performance on specific attributes",
             "To create foreign key relationships",
+            "To improve query performance on specific attributes",
             "To auto-generate unique IDs"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -3770,12 +4334,12 @@
           "type": "mcq",
           "question": "What types of relationships does Appwrite support between collections?",
           "choices": [
-            "Only one-to-one",
             "One-to-one, one-to-many, many-to-one, and many-to-many",
+            "Only one-to-one",
             "Only foreign key references",
             "Relationships are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3787,11 +4351,11 @@
           "question": "How do permissions work on documents in Appwrite?",
           "choices": [
             "Documents inherit permissions from the project only",
-            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are set globally for all documents",
+            "Each document can have its own permission list, or inherit from the collection",
             "Permissions are only managed through API keys"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3803,11 +4367,11 @@
           "question": "What is the correct method to update a document in Appwrite?",
           "choices": [
             "databases.update()",
-            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "databases.patchDocument()",
+            "databases.updateDocument(databaseId, collectionId, documentId, data)",
             "documents.update()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3818,12 +4382,12 @@
           "type": "mcq",
           "question": "Which Query method performs a full-text search on a document attribute?",
           "choices": [
-            "Query.contains()",
             "Query.search()",
+            "Query.contains()",
             "Query.fullText()",
             "Query.like()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": "B",
           "correct": true,
           "score": 1
@@ -3986,12 +4550,12 @@
           "type": "mcq",
           "question": "What is a \"bucket\" in Appwrite Storage?",
           "choices": [
-            "A type of database collection",
             "A container for organizing and managing file uploads with shared permissions and settings",
+            "A type of database collection",
             "A caching layer for static assets",
             "A backup storage location"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " The correct answer is **B. A container for organizing and managing file uploads with shared permissions**.\n\n**Explanation:**\n\nIn Appwrite's Storage service, a **bucket** acts as a top-level container for storing and organizing files. Key characteristics include:\n\n- **File Organization**: Buckets group related files together (e.g., \"user-avatars\", \"documents\", \"images\")\n- **Permission Management**: You can set shared permissions at the bucket level (read, write, create, update, delete) that apply to all files within that bucket\n- **Configuration**: Buckets have settings like allowed file types, maximum file size, compression, and encryption\n- **Distinct from Database**: Unlike database collections (Option A), which store structured JSON documents, buckets specifically handle file storage and binary data\n\nThis is different from Appwrite's Database service, where collections store structured documents/records rather than files.",
           "correct": true,
           "score": 1
@@ -4002,12 +4566,12 @@
           "type": "mcq",
           "question": "How do you upload a file to Appwrite Storage?",
           "choices": [
-            "storage.upload()",
             "storage.createFile(bucketId, fileId, file)",
+            "storage.upload()",
             "storage.putObject()",
             "files.create()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4030,12 +4594,12 @@
           "type": "mcq",
           "question": "Which Appwrite Storage method provides image manipulation like resizing and cropping?",
           "choices": [
-            "storage.transformImage()",
             "storage.getFilePreview()",
+            "storage.transformImage()",
             "storage.processImage()",
             "storage.getFileView()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4047,11 +4611,11 @@
           "question": "What parameters does getFilePreview() support for image transformation?",
           "choices": [
             "Only width and height",
-            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "Only format conversion",
+            "Width, height, gravity, quality, border, border-radius, opacity, rotation, background, and output format",
             "CSS filter strings"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4062,12 +4626,12 @@
           "type": "mcq",
           "question": "How are file permissions handled in Appwrite Storage?",
           "choices": [
-            "All files in a bucket share the same permissions",
             "Files can have individual permissions, or inherit from the bucket depending on fileSecurity setting",
+            "All files in a bucket share the same permissions",
             "Permissions are only at the project level",
             "Files are always public"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4079,11 +4643,11 @@
           "question": "What is the method to download a file from Appwrite Storage?",
           "choices": [
             "storage.downloadFile()",
-            "storage.getFileDownload(bucketId, fileId)",
             "storage.fetchFile()",
+            "storage.getFileDownload(bucketId, fileId)",
             "storage.read()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4094,12 +4658,12 @@
           "type": "mcq",
           "question": "Which bucket setting restricts the types of files that can be uploaded?",
           "choices": [
-            "fileFilter",
             "allowedFileExtensions",
+            "fileFilter",
             "mimeTypes",
             "uploadRestrictions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4123,11 +4687,11 @@
           "question": "What is the maximumFileSize parameter in Appwrite bucket configuration?",
           "choices": [
             "The total storage limit for the bucket",
-            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum number of files",
+            "The maximum size in bytes for individual file uploads in the bucket",
             "The maximum image dimensions"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4138,12 +4702,12 @@
           "type": "mcq",
           "question": "What is Appwrite Sites?",
           "choices": [
-            "A DNS management service",
             "A web hosting and deployment service for static and dynamic sites within Appwrite",
+            "A DNS management service",
             "A site analytics platform",
             "A content management system"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4155,11 +4719,11 @@
           "question": "Which types of sites can Appwrite Sites deploy?",
           "choices": [
             "Only static HTML sites",
-            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only WordPress sites",
+            "Static sites and dynamic sites using supported frameworks like Next.js, Nuxt, SvelteKit, Astro, etc.",
             "Only single-page applications"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4170,12 +4734,12 @@
           "type": "mcq",
           "question": "How do you connect a custom domain to an Appwrite Site?",
           "choices": [
-            "Through DNS A record pointing to Appwrite's IP",
             "By adding the domain in the Appwrite Console and configuring a CNAME record",
+            "Through DNS A record pointing to Appwrite's IP",
             "Through a reverse proxy configuration",
             "Custom domains are not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4199,11 +4763,11 @@
           "question": "What happens when you push to a connected Git repository for an Appwrite Site?",
           "choices": [
             "Nothing, you must manually trigger deployments",
-            "A new deployment is automatically triggered, building and deploying the latest code",
             "Only a notification is sent",
+            "A new deployment is automatically triggered, building and deploying the latest code",
             "The repository is cloned but not deployed"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4214,12 +4778,12 @@
           "type": "mcq",
           "question": "Which of the following frameworks is supported by Appwrite Sites for dynamic rendering?",
           "choices": [
-            "Ruby on Rails",
             "Next.js",
+            "Ruby on Rails",
             "Django",
             "Laravel"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4230,12 +4794,12 @@
           "type": "mcq",
           "question": "How does Appwrite Sites handle SSL/TLS certificates?",
           "choices": [
-            "You must purchase and upload your own certificates",
             "SSL certificates are automatically provisioned and renewed for custom domains",
+            "You must purchase and upload your own certificates",
             "SSL is only available on paid plans",
             "SSL is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4247,11 +4811,11 @@
           "question": "What is the purpose of the \"output directory\" in Appwrite Sites build configuration?",
           "choices": [
             "The directory where logs are stored",
-            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for source code",
+            "The directory containing the built/compiled output to be served (e.g., dist, build, .next)",
             "The directory for environment files"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4262,12 +4826,12 @@
           "type": "mcq",
           "question": "Can Appwrite Sites be used with environment variables?",
           "choices": [
-            "No, environment variables are only for Functions",
             "Yes, environment variables can be set for the build process and runtime",
+            "No, environment variables are only for Functions",
             "Only hardcoded values are supported",
             "Environment variables require a separate plugin"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4278,12 +4842,12 @@
           "type": "mcq",
           "question": "How do you deploy an Appwrite Site using the CLI?",
           "choices": [
-            "appwrite upload site",
             "appwrite deploy site",
+            "appwrite upload site",
             "appwrite publish site",
             "appwrite sites create"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4294,12 +4858,12 @@
           "type": "mcq",
           "question": "What channels does Appwrite Messaging support?",
           "choices": [
-            "Email only",
             "Email, SMS, and Push Notifications",
+            "Email only",
             "Email and SMS only",
             "Push Notifications only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4311,11 +4875,11 @@
           "question": "What is a \"provider\" in Appwrite Messaging?",
           "choices": [
             "An Appwrite hosting partner",
-            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A user role with messaging permissions",
+            "A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
             "A database collection for messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4326,12 +4890,12 @@
           "type": "mcq",
           "question": "What is a \"topic\" in Appwrite Messaging?",
           "choices": [
-            "A message subject line",
             "A group that users can subscribe to for receiving targeted messages",
+            "A message subject line",
             "A message priority level",
             "A message template category"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4355,11 +4919,11 @@
           "question": "Which email providers can be configured with Appwrite Messaging?",
           "choices": [
             "Only Appwrite's built-in SMTP",
-            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Gmail only",
+            "Mailgun, SendGrid, SMTP, and other supported providers",
             "Amazon SES only"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4370,12 +4934,12 @@
           "type": "mcq",
           "question": "How do you send an email using Appwrite Messaging?",
           "choices": [
-            "messaging.send()",
             "messaging.createEmail(messageId, subject, content, topics, users, targets)",
+            "messaging.send()",
             "email.create()",
             "messaging.dispatch()"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4387,11 +4951,11 @@
           "question": "What are \"targets\" in Appwrite Messaging?",
           "choices": [
             "IP addresses for message routing",
-            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Server endpoints for message processing",
+            "Delivery endpoints for a user, such as email addresses, phone numbers, or push tokens",
             "Message templates"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4402,12 +4966,12 @@
           "type": "mcq",
           "question": "Which SMS providers does Appwrite Messaging support?",
           "choices": [
-            "Only built-in SMS",
             "Twilio, Vonage, Textmagic, and other supported providers",
+            "Only built-in SMS",
             "Twilio only",
             "SMS is not supported"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "A",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
@@ -4431,11 +4995,11 @@
           "question": "Can Appwrite Messaging schedule messages for future delivery?",
           "choices": [
             "No, messages are always sent immediately",
-            "Yes, using the scheduledAt parameter when creating a message",
             "Only through custom Functions",
+            "Yes, using the scheduledAt parameter when creating a message",
             "Only for email messages"
           ],
-          "correctAnswer": "B",
+          "correctAnswer": "C",
           "modelAnswer": " B",
           "correct": true,
           "score": 1
