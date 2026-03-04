@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import githubStars from "#/data/github-stars.json";
 
 function AppwriteLogo() {
@@ -50,9 +51,52 @@ function formatStars(count: number): string {
 
 export default function Header() {
 	const stars = githubStars.stars;
+	const headerRef = useRef<HTMLElement>(null);
+	const [isLight, setIsLight] = useState(false);
+
+	useEffect(() => {
+		const header = headerRef.current;
+		if (!header) return;
+
+		let raf = 0;
+		const check = () => {
+			const headerRect = header.getBoundingClientRect();
+			const lightSections = document.querySelectorAll<HTMLElement>(
+				'[data-theme="light"]',
+			);
+			let overLight = false;
+			for (const section of lightSections) {
+				const rect = section.getBoundingClientRect();
+				if (rect.top < headerRect.bottom && rect.bottom > headerRect.top) {
+					overLight = true;
+					break;
+				}
+			}
+			setIsLight(overLight);
+		};
+
+		const scheduleCheck = () => {
+			cancelAnimationFrame(raf);
+			raf = requestAnimationFrame(check);
+		};
+
+		window.addEventListener("scroll", scheduleCheck, { passive: true });
+		window.addEventListener("resize", scheduleCheck, { passive: true });
+		// Double rAF to ensure layout is settled before initial check
+		raf = requestAnimationFrame(() => requestAnimationFrame(check));
+
+		return () => {
+			window.removeEventListener("scroll", scheduleCheck);
+			window.removeEventListener("resize", scheduleCheck);
+			cancelAnimationFrame(raf);
+		};
+	}, []);
 
 	return (
-		<header className="sticky top-0 z-50 bg-[var(--header-bg)] px-4 backdrop-blur-lg">
+		<header
+			ref={headerRef}
+			className={`header-themed sticky top-0 z-50 border-b border-white/5 bg-[var(--header-bg)] px-4 backdrop-blur-xl ${isLight ? "header-light" : ""}`}
+		>
 			<nav className="arena-container flex items-center py-4">
 				<a
 					href="/"
@@ -68,13 +112,13 @@ export default function Header() {
 					href="https://github.com/appwrite/arena"
 					target="_blank"
 					rel="noreferrer"
-					className="ml-auto inline-flex items-center gap-2 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--text-secondary)] no-underline transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+					className="header-github-btn ml-auto inline-flex items-center gap-2 rounded-lg border border-[#FD366E]/20 bg-[#FD366E]/[0.04] px-3 py-2 text-sm text-[#EDEDF0] no-underline shadow-none transition-all duration-300 ease-out hover:shadow-[0_0_20px_rgba(253,54,110,0.15)] hover:text-[#EDEDF0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
 				>
 					<StarIcon />
 					<span>Star on GitHub</span>
 					<span
-						className="rounded-md px-2 py-0.5 text-xs font-semibold text-[var(--text-secondary)]"
-						style={{ background: "var(--line)" }}
+						className="header-stars-badge rounded-md px-2 py-0.5 text-xs font-semibold text-[#EDEDF0]"
+						style={{ background: "rgba(253, 54, 110, 0.24)" }}
 					>
 						{formatStars(stars)}
 					</span>
