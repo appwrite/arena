@@ -9129,22 +9129,6 @@
           "score": 1
         },
         {
-          "questionId": "stor-1",
-          "category": "storage",
-          "type": "mcq",
-          "question": "What is a \"bucket\" in Appwrite Storage?",
-          "choices": [
-            "A container for organizing and managing file uploads with shared permissions and settings",
-            "A type of database collection",
-            "A caching layer for static assets",
-            "A backup storage location"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": " The correct answer is **B. A container for organizing and managing file uploads with shared permissions**.\n\n**Explanation:**\n\nIn Appwrite's Storage service, a **bucket** acts as a top-level container for storing and organizing files. Key characteristics include:\n\n- **File Organization**: Buckets group related files together (e.g., \"user-avatars\", \"documents\", \"images\")\n- **Permission Management**: You can set shared permissions at the bucket level (read, write, create, update, delete) that apply to all files within that bucket\n- **Configuration**: Buckets have settings like allowed file types, maximum file size, compression, and encryption\n- **Distinct from Database**: Unlike database collections (Option A), which store structured JSON documents, buckets specifically handle file storage and binary data\n\nThis is different from Appwrite's Database service, where collections store structured documents/records rather than files.",
-          "correct": true,
-          "score": 1
-        },
-        {
           "questionId": "stor-2",
           "category": "storage",
           "type": "mcq",

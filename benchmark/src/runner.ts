@@ -324,9 +324,10 @@ export async function runBenchmark({
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {
 					running--;
 					completed++;
-					if (result.modelAnswer === "") {
+					const isBadMcq = question.type === "mcq" && !/^[A-Da-d]$/.test(result.modelAnswer.trim());
+					if (result.modelAnswer === "" || isBadMcq) {
 						console.log(
-							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — skipping`,
+							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${isBadMcq ? "INVALID MCQ ANSWER" : "ERROR"} — skipping`,
 						);
 					} else {
 						console.log(

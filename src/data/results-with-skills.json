@@ -7102,22 +7102,6 @@
           "score": 1
         },
         {
-          "questionId": "db-12",
-          "category": "databases",
-          "type": "mcq",
-          "question": "What are the possible statuses of a database transaction?",
-          "choices": [
-            "pending, committing, committed, failed",
-            "active, committed, rolled_back",
-            "open, closed",
-            "started, finished"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "The provided Appwrite documentation does not cover database transaction statuses. None of the options can be confirmed from the given material.\n\nHowever, if forced to choose the most standard/conventional answer regarding database transaction statuses:\n\n**B**",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "db-19",
           "category": "databases",
           "type": "mcq",
@@ -7734,22 +7718,6 @@
           "score": 1
         },
         {
-          "questionId": "msg-13",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "Which push notification providers does Appwrite Messaging support?",
-          "choices": [
-            "FCM (Firebase Cloud Messaging) and APNS (Apple Push Notification service)",
-            "Only one custom provider",
-            "Only FCM",
-            "Only web push"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "The documentation I retrieved doesn't specifically cover Messaging providers. Based on my knowledge of Appwrite, the answer is:\n\n**A**\n\nAppwrite Messaging supports both **FCM (Firebase Cloud Messaging)** and **APNS (Apple Push Notification service)** as push notification providers.",
-          "correct": true,
-          "score": 1
-        },
-        {
           "questionId": "msg-14",
           "category": "messaging",
           "type": "mcq",
@@ -7778,38 +7746,6 @@
           ],
           "correctAnswer": "A",
           "modelAnswer": "A",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "msg-16",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "Can you send one message to both topics and specific users in the same request?",
-          "choices": [
-            "No, you must choose one targeting method",
-            "Only for email",
-            "Yes, targeting by topics, users, and targets can be combined in a single message",
-            "Only in the Console"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "C\n\nC. Yes, targeting by topics, users, and targets can be combined in a single message",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "msg-17",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "Which service do you use from the client or server SDK to send emails?",
-          "choices": [
-            "Messaging service (e.g. messaging.createEmail)",
-            "Email service",
-            "Mail service",
-            "Notifications service"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "A\n\nThe correct answer is **A**. The **Messaging service** (e.g., `messaging.createEmail`) is used to send emails in Appwrite.",
           "correct": true,
           "score": 1
         },
@@ -8038,38 +7974,6 @@
           "score": 1
         },
         {
-          "questionId": "rt-16",
-          "category": "realtime",
-          "type": "mcq",
-          "question": "When you subscribe to a new channel on an existing Realtime connection, what happens?",
-          "choices": [
-            "The new channel is added and no reconnect occurs",
-            "An error is thrown",
-            "The connection is recreated: the old socket is closed and a new one is opened with all channels",
-            "A separate connection is opened for the new channel"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "C\n\nThe documentation states that when you subscribe to a new channel, the connection is recreated — the old WebSocket is closed and a new one is opened that includes all channels (both existing and new).",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "rt-15",
-          "category": "realtime",
-          "type": "mcq",
-          "question": "What event types can you receive for a documents channel?",
-          "choices": [
-            "create, update, delete, and optionally other events depending on the resource",
-            "Only create and delete",
-            "Only update",
-            "custom events only"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "A\n\nThe documentation shows that real-time subscription responses include events like `databases.*.tables.*.rows.*.create`, and the channels can deliver **create, update, and delete** events (and potentially other events depending on the resource). The answer is **A**.",
-          "correct": true,
-          "score": 1
-        },
-        {
           "questionId": "rt-18",
           "category": "realtime",
           "type": "mcq",
@@ -8084,38 +7988,6 @@
           "modelAnswer": "C",
           "correct": true,
           "score": 1
-        },
-        {
-          "questionId": "rt-17",
-          "category": "realtime",
-          "type": "mcq",
-          "question": "Which channel format is used to subscribe to file changes in a bucket?",
-          "choices": [
-            "buckets.[bucketId].files",
-            "storage.[bucketId].files",
-            "files.[bucketId]",
-            "realtime.buckets.[bucketId].files"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "A\n\nThe correct channel format for subscribing to file changes in a bucket is `buckets.[bucketId].files`.",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "rt-19",
-          "category": "realtime",
-          "type": "mcq",
-          "question": "If a user logs in after already having a Realtime subscription, will they receive events for resources they can now access?",
-          "choices": [
-            "Yes, the subscription automatically updates",
-            "The server pushes an auth event and then updates",
-            "The subscription must be recreated to apply the new user's permissions",
-            "Realtime does not respect permissions"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "The documentation states about Real-time subscriptions:\n\n> **Important note from the Real-time section:** The subscription uses the permissions of the currently authenticated user at the time of subscription.\n\nBased on the documentation and Appwrite's known behavior, when authentication state changes (e.g., a user logs in after already having a Realtime subscription), the existing WebSocket connection doesn't automatically update its authentication context. The subscription must be recreated to reflect the new user's permissions.\n\n**C**",
-          "correct": false,
-          "score": 0
         },
         {
           "questionId": "cli-1",
@@ -8322,22 +8194,6 @@
           ],
           "correctAnswer": "C",
           "modelAnswer": "C",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "cli-12",
-          "category": "cli",
-          "type": "mcq",
-          "question": "How do you deploy database collections to Appwrite using the CLI?",
-          "choices": [
-            "appwrite deploy collections",
-            "appwrite sync collections",
-            "appwrite upload collections",
-            "appwrite push collections"
-          ],
-          "correctAnswer": "D",
-          "modelAnswer": "D. `appwrite push collections`\n\nBased on the Appwrite CLI documentation, the `push` command is used for deploying resources. While the current CLI uses `appwrite push tables` for database collections/tables, the command pattern is `appwrite push`, making **D** the correct answer.",
           "correct": true,
           "score": 1
         },
@@ -9685,22 +9541,6 @@
           "score": 1
         },
         {
-          "questionId": "fund-16",
-          "category": "fundamental",
-          "type": "mcq",
-          "question": "What does Role.guests() represent?",
-          "choices": [
-            "Users who have not verified their email",
-            "Users in a guest team",
-            "Unauthenticated users (no session)",
-            "Anonymous session users only"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "Let me search for more specific information about the Role class and Role.guests() in the Appwrite documentation. Based on my knowledge of Appwrite's permission system, I can explain what `Role.guests()` represents:\n\nIn Appwrite's permission system:\n- **`Role.guests()`** refers to users who are **not authenticated** (no active session)\n- This is distinct from `Role.any()` which includes both authenticated and unauthenticated users\n- This is also distinct from anonymous users, who actually do have a session (created via `account.createAnonymousSession()`)\n\nLooking at the documentation patterns I've found, I can see references to:\n- `Role.user()` - specific authenticated user\n- `Role.team()` - team members  \n- `Role.any()` - anyone (including guests)\n\nThe `Role.guests()` role specifically targets unauthenticated users - those who have not created any type of session (neither email/password, OAuth, nor anonymous).\n\nC",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "fund-18",
           "category": "fundamental",
           "type": "mcq",
@@ -9775,38 +9615,6 @@
           "correct": true,
           "score": 1,
           "judgeReasoning": "The answer correctly names at least three Appwrite services (Authentication, Databases, Storage) with accurate and detailed descriptions of each. Authentication covers user management, OAuth, and team management; Databases covers collections, documents, queries, and permissions; Storage covers file uploads, transformations, and previews. Additional services (Functions, Realtime, Messaging) are also mentioned with correct descriptions. All information aligns with the reference answer."
-        },
-        {
-          "questionId": "auth-13",
-          "category": "auth",
-          "type": "mcq",
-          "question": "What is the default maximum number of sessions per user in an Appwrite project?",
-          "choices": [
-            "1",
-            "5",
-            "10",
-            "Unlimited"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "Based on my knowledge of Appwrite's authentication system, the default maximum number of sessions per user is **10**. This setting can be configured in the Project Settings under the Auth section, where you can adjust the \"Max sessions per user\" limit. Setting it to 0 allows unlimited sessions.\n\n**C**",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "auth-12",
-          "category": "auth",
-          "type": "mcq",
-          "question": "How long is the password recovery link sent by createRecovery valid?",
-          "choices": [
-            "1 hour",
-            "15 minutes",
-            "24 hours",
-            "Until used"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": " Based on my knowledge of Appwrite's authentication system, the password recovery link sent by `createRecovery` is valid for **1 hour**.\n\nA",
-          "correct": true,
-          "score": 1
         },
         {
           "questionId": "auth-14",
@@ -9899,22 +9707,6 @@
           "modelAnswer": " A",
           "correct": true,
           "score": 1
-        },
-        {
-          "questionId": "auth-17",
-          "category": "auth",
-          "type": "mcq",
-          "question": "When using createRecovery, what requirement applies to the redirect URL?",
-          "choices": [
-            "It must be HTTPS only",
-            "It can be any URL",
-            "It must match the app's origin exactly",
-            "It must be from a domain you added in the project's platforms in the Console"
-          ],
-          "correctAnswer": "D",
-          "modelAnswer": "Let me search for more specific information about account recovery in Appwrite. I need to find information about `createRecovery` specifically. Based on my knowledge of Appwrite, this is a method that sends a password recovery email to the user.\n\nLooking through the SDK documentation I have access to, I don't see explicit documentation about `createRecovery`. However, based on my expertise with Appwrite's security model and how other authentication methods with redirect URLs work (like `createOAuth2Session` and `createOAuth2Token`), I can determine the answer.\n\nIn Appwrite, for security reasons, redirect URLs must be from domains that are registered as platforms in your Appwrite project console. This applies to:\n- OAuth2 authentication flows\n- Password recovery flows\n- Email verification flows\n- Magic URL authentication\n\nThe key security requirement is that Appwrite validates redirect URLs against the project's **platforms** configuration. This prevents open redirect vulnerabilities where an attacker could redirect users to malicious sites.\n\nLet me verify this understanding by checking if there's any mention of this pattern in the documentation.\n\nBased on my analysis of the documentation and Appwrite's security model:\n- Option A (HTTPS only) - While HTTPS is recommended, this isn't the strict requirement\n- Option B (any URL) - This would be a security vulnerability\n- Option C (match app's origin exactly) - Not quite accurate, it's about registered platforms\n- Option D (from a domain added in the project's platforms) - This matches Appwrite's security model\n\n**D**",
-          "correct": false,
-          "score": 0
         },
         {
           "questionId": "db-15",
@@ -10029,22 +9821,6 @@
           "score": 1
         },
         {
-          "questionId": "func-11",
-          "category": "functions",
-          "type": "mcq",
-          "question": "What are the possible statuses of an Appwrite Function execution?",
-          "choices": [
-            "pending, running, done, error",
-            "waiting, processing, completed, failed, and scheduled",
-            "queued, active, success, failure",
-            "created, started, finished, crashed"
-          ],
-          "correctAnswer": "B",
-          "modelAnswer": " Based on the documentation I've reviewed, I can see that the Appwrite documentation mentions `Models.Execution` as a type, but I need to find the specific execution statuses. Let me check another SDK to find the execution status values. Looking at the CLI documentation, I can see there's a command `appwrite functions list-executions` and `appwrite functions get-execution`, but the statuses aren't explicitly listed in the documentation I've retrieved.\n\nHowever, based on my knowledge of Appwrite and the patterns I see in the documentation, the execution statuses for Appwrite Functions are: **waiting, processing, completed, failed, and scheduled**.\n\nLooking at the options provided:\n- A. pending, running, done, error\n- B. waiting, processing, completed, failed, and scheduled\n- C. queued, active, success, failure\n- D. created, started, finished, crashed\n\nThe correct answer is **B**, as these are the actual execution statuses used in Appwrite Functions.\n\nB",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "db-20",
           "category": "databases",
           "type": "free-form",
@@ -10055,22 +9831,6 @@
           "correct": true,
           "score": 0.7,
           "judgeReasoning": "The answer includes all four required elements: Query.greaterThan for filtering, Query.orderDesc for sorting, Query.limit(20), and passing queries to a list method. However, the method used is 'tablesDB.listRows()' instead of the correct 'databases.listDocuments()', which is a notable inaccuracy in the Appwrite SDK context. The additional information about indexes, pagination, and query ordering is helpful but the wrong method name reduces the score."
-        },
-        {
-          "questionId": "func-13",
-          "category": "functions",
-          "type": "mcq",
-          "question": "Can an Appwrite Function be triggered by an event from another function's execution (e.g. functions.*.executions.*.create)?",
-          "choices": [
-            "Yes, function execution events are supported like any other event",
-            "No; triggering a function on a function event (events starting with 'functions.') is not allowed",
-            "Only in the Console, not via event configuration",
-            "Yes, but only for completed executions"
-          ],
-          "correctAnswer": "B",
-          "modelAnswer": "Looking at the documentation, I can see that functions can be configured with an `events` array in the `appwrite.config.json`, and there's a real-time channel for `functions.[FUNCTION_ID].executions`. However, the documentation doesn't explicitly state whether function execution events (like `functions.*.executions.*.create`) are allowed as triggers.\n\nBased on my knowledge of Appwrite's architecture and event system, there's an important restriction in place:\n\n**B. No; triggering a function on a function event (events starting with 'functions.') is not allowed**\n\nThis restriction exists to prevent infinite loops and circular triggers. If a function could trigger on `functions.*.executions.*.create` events, it would create itself when it executes, leading to potentially infinite recursive executions. Appwrite explicitly blocks events starting with `functions.` from being used as function triggers to avoid this scenario.",
-          "correct": false,
-          "score": 0
         },
         {
           "questionId": "func-14",
@@ -10121,38 +9881,6 @@
           "score": 1
         },
         {
-          "questionId": "func-17",
-          "category": "functions",
-          "type": "mcq",
-          "question": "Which environment variable is set at runtime to indicate how the function was triggered (e.g. http, event, schedule)?",
-          "choices": [
-            "APPWRITE_TRIGGER_TYPE",
-            "APPWRITE_FUNCTION_TRIGGER",
-            "APPWRITE_EXECUTION_SOURCE",
-            "APPWRITE_FUNCTION_EVENT"
-          ],
-          "correctAnswer": "B",
-          "modelAnswer": "Based on my knowledge of Appwrite Functions, I can answer this question without needing to search the documentation. The environment variable that indicates how a function was triggered is a standard runtime variable provided by Appwrite.\n\n**B**",
-          "correct": false,
-          "score": 0
-        },
-        {
-          "questionId": "func-16",
-          "category": "functions",
-          "type": "mcq",
-          "question": "When passing custom headers to createExecution, what restriction applies?",
-          "choices": [
-            "Headers are not allowed; only the request body is passed",
-            "Header names cannot start with 'x-appwrite-'; they are reserved by Appwrite",
-            "Only Content-Type is allowed",
-            "There are no restrictions on header names"
-          ],
-          "correctAnswer": "B",
-          "modelAnswer": "Let me search for more specific information about the `createExecution` method and custom headers. I need to find documentation about Appwrite Functions API. Let me check if there are more detailed API docs or function-specific documentation. I notice that in the TypeScript skill, the `createExecution` method example shows it can accept a body parameter. Let me search for the official Appwrite documentation on this.\n\nBased on my knowledge and the documentation I've reviewed, I need to find specific information about custom headers in function executions. The `createExecution` method in various SDKs typically has a signature like `createExecution(functionId, body, async, path, method, headers)`. Let me check what restrictions apply to custom headers.\n\nLooking at the Appwrite documentation and API reference, when you pass custom headers to `createExecution`, header names starting with `x-appwrite-` are reserved by Appwrite. This is a common pattern in API design where the `x-` prefix is used for custom/vendor-specific headers, and Appwrite specifically reserves the `x-appwrite-` prefix for its own internal use.\n\nThe correct answer is **B** - Header names cannot start with 'x-appwrite-'; they are reserved by Appwrite.",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "func-20",
           "category": "functions",
           "type": "free-form",
@@ -10181,22 +9909,6 @@
           "score": 1
         },
         {
-          "questionId": "stor-11",
-          "category": "storage",
-          "type": "mcq",
-          "question": "What does the fileSecurity bucket setting control?",
-          "choices": [
-            "Whether files can have their own permissions (true) or inherit only from the bucket (false)",
-            "Whether files are encrypted at rest",
-            "Whether the bucket is public",
-            "Maximum file size"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": " Based on the documentation, I can see that Appwrite uses a similar security pattern for both database tables and storage buckets. For tables, there's a `rowSecurity` setting that controls whether rows can have their own permissions or inherit from the table. \n\nFollowing this same pattern, the `fileSecurity` bucket setting controls whether files in the bucket can have their own individual permissions or must inherit permissions from the bucket level.\n\n**A**",
-          "correct": true,
-          "score": 1
-        },
-        {
           "questionId": "func-19",
           "category": "functions",
           "type": "mcq",
@@ -10209,22 +9921,6 @@
           ],
           "correctAnswer": "C",
           "modelAnswer": " C",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "db-12",
-          "category": "databases",
-          "type": "mcq",
-          "question": "What are the possible statuses of a database transaction?",
-          "choices": [
-            "pending, committing, committed, failed",
-            "active, committed, rolled_back",
-            "open, closed",
-            "started, finished"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": " Based on my analysis of Appwrite's architecture and typical status patterns for database operations in distributed systems, the answer is:\n\n**A**",
           "correct": true,
           "score": 1
         },
@@ -10261,22 +9957,6 @@
           "score": 1
         },
         {
-          "questionId": "func-18",
-          "category": "functions",
-          "type": "mcq",
-          "question": "What are the deployment build statuses for an Appwrite Function?",
-          "choices": [
-            "pending, building, ready",
-            "processing, building, ready, and canceled",
-            "queued, in_progress, success, failed",
-            "uploaded, compiling, deployed"
-          ],
-          "correctAnswer": "B",
-          "modelAnswer": " Looking at the Appwrite documentation, the deployment build statuses for an Appwrite Function are **pending, building, and ready**.\n\n**A**",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "stor-18",
           "category": "storage",
           "type": "mcq",
@@ -10309,22 +9989,6 @@
           "score": 1
         },
         {
-          "questionId": "stor-17",
-          "category": "storage",
-          "type": "mcq",
-          "question": "What is maximumFileSize in bucket configuration?",
-          "choices": [
-            "Total storage quota for the bucket in bytes",
-            "Maximum number of files in the bucket",
-            "Maximum size in bytes for a single file upload",
-            "Maximum image dimensions in pixels"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": " Based on my review of the Appwrite documentation across multiple SDKs, I can now answer this question.\n\nLooking at the storage/bucket configuration in Appwrite, `maximumFileSize` is a property that controls the **maximum size in bytes for a single file upload** that can be stored in a bucket. This is a per-file limit, not a total storage quota for the bucket.\n\nThe answer is **C**.\n\nC",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "sites-12",
           "category": "sites",
           "type": "mcq",
@@ -10351,22 +10015,6 @@
           "correct": true,
           "score": 0.7,
           "judgeReasoning": "The answer correctly identifies that getFilePreview is for image transformations while getFileView/getFileDownload serves the original file. It mentions width and height as transformation parameters (satisfying the requirement of at least 2 options). However, it only explicitly lists width and height as supported parameters, missing many others like quality, format, gravity, border, border-radius, opacity, rotation, and background that are mentioned in the reference answer. The answer also conflates getFileView with getFileDownload somewhat, though the core distinction is made. The answer meets the minimum rubric requirements but is incomplete in its coverage of transformation options."
-        },
-        {
-          "questionId": "sites-13",
-          "category": "sites",
-          "type": "mcq",
-          "question": "Can you use a custom domain with an Appwrite Site?",
-          "choices": [
-            "No, only default *.appwrite.site domains",
-            "Only with a paid plan",
-            "Yes; add the domain in the Console and configure a CNAME record as instructed",
-            "Only for static sites"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "Based on my knowledge of Appwrite, custom domains can be used with Appwrite Sites. The process involves adding the domain in the Appwrite Console and configuring a CNAME record with your DNS provider as instructed. This feature is available for both static and SSR sites and is not restricted to paid plans only.\n\n**C**",
-          "correct": false,
-          "score": 0
         },
         {
           "questionId": "sites-14",
@@ -10401,22 +10049,6 @@
           "score": 1
         },
         {
-          "questionId": "sites-15",
-          "category": "sites",
-          "type": "mcq",
-          "question": "What is the root directory setting in Sites build configuration?",
-          "choices": [
-            "The directory in the repository that contains the app (e.g. monorepo subfolder)",
-            "The directory where build logs are stored",
-            "The directory for environment files",
-            "The document root for the web server"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "Looking at the Appwrite CLI documentation for Sites, I can see the site configuration in `appwrite.config.json` includes a `path` field that points to the site files. However, the \"root directory\" setting in Sites build configuration specifically refers to the directory within your repository that contains the site application code.\n\n**A**",
-          "correct": true,
-          "score": 1
-        },
-        {
           "questionId": "sites-17",
           "category": "sites",
           "type": "mcq",
@@ -10431,22 +10063,6 @@
           "modelAnswer": "C",
           "correct": true,
           "score": 1
-        },
-        {
-          "questionId": "stor-13",
-          "category": "storage",
-          "type": "mcq",
-          "question": "For large file uploads, how does Appwrite Storage support resumable or chunked uploads?",
-          "choices": [
-            "It does not; all uploads must be in one request",
-            "Only via the CLI",
-            "Using the Content-Range header to send chunks (e.g. max 5MB per chunk); first request creates the file, subsequent requests use x-appwrite-id",
-            "Only for files over 100MB"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "<|tool_calls_section_begin|><|tool_call_begin|>functions.read_skill:5<|tool_call_argument_begin|>{\"skill_name\": \"appwrite-rest-api\"}<|tool_call_end|><|tool_calls_section_end|>",
-          "correct": false,
-          "score": 0
         },
         {
           "questionId": "stor-14",
@@ -10545,22 +10161,6 @@
           "score": 1
         },
         {
-          "questionId": "msg-13",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "Which push notification providers does Appwrite Messaging support?",
-          "choices": [
-            "FCM (Firebase Cloud Messaging) and APNS (Apple Push Notification service)",
-            "Only one custom provider",
-            "Only FCM",
-            "Only web push"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "     ",
-          "correct": false,
-          "score": 0
-        },
-        {
           "questionId": "msg-14",
           "category": "messaging",
           "type": "mcq",
@@ -10573,54 +10173,6 @@
           ],
           "correctAnswer": "C",
           "modelAnswer": "C",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "msg-15",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "What is a target in Appwrite Messaging?",
-          "choices": [
-            "A delivery endpoint for a user (e.g. an email address, phone number, or push device token)",
-            "A message template",
-            "A user group",
-            "A provider configuration"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "I'll search for more specific information about Appwrite Messaging and targets. Let me look up the Appwrite Messaging documentation. Based on what I've seen in the CLI documentation, I found references to messaging commands, but I need to find more details about what a \"target\" specifically is in this context. Let me search for more documentation. Based on my knowledge of Appwrite's architecture, I can recall that in Appwrite Messaging:\n\n- **Topics** are channels for broadcasting messages to multiple subscribers\n- **Subscribers** are users or targets that receive messages from topics\n- **Targets** represent the actual delivery endpoints (like email addresses, phone numbers, or push device tokens)\n\nHowever, let me check if there's more specific documentation about this in the SDK references.\n\nA\n\n**Explanation:** In Appwrite Messaging, a **target** is a delivery endpoint associated with a user. It represents where messages should be sent - such as an email address (for email messages), a phone number (for SMS messages), or a device token (for push notifications). Targets are linked to users and can be subscribed to topics to receive broadcast messages.",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "msg-17",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "Which service do you use from the client or server SDK to send emails?",
-          "choices": [
-            "Messaging service (e.g. messaging.createEmail)",
-            "Email service",
-            "Mail service",
-            "Notifications service"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": "Based on the documentation I've reviewed, I found that Appwrite uses the **Messaging service** for sending emails. The CLI documentation clearly shows this:\n\n```\n| `appwrite messaging create-email` | Create email message |\n```\n\nA",
-          "correct": true,
-          "score": 1
-        },
-        {
-          "questionId": "msg-16",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "Can you send one message to both topics and specific users in the same request?",
-          "choices": [
-            "No, you must choose one targeting method",
-            "Only for email",
-            "Yes, targeting by topics, users, and targets can be combined in a single message",
-            "Only in the Console"
-          ],
-          "correctAnswer": "C",
-          "modelAnswer": "Based on my research of the Appwrite SDK documentation, I need to find information about messaging and targeting options.\n\nLooking at the CLI documentation, I can see there are messaging commands:\n- `appwrite messaging create-email`\n- `appwrite messaging create-push` \n- `appwrite messaging create-sms`\n\nHowever, the detailed parameter documentation for these messaging endpoints isn't fully covered in the retrieved SDK docs. Based on Appwrite's Messaging API design, when creating messages, you can specify targeting through multiple arrays: `topics` (for topic subscribers), `users` (for specific user IDs), and `targets` (for specific target IDs).\n\n**C**",
           "correct": true,
           "score": 1
         },
@@ -10671,22 +10223,6 @@
           "modelAnswer": "A",
           "correct": false,
           "score": 0
-        },
-        {
-          "questionId": "msg-19",
-          "category": "messaging",
-          "type": "mcq",
-          "question": "What are message templates used for in Appwrite Messaging?",
-          "choices": [
-            "Predefined content (e.g. subject, body) that can be used when sending messages; you reference them by message ID",
-            "Only for email subject lines",
-            "Only for SMS",
-            "They are not supported"
-          ],
-          "correctAnswer": "A",
-          "modelAnswer": " Based on my analysis of the Appwrite documentation, message templates in Appwrite Messaging are used for predefined content (such as subject lines and body text) that can be reused when sending messages. You create a template with predefined fields, and then reference it by ID when creating messages.\n\n**A**",
-          "correct": true,
-          "score": 1
         },
         {
           "questionId": "rt-5",
