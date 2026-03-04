@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useCallback, useMemo } from "react";
 import CategoriesGrid from "#/components/CategoriesGrid";
+import ChartsSection from "#/components/charts/ChartsSection";
 import FilterChip from "#/components/FilterChip";
 import HeroSection from "#/components/HeroSection";
 import HowItWorks from "#/components/HowItWorks";
@@ -266,6 +267,12 @@ function App() {
 				modelCount={withSkills.models.length}
 				questionCount={withSkills.totalQuestions}
 				categoryCount={Object.keys(CATEGORY_LABELS).length}
+			/>
+
+			<ChartsSection
+				models={activeData.models}
+				withSkillsModels={withSkills.models}
+				withoutSkillsModels={withoutSkills.models}
 			/>
 
 			<HowItWorks questionCount={withSkills.totalQuestions} />
