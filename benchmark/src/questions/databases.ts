@@ -274,4 +274,32 @@ export const databasesQuestions: Question[] = [
 		],
 		correctAnswer: "B",
 	},
+	{
+		id: "db-22",
+		category: "databases",
+		type: "mcq",
+		question:
+			"Which of the following is NOT a valid string-based attribute type in Appwrite databases?",
+		choices: [
+			"varchar",
+			"mediumtext",
+			"tinytext",
+			"longtext",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "db-23",
+		category: "databases",
+		type: "mcq",
+		question:
+			"Which of the following is NOT a valid format for a string attribute in Appwrite?",
+		choices: [
+			"email",
+			"url",
+			"uuid",
+			"enum",
+		],
+		correctAnswer: "C",
+	},
 ];

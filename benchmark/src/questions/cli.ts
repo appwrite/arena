@@ -310,4 +310,60 @@ export const cliQuestions: Question[] = [
 		],
 		correctAnswer: "B",
 	},
+	{
+		id: "cli-25",
+		category: "cli",
+		type: "mcq",
+		question:
+			"When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+		choices: [
+			"The attribute is created with a default size of 255",
+			"The CLI throws a validation error because 'size' is required for string/varchar types",
+			"The attribute is created as an unlimited text field",
+			"The CLI automatically calculates the size based on sample data",
+		],
+		correctAnswer: "B",
+	},
+	{
+		id: "cli-26",
+		category: "cli",
+		type: "mcq",
+		question:
+			"In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+		choices: [
+			"The default can be any value matching the type",
+			"The default must be set to an empty string or 0",
+			"The default must be null",
+			"The default property is optional and can be omitted",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "cli-27",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What does the 'appwrite generate' command do?",
+		choices: [
+			"Generates a new Appwrite project from a template",
+			"Creates boilerplate code for functions and collections",
+			"Generates a type-safe SDK from your Appwrite project configuration",
+			"Generates API documentation for your project",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "cli-28",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What's the key difference between `appwrite run function` and `appwrite push function`?",
+		choices: [
+			"`run` deploys to staging, `push` deploys to production",
+			"`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+			"`run` is for testing, `push` is for CI/CD pipelines only",
+			"`run` requires internet connection, `push` works offline",
+		],
+		correctAnswer: "B",
+	},
 ];
