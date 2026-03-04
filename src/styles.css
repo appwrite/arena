@@ -249,3 +249,8 @@ html.vt-active .rise-in {
   display: none;
 }
 
+::selection {
+  background-color: #85DBD8;
+  color: #19191C;
+}
+

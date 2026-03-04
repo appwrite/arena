@@ -126,16 +126,16 @@ export default function TwoModes() {
 	return (
 		<section
 			data-theme="light"
-			className="rise-in bg-[#EDEDF0] px-4 pt-24 pb-14 md:pt-32 md:pb-20"
+			className="rise-in bg-[#EDEDF0] px-4 pt-24 pb-14 xl:pt-32 xl:pb-20"
 		>
 			<div className="arena-container">
-				<div className="grid grid-cols-1 items-center gap-20 md:grid-cols-3">
+				<div className="grid grid-cols-1 items-center gap-10 xl:gap-20 xl:grid-cols-3">
 					{/* Left — text */}
 					<div>
 						<span className="mb-4 inline-block rounded-full border border-[#19191C]/10 bg-[#19191C]/5 px-3 py-1 text-xs font-medium text-[#19191C]">
 							Evaluation modes
 						</span>
-						<h2 className="mb-4 font-heading text-3xl font-normal tracking-[-2%] text-[#19191C] md:text-4xl">
+						<h2 className="mb-4 font-heading text-3xl font-normal tracking-[-2%] text-[#19191C] xl:text-4xl">
 							Context changes everything
 						</h2>
 						<p className="max-w-md text-base font-medium leading-relaxed tracking-[-1.4%] text-[#56565C]">
@@ -145,11 +145,11 @@ export default function TwoModes() {
 					</div>
 
 					{/* Right — two panels side by side */}
-					<div className="flex overflow-hidden border border-[#19191C]/12 bg-white md:col-span-2">
+					<div className="flex flex-col overflow-hidden border border-[#19191C]/12 bg-white min-[840px]:flex-row xl:col-span-2">
 						{PANELS.map((panel, i) => (
 							<div
 								key={panel.label}
-								className={`flex-1 ${i === 0 ? "border-r border-[#19191C]/12" : ""}`}
+								className={`flex-1 ${i === 0 ? "border-b min-[840px]:border-b-0 min-[840px]:border-r border-[#19191C]/12" : ""}`}
 							>
 								<div className="border-b border-[#19191C]/8 bg-[#F5F5F7] px-4 py-2.5 text-xs font-medium text-[#19191C]">
 									{panel.label}

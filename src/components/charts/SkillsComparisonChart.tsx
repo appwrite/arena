@@ -16,7 +16,6 @@ import {
 	round2,
 	type SkillsComparisonDataPoint,
 	tooltipContentStyle,
-	tooltipItemStyle,
 	tooltipLabelStyle,
 } from "./chartConfig";
 
@@ -35,8 +34,13 @@ export default function SkillsComparisonChart({
 	);
 
 	return (
-		<ResponsiveContainer width="100%" height="100%" minHeight={300}>
-			<BarChart data={data} barCategoryGap="25%" stackOffset="none">
+		<ResponsiveContainer width="100%" height={350}>
+			<BarChart
+				data={data}
+				barSize={40}
+				barCategoryGap="25%"
+				stackOffset="none"
+			>
 				<CartesianGrid stroke="rgba(237,237,240,0.1)" strokeDasharray="3 3" />
 				<XAxis
 					dataKey="name"
@@ -52,16 +56,31 @@ export default function SkillsComparisonChart({
 					tickFormatter={(v: number) => `${v + 75}%`}
 				/>
 				<Tooltip
-					contentStyle={tooltipContentStyle}
-					labelStyle={tooltipLabelStyle}
-					itemStyle={tooltipItemStyle}
 					cursor={{ fill: "rgba(237,237,240,0.05)" }}
-					formatter={
-						((value: number, name: string) => [
-							name === "base" ? `${round2(value + 75)}%` : `+${value}%`,
-							name === "base" ? "Without Skills" : "Skills Boost",
-						]) as never
-					}
+					content={({ active, payload, label }) => {
+						if (!active || !payload?.length) return null;
+						const base = payload.find((p) => p.dataKey === "base");
+						const boost = payload.find((p) => p.dataKey === "boost");
+						return (
+							<div style={{ ...tooltipContentStyle, padding: "10px 14px" }}>
+								<p style={tooltipLabelStyle}>{label}</p>
+								{base && (
+									<p
+										style={{ color: "#9ca3af", padding: "1px 0", fontSize: 13 }}
+									>
+										Without Skills: {round2((base.value as number) + 75)}%
+									</p>
+								)}
+								{boost && (boost.value as number) > 0 && (
+									<p
+										style={{ color: "#9ca3af", padding: "1px 0", fontSize: 13 }}
+									>
+										Skills Boost: +{boost.value}%
+									</p>
+								)}
+							</div>
+						);
+					}}
 				/>
 				<Bar
 					dataKey="base"
