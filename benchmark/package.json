@@ -7,7 +7,10 @@
     "bench": "bun run src/index.ts",
     "bench:with-skills": "bun run prepare-skills && bun run src/index.ts --mode with-skills",
     "bench:without-skills": "bun run src/index.ts --mode without-skills",
-    "bench:all": "bun run prepare-skills && bun run src/index.ts --mode with-skills && bun run src/index.ts --mode without-skills"
+    "bench:all": "bun run prepare-skills && bun run src/index.ts --mode with-skills && bun run src/index.ts --mode without-skills",
+    "bench:debug": "bun run src/index.ts --debug",
+    "bench:with-skills:debug": "bun run prepare-skills && bun run src/index.ts --mode with-skills --debug",
+    "bench:without-skills:debug": "bun run src/index.ts --mode without-skills --debug"
   },
   "devDependencies": {
     "@types/bun": "latest",

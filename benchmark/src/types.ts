@@ -39,6 +39,42 @@ export interface ModelConfig {
 	openRouterId: string;
 }
 
+export interface SkillInfo {
+	description: string;
+	content: string;
+}
+
+export interface ToolFunction {
+	name: string;
+	description: string;
+	parameters: {
+		type: string;
+		required: string[];
+		properties: Record<string, unknown>;
+	};
+}
+
+export interface Tool {
+	type: "function";
+	function: ToolFunction;
+}
+
+export interface ToolCall {
+	id: string;
+	type: "function";
+	function: {
+		name: string;
+		arguments: string;
+	};
+}
+
+export interface ChatMessage {
+	role: "system" | "user" | "assistant" | "tool";
+	content?: string;
+	tool_calls?: ToolCall[];
+	tool_call_id?: string;
+}
+
 export interface BenchmarkResults {
 	version: string;
 	runDate: string;

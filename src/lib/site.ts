@@ -1,7 +1,7 @@
 export const SITE_TITLE = "Appwrite Arena - LLM Leaderboard";
 export const SITE_DESCRIPTION =
 	"Benchmarking AI models on their knowledge of Appwrite services. See how well LLMs understand Appwrite - with and without skill files.";
-export const SITE_URL = "https://arena.appwrite.network";
+export const SITE_URL = "https://arena.appwrite.io";
 
 const ogTitle = "Appwrite Arena";
 const ogSubtitle =
