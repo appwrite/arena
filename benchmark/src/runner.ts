@@ -58,12 +58,13 @@ async function callModelRaw(
 	model: ModelConfig,
 	messages: ChatMessage[],
 	tools?: Tool[],
+	debug?: boolean,
 ): Promise<ApiResponse> {
 	const chatGenerationParams: Record<string, unknown> = {
 		model: model.openRouterId,
 		temperature: TEMPERATURE,
-    messages,
-		stream: false
+		messages,
+		stream: true,
 	};
 	if (tools && tools.length > 0) {
 		chatGenerationParams.tools = tools;
@@ -72,8 +73,82 @@ async function callModelRaw(
 		chatGenerationParams.provider = { order: model.openRouterProviderOrder };
 	}
 
-  const response = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]);
-	return response as unknown as ApiResponse;
+	const stream = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]) as AsyncIterable<{
+		choices: Array<{
+			delta: {
+				role?: string;
+				content?: string | null;
+				reasoning?: string | null;
+				toolCalls?: Array<{
+					index: number;
+					id?: string;
+					type?: string;
+					function?: { name?: string; arguments?: string };
+				}>;
+			};
+			finishReason?: string | null;
+		}>;
+	}>;
+
+	let content = "";
+	let reasoning = "";
+	const toolCallMap = new Map<number, ToolCall>();
+
+	for await (const chunk of stream) {
+		const delta = chunk.choices?.[0]?.delta;
+		if (!delta) continue;
+
+		if (delta.content) {
+			content += delta.content;
+			if (debug) {
+				process.stdout.write(delta.content);
+			}
+		}
+
+		if (delta.reasoning) {
+			reasoning += delta.reasoning;
+			if (debug) {
+				process.stdout.write(`\x1b[2m${delta.reasoning}\x1b[0m`);
+			}
+		}
+
+		if (delta.toolCalls) {
+			for (const tc of delta.toolCalls) {
+				const existing = toolCallMap.get(tc.index);
+				if (existing) {
+					if (tc.function?.arguments) {
+						existing.function.arguments += tc.function.arguments;
+					}
+				} else {
+					toolCallMap.set(tc.index, {
+						id: tc.id ?? "",
+						type: "function",
+						function: {
+							name: tc.function?.name ?? "",
+							arguments: tc.function?.arguments ?? "",
+						},
+					});
+				}
+			}
+		}
+	}
+
+	if (debug && (content || reasoning)) {
+		process.stdout.write("\n");
+	}
+
+	const toolCalls = toolCallMap.size > 0
+		? Array.from(toolCallMap.entries()).sort((a, b) => a[0] - b[0]).map(([, v]) => v)
+		: undefined;
+
+	return {
+		choices: [{
+			message: {
+				content: content || null,
+				toolCalls,
+			},
+		}],
+	};
 }
 
 function resolveToolCall(
@@ -148,7 +223,7 @@ async function callModel(
 	}
 
 	for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
-		const data = await callModelRaw(model, messages, tools);
+		const data = await callModelRaw(model, messages, tools, debug);
 		const msg = data.choices[0]?.message;
 		if (!msg) return "";
 
@@ -216,7 +291,7 @@ async function callModel(
 	}
 
 	// Max rounds exceeded — make one final call without tools to force a text response
-	const finalData = await callModelRaw(model, messages);
+	const finalData = await callModelRaw(model, messages, undefined, debug);
 	const finalContent = finalData.choices[0]?.message?.content ?? "";
 	if (debug) {
 		debugLog("RESPONSE ← (forced final)", truncate(finalContent, 500));
