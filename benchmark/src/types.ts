@@ -37,6 +37,7 @@ export interface ModelConfig {
 	name: string;
 	provider: string;
 	openRouterId: string;
+	openRouterProviderOrder?: string[];
 }
 
 export interface SkillInfo {

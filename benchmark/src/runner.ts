@@ -62,10 +62,14 @@ async function callModelRaw(
 	const chatGenerationParams: Record<string, unknown> = {
 		model: model.openRouterId,
 		temperature: TEMPERATURE,
-		messages,
+    messages,
+		stream: false
 	};
 	if (tools && tools.length > 0) {
 		chatGenerationParams.tools = tools;
+	}
+	if (model.openRouterProviderOrder) {
+		chatGenerationParams.provider = { order: model.openRouterProviderOrder };
 	}
 
   const response = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]);
