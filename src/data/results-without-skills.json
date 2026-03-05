@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-05T08:37:11.510Z",
+  "runDate": "2026-03-05T15:00:54.867Z",
   "mode": "without-skills",
   "totalQuestions": 191,
   "totalMcq": 165,
@@ -14,24 +14,24 @@
       "scores": {
         "fundamental": 100,
         "auth": 99.3,
-        "databases": 84.5,
+        "databases": 86.5,
         "functions": 100,
         "storage": 95,
         "sites": 96,
         "messaging": 95,
         "realtime": 100,
-        "cli": 80
+        "cli": 71.4
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 82.4,
+        "databases": 85,
         "functions": 100,
         "storage": 94.1,
         "sites": 100,
         "messaging": 94.1,
         "realtime": 100,
-        "cli": 82.4
+        "cli": 72
       },
       "freeformScores": {
         "fundamental": 100,
@@ -44,12 +44,12 @@
         "realtime": 100,
         "cli": 66.7
       },
-      "overall": 94.4,
-      "mcqOverall": 94.8,
+      "overall": 92.6,
+      "mcqOverall": 92.7,
       "freeformOverall": 92.1,
       "totalQuestions": 191,
-      "totalCorrect": 171,
-      "runDate": "2026-03-05T08:37:11.509Z",
+      "totalCorrect": 178,
+      "runDate": "2026-03-05T15:00:54.866Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2826,6 +2826,186 @@
           "modelAnswer": "C",
           "correct": true,
           "score": 1
+        },
+        {
+          "questionId": "db-21",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the minimum and maximum values for an integer attribute in Appwrite?",
+          "choices": [
+            "-2147483648 to 2147483647 (32-bit signed integer)",
+            "-9223372036854775808 to 9223372036854775807 (64-bit signed integer)",
+            "0 to 18446744073709551615 (64-bit unsigned integer)",
+            "-999999999999 to 999999999999 (12-digit limit)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-22",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid string-based attribute type in Appwrite databases?",
+          "choices": [
+            "varchar",
+            "mediumtext",
+            "tinytext",
+            "longtext"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-23",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid format for a string attribute in Appwrite?",
+          "choices": [
+            "uuid",
+            "email",
+            "url",
+            "enum"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-22",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the appwrite types command do?",
+          "choices": [
+            "Generates typed models for your Appwrite project's collections and attributes",
+            "Lists all data types supported by Appwrite databases",
+            "Converts documents between different data formats",
+            "Validates the types defined in appwrite.config.json"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-23",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the --strict flag do in the appwrite types command?",
+          "choices": [
+            "Enforces type-safe null checks in generated code",
+            "Throws errors for missing or invalid collection attributes",
+            "Automatically converts field names to follow language conventions",
+            "Disables generation of optional fields"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "FAIL",
+          "correct": false,
+          "score": 0,
+          "modComment": "Model got stuck in an infinite thinking loop."
+        },
+        {
+          "questionId": "cli-24",
+          "category": "cli",
+          "type": "mcq",
+          "question": "A function works locally but fails after pushing because environment variables are missing. What flag was likely missing from the push command?",
+          "choices": [
+            "--env",
+            "--with-variables",
+            "--include-env",
+            "--push-variables"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "FAIL",
+          "correct": false,
+          "score": 0,
+          "modComment": "Model got stuck in an infinite thinking loop."
+        },
+        {
+          "questionId": "cli-27",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the 'appwrite generate' command do?",
+          "choices": [
+            "Generates a new Appwrite project from a template",
+            "Creates boilerplate code for functions and collections",
+            "Generates a type-safe SDK from your Appwrite project configuration",
+            "Generates API documentation for your project"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "FAIL",
+          "correct": false,
+          "score": 0,
+          "modComment": "Model got stuck in an infinite thinking loop."
+        },
+        {
+          "questionId": "cli-21",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What happens if an Appwrite project contains an appwrite.json file but no appwrite.config.json?",
+          "choices": [
+            "The CLI throws an error and requires appwrite.config.json",
+            "The CLI falls back to appwrite.json for legacy backwards compatibility",
+            "The CLI ignores it and uses default settings",
+            "The CLI automatically migrates appwrite.json to appwrite.config.json"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-25",
+          "category": "cli",
+          "type": "mcq",
+          "question": "When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+          "choices": [
+            "The attribute is created with a default size of 255",
+            "The attribute is created as an unlimited text field",
+            "The CLI automatically calculates the size based on sample data",
+            "The CLI throws a validation error because 'size' is required for string/varchar types"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-26",
+          "category": "cli",
+          "type": "mcq",
+          "question": "In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+          "choices": [
+            "The default can be any value matching the type",
+            "The default must be set to an empty string or 0",
+            "The default must be null",
+            "The default property is optional and can be omitted"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-28",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What's the key difference between `appwrite run function` and `appwrite push function`?",
+          "choices": [
+            "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+            "`run` deploys to staging, `push` deploys to production",
+            "`run` is for testing, `push` is for CI/CD pipelines only",
+            "`run` requires internet connection, `push` works offline"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "FAIL",
+          "correct": false,
+          "score": 0,
+          "modComment": "Model got stuck in an infinite thinking loop."
         }
       ]
     },
@@ -2872,7 +3052,7 @@
       "freeformOverall": 94.8,
       "totalQuestions": 191,
       "totalCorrect": 183,
-      "runDate": "2026-03-05T08:37:11.509Z",
+      "runDate": "2026-03-05T15:00:54.866Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -5871,7 +6051,7 @@
       "freeformOverall": 94.8,
       "totalQuestions": 191,
       "totalCorrect": 185,
-      "runDate": "2026-03-05T08:37:11.509Z",
+      "runDate": "2026-03-05T15:00:54.867Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -8870,7 +9050,7 @@
       "freeformOverall": 94.2,
       "totalQuestions": 191,
       "totalCorrect": 181,
-      "runDate": "2026-03-05T08:37:11.510Z",
+      "runDate": "2026-03-05T15:00:54.867Z",
       "questionDetails": [
         {
           "questionId": "fund-1",

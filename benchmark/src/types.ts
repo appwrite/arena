@@ -16,6 +16,7 @@ export interface QuestionResult {
 	correct: boolean;
 	score: number;
 	judgeReasoning?: string;
+	modComment?: string;
 }
 
 export interface QuestionDetail {
@@ -30,6 +31,7 @@ export interface QuestionDetail {
 	correct: boolean;
 	score: number;
 	judgeReasoning?: string;
+	modComment?: string;
 }
 
 export interface ModelConfig {

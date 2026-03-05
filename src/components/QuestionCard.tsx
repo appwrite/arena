@@ -12,6 +12,7 @@ export default function QuestionCard({ detail }: QuestionCardProps) {
 	const [open, setOpen] = useState(false);
 	const [renderContent, setRenderContent] = useState(false);
 	const isMcq = detail.type === "mcq";
+	const isFail = detail.modelAnswer === "FAIL";
 	const scorePercent = Math.round(detail.score * 100);
 	const scoreClass =
 		scorePercent >= 70
@@ -51,7 +52,9 @@ export default function QuestionCard({ detail }: QuestionCardProps) {
 				className="flex w-full cursor-pointer items-center gap-3 border-none bg-transparent p-4 text-left transition hover:bg-[var(--link-bg-hover)] md:px-5 md:py-4"
 			>
 				<span className="flex shrink-0 items-center">
-					{isMcq ? (
+					{isFail ? (
+						<X size={14} className="text-[#FF453A]" />
+					) : isMcq ? (
 						detail.correct ? (
 							<Check size={14} className="text-[#85DBD8]" />
 						) : (
@@ -84,6 +87,20 @@ export default function QuestionCard({ detail }: QuestionCardProps) {
 							) : (
 								<FreeFormAnswer detail={detail} />
 							)}
+							{isFail && (
+								<div className="mt-3 rounded-md border border-[#FF453A]/30 bg-[#FF453A]/8 px-3 py-2">
+									<p className="text-xs text-[#FF453A]">
+										Model failed to produce an answer.
+										{detail.modComment && (
+											<span>
+												{" "}
+												Moderator note:{" "}
+												<span className="font-bold">{detail.modComment}</span>
+											</span>
+										)}
+									</p>
+								</div>
+							)}
 						</div>
 					)}
 				</div>
@@ -104,7 +121,10 @@ function McqChoices({ detail }: { detail: QuestionDetail }) {
 				const isWrongPick = isModelPick && !isCorrect;
 
 				let cls = "border-transparent bg-transparent";
-				if (isCorrect) cls = "border-[#85DBD8]/30 bg-[#85DBD8]/8";
+				if (isCorrect && isModelPick)
+					cls = "border-[#85DBD8]/30 bg-[#85DBD8]/8";
+				else if (isCorrect)
+					cls = "border-[var(--line)] bg-[rgba(255,255,255,0.03)]";
 				else if (isWrongPick) cls = "border-[#FF453A]/30 bg-[#FF453A]/8";
 
 				return (
@@ -119,7 +139,7 @@ function McqChoices({ detail }: { detail: QuestionDetail }) {
 						{isCorrect && (
 							<Check
 								size={14}
-								className="ml-auto mt-0.5 shrink-0 text-[#85DBD8]"
+								className={`ml-auto mt-0.5 shrink-0 ${isModelPick ? "text-[#85DBD8]" : "text-[var(--text-secondary)]"}`}
 							/>
 						)}
 						{isWrongPick && (
