@@ -79,6 +79,7 @@ function highlightCode(code: string): ReactNode[] {
 		}
 
 		return (
+			// biome-ignore lint/suspicious/noArrayIndexKey: lines are static and never reordered
 			<span key={li}>
 				{nodes}
 				{li < lines.length - 1 ? "\n" : null}
@@ -87,38 +88,53 @@ function highlightCode(code: string): ReactNode[] {
 	});
 }
 
-const PANELS = [
-	{
-		label: "With Skills.md",
-		question: "How do I create a document?",
-		answer: "Here's how to create a document using the Appwrite SDK:",
-		code: `import { Client, Databases, ID } from 'appwrite';
-
-const client = new Client()
-  .setEndpoint('https://<REGION>.cloud.appwrite.io/v1')
-  .setProject('<PROJECT_ID>');
-
-const databases = new Databases(client);
-await databases.createDocument({
-  databaseId: '<DATABASE_ID>',
-  collectionId: '<COLLECTION_ID>',
-  documentId: ID.unique(),
-  data: { title: 'Hello', content: 'World' }
-});`,
-	},
+const PANELS: {
+	label: string;
+	question: string;
+	answer: string;
+	code: string;
+	success?: string;
+	errors?: string[];
+}[] = [
 	{
 		label: "Without Skills.md",
 		question: "How do I create a document?",
-		answer: "Sure, here's how you can create a document in Appwrite:",
+		answer:
+			"Sure, here's an example code how you can create a document in Appwrite Databases:",
 		code: `import Appwrite from 'appwrite';
 
 const appwrite = new Appwrite();
-appwrite.setEndpoint('https://appwrite.io/v1');
+appwrite.setEndpoint('https://cloud.appwrite.io/v1');
 
 // Removed in Appwrite 1.0
 await appwrite.database.createDocument(
   'collectionId', { title: 'Hello' }
 );`,
+		errors: [
+			"Cannot read properties of undefined 'createDocument'",
+			'Param "databaseId" is not optional.',
+			"Project is not accessible in this region.",
+		],
+	},
+	{
+		label: "With Skills.md",
+		question: "How do I create a document?",
+		answer:
+			"Great question! Here's how to create a row - newer replacement of a document, using the Appwrite's web SDK:",
+		code: `import { Client, TablesDB, ID } from 'appwrite';
+
+const client = new Client()
+  .setEndpoint('https://<REGION>.cloud.appwrite.io/v1')
+  .setProject('<PROJECT_ID>');
+
+const tables = new TablesDB(client);
+await tables.createRow({
+  databaseId: '<DATABASE_ID>',
+  tableId: '<TABLE_ID>',
+  documentId: ID.unique(),
+  data: { title: 'Hello', content: 'World' }
+});`,
+		success: "✓ built in 743ms",
 	},
 ];
 
@@ -167,6 +183,24 @@ export default function TwoModes() {
 										<pre className="overflow-x-auto rounded-lg border border-[#19191C]/8 bg-[#FAFAFA] p-2.5 font-mono text-[10px] leading-relaxed">
 											<code>{highlightCode(panel.code)}</code>
 										</pre>
+										{panel.success && (
+											<div className="flex items-center gap-1.5 rounded-md border border-green-200 bg-green-50 px-2 py-1.5 font-mono text-[10px] leading-tight text-green-600">
+												<span>{panel.success}</span>
+											</div>
+										)}
+										{panel.errors && (
+											<div className="flex flex-col gap-1.5">
+												{panel.errors.map((error) => (
+													<div
+														key={error}
+														className="flex items-start gap-1.5 rounded-md border border-red-200 bg-red-50 px-2 py-1.5 font-mono text-[10px] leading-tight text-red-600"
+													>
+														<span className="mt-px shrink-0">&#x2716;</span>
+														<span>{error}</span>
+													</div>
+												))}
+											</div>
+										)}
 									</div>
 								</div>
 							</div>

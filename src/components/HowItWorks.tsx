@@ -59,6 +59,7 @@ export default function HowItWorks({
 	];
 
 	return (
+		// biome-ignore lint/correctness/useUniqueElementIds: static page landmark, only rendered once
 		<section
 			id="how-it-works"
 			className="rise-in scroll-mt-20 px-4 py-14 md:py-20"
