@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "runDate": "2026-03-04T12:04:18.191Z",
+  "runDate": "2026-03-05T08:37:11.510Z",
   "mode": "without-skills",
-  "totalQuestions": 180,
-  "totalMcq": 154,
+  "totalQuestions": 191,
+  "totalMcq": 165,
   "totalFreeform": 26,
   "models": [
     {
@@ -47,9 +47,9 @@
       "overall": 94.4,
       "mcqOverall": 94.8,
       "freeformOverall": 92.1,
-      "totalQuestions": 180,
+      "totalQuestions": 191,
       "totalCorrect": 171,
-      "runDate": "2026-03-04T12:04:18.190Z",
+      "runDate": "2026-03-05T08:37:11.509Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -2560,7 +2560,7 @@
             "appwrite.config.js",
             ".appwriterc",
             "appwrite.yaml",
-            "appwrite.json"
+            "appwrite.config.json"
           ],
           "correctAnswer": "D",
           "modelAnswer": "D",
@@ -2635,7 +2635,7 @@
           "questionId": "cli-11",
           "category": "cli",
           "type": "mcq",
-          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.json?",
+          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.config.json?",
           "choices": [
             "appwrite init project",
             "appwrite setup",
@@ -2667,7 +2667,7 @@
           "questionId": "cli-14",
           "category": "cli",
           "type": "mcq",
-          "question": "What does the appwrite.json file represent?",
+          "question": "What does the appwrite.config.json file represent?",
           "choices": [
             "Only function configurations",
             "User credentials only",
@@ -2695,9 +2695,9 @@
           "questionId": "cli-10",
           "category": "cli",
           "type": "free-form",
-          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
-          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
-          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
           "modelAnswer": "Here is the complete workflow for creating, configuring, and deploying an Appwrite Function using the Appwrite CLI.\n\n### Prerequisites\nBefore starting, ensure you have the Appwrite CLI installed (`npm install -g appwrite-cli`), authenticated (`appwrite login`), and linked to your Appwrite project (`appwrite init project`).\n\n---\n\n### Step 1: Create the Function\nUse the CLI to initialize a new function. This will create the boilerplate code and update your `appwrite.json` file.\n\n```bash\nappwrite init function\n```\nThe CLI will prompt you to:\n1. Name your function (e.g., `My Function`).\n2. Choose a runtime (e.g., `Node.js`, `Python`, `Dart`, etc.).\n3. Select the source code folder name.\n\n### Step 2: Write the Function Code\nNavigate to the newly created function directory. Open the entry point file (e.g., `src/main.js` for Node.js) and write your logic. Appwrite functions always receive a `context` object containing the request (`req`), response (`res`), and logging utilities (`log`, `error`).\n\n```javascript\n// Example Node.js entrypoint\nexport default async ({ req, res, log, error }) => {\n  log(\"Function executed!\");\n  return res.json({ message: \"Hello from Appwrite!\" });\n};\n```\n\n### Step 3: Configure `appwrite.json`\nWhen you initialized the function, the CLI automatically generated an `appwrite.json` file in your project root. This file acts as the source of truth for your function's configuration. \n\nHere are the key configuration options you can modify:\n\n```json\n{\n  \"projectId\": \"your-project-id\",\n  \"projectName\": \"Your Project\",\n  \"functions\": [\n    {\n      \"$id\": \"my-function-id\",\n      \"name\": \"My Function\",\n      \"runtime\": \"node-18.0\",\n      \"path\": \"functions/My Function\",\n      \"entrypoint\": \"src/main.js\",\n      \"commands\": \"npm install\",\n      \"execute\": [\"any\"],\n      \"events\": [\"users.*.create\"],\n      \"schedule\": \"0 0 * * *\",\n      \"timeout\": 15,\n      \"ignore\": [\"node_modules\", \".env\"]\n    }\n  ]\n}\n```\n\n**Key Configuration Options:**\n*   **`path`**: The relative path to your function's source code directory.\n*   **`entrypoint`**: The file Appwrite should execute when the function is triggered.\n*   **`commands`**: The build commands executed before deployment (e.g., `npm install` or `pip install -r requirements.txt`).\n*   **`execute`**: An array of permissions defining who can trigger the function (e.g., `[\"any\"]` for public, or `[\"users\"]` for authenticated users).\n*   **`events`**: An array of Appwrite system events that will automatically trigger the function (e.g., `databases.*.collections.*.documents.*.create`).\n*   **`schedule`**: A CRON expression to trigger the function on a recurring schedule.\n*   **`timeout`**: Maximum execution time in seconds (default is usually 15).\n*   **`ignore`**: An array of files/folders to exclude when packaging the function for deployment (crucial for keeping deployment sizes small).\n\n### Step 4: Deploy the Function\nOnce your code is written and `appwrite.json` is configured, deploy the function to your Appwrite server.\n\n```bash\nappwrite deploy function\n```\nThe CLI will prompt you to select which function(s) to deploy. You can also bypass the prompt by passing the function ID directly:\n```bash\nappwrite deploy function --functionId my-function-id\n```\n*During deployment, the CLI zips your code (respecting the `ignore` array), uploads it to the Appwrite server, runs the `commands` to build the environment, and applies the settings from `appwrite.json`.*\n\n### Step 5: Execute and Test (Optional)\nYou can manually trigger the deployed function via the CLI to ensure it works:\n\n```bash\nappwrite functions createExecution --functionId my-function-id\n```\nYou can also pass custom data to the execution using the `--body` flag.",
           "correct": true,
           "score": 0.7,
@@ -2743,7 +2743,7 @@
           "choices": [
             "Pushes code to a Git repository",
             "Uploads environment variables only",
-            "Deploys tracked resources (e.g. functions, collections) from appwrite.json to your Appwrite project",
+            "Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
             "Syncs local config with the server and overwrites server state"
           ],
           "correctAnswer": "C",
@@ -2837,24 +2837,24 @@
       "scores": {
         "fundamental": 99.3,
         "auth": 99.7,
-        "databases": 100,
+        "databases": 91.3,
         "functions": 98.2,
         "storage": 93.5,
         "sites": 100,
         "messaging": 100,
         "realtime": 100,
-        "cli": 77.5
+        "cli": 80.4
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 100,
+        "databases": 90,
         "functions": 100,
         "storage": 94.1,
         "sites": 100,
         "messaging": 100,
         "realtime": 100,
-        "cli": 76.5
+        "cli": 80
       },
       "freeformScores": {
         "fundamental": 95,
@@ -2867,12 +2867,12 @@
         "realtime": 100,
         "cli": 83.3
       },
-      "overall": 96.5,
-      "mcqOverall": 96.8,
+      "overall": 95.1,
+      "mcqOverall": 95.2,
       "freeformOverall": 94.8,
-      "totalQuestions": 180,
-      "totalCorrect": 175,
-      "runDate": "2026-03-04T12:04:18.190Z",
+      "totalQuestions": 191,
+      "totalCorrect": 183,
+      "runDate": "2026-03-05T08:37:11.509Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -5359,7 +5359,7 @@
             "appwrite.config.js",
             ".appwriterc",
             "appwrite.yaml",
-            "appwrite.json"
+            "appwrite.config.json"
           ],
           "correctAnswer": "D",
           "modelAnswer": "D",
@@ -5458,7 +5458,7 @@
           "questionId": "cli-11",
           "category": "cli",
           "type": "mcq",
-          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.json?",
+          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.config.json?",
           "choices": [
             "appwrite init project",
             "appwrite setup",
@@ -5490,7 +5490,7 @@
           "questionId": "cli-14",
           "category": "cli",
           "type": "mcq",
-          "question": "What does the appwrite.json file represent?",
+          "question": "What does the appwrite.config.json file represent?",
           "choices": [
             "Only function configurations",
             "User credentials only",
@@ -5590,7 +5590,7 @@
           "choices": [
             "Pushes code to a Git repository",
             "Uploads environment variables only",
-            "Deploys tracked resources (e.g. functions, collections) from appwrite.json to your Appwrite project",
+            "Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
             "Syncs local config with the server and overwrites server state"
           ],
           "correctAnswer": "C",
@@ -5642,13 +5642,189 @@
           "questionId": "cli-10",
           "category": "cli",
           "type": "free-form",
-          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
-          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
-          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
           "modelAnswer": "Here’s a practical **end-to-end CLI workflow** for Appwrite Functions.\n\n## 1) Install and authenticate CLI\n\n```bash\nnpm i -g appwrite-cli\nappwrite login\n```\n\nThen initialize (or link) your local folder to a project:\n\n```bash\nappwrite init project\n```\n\nThis creates/updates `appwrite.json` with your project linkage.\n\n---\n\n## 2) Create a Function scaffold\n\nUse the CLI wizard:\n\n```bash\nappwrite init function\n```\n\nYou’ll choose:\n- Function name / ID\n- Runtime (Node, Python, PHP, etc.)\n- Entrypoint\n- Build/install command\n- Local path\n\nThe CLI adds function metadata to `appwrite.json` and creates the function source folder.\n\n---\n\n## 3) Implement code locally\n\nInside the function folder:\n- Add your function code at the configured entrypoint.\n- Add dependencies (`package.json`, `requirements.txt`, etc.).\n- Make sure the build command in config installs dependencies correctly.\n\n---\n\n## 4) Configure `appwrite.json` (key options)\n\nA typical function block includes options like:\n\n```json\n{\n  \"functions\": [\n    {\n      \"$id\": \"my-function\",\n      \"name\": \"My Function\",\n      \"runtime\": \"node-18.0\",\n      \"path\": \"functions/my-function\",\n      \"entrypoint\": \"src/main.js\",\n      \"commands\": \"npm install\",\n      \"ignore\": [\"node_modules\", \".git\"],\n      \"enabled\": true,\n      \"execute\": [\"any\"],\n      \"events\": [],\n      \"schedule\": \"\",\n      \"timeout\": 15,\n      \"logging\": true\n    }\n  ]\n}\n```\n\n### What each key controls\n- **`$id`**: unique function ID in Appwrite.\n- **`runtime`**: language/runtime image used for build + execution.\n- **`path`**: local directory containing function code.\n- **`entrypoint`**: file Appwrite runs.\n- **`commands`**: build/install command run during deployment.\n- **`ignore`**: excluded files from upload.\n- **`enabled`**: on/off switch.\n- **`execute`**: who can execute (`any`, users/teams, etc.).\n- **`events`**: event triggers (DB/file/auth events, etc.).\n- **`schedule`**: cron expression for scheduled runs.\n- **`timeout`**: max execution time (seconds).\n- **`logging`**: whether execution logs are stored.\n\n---\n\n## 5) Deploy\n\nDepending on CLI version, use one of these patterns:\n\n```bash\nappwrite deploy function\n```\n\nor push synced resources/deployments:\n\n```bash\nappwrite push functions\n```\n\nDeployment flow:\n1. CLI packages function code (`path` minus `ignore`)\n2. Uploads to Appwrite\n3. Runs `commands` in build environment\n4. Creates a new deployment and activates it\n\n---\n\n## 6) Test and verify\n\n- Trigger manually from Console or via API/SDK execution call.\n- Check function logs and deployment status in Console or CLI.\n- Iterate: edit code/config → redeploy.\n\n---\n\n## 7) Typical production best practices\n\n- Keep secrets in Appwrite Function variables (not hardcoded).\n- Use precise `execute` permissions (avoid broad `any` unless needed).\n- Pin runtime versions.\n- Keep `ignore` clean to reduce deployment size/time.\n- Use event triggers + schedules intentionally to avoid noisy invocations.\n\nIf you want, I can also give you a **ready-to-copy `appwrite.json` for Node/Python** with event trigger and cron schedule examples.",
           "correct": true,
           "score": 0.95,
           "judgeReasoning": "The answer covers all 5 required rubric points: 1) appwrite init function to scaffold the function, 2) runtime selection during the wizard, 3) detailed appwrite.json configuration options including name, runtime, execute permissions, variables, schedule, events, timeout, etc., 4) local development (though 'appwrite run function' specifically isn't mentioned, local development workflow is described), 5) deployment with 'appwrite push functions' (also mentions 'appwrite deploy function'). The only minor gap is that 'appwrite run function' for local development isn't explicitly called out by that exact command name - the answer describes implementing code locally but doesn't mention the specific 'appwrite run function' command for local testing. Otherwise the answer is comprehensive and accurate."
+        },
+        {
+          "questionId": "db-21",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the minimum and maximum values for an integer attribute in Appwrite?",
+          "choices": [
+            "-2147483648 to 2147483647 (32-bit signed integer)",
+            "-9223372036854775808 to 9223372036854775807 (64-bit signed integer)",
+            "0 to 18446744073709551615 (64-bit unsigned integer)",
+            "-999999999999 to 999999999999 (12-digit limit)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "A",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "db-22",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid string-based attribute type in Appwrite databases?",
+          "choices": [
+            "varchar",
+            "mediumtext",
+            "tinytext",
+            "longtext"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-23",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid format for a string attribute in Appwrite?",
+          "choices": [
+            "uuid",
+            "email",
+            "url",
+            "enum"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "D",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "cli-21",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What happens if an Appwrite project contains an appwrite.json file but no appwrite.config.json?",
+          "choices": [
+            "The CLI throws an error and requires appwrite.config.json",
+            "The CLI falls back to appwrite.json for legacy backwards compatibility",
+            "The CLI ignores it and uses default settings",
+            "The CLI automatically migrates appwrite.json to appwrite.config.json"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-22",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the appwrite types command do?",
+          "choices": [
+            "Generates typed models for your Appwrite project's collections and attributes",
+            "Lists all data types supported by Appwrite databases",
+            "Converts documents between different data formats",
+            "Validates the types defined in appwrite.config.json"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-23",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the --strict flag do in the appwrite types command?",
+          "choices": [
+            "Enforces type-safe null checks in generated code",
+            "Throws errors for missing or invalid collection attributes",
+            "Automatically converts field names to follow language conventions",
+            "Disables generation of optional fields"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "B",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "cli-24",
+          "category": "cli",
+          "type": "mcq",
+          "question": "A function works locally but fails after pushing because environment variables are missing. What flag was likely missing from the push command?",
+          "choices": [
+            "--env",
+            "--with-variables",
+            "--include-env",
+            "--push-variables"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-25",
+          "category": "cli",
+          "type": "mcq",
+          "question": "When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+          "choices": [
+            "The attribute is created with a default size of 255",
+            "The attribute is created as an unlimited text field",
+            "The CLI automatically calculates the size based on sample data",
+            "The CLI throws a validation error because 'size' is required for string/varchar types"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-26",
+          "category": "cli",
+          "type": "mcq",
+          "question": "In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+          "choices": [
+            "The default can be any value matching the type",
+            "The default must be set to an empty string or 0",
+            "The default must be null",
+            "The default property is optional and can be omitted"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-27",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the 'appwrite generate' command do?",
+          "choices": [
+            "Generates a new Appwrite project from a template",
+            "Creates boilerplate code for functions and collections",
+            "Generates a type-safe SDK from your Appwrite project configuration",
+            "Generates API documentation for your project"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-28",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What's the key difference between `appwrite run function` and `appwrite push function`?",
+          "choices": [
+            "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+            "`run` deploys to staging, `push` deploys to production",
+            "`run` is for testing, `push` is for CI/CD pipelines only",
+            "`run` requires internet connection, `push` works offline"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
         }
       ]
     },
@@ -5660,24 +5836,24 @@
       "scores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 95,
+        "databases": 95.7,
         "functions": 95,
         "storage": 99.7,
         "sites": 100,
         "messaging": 100,
         "realtime": 100,
-        "cli": 88.5
+        "cli": 84.6
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 94.1,
+        "databases": 95,
         "functions": 94.1,
         "storage": 100,
         "sites": 100,
         "messaging": 100,
         "realtime": 100,
-        "cli": 94.1
+        "cli": 88
       },
       "freeformScores": {
         "fundamental": 100,
@@ -5690,12 +5866,12 @@
         "realtime": 100,
         "cli": 56.7
       },
-      "overall": 97.6,
-      "mcqOverall": 98.1,
+      "overall": 96.7,
+      "mcqOverall": 97,
       "freeformOverall": 94.8,
-      "totalQuestions": 180,
-      "totalCorrect": 176,
-      "runDate": "2026-03-04T12:04:18.190Z",
+      "totalQuestions": 191,
+      "totalCorrect": 185,
+      "runDate": "2026-03-05T08:37:11.509Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -8186,7 +8362,7 @@
             "appwrite.config.js",
             ".appwriterc",
             "appwrite.yaml",
-            "appwrite.json"
+            "appwrite.config.json"
           ],
           "correctAnswer": "D",
           "modelAnswer": "D",
@@ -8313,7 +8489,7 @@
           "questionId": "cli-11",
           "category": "cli",
           "type": "mcq",
-          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.json?",
+          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.config.json?",
           "choices": [
             "appwrite init project",
             "appwrite setup",
@@ -8361,7 +8537,7 @@
           "questionId": "cli-14",
           "category": "cli",
           "type": "mcq",
-          "question": "What does the appwrite.json file represent?",
+          "question": "What does the appwrite.config.json file represent?",
           "choices": [
             "Only function configurations",
             "User credentials only",
@@ -8413,7 +8589,7 @@
           "choices": [
             "Pushes code to a Git repository",
             "Uploads environment variables only",
-            "Deploys tracked resources (e.g. functions, collections) from appwrite.json to your Appwrite project",
+            "Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
             "Syncs local config with the server and overwrites server state"
           ],
           "correctAnswer": "C",
@@ -8465,13 +8641,189 @@
           "questionId": "cli-10",
           "category": "cli",
           "type": "free-form",
-          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
-          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
-          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
           "modelAnswer": "# Complete Workflow for Appwrite Functions via CLI\n\n## 1. Initialize Your Project\n\n```bash\n# Login to Appwrite\nappwrite login\n\n# Initialize the project (links to your Appwrite project)\nappwrite init project\n```\n\n## 2. Create a Function\n\n```bash\nappwrite init function\n```\n\nThis interactive command prompts you for:\n- **Function ID** (or auto-generated)\n- **Function name**\n- **Runtime** (e.g., `node-18.0`, `python-3.9`, `dart-2.18`, etc.)\n\nThis scaffolds a function directory with starter code and updates `appwrite.json`.\n\n## 3. Understanding `appwrite.json` Configuration\n\n```json\n{\n    \"projectId\": \"your-project-id\",\n    \"projectName\": \"My Project\",\n    \"functions\": [\n        {\n            \"functionId\": \"my-function\",\n            \"name\": \"My Function\",\n            \"runtime\": \"node-18.0\",\n            \"execute\": [\"any\"],\n            \"events\": [\"databases.*.collections.*.documents.*.create\"],\n            \"schedule\": \"0 */6 * * *\",\n            \"timeout\": 15,\n            \"enabled\": true,\n            \"logging\": true,\n            \"entrypoint\": \"src/main.js\",\n            \"commands\": \"npm install\",\n            \"path\": \"functions/my-function\",\n            \"scopes\": [\"databases.read\", \"databases.write\"],\n            \"variables\": {\n                \"API_KEY\": \"your-api-key\",\n                \"CUSTOM_VAR\": \"some-value\"\n            }\n        }\n    ]\n}\n```\n\n### Key Configuration Options Explained\n\n| Option | Description |\n|---|---|\n| `functionId` | Unique identifier for the function |\n| `name` | Human-readable display name |\n| `runtime` | Language runtime and version |\n| `execute` | Execution permissions (`[\"any\"]`, `[\"users\"]`, specific roles) |\n| `events` | System events that trigger the function |\n| `schedule` | CRON expression for scheduled execution |\n| `timeout` | Max execution time in seconds (1–900) |\n| `enabled` | Whether the function is active |\n| `logging` | Enable/disable execution logging |\n| `entrypoint` | Path to the main file relative to the function directory |\n| `commands` | Build commands run during deployment (e.g., `npm install`) |\n| `path` | Local directory path containing the function code |\n| `scopes` | API permissions granted to the function's server context |\n| `variables` | Environment variables as key-value pairs |\n\n## 4. Develop Your Function\n\nEdit the entrypoint file (e.g., `functions/my-function/src/main.js`):\n\n```javascript\nexport default async ({ req, res, log, error }) => {\n    log('Function invoked!');\n\n    // Access request data\n    const payload = req.body;\n    const headers = req.headers;\n    const method = req.method;\n\n    // Access environment variables\n    const apiKey = process.env.API_KEY;\n\n    // Return a response\n    return res.json({\n        message: 'Hello from Appwrite Function!',\n        payload,\n    });\n};\n```\n\n## 5. Deploy the Function\n\n```bash\n# Deploy all functions defined in appwrite.json\nappwrite deploy function\n\n# Deploy a specific function (interactive selection)\nappwrite deploy function\n```\n\nThe CLI will:\n1. **Package** the function source from the `path` directory\n2. **Run build commands** specified in `commands`\n3. **Upload** the deployment to your Appwrite instance\n4. **Activate** the new deployment automatically\n\n## 6. Test & Execute\n\n```bash\n# Execute the function via CLI\nappwrite functions create-execution \\\n    --function-id=\"my-function\" \\\n    --body='{\"key\": \"value\"}' \\\n    --async=false \\\n    --method=\"POST\"\n```\n\n## 7. Monitor & Debug\n\n```bash\n# List executions\nappwrite functions list-executions --function-id=\"my-function\"\n\n# Get a specific execution (includes logs and response)\nappwrite functions get-execution \\\n    --function-id=\"my-function\" \\\n    --execution-id=\"execution-id\"\n```\n\n## Full Lifecycle Summary\n\n```\nappwrite login\n    → appwrite init project\n        → appwrite init function\n            → Edit appwrite.json (events, schedule, variables, permissions)\n                → Write function code\n                    → appwrite deploy function\n                        → appwrite functions create-execution (test)\n                            → Monitor via list-executions / console\n```\n\n## Tips\n\n- **Redeployment**: Run `appwrite deploy function` again after any code or config changes.\n- **Multiple functions**: `appwrite.json` supports an array of functions; deploy selectively or all at once.\n- **Local development**: Use the Appwrite CLI's local runtime or test logic independently before deploying.\n- **Version control**: Commit `appwrite.json` alongside your function code, but keep sensitive variables in Appwrite's console or use `.env` files excluded from VCS.",
           "correct": true,
           "score": 0.7,
           "judgeReasoning": "The answer covers most of the required elements: 1) appwrite init function to scaffold ✓, 2) Runtime selection ✓, 3) appwrite.json configuration options with detailed explanation ✓, 4) Local development is only briefly mentioned in tips without the specific 'appwrite run function' command ✗, 5) Deployment uses 'appwrite deploy function' instead of the correct 'appwrite push functions' command ✗. The answer is comprehensive and detailed but misses two key rubric points: the local development command 'appwrite run function' is not mentioned (only vaguely referenced in tips), and the deployment command given is 'appwrite deploy function' rather than 'appwrite push functions'. These are specific CLI command differences that matter for accuracy."
+        },
+        {
+          "questionId": "db-21",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the minimum and maximum values for an integer attribute in Appwrite?",
+          "choices": [
+            "-2147483648 to 2147483647 (32-bit signed integer)",
+            "-9223372036854775808 to 9223372036854775807 (64-bit signed integer)",
+            "0 to 18446744073709551615 (64-bit unsigned integer)",
+            "-999999999999 to 999999999999 (12-digit limit)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-22",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid string-based attribute type in Appwrite databases?",
+          "choices": [
+            "varchar",
+            "mediumtext",
+            "tinytext",
+            "longtext"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-23",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid format for a string attribute in Appwrite?",
+          "choices": [
+            "uuid",
+            "email",
+            "url",
+            "enum"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-21",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What happens if an Appwrite project contains an appwrite.json file but no appwrite.config.json?",
+          "choices": [
+            "The CLI throws an error and requires appwrite.config.json",
+            "The CLI falls back to appwrite.json for legacy backwards compatibility",
+            "The CLI ignores it and uses default settings",
+            "The CLI automatically migrates appwrite.json to appwrite.config.json"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-22",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the appwrite types command do?",
+          "choices": [
+            "Generates typed models for your Appwrite project's collections and attributes",
+            "Lists all data types supported by Appwrite databases",
+            "Converts documents between different data formats",
+            "Validates the types defined in appwrite.config.json"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-23",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the --strict flag do in the appwrite types command?",
+          "choices": [
+            "Enforces type-safe null checks in generated code",
+            "Throws errors for missing or invalid collection attributes",
+            "Automatically converts field names to follow language conventions",
+            "Disables generation of optional fields"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "B",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "cli-24",
+          "category": "cli",
+          "type": "mcq",
+          "question": "A function works locally but fails after pushing because environment variables are missing. What flag was likely missing from the push command?",
+          "choices": [
+            "--env",
+            "--with-variables",
+            "--include-env",
+            "--push-variables"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-25",
+          "category": "cli",
+          "type": "mcq",
+          "question": "When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+          "choices": [
+            "The attribute is created with a default size of 255",
+            "The attribute is created as an unlimited text field",
+            "The CLI automatically calculates the size based on sample data",
+            "The CLI throws a validation error because 'size' is required for string/varchar types"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-26",
+          "category": "cli",
+          "type": "mcq",
+          "question": "In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+          "choices": [
+            "The default can be any value matching the type",
+            "The default must be set to an empty string or 0",
+            "The default must be null",
+            "The default property is optional and can be omitted"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-27",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the 'appwrite generate' command do?",
+          "choices": [
+            "Generates a new Appwrite project from a template",
+            "Creates boilerplate code for functions and collections",
+            "Generates a type-safe SDK from your Appwrite project configuration",
+            "Generates API documentation for your project"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "B",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "cli-28",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What's the key difference between `appwrite run function` and `appwrite push function`?",
+          "choices": [
+            "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+            "`run` deploys to staging, `push` deploys to production",
+            "`run` is for testing, `push` is for CI/CD pipelines only",
+            "`run` requires internet connection, `push` works offline"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
         }
       ]
     },
@@ -8483,24 +8835,24 @@
       "scores": {
         "fundamental": 99.7,
         "auth": 99.7,
-        "databases": 94.3,
+        "databases": 95,
         "functions": 93.2,
         "storage": 95,
         "sites": 100,
         "messaging": 99.5,
         "realtime": 90,
-        "cli": 76
+        "cli": 79.3
       },
       "mcqScores": {
         "fundamental": 100,
         "auth": 100,
-        "databases": 94.1,
+        "databases": 95,
         "functions": 94.1,
         "storage": 94.1,
         "sites": 100,
         "messaging": 100,
         "realtime": 88.2,
-        "cli": 76.5
+        "cli": 80
       },
       "freeformScores": {
         "fundamental": 98.3,
@@ -8513,12 +8865,12 @@
         "realtime": 100,
         "cli": 73.3
       },
-      "overall": 94.2,
-      "mcqOverall": 94.2,
+      "overall": 94,
+      "mcqOverall": 93.9,
       "freeformOverall": 94.2,
-      "totalQuestions": 180,
-      "totalCorrect": 171,
-      "runDate": "2026-03-04T12:04:18.191Z",
+      "totalQuestions": 191,
+      "totalCorrect": 181,
+      "runDate": "2026-03-05T08:37:11.510Z",
       "questionDetails": [
         {
           "questionId": "fund-1",
@@ -11001,7 +11353,7 @@
             "appwrite.config.js",
             ".appwriterc",
             "appwrite.yaml",
-            "appwrite.json"
+            "appwrite.config.json"
           ],
           "correctAnswer": "D",
           "modelAnswer": "D",
@@ -11104,7 +11456,7 @@
           "questionId": "cli-11",
           "category": "cli",
           "type": "mcq",
-          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.json?",
+          "question": "What command initializes the CLI with your Appwrite project and creates appwrite.config.json?",
           "choices": [
             "appwrite init project",
             "appwrite setup",
@@ -11120,7 +11472,7 @@
           "questionId": "cli-14",
           "category": "cli",
           "type": "mcq",
-          "question": "What does the appwrite.json file represent?",
+          "question": "What does the appwrite.config.json file represent?",
           "choices": [
             "Only function configurations",
             "User credentials only",
@@ -11216,9 +11568,9 @@
           "questionId": "cli-10",
           "category": "cli",
           "type": "free-form",
-          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
-          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
-          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+          "question": "Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
+          "correctAnswer": "Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+          "rubric": "Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
           "modelAnswer": "Here's the complete workflow for Appwrite Functions using the CLI:\n\n## 1. Prerequisites\n```bash\n# Install and login\nnpm install -g appwrite-cli\nappwrite login\nappwrite init project  # Select or create project\n```\n\n## 2. Initialize Function\n```bash\nappwrite init function\n# Select runtime (e.g., node-18.0, python-3.9, dart-3.0)\n# Creates: functions/[function-name]/ directory with starter code\n```\n\n## 3. Configure appwrite.json\n\nThe CLI generates/updates `appwrite.json` at project root. Key configuration options:\n\n```json\n{\n  \"projectId\": \"demo\",\n  \"projectName\": \"Demo Project\",\n  \"functions\": [\n    {\n      \"$id\": \"processOrder\",\n      \"name\": \"Process Order\",\n      \"runtime\": \"node-18.0\",\n      \"entrypoint\": \"src/main.js\",\n      \"commands\": \"npm install\",\n      \n      \"execute\": [\"users\", \"guests\", \"role:admin\"],\n      \"events\": [\"databases.*.collections.*.documents.*.create\"],\n      \"schedule\": \"0 9 * * *\",\n      \"timeout\": 30,\n      \n      \"enabled\": true,\n      \"logging\": true,\n      \"scopes\": [\"users.read\", \"databases.write\", \"storage.read\"]\n    }\n  ]\n}\n```\n\n**Key Configuration Options:**\n\n- **`$id`**: Unique function identifier (auto-generated if omitted)\n- **`runtime`**: Environment (node-18.0, python-3.9, php-8.2, etc.)\n- **`entrypoint`**: Main file to execute (e.g., `src/index.js`, `main.py`)\n- **`commands`**: Build command (install dependencies, compile)\n- **`execute`**: Execution permissions (roles/IDs allowed to trigger)\n- **`events`**: Database/webhook triggers (e.g., `databases.*.collections.users.documents.*.create`)\n- **`schedule`**: CRON expression for scheduled execution\n- **`timeout`**: Max execution time in seconds (1-900)\n- **`scopes`**: Function's service permissions (users.read, databases.write, storage.read, etc.)\n\n## 4. Local Development\n```bash\n# Structure\nfunctions/\n  processOrder/\n    src/\n      main.js\n    package.json\n    README.md\n\n# Local testing (optional)\nappwrite run function --function-id=processOrder\n```\n\n## 5. Deploy\n```bash\n# Deploy specific function\nappwrite deploy function --function-id=processOrder\n\n# Deploy all functions\nappwrite deploy function\n\n# Force deploy without confirmation\nappwrite deploy function --yes\n```\n\n## 6. Execution Methods\n\n**Via Console:**\n```bash\nappwrite functions createExecution --function-id=processOrder --data='{\"key\":\"value\"}'\n```\n\n**Via SDK (Client/Server):**\n```javascript\nconst execution = await functions.createExecution('processOrder', JSON.stringify(data));\n```\n\n**Via HTTP:**\n```\nPOST /v1/functions/{functionId}/executions\n```\n\n## Pro Tips\n\n- **Environment Variables**: Set via Console/CLI: `appwrite functions createVariable --function-id=processOrder --key=API_KEY --value=secret`\n- **Live Reload**: Use `appwrite run function` for local development with hot-reload\n- **Dependencies**: Include `package.json`, `requirements.txt`, etc.; the `commands` field runs during build\n- **Cold Starts**: Minimize by keeping dependencies lightweight; use `scopes` minimally to reduce JWT size\n\nThe function becomes active immediately after deployment and responds to HTTP requests, events, or schedules based on your configuration.",
           "correct": true,
           "score": 0.85,
@@ -11232,7 +11584,7 @@
           "choices": [
             "Pushes code to a Git repository",
             "Uploads environment variables only",
-            "Deploys tracked resources (e.g. functions, collections) from appwrite.json to your Appwrite project",
+            "Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
             "Syncs local config with the server and overwrites server state"
           ],
           "correctAnswer": "C",
@@ -11293,6 +11645,182 @@
           ],
           "correctAnswer": "A",
           "modelAnswer": " A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-21",
+          "category": "databases",
+          "type": "mcq",
+          "question": "What are the minimum and maximum values for an integer attribute in Appwrite?",
+          "choices": [
+            "-2147483648 to 2147483647 (32-bit signed integer)",
+            "-9223372036854775808 to 9223372036854775807 (64-bit signed integer)",
+            "0 to 18446744073709551615 (64-bit unsigned integer)",
+            "-999999999999 to 999999999999 (12-digit limit)"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-22",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid string-based attribute type in Appwrite databases?",
+          "choices": [
+            "varchar",
+            "mediumtext",
+            "tinytext",
+            "longtext"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "db-23",
+          "category": "databases",
+          "type": "mcq",
+          "question": "Which of the following is NOT a valid format for a string attribute in Appwrite?",
+          "choices": [
+            "uuid",
+            "email",
+            "url",
+            "enum"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-21",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What happens if an Appwrite project contains an appwrite.json file but no appwrite.config.json?",
+          "choices": [
+            "The CLI throws an error and requires appwrite.config.json",
+            "The CLI falls back to appwrite.json for legacy backwards compatibility",
+            "The CLI ignores it and uses default settings",
+            "The CLI automatically migrates appwrite.json to appwrite.config.json"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-22",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the appwrite types command do?",
+          "choices": [
+            "Generates typed models for your Appwrite project's collections and attributes",
+            "Lists all data types supported by Appwrite databases",
+            "Converts documents between different data formats",
+            "Validates the types defined in appwrite.config.json"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-23",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the --strict flag do in the appwrite types command?",
+          "choices": [
+            "Enforces type-safe null checks in generated code",
+            "Throws errors for missing or invalid collection attributes",
+            "Automatically converts field names to follow language conventions",
+            "Disables generation of optional fields"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "B",
+          "correct": false,
+          "score": 0
+        },
+        {
+          "questionId": "cli-24",
+          "category": "cli",
+          "type": "mcq",
+          "question": "A function works locally but fails after pushing because environment variables are missing. What flag was likely missing from the push command?",
+          "choices": [
+            "--env",
+            "--with-variables",
+            "--include-env",
+            "--push-variables"
+          ],
+          "correctAnswer": "B",
+          "modelAnswer": "B",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-25",
+          "category": "cli",
+          "type": "mcq",
+          "question": "When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+          "choices": [
+            "The attribute is created with a default size of 255",
+            "The attribute is created as an unlimited text field",
+            "The CLI automatically calculates the size based on sample data",
+            "The CLI throws a validation error because 'size' is required for string/varchar types"
+          ],
+          "correctAnswer": "D",
+          "modelAnswer": "D",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-26",
+          "category": "cli",
+          "type": "mcq",
+          "question": "In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+          "choices": [
+            "The default can be any value matching the type",
+            "The default must be set to an empty string or 0",
+            "The default must be null",
+            "The default property is optional and can be omitted"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-27",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What does the 'appwrite generate' command do?",
+          "choices": [
+            "Generates a new Appwrite project from a template",
+            "Creates boilerplate code for functions and collections",
+            "Generates a type-safe SDK from your Appwrite project configuration",
+            "Generates API documentation for your project"
+          ],
+          "correctAnswer": "C",
+          "modelAnswer": "C",
+          "correct": true,
+          "score": 1
+        },
+        {
+          "questionId": "cli-28",
+          "category": "cli",
+          "type": "mcq",
+          "question": "What's the key difference between `appwrite run function` and `appwrite push function`?",
+          "choices": [
+            "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+            "`run` deploys to staging, `push` deploys to production",
+            "`run` is for testing, `push` is for CI/CD pipelines only",
+            "`run` requires internet connection, `push` works offline"
+          ],
+          "correctAnswer": "A",
+          "modelAnswer": "A",
           "correct": true,
           "score": 1
         }

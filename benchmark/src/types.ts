@@ -71,8 +71,8 @@ export interface ToolCall {
 export interface ChatMessage {
 	role: "system" | "user" | "assistant" | "tool";
 	content?: string;
-	tool_calls?: ToolCall[];
-	tool_call_id?: string;
+	toolCalls?: ToolCall[];
+	toolCallId?: string;
 }
 
 export interface BenchmarkResults {

@@ -49,7 +49,7 @@ interface ApiResponse {
 	choices: Array<{
 		message: {
 			content?: string | null;
-			tool_calls?: ToolCall[];
+			toolCalls?: ToolCall[];
 		};
 	}>;
 }
@@ -112,7 +112,7 @@ function debugMessages(messages: ChatMessage[]): void {
 		} else if (msg.role === "user") {
 			debugLog("USER", msg.content ?? "");
 		} else if (msg.role === "tool") {
-			debugLog(`TOOL RESULT (call ${msg.tool_call_id})`, truncate(msg.content ?? "", 300));
+			debugLog(`TOOL RESULT (call ${msg.toolCallId})`, truncate(msg.content ?? "", 300));
 		}
 	}
 }
@@ -149,17 +149,18 @@ async function callModel(
 		if (!msg) return "";
 
 		// If no tool calls, return the text content
-		if (!msg.tool_calls || msg.tool_calls.length === 0) {
-			if (debug) {
+		if (!msg.toolCalls || msg.toolCalls.length === 0) {
+      if (debug) {
+        console.log(msg);
 				debugLog("RESPONSE ← (final text)", truncate(msg.content ?? "", 500));
 			}
 			return msg.content ?? "";
 		}
 
 		if (debug) {
-			debugLog(`RESPONSE ← (round ${round + 1}, ${msg.tool_calls.length} tool call(s))`, {
+			debugLog(`RESPONSE ← (round ${round + 1}, ${msg.toolCalls.length} tool call(s))`, {
 				content: msg.content ? truncate(msg.content, 200) : null,
-				tool_calls: msg.tool_calls.map(tc => ({
+				toolCalls: msg.toolCalls.map(tc => ({
 					id: tc.id,
 					function: tc.function.name,
 					arguments: tc.function.arguments,
@@ -169,7 +170,7 @@ async function callModel(
 
 		// Check if any tool call is an MCQ answer
 		if (mcqToolNames) {
-			for (const toolCall of msg.tool_calls) {
+			for (const toolCall of msg.toolCalls) {
 				const letter = MCQ_LETTER_MAP[toolCall.function.name];
 				if (letter) {
 					if (debug) {
@@ -185,22 +186,22 @@ async function callModel(
 			return msg.content ?? "";
 		}
 
-		// Append assistant message with tool_calls
+		// Append assistant message with toolCalls
 		messages.push({
 			role: "assistant",
 			content: msg.content ?? undefined,
-			tool_calls: msg.tool_calls,
+			toolCalls: msg.toolCalls,
 		});
 
 		// Resolve each tool call and append results
-		for (const toolCall of msg.tool_calls) {
+		for (const toolCall of msg.toolCalls) {
 			const result = resolveToolCall(toolCall, skillsMap);
 			if (debug) {
 				debugLog(`TOOL RESOLVE: ${toolCall.function.name}(${toolCall.function.arguments})`, truncate(result, 300));
 			}
 			messages.push({
 				role: "tool",
-				tool_call_id: toolCall.id,
+				toolCallId: toolCall.id,
 				content: result,
 			});
 		}
