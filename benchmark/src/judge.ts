@@ -1,7 +1,10 @@
-import { JUDGE_MODEL, OPENROUTER_API_URL, TEMPERATURE } from "./config";
+import { OpenRouter } from "@openrouter/sdk";
+import { JUDGE_MODEL, TEMPERATURE } from "./config";
 import type { Question } from "./types";
 
 const apiKey = process.env.OPENROUTER_API_KEY;
+
+const openrouter = new OpenRouter({ apiKey });
 
 interface JudgeResult {
 	score: number;
@@ -28,31 +31,17 @@ Score the model's answer from 0.0 to 1.0 where:
 Respond in this exact JSON format:
 {"score": <number>, "reasoning": "<brief explanation>"}`;
 
-	const response = await fetch(OPENROUTER_API_URL, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${apiKey}`,
-		},
-		body: JSON.stringify({
+	const data = await openrouter.chat.send({
+		chatGenerationParams: {
 			model: JUDGE_MODEL,
 			temperature: TEMPERATURE,
 			messages: [
 				{ role: "system", content: systemPrompt },
 				{ role: "user", content: modelAnswer },
 			],
-		}),
+		},
 	});
-
-	if (!response.ok) {
-		const text = await response.text();
-		throw new Error(`Judge API error (${response.status}): ${text}`);
-	}
-
-	const data = (await response.json()) as {
-		choices: Array<{ message: { content: string } }>;
-	};
-	const content = data.choices[0]?.message?.content ?? "";
+	const content = (data as { choices: Array<{ message: { content: string } }> }).choices[0]?.message?.content ?? "";
 
 	try {
 		const jsonMatch = content.match(/\{[\s\S]*\}/);

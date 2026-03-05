@@ -16,6 +16,7 @@ export interface QuestionResult {
 	correct: boolean;
 	score: number;
 	judgeReasoning?: string;
+	modComment?: string;
 }
 
 export interface QuestionDetail {
@@ -30,6 +31,7 @@ export interface QuestionDetail {
 	correct: boolean;
 	score: number;
 	judgeReasoning?: string;
+	modComment?: string;
 }
 
 export interface ModelConfig {
@@ -37,6 +39,7 @@ export interface ModelConfig {
 	name: string;
 	provider: string;
 	openRouterId: string;
+	openRouterProviderOrder?: string[];
 }
 
 export interface SkillInfo {
@@ -71,8 +74,8 @@ export interface ToolCall {
 export interface ChatMessage {
 	role: "system" | "user" | "assistant" | "tool";
 	content?: string;
-	tool_calls?: ToolCall[];
-	tool_call_id?: string;
+	toolCalls?: ToolCall[];
+	toolCallId?: string;
 }
 
 export interface BenchmarkResults {

@@ -1,4 +1,5 @@
-import { OPENROUTER_API_URL, TEMPERATURE } from "./config";
+import { OpenRouter } from "@openrouter/sdk";
+import { TEMPERATURE } from "./config";
 import { judgeAnswer } from "./judge";
 import type {
 	ChatMessage,
@@ -14,6 +15,8 @@ const apiKey = process.env.OPENROUTER_API_KEY;
 if (!apiKey) {
 	throw new Error("OPENROUTER_API_KEY environment variable is required");
 }
+
+const openrouter = new OpenRouter({ apiKey });
 
 const MAX_TOOL_ROUNDS = 5;
 
@@ -46,7 +49,7 @@ interface ApiResponse {
 	choices: Array<{
 		message: {
 			content?: string | null;
-			tool_calls?: ToolCall[];
+			toolCalls?: ToolCall[];
 		};
 	}>;
 }
@@ -55,31 +58,97 @@ async function callModelRaw(
 	model: ModelConfig,
 	messages: ChatMessage[],
 	tools?: Tool[],
+	debug?: boolean,
 ): Promise<ApiResponse> {
-	const body: Record<string, unknown> = {
+	const chatGenerationParams: Record<string, unknown> = {
 		model: model.openRouterId,
 		temperature: TEMPERATURE,
 		messages,
+		stream: true,
 	};
 	if (tools && tools.length > 0) {
-		body.tools = tools;
+		chatGenerationParams.tools = tools;
+	}
+	if (model.openRouterProviderOrder) {
+		chatGenerationParams.provider = { order: model.openRouterProviderOrder };
 	}
 
-	const response = await fetch(OPENROUTER_API_URL, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${apiKey}`,
-		},
-		body: JSON.stringify(body),
-	});
+	const stream = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]) as AsyncIterable<{
+		choices: Array<{
+			delta: {
+				role?: string;
+				content?: string | null;
+				reasoning?: string | null;
+				toolCalls?: Array<{
+					index: number;
+					id?: string;
+					type?: string;
+					function?: { name?: string; arguments?: string };
+				}>;
+			};
+			finishReason?: string | null;
+		}>;
+	}>;
 
-	if (!response.ok) {
-		const text = await response.text();
-		throw new Error(`OpenRouter API error (${response.status}): ${text}`);
+	let content = "";
+	let reasoning = "";
+	const toolCallMap = new Map<number, ToolCall>();
+
+	for await (const chunk of stream) {
+		const delta = chunk.choices?.[0]?.delta;
+		if (!delta) continue;
+
+		if (delta.content) {
+			content += delta.content;
+			if (debug) {
+				process.stdout.write(delta.content);
+			}
+		}
+
+		if (delta.reasoning) {
+			reasoning += delta.reasoning;
+			if (debug) {
+				process.stdout.write(`\x1b[2m${delta.reasoning}\x1b[0m`);
+			}
+		}
+
+		if (delta.toolCalls) {
+			for (const tc of delta.toolCalls) {
+				const existing = toolCallMap.get(tc.index);
+				if (existing) {
+					if (tc.function?.arguments) {
+						existing.function.arguments += tc.function.arguments;
+					}
+				} else {
+					toolCallMap.set(tc.index, {
+						id: tc.id ?? "",
+						type: "function",
+						function: {
+							name: tc.function?.name ?? "",
+							arguments: tc.function?.arguments ?? "",
+						},
+					});
+				}
+			}
+		}
 	}
 
-	return (await response.json()) as ApiResponse;
+	if (debug && (content || reasoning)) {
+		process.stdout.write("\n");
+	}
+
+	const toolCalls = toolCallMap.size > 0
+		? Array.from(toolCallMap.entries()).sort((a, b) => a[0] - b[0]).map(([, v]) => v)
+		: undefined;
+
+	return {
+		choices: [{
+			message: {
+				content: content || null,
+				toolCalls,
+			},
+		}],
+	};
 }
 
 function resolveToolCall(
@@ -122,7 +191,7 @@ function debugMessages(messages: ChatMessage[]): void {
 		} else if (msg.role === "user") {
 			debugLog("USER", msg.content ?? "");
 		} else if (msg.role === "tool") {
-			debugLog(`TOOL RESULT (call ${msg.tool_call_id})`, truncate(msg.content ?? "", 300));
+			debugLog(`TOOL RESULT (call ${msg.toolCallId})`, truncate(msg.content ?? "", 300));
 		}
 	}
 }
@@ -154,22 +223,23 @@ async function callModel(
 	}
 
 	for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
-		const data = await callModelRaw(model, messages, tools);
+		const data = await callModelRaw(model, messages, tools, debug);
 		const msg = data.choices[0]?.message;
 		if (!msg) return "";
 
 		// If no tool calls, return the text content
-		if (!msg.tool_calls || msg.tool_calls.length === 0) {
-			if (debug) {
+		if (!msg.toolCalls || msg.toolCalls.length === 0) {
+      if (debug) {
+        console.log(msg);
 				debugLog("RESPONSE ← (final text)", truncate(msg.content ?? "", 500));
 			}
 			return msg.content ?? "";
 		}
 
 		if (debug) {
-			debugLog(`RESPONSE ← (round ${round + 1}, ${msg.tool_calls.length} tool call(s))`, {
+			debugLog(`RESPONSE ← (round ${round + 1}, ${msg.toolCalls.length} tool call(s))`, {
 				content: msg.content ? truncate(msg.content, 200) : null,
-				tool_calls: msg.tool_calls.map(tc => ({
+				toolCalls: msg.toolCalls.map(tc => ({
 					id: tc.id,
 					function: tc.function.name,
 					arguments: tc.function.arguments,
@@ -179,7 +249,7 @@ async function callModel(
 
 		// Check if any tool call is an MCQ answer
 		if (mcqToolNames) {
-			for (const toolCall of msg.tool_calls) {
+			for (const toolCall of msg.toolCalls) {
 				const letter = MCQ_LETTER_MAP[toolCall.function.name];
 				if (letter) {
 					if (debug) {
@@ -195,22 +265,22 @@ async function callModel(
 			return msg.content ?? "";
 		}
 
-		// Append assistant message with tool_calls
+		// Append assistant message with toolCalls
 		messages.push({
 			role: "assistant",
 			content: msg.content ?? undefined,
-			tool_calls: msg.tool_calls,
+			toolCalls: msg.toolCalls,
 		});
 
 		// Resolve each tool call and append results
-		for (const toolCall of msg.tool_calls) {
+		for (const toolCall of msg.toolCalls) {
 			const result = resolveToolCall(toolCall, skillsMap);
 			if (debug) {
 				debugLog(`TOOL RESOLVE: ${toolCall.function.name}(${toolCall.function.arguments})`, truncate(result, 300));
 			}
 			messages.push({
 				role: "tool",
-				tool_call_id: toolCall.id,
+				toolCallId: toolCall.id,
 				content: result,
 			});
 		}
@@ -221,7 +291,7 @@ async function callModel(
 	}
 
 	// Max rounds exceeded — make one final call without tools to force a text response
-	const finalData = await callModelRaw(model, messages);
+	const finalData = await callModelRaw(model, messages, undefined, debug);
 	const finalContent = finalData.choices[0]?.message?.content ?? "";
 	if (debug) {
 		debugLog("RESPONSE ← (forced final)", truncate(finalContent, 500));

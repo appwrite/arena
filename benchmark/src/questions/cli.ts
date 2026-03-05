@@ -51,7 +51,7 @@ export const cliQuestions: Question[] = [
 			"appwrite.config.js",
 			".appwriterc",
 			"appwrite.yaml",
-			"appwrite.json",
+			"appwrite.config.json",
 		],
 		correctAnswer: "D",
 	},
@@ -120,17 +120,17 @@ export const cliQuestions: Question[] = [
 		category: "cli",
 		type: "free-form",
 		question:
-			"Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.json.",
+			"Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
 		correctAnswer:
-			"Run appwrite init function to scaffold, choose runtime and template, configure appwrite.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+			"Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
 		rubric:
-			"Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+			"Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
 	},
 	{
 		id: "cli-11",
 		category: "cli",
 		type: "mcq",
-		question: "What command initializes the CLI with your Appwrite project and creates appwrite.json?",
+		question: "What command initializes the CLI with your Appwrite project and creates appwrite.config.json?",
 		choices: [
 			"appwrite init project",
 			"appwrite setup",
@@ -169,7 +169,7 @@ export const cliQuestions: Question[] = [
 		id: "cli-14",
 		category: "cli",
 		type: "mcq",
-		question: "What does the appwrite.json file represent?",
+		question: "What does the appwrite.config.json file represent?",
 		choices: [
 			"Only function configurations",
 			"User credentials only",
@@ -225,7 +225,7 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"Pushes code to a Git repository",
 			"Uploads environment variables only",
-			"Deploys tracked resources (e.g. functions, collections) from appwrite.json to your Appwrite project",
+			"Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
 			"Syncs local config with the server and overwrites server state",
 		],
 		correctAnswer: "C",
@@ -253,5 +253,117 @@ export const cliQuestions: Question[] = [
 			"The data must be a valid JSON string with keys and values in double quotes. Permissions like read and write are passed as arrays with space-separated values, e.g. --data '{\"name\": \"John\"}' --permissions 'read(\"any\")' 'read(\"team:abc\")'.",
 		rubric:
 			"Must mention: 1) data as JSON string with double quotes, 2) permissions as array (space-separated in CLI), 3) Example or correct syntax for databases create-document",
+	},
+	{
+		id: "cli-21",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What happens if an Appwrite project contains an appwrite.json file but no appwrite.config.json?",
+		choices: [
+			"The CLI throws an error and requires appwrite.config.json",
+			"The CLI falls back to appwrite.json for legacy backwards compatibility",
+			"The CLI ignores it and uses default settings",
+			"The CLI automatically migrates appwrite.json to appwrite.config.json",
+		],
+		correctAnswer: "B",
+	},
+	{
+		id: "cli-22",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What does the appwrite types command do?",
+		choices: [
+		  "Generates typed models for your Appwrite project's collections and attributes",
+			"Lists all data types supported by Appwrite databases",
+			"Converts documents between different data formats",
+			"Validates the types defined in appwrite.config.json",
+		],
+		correctAnswer: "A",
+	},
+	{
+		id: "cli-23",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What does the --strict flag do in the appwrite types command?",
+		choices: [
+			"Enforces type-safe null checks in generated code",
+			"Throws errors for missing or invalid collection attributes",
+			"Automatically converts field names to follow language conventions",
+			"Disables generation of optional fields",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "cli-24",
+		category: "cli",
+		type: "mcq",
+		question:
+			"A function works locally but fails after pushing because environment variables are missing. What flag was likely missing from the push command?",
+		choices: [
+			"--env",
+			"--with-variables",
+			"--include-env",
+			"--push-variables",
+		],
+		correctAnswer: "B",
+	},
+	{
+		id: "cli-25",
+		category: "cli",
+		type: "mcq",
+		question:
+			"When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+		choices: [
+			"The attribute is created with a default size of 255",
+			"The attribute is created as an unlimited text field",
+			"The CLI automatically calculates the size based on sample data",
+			"The CLI throws a validation error because 'size' is required for string/varchar types",
+		],
+		correctAnswer: "D",
+	},
+	{
+		id: "cli-26",
+		category: "cli",
+		type: "mcq",
+		question:
+			"In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+		choices: [
+			"The default can be any value matching the type",
+			"The default must be set to an empty string or 0",
+			"The default must be null",
+			"The default property is optional and can be omitted",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "cli-27",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What does the 'appwrite generate' command do?",
+		choices: [
+			"Generates a new Appwrite project from a template",
+			"Creates boilerplate code for functions and collections",
+			"Generates a type-safe SDK from your Appwrite project configuration",
+			"Generates API documentation for your project",
+		],
+		correctAnswer: "C",
+	},
+	{
+		id: "cli-28",
+		category: "cli",
+		type: "mcq",
+		question:
+			"What's the key difference between `appwrite run function` and `appwrite push function`?",
+		choices: [
+		  "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+			"`run` deploys to staging, `push` deploys to production",
+			"`run` is for testing, `push` is for CI/CD pipelines only",
+			"`run` requires internet connection, `push` works offline",
+		],
+		correctAnswer: "A",
 	},
 ];

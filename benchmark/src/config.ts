@@ -10,6 +10,7 @@ export const MODELS: ModelConfig[] = [
 		name: "Gemini 3.1 Pro (Preview)",
 		provider: "Google",
 		openRouterId: "google/gemini-3.1-pro-preview",
+		openRouterProviderOrder: ["google-ai-studio"],
 	},
 	{
 		id: "gpt-5-3-codex",

@@ -147,6 +147,29 @@ interface ModelProgress {
 	results: QuestionResult[];
 }
 
+function sanitizeResults(models: Record<string, ModelProgress>): boolean {
+	let fixed = false;
+	for (const [modelId, model] of Object.entries(models)) {
+		const seen = new Map<string, number>();
+		const duplicates: string[] = [];
+		for (let i = 0; i < model.results.length; i++) {
+			const qid = model.results[i].questionId;
+			if (seen.has(qid)) {
+				duplicates.push(qid);
+			}
+			seen.set(qid, i);
+		}
+		if (duplicates.length > 0) {
+			// Keep last occurrence of each questionId
+			const keepIndices = new Set(seen.values());
+			model.results = model.results.filter((_, i) => keepIndices.has(i));
+			console.log(`  Sanitize: removed ${duplicates.length} duplicate(s) from ${modelId}: ${[...new Set(duplicates)].join(", ")}`);
+			fixed = true;
+		}
+	}
+	return fixed;
+}
+
 function getResultsPath(mode: string): string {
 	return resolve(import.meta.dir, `../../src/data/results-${mode}.json`);
 }
@@ -172,6 +195,7 @@ function loadExistingResults(mode: string): Record<string, ModelProgress> {
 						correct: d.correct,
 						score: d.score,
 						judgeReasoning: d.judgeReasoning,
+						...(d.modComment ? { modComment: d.modComment } : {}),
 					})),
 				};
 			}
@@ -214,6 +238,7 @@ function saveResults(
 				correct: r.correct,
 				score: r.score,
 				judgeReasoning: r.judgeReasoning,
+				...(r.modComment ? { modComment: r.modComment } : {}),
 			};
 		});
 
@@ -271,6 +296,11 @@ async function main() {
 		console.log(
 			`Resuming: ${existingModelCount} models with ${totalExistingResults} results found`,
 		);
+	}
+
+	if (sanitizeResults(models)) {
+		saveResults(models, mode);
+		console.log(`Sanitized results saved.`);
 	}
 
 	let skillsMap: Map<string, SkillInfo> | undefined;
