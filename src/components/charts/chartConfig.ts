@@ -38,7 +38,10 @@ export function getModelColor(provider: string): string {
 
 export function getShortName(modelName: string): string {
 	if (modelName.includes("Claude")) return "Claude";
-	if (modelName.includes("GPT")) return "GPT";
+	if (modelName.includes("GPT")) {
+		const match = modelName.match(/GPT\s*([\d.]+)/);
+		return match ? `GPT ${match[1]}` : "GPT";
+	}
 	if (modelName.includes("Gemini")) return "Gemini";
 	if (modelName.includes("Kimi")) return "Kimi";
 	if (modelName.includes("GLM")) return "GLM";

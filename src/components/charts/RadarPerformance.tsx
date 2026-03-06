@@ -134,12 +134,16 @@ export default function RadarPerformance({ models }: Props) {
 						}))}
 						content={({ payload: items, onClick: onLegendClick }) => (
 							<div
-								style={{
+                style={{
+                  maxWidth: '500px',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
 									display: "flex",
 									justifyContent: "center",
 									flexWrap: "wrap",
 									gap: "12px 20px",
-									paddingTop: 12,
+                  paddingTop: 12,
+                  transform: 'translateY(20px)',
 									fontSize: 13,
 									cursor: "pointer",
 								}}

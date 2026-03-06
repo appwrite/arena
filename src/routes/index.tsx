@@ -27,6 +27,9 @@ import { CATEGORY_LABELS } from "#/lib/types";
 const withSkills = withSkillsData as BenchmarkResults;
 const withoutSkills = withoutSkillsData as BenchmarkResults;
 
+/** Model IDs to hide from the homepage. */
+const HIDDEN_MODEL_IDS: string[] = [];
+
 const SORT_OPTIONS: { field: SortField; label: string }[] = [
 	{ field: "overall", label: "Overall" },
 	{ field: "costPerMillionTokens", label: "Cost" },
@@ -141,8 +144,18 @@ function App() {
 
 	const activeData = dataset === "with-skills" ? withSkills : withoutSkills;
 
+	const visibleModels = useMemo(
+		() =>
+			HIDDEN_MODEL_IDS.length > 0
+				? activeData.models.filter(
+						(m) => !HIDDEN_MODEL_IDS.includes(m.modelId),
+					)
+				: activeData.models,
+		[activeData.models],
+	);
+
 	const sortedModels = useSortedModels(
-		activeData.models,
+		visibleModels,
 		scoringMode,
 		sortField,
 		sortDirection,
@@ -263,13 +276,17 @@ function App() {
 			</HeroSection>
 
 			<ChartsSection
-				models={activeData.models}
-				withSkillsModels={withSkills.models}
-				withoutSkillsModels={withoutSkills.models}
+				models={visibleModels}
+				withSkillsModels={withSkills.models.filter(
+					(m) => !HIDDEN_MODEL_IDS.includes(m.modelId),
+				)}
+				withoutSkillsModels={withoutSkills.models.filter(
+					(m) => !HIDDEN_MODEL_IDS.includes(m.modelId),
+				)}
 			/>
 
 			<HowItWorks
-				modelCount={withSkills.models.length}
+				modelCount={visibleModels.length}
 				questionCount={withSkills.totalQuestions}
 				categoryCount={Object.keys(CATEGORY_LABELS).length}
 			/>
