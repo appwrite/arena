@@ -6,6 +6,8 @@ import GeminiColor from "@lobehub/icons/es/Gemini/components/Color";
 import Gemini from "@lobehub/icons/es/Gemini/components/Mono";
 import KimiColor from "@lobehub/icons/es/Kimi/components/Color";
 import Kimi from "@lobehub/icons/es/Kimi/components/Mono";
+import MinimaxColor from "@lobehub/icons/es/Minimax/components/Color";
+import Minimax from "@lobehub/icons/es/Minimax/components/Mono";
 import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
 import QwenColor from "@lobehub/icons/es/Qwen/components/Color";
 import Qwen from "@lobehub/icons/es/Qwen/components/Mono";
@@ -37,6 +39,7 @@ const PROVIDERS: Record<string, IconEntry> = {
 	Zhipu: { Icon: Zhipu, ColorIcon: ZhipuColor, brandColor: "#3B82F6" },
 	Alibaba: { Icon: Qwen, ColorIcon: QwenColor, brandColor: "#6366F1" },
 	DeepSeek: { Icon: DeepSeek, ColorIcon: DeepSeekColor, brandColor: "#4D6BFE" },
+	MiniMax: { Icon: Minimax, ColorIcon: MinimaxColor, brandColor: "#E85C2B" },
 };
 
 export default function ProviderLogo({

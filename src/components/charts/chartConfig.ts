@@ -29,6 +29,7 @@ export const MODEL_COLORS: Record<string, string> = {
 	Zhipu: "#3B82F6",
 	Alibaba: "#6366F1",
 	DeepSeek: "#4D6BFE",
+	MiniMax: "#E85C2B",
 };
 
 export function getModelColor(provider: string): string {
@@ -43,6 +44,7 @@ export function getShortName(modelName: string): string {
 	if (modelName.includes("GLM")) return "GLM";
 	if (modelName.includes("Qwen")) return "Qwen";
 	if (modelName.includes("DeepSeek")) return "DeepSeek";
+	if (modelName.includes("MiniMax")) return "MiniMax";
 	return modelName.split(" ")[0];
 }
 

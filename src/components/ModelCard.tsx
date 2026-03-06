@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { getOverallColor, getScoreClass } from "#/lib/colors";
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
 import ProviderLogo from "./ProviderLogo";
@@ -39,8 +40,7 @@ export default function ModelCard({ model, scoringMode }: ModelCardProps) {
 				? model.freeformOverall
 				: model.overall;
 
-	const overallColor =
-		overall >= 70 ? "#85DBD8" : overall >= 40 ? "#FE9567" : "#FF453A";
+	const overallColor = getOverallColor(overall);
 
 	return (
 		<Link
@@ -71,14 +71,7 @@ export default function ModelCard({ model, scoringMode }: ModelCardProps) {
 			<div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
 				{CATEGORIES.map((cat) => {
 					const score = scores?.[cat];
-					const scoreClass =
-						score !== undefined
-							? score >= 70
-								? "score-high"
-								: score >= 40
-									? "score-mid"
-									: "score-low"
-							: "";
+					const scoreClass = score !== undefined ? getScoreClass(score) : "";
 
 					return (
 						<div key={cat} className="flex items-center justify-between">

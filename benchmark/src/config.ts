@@ -48,6 +48,12 @@ export const MODELS: ModelConfig[] = [
 		provider: "DeepSeek",
 		openRouterId: "deepseek/deepseek-v3.2",
 	},
+	{
+		id: "minimax-m2-5",
+		name: "MiniMax M2.5",
+		provider: "MiniMax",
+		openRouterId: "minimax/minimax-m2.5",
+	},
 ];
 
 export const JUDGE_MODEL = "anthropic/claude-sonnet-4.6";
