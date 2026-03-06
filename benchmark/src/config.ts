@@ -30,6 +30,30 @@ export const MODELS: ModelConfig[] = [
 		provider: "MoonshotAI",
 		openRouterId: "moonshotai/kimi-k2.5",
 	},
+	{
+		id: "glm-5",
+		name: "GLM 5",
+		provider: "Zhipu",
+		openRouterId: "z-ai/glm-5",
+	},
+	{
+		id: "qwen3-5-397b-a17b",
+		name: "Qwen 3.5 397B A17B",
+		provider: "Alibaba",
+		openRouterId: "qwen/qwen3.5-397b-a17b",
+	},
+	{
+		id: "deepseek-v3-2",
+		name: "DeepSeek V3.2",
+		provider: "DeepSeek",
+		openRouterId: "deepseek/deepseek-v3.2",
+	},
+	{
+		id: "minimax-m2-5",
+		name: "MiniMax M2.5",
+		provider: "MiniMax",
+		openRouterId: "minimax/minimax-m2.5",
+	},
 ];
 
 export const JUDGE_MODEL = "anthropic/claude-sonnet-4.6";

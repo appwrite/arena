@@ -344,6 +344,7 @@ async function processQuestion(
 	let prompt = question.question;
 	let mcqToolNames: Set<string> | undefined;
 	let effectiveTools = tools;
+	let effectiveSystemPrompt = systemPrompt;
 
 	if (question.type === "mcq" && question.choices) {
 		prompt +=
@@ -355,10 +356,11 @@ async function processQuestion(
 		const mcq = buildMCQTools(question.choices);
 		mcqToolNames = mcq.mcqToolNames;
 		effectiveTools = [...(tools ?? []), ...mcq.tools];
+		effectiveSystemPrompt += "\nTo answer, you must call the tool corresponding to the correct answer (e.g. answer_a, answer_b, answer_c, or answer_d). Do not respond with text.";
 	}
 
 	try {
-		const response = await callModel(model, systemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
+		const response = await callModel(model, effectiveSystemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
 
 		let correct = false;
 		let score = 0;
@@ -435,10 +437,6 @@ export async function runBenchmark({
 				const idx = nextIndex++;
 				const question = remaining[idx];
         running++;
-				
-        if (question.type === "mcq") {
-          systemPrompt += "\nTo answer, you must call the tool corresponding to the correct answer (e.g. answer_a, answer_b, answer_c, or answer_d). Do not respond with text.";
-        }
 
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {
 					running--;

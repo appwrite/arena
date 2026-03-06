@@ -1,5 +1,6 @@
 import { Check, ChevronDown, X } from "lucide-react";
 import { useState } from "react";
+import { getScoreClass } from "#/lib/colors";
 import type { QuestionDetail } from "#/lib/types";
 
 interface QuestionCardProps {
@@ -14,12 +15,7 @@ export default function QuestionCard({ detail }: QuestionCardProps) {
 	const isMcq = detail.type === "mcq";
 	const isFail = detail.modelAnswer === "FAIL";
 	const scorePercent = Math.round(detail.score * 100);
-	const scoreClass =
-		scorePercent >= 70
-			? "score-high"
-			: scorePercent >= 40
-				? "score-mid"
-				: "score-low";
+	const scoreClass = getScoreClass(scorePercent);
 
 	function toggle() {
 		if (!open) {
