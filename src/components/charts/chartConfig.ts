@@ -26,6 +26,9 @@ export const MODEL_COLORS: Record<string, string> = {
 	OpenAI: "#10B981",
 	Google: "#68A3FE",
 	MoonshotAI: "#7C67FE",
+	Zhipu: "#3B82F6",
+	Alibaba: "#6366F1",
+	DeepSeek: "#4D6BFE",
 };
 
 export function getModelColor(provider: string): string {
@@ -37,6 +40,9 @@ export function getShortName(modelName: string): string {
 	if (modelName.includes("GPT")) return "GPT";
 	if (modelName.includes("Gemini")) return "Gemini";
 	if (modelName.includes("Kimi")) return "Kimi";
+	if (modelName.includes("GLM")) return "GLM";
+	if (modelName.includes("Qwen")) return "Qwen";
+	if (modelName.includes("DeepSeek")) return "DeepSeek";
 	return modelName.split(" ")[0];
 }
 

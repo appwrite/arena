@@ -1,10 +1,16 @@
 import ClaudeColor from "@lobehub/icons/es/Claude/components/Color";
 import Claude from "@lobehub/icons/es/Claude/components/Mono";
+import DeepSeekColor from "@lobehub/icons/es/DeepSeek/components/Color";
+import DeepSeek from "@lobehub/icons/es/DeepSeek/components/Mono";
 import GeminiColor from "@lobehub/icons/es/Gemini/components/Color";
 import Gemini from "@lobehub/icons/es/Gemini/components/Mono";
 import KimiColor from "@lobehub/icons/es/Kimi/components/Color";
 import Kimi from "@lobehub/icons/es/Kimi/components/Mono";
 import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
+import QwenColor from "@lobehub/icons/es/Qwen/components/Color";
+import Qwen from "@lobehub/icons/es/Qwen/components/Mono";
+import ZhipuColor from "@lobehub/icons/es/Zhipu/components/Color";
+import Zhipu from "@lobehub/icons/es/Zhipu/components/Mono";
 import type { ComponentType, SVGProps } from "react";
 
 type IconComponent = ComponentType<
@@ -28,6 +34,9 @@ const PROVIDERS: Record<string, IconEntry> = {
 	OpenAI: { Icon: OpenAI, brandColor: "#ffffff" },
 	Google: { Icon: Gemini, ColorIcon: GeminiColor, brandColor: "#4285F4" },
 	MoonshotAI: { Icon: Kimi, ColorIcon: KimiColor, brandColor: "#0071e3" },
+	Zhipu: { Icon: Zhipu, ColorIcon: ZhipuColor, brandColor: "#3B82F6" },
+	Alibaba: { Icon: Qwen, ColorIcon: QwenColor, brandColor: "#6366F1" },
+	DeepSeek: { Icon: DeepSeek, ColorIcon: DeepSeekColor, brandColor: "#4D6BFE" },
 };
 
 export default function ProviderLogo({
