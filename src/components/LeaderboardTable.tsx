@@ -41,15 +41,15 @@ export default function LeaderboardTable({
 	return (
 		<div className="arena-card max-w-full overflow-x-auto">
 			<table
-				className={`w-full border-collapse table-fixed ${hideModel ? "" : "min-w-[960px]"}`}
+				className={`w-full border-collapse ${hideModel ? "" : "min-w-[960px]"}`}
 			>
 				<colgroup>
-					{!hideModel && <col style={{ width: "48px" }} />}
-					{!hideModel && <col style={{ width: "20%" }} />}
-					<col style={{ width: "8.4%" }} />
-					<col style={{ width: "8.4%" }} />
+					{!hideModel && <col style={{ width: "48px", minWidth: "48px" }} />}
+					{!hideModel && <col style={{ width: "180px", minWidth: "180px" }} />}
+					<col style={{ width: "80px" }} />
+					<col style={{ width: "80px" }} />
 					{categories.map((cat) => (
-						<col key={cat} style={{ width: "8.4%" }} />
+						<col key={cat} />
 					))}
 				</colgroup>
 				<thead>
