@@ -1,8 +1,11 @@
 export type ScoreTier = "high" | "mid" | "low";
 
+export const SCORE_THRESHOLD_HIGH = 95;
+export const SCORE_THRESHOLD_LOW = 85;
+
 export function getScoreTier(score: number): ScoreTier {
-	if (score >= 95) return "high";
-	if (score >= 85) return "mid";
+	if (score >= SCORE_THRESHOLD_HIGH) return "high";
+	if (score >= SCORE_THRESHOLD_LOW) return "mid";
 	return "low";
 }
 

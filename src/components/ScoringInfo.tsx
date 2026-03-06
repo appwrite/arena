@@ -1,4 +1,5 @@
 import { Info } from "lucide-react";
+import { SCORE_THRESHOLD_HIGH, SCORE_THRESHOLD_LOW } from "@/lib/colors";
 
 interface ScoringInfoProps {
 	runDate?: string;
@@ -27,7 +28,7 @@ export default function ScoringInfo({ runDate }: ScoringInfoProps) {
 			)}
 
 			<span className="md:ml-auto text-center md:text-right leading-relaxed">
-				Above 95% is recommended, below 85% is not advised.
+				Above {SCORE_THRESHOLD_HIGH}% is recommended, below {SCORE_THRESHOLD_LOW}% is not advised.
 			</span>
 		</div>
 	);
