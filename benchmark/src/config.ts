@@ -19,6 +19,12 @@ export const MODELS: ModelConfig[] = [
 		openRouterId: "openai/gpt-5.3-codex",
 	},
 	{
+		id: "gpt-5-4",
+		name: "GPT 5.4",
+		provider: "OpenAI",
+		openRouterId: "openai/gpt-5.4",
+	},
+	{
 		id: "claude-opus-4-6",
 		name: "Claude Opus 4.6",
 		provider: "Anthropic",
