@@ -64,7 +64,12 @@ async function callModelRaw(
 		model: model.openRouterId,
 		temperature: TEMPERATURE,
 		messages,
-		stream: true,
+    stream: true,
+    reasoning: {
+      enabled: true,
+      effort: "xhigh",
+      max_tokens: 25000,
+		}
 	};
 	if (tools && tools.length > 0) {
 		chatGenerationParams.tools = tools;
