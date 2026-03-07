@@ -12,6 +12,7 @@ import Minimax from "@lobehub/icons/es/Minimax/components/Mono";
 import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
 import QwenColor from "@lobehub/icons/es/Qwen/components/Color";
 import Qwen from "@lobehub/icons/es/Qwen/components/Mono";
+import Grok from "@lobehub/icons/es/Grok/components/Mono";
 import ZhipuColor from "@lobehub/icons/es/Zhipu/components/Color";
 import Zhipu from "@lobehub/icons/es/Zhipu/components/Mono";
 import type { ComponentType, SVGProps } from "react";
@@ -32,6 +33,7 @@ const PROVIDER_ICONS: Record<
 	Alibaba: { Icon: Qwen, ColorIcon: QwenColor },
 	DeepSeek: { Icon: DeepSeek, ColorIcon: DeepSeekColor },
 	MiniMax: { Icon: Minimax, ColorIcon: MinimaxColor },
+	xAI: { Icon: Grok },
 };
 
 interface ProviderLogoProps {

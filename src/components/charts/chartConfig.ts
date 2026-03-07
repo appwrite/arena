@@ -36,6 +36,7 @@ export function getShortName(modelName: string): string {
 	if (modelName.includes("Qwen")) return "Qwen";
 	if (modelName.includes("DeepSeek")) return "DeepSeek";
 	if (modelName.includes("MiniMax")) return "MiniMax";
+	if (modelName.includes("Grok")) return "Grok";
 	return modelName.split(" ")[0];
 }
 
