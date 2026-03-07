@@ -111,13 +111,13 @@ body {
 }
 
 .arena-container {
-  width: min(1200px, calc(100% - 1rem));
+  width: min(1360px, calc(100% - 1rem));
   margin-inline: auto;
 }
 
 @media (min-width: 768px) {
   .arena-container {
-    width: min(1200px, calc(100% - 2rem));
+    width: min(1360px, calc(100% - 2rem));
   }
 }
 

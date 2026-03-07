@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowDown, ArrowUp } from "lucide-react";
-import { useCallback, useMemo } from "react";
+import { ArrowDown, ArrowUp, ChevronDown } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import CategoriesGrid from "#/components/CategoriesGrid";
 import ChartsSection from "#/components/charts/ChartsSection";
 import FilterChip from "#/components/FilterChip";
@@ -15,6 +15,7 @@ import TwoModes from "#/components/TwoModes";
 import ViewToggle from "#/components/ViewToggle";
 import withSkillsData from "#/data/results-with-skills.json";
 import withoutSkillsData from "#/data/results-without-skills.json";
+import { SITE_URL } from "#/lib/site";
 import type {
 	BenchmarkResults,
 	CategoryKey,
@@ -30,13 +31,124 @@ const withoutSkills = withoutSkillsData as BenchmarkResults;
 /** Model IDs to hide from the homepage. */
 const HIDDEN_MODEL_IDS: string[] = [];
 
-const SORT_OPTIONS: { field: SortField; label: string }[] = [
+const VALID_SORT_FIELDS = new Set<SortField>([
+	"overall",
+	"costPerMillionTokens",
+	"modelName",
+	"foundation",
+	"auth",
+	"databases",
+	"functions",
+	"storage",
+	"sites",
+	"messaging",
+	"realtime",
+	"cli",
+]);
+
+/** Sort options shown in the grid-view popover (Overall, Cost, Model first; then categories). */
+const GRID_SORT_OPTIONS: { field: SortField; label: string }[] = [
 	{ field: "overall", label: "Overall" },
 	{ field: "costPerMillionTokens", label: "Cost" },
 	{ field: "modelName", label: "Model" },
+	...(
+		[
+			"foundation",
+			"auth",
+			"databases",
+			"functions",
+			"storage",
+			"sites",
+			"messaging",
+			"realtime",
+			"cli",
+		] as const
+	).map((cat) => ({ field: cat as SortField, label: CATEGORY_LABELS[cat] })),
 ];
 
-const VALID_SORT_FIELDS = new Set(SORT_OPTIONS.map((o) => o.field));
+function SortByPopover({
+	sortField,
+	sortDirection,
+	onSort,
+}: {
+	sortField: SortField;
+	sortDirection: "asc" | "desc";
+	onSort: (field: SortField, dir: "asc" | "desc") => void;
+}) {
+	const [open, setOpen] = useState(false);
+	const ref = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (!open) return;
+		function handleClick(e: MouseEvent) {
+			if (ref.current && !ref.current.contains(e.target as Node)) {
+				setOpen(false);
+			}
+		}
+		document.addEventListener("mousedown", handleClick);
+		return () => document.removeEventListener("mousedown", handleClick);
+	}, [open]);
+
+	const currentLabel =
+		GRID_SORT_OPTIONS.find((o) => o.field === sortField)?.label ?? "Overall";
+
+	return (
+		<div ref={ref} className="relative inline-flex items-center gap-1">
+			<button
+				type="button"
+				onClick={() => setOpen((o) => !o)}
+				className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1 text-xs transition hover:border-[var(--line)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
+			>
+				<span className="text-[var(--text-secondary)]">Sort by</span>
+				<span className="font-medium text-[var(--text-primary)]">
+					{currentLabel}
+				</span>
+				<ChevronDown
+					size={12}
+					className={`text-[var(--text-secondary)] transition-transform ${open ? "rotate-180" : ""}`}
+				/>
+			</button>
+			<button
+				type="button"
+				onClick={() =>
+					onSort(sortField, sortDirection === "desc" ? "asc" : "desc")
+				}
+				className="inline-flex cursor-pointer items-center justify-center rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] p-1 text-[var(--text-primary)] transition hover:border-[var(--line)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
+				title={sortDirection === "desc" ? "Descending" : "Ascending"}
+			>
+				{sortDirection === "desc" ? (
+					<ArrowDown size={12} aria-hidden />
+				) : (
+					<ArrowUp size={12} aria-hidden />
+				)}
+			</button>
+			{open && (
+				<div className="absolute left-0 top-full z-50 mt-1 min-w-[120px] overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--bg-base)] py-1 shadow-lg">
+					{GRID_SORT_OPTIONS.map((option) => (
+						<button
+							key={option.field}
+							type="button"
+							onClick={() => {
+								onSort(
+									option.field,
+									option.field === "modelName" ? "asc" : "desc",
+								);
+								setOpen(false);
+							}}
+							className={`block w-full cursor-pointer border-none bg-transparent px-3 py-1.5 text-left text-xs transition hover:bg-[var(--link-bg-hover)] ${
+								sortField === option.field
+									? "font-medium text-[var(--text-primary)]"
+									: "text-[var(--text-secondary)]"
+							}`}
+						>
+							{option.label}
+						</button>
+					))}
+				</div>
+			)}
+		</div>
+	);
+}
 
 function useSortedModels(
 	models: ModelResult[],
@@ -106,6 +218,9 @@ interface SearchParams {
 }
 
 export const Route = createFileRoute("/")({
+	head: () => ({
+		links: [{ rel: "canonical", href: SITE_URL }],
+	}),
 	validateSearch: (search: Record<string, unknown>): SearchParams => {
 		const result: SearchParams = {};
 		if (search.dataset === "without-skills") {
@@ -191,18 +306,12 @@ function App() {
 		[navigate],
 	);
 
-	const currentSortLabel =
-		SORT_OPTIONS.find((o) => o.field === sortField)?.label ?? "Overall";
-
-	function handleSortClick() {
-		const currentIndex = SORT_OPTIONS.findIndex((o) => o.field === sortField);
-		const nextIndex = (currentIndex + 1) % SORT_OPTIONS.length;
-		setFilter({ sort: SORT_OPTIONS[nextIndex].field });
-	}
-
-	function handleDirectionClick() {
-		setFilter({ dir: sortDirection === "desc" ? "asc" : "desc" });
-	}
+	const handleSort = useCallback(
+		(field: SortField, dir: "asc" | "desc") => {
+			setFilter({ sort: field, dir });
+		},
+		[setFilter],
+	);
 
 	return (
 		<main className="flex flex-1 flex-col">
@@ -230,27 +339,13 @@ function App() {
 						onChange={(v) => setFilter({ scoring: v as ScoringMode })}
 					/>
 					<span className="ml-auto inline-flex items-center gap-2">
-						<span className="inline-flex items-center gap-1 text-xs text-[var(--text-secondary)]">
-							Sorted by
-							<button
-								type="button"
-								onClick={handleSortClick}
-								className="cursor-pointer border-none bg-transparent font-medium text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
-							>
-								{currentSortLabel}
-							</button>
-							<button
-								type="button"
-								onClick={handleDirectionClick}
-								className="cursor-pointer border-none bg-transparent text-[var(--text-primary)] transition hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
-							>
-								{sortDirection === "desc" ? (
-									<ArrowDown size={12} />
-								) : (
-									<ArrowUp size={12} />
-								)}
-							</button>
-						</span>
+						{viewMode === "grid" && (
+							<SortByPopover
+								sortField={sortField}
+								sortDirection={sortDirection}
+								onSort={handleSort}
+							/>
+						)}
 						<ViewToggle
 							view={viewMode}
 							onChange={(v) => setFilter({ view: v })}
@@ -259,7 +354,13 @@ function App() {
 				</div>
 
 				{viewMode === "list" ? (
-					<LeaderboardTable models={sortedModels} scoringMode={scoringMode} />
+					<LeaderboardTable
+						models={sortedModels}
+						scoringMode={scoringMode}
+						sortField={sortField}
+						sortDirection={sortDirection}
+						onSort={handleSort}
+					/>
 				) : (
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 						{sortedModels.map((model) => (

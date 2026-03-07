@@ -15,7 +15,7 @@ Questions are split into **57 multiple-choice** (auto-scored) and **13 free-form
 
 | Category | Topics |
 |---|---|
-| Fundamental | Core Appwrite concepts and architecture |
+| Foundation | Core Appwrite concepts and architecture |
 | Auth | Authentication, users, teams, OAuth |
 | Databases | Collections, documents, queries, permissions |
 | Functions | Serverless functions, runtimes, triggers |

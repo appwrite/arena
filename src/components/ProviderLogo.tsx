@@ -1,3 +1,4 @@
+import { getProviderBrandColor } from "../../benchmark/src/config";
 import ClaudeColor from "@lobehub/icons/es/Claude/components/Color";
 import Claude from "@lobehub/icons/es/Claude/components/Mono";
 import DeepSeekColor from "@lobehub/icons/es/DeepSeek/components/Color";
@@ -19,36 +20,35 @@ type IconComponent = ComponentType<
 	SVGProps<SVGSVGElement> & { size?: number | string }
 >;
 
+const PROVIDER_ICONS: Record<
+	string,
+	{ Icon: IconComponent; ColorIcon?: IconComponent }
+> = {
+	Anthropic: { Icon: Claude, ColorIcon: ClaudeColor },
+	OpenAI: { Icon: OpenAI },
+	Google: { Icon: Gemini, ColorIcon: GeminiColor },
+	MoonshotAI: { Icon: Kimi, ColorIcon: KimiColor },
+	Zhipu: { Icon: Zhipu, ColorIcon: ZhipuColor },
+	Alibaba: { Icon: Qwen, ColorIcon: QwenColor },
+	DeepSeek: { Icon: DeepSeek, ColorIcon: DeepSeekColor },
+	MiniMax: { Icon: Minimax, ColorIcon: MinimaxColor },
+};
+
 interface ProviderLogoProps {
 	provider: string;
 	size?: number;
 	colorful?: boolean;
 }
 
-type IconEntry = {
-	Icon: IconComponent;
-	ColorIcon?: IconComponent;
-	brandColor: string;
-};
-
-const PROVIDERS: Record<string, IconEntry> = {
-	Anthropic: { Icon: Claude, ColorIcon: ClaudeColor, brandColor: "#D4A27F" },
-	OpenAI: { Icon: OpenAI, brandColor: "#ffffff" },
-	Google: { Icon: Gemini, ColorIcon: GeminiColor, brandColor: "#4285F4" },
-	MoonshotAI: { Icon: Kimi, ColorIcon: KimiColor, brandColor: "#0071e3" },
-	Zhipu: { Icon: Zhipu, ColorIcon: ZhipuColor, brandColor: "#3B82F6" },
-	Alibaba: { Icon: Qwen, ColorIcon: QwenColor, brandColor: "#6366F1" },
-	DeepSeek: { Icon: DeepSeek, ColorIcon: DeepSeekColor, brandColor: "#4D6BFE" },
-	MiniMax: { Icon: Minimax, ColorIcon: MinimaxColor, brandColor: "#E85C2B" },
-};
-
 export default function ProviderLogo({
 	provider,
 	size = 20,
 	colorful = false,
 }: ProviderLogoProps) {
-	const entry = PROVIDERS[provider];
-	if (!entry) {
+	const icons = PROVIDER_ICONS[provider];
+	const brandColor = getProviderBrandColor(provider) ?? "var(--text-secondary)";
+
+	if (!icons) {
 		return (
 			<span
 				className="inline-flex items-center justify-center rounded-full bg-[var(--line)] text-xs font-medium text-[var(--text-secondary)]"
@@ -59,7 +59,7 @@ export default function ProviderLogo({
 		);
 	}
 
-	const { Icon, ColorIcon, brandColor } = entry;
+	const { Icon, ColorIcon } = icons;
 
 	if (colorful) {
 		if (ColorIcon) {

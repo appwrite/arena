@@ -1,9 +1,9 @@
 import type { Question } from "../types";
 
-export const fundamentalQuestions: Question[] = [
+export const foundationQuestions: Question[] = [
 	{
 		id: "fund-1",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What type of platform is Appwrite?",
 		choices: [
@@ -16,7 +16,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-2",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "Which of the following is NOT one of Appwrite's core services?",
 		choices: ["Auth", "Databases", "Container Orchestration", "Storage"],
@@ -24,7 +24,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-3",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What API protocols does Appwrite support?",
 		choices: ["REST only", "GraphQL only", "REST and GraphQL", "gRPC and REST"],
@@ -32,7 +32,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-4",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What is the purpose of an Appwrite API key?",
 		choices: [
@@ -45,7 +45,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-5",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "Which Appwrite feature enables real-time data synchronization?",
 		choices: [
@@ -58,7 +58,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-6",
-		category: "fundamental",
+		category: "foundation",
 		type: "free-form",
 		question:
 			"Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
@@ -69,7 +69,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-7",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "How is Appwrite typically deployed?",
 		choices: [
@@ -82,7 +82,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-8",
-		category: "fundamental",
+		category: "foundation",
 		type: "free-form",
 		question:
 			"Describe how Appwrite's permission model works. What are the different permission types available?",
@@ -93,7 +93,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-9",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: 'What is a "project" in Appwrite?',
 		choices: [
@@ -106,7 +106,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-10",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question:
 			"Which of the following is a valid way to subscribe to Appwrite Realtime events?",
@@ -120,7 +120,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-11",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What is required when initializing the Appwrite client in a frontend app?",
 		choices: [
@@ -133,7 +133,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-12",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "How do Webhooks differ from Realtime in Appwrite?",
 		choices: [
@@ -146,7 +146,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-13",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What are API key scopes in Appwrite?",
 		choices: [
@@ -159,7 +159,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-14",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "Which role allows access to any user (including unauthenticated)?",
 		choices: [
@@ -172,7 +172,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-15",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "How is Appwrite typically run in production?",
 		choices: [
@@ -185,7 +185,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-16",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What does Role.guests() represent?",
 		choices: [
@@ -198,7 +198,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-17",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "Can you use both REST and GraphQL in the same Appwrite project?",
 		choices: [
@@ -211,7 +211,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-18",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "Which permission type allows creating a new resource?",
 		choices: [
@@ -224,7 +224,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-19",
-		category: "fundamental",
+		category: "foundation",
 		type: "mcq",
 		question: "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
 		choices: [
@@ -237,7 +237,7 @@ export const fundamentalQuestions: Question[] = [
 	},
 	{
 		id: "fund-20",
-		category: "fundamental",
+		category: "foundation",
 		type: "free-form",
 		question:
 			"Name at least three Appwrite services (product areas) and what each is used for.",

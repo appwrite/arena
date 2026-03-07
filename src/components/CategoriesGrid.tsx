@@ -3,7 +3,7 @@ import { CATEGORY_DESCRIPTIONS, CATEGORY_LABELS } from "#/lib/types";
 const entries = Object.entries(CATEGORY_LABELS);
 
 const CATEGORY_ICONS: Record<string, string> = {
-	fundamental: "/icons/cat-fundamental.svg",
+	foundation: "/icons/cat-foundation.svg",
 	auth: "/icons/cat-auth.svg",
 	databases: "/icons/cat-databases.svg",
 	functions: "/icons/cat-functions.svg",

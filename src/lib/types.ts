@@ -24,7 +24,7 @@ export interface BenchmarkResults {
 }
 
 export interface CategoryScores {
-	fundamental: number;
+	foundation: number;
 	auth: number;
 	databases: number;
 	functions: number;
@@ -55,7 +55,7 @@ export interface ModelResult {
 export type ScoringMode = "all" | "mcq" | "freeform";
 
 export const CATEGORY_LABELS: Record<string, string> = {
-	fundamental: "Fundamental",
+	foundation: "Foundation",
 	auth: "Auth",
 	databases: "Databases",
 	functions: "Functions",
@@ -67,7 +67,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<string, string> = {
-	fundamental: "Core concepts, SDKs, permissions, and platform basics",
+	foundation: "Core concepts, SDKs, permissions, and platform basics",
 	auth: "Authentication methods, user management, and sessions",
 	databases: "Collections, documents, queries, and relationships",
 	functions: "Serverless functions, runtimes, and execution",

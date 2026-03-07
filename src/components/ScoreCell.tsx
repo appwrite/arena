@@ -16,7 +16,7 @@ export default function ScoreCell({
 	if (score === undefined || score === null) {
 		return (
 			<td
-				className={`px-3 text-left text-xs whitespace-nowrap text-[var(--text-secondary)] opacity-50 ${borderClass}`}
+				className={`px-2.5 text-left text-xs whitespace-nowrap text-[var(--text-secondary)] opacity-50 ${borderClass}`}
 			>
 				-
 			</td>
@@ -28,7 +28,7 @@ export default function ScoreCell({
 	if (isOverall) {
 		return (
 			<td
-				className={`px-3 text-left text-sm whitespace-nowrap font-semibold ${borderClass}`}
+				className={`px-2.5 text-left text-sm whitespace-nowrap font-semibold ${borderClass}`}
 				style={{ color: getOverallColor(score) }}
 			>
 				{display}%
@@ -37,7 +37,7 @@ export default function ScoreCell({
 	}
 
 	return (
-		<td className={`px-3 text-left whitespace-nowrap ${borderClass}`}>
+		<td className={`px-2.5 text-left whitespace-nowrap ${borderClass}`}>
 			<span
 				className={`${getScoreClass(score)} inline-block rounded-md px-2 py-0.5 text-xs`}
 			>

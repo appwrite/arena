@@ -40,6 +40,14 @@ export interface ModelConfig {
 	provider: string;
 	openRouterId: string;
 	openRouterProviderOrder?: string[];
+	/** Provider website for the UI (e.g. model page link). */
+	providerWebsite?: string;
+	/** Brand color for logo. */
+	providerBrandColor?: string;
+	/** Color used in charts. Falls back to providerBrandColor. */
+	providerChartColor?: string;
+	/** Model/provider origin country for display (e.g. "United States", "China"). */
+	country?: string;
 }
 
 export interface SkillInfo {
