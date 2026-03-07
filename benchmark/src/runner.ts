@@ -45,6 +45,12 @@ function buildMCQTools(choices: string[]): { tools: Tool[]; mcqToolNames: Set<st
 	return { tools, mcqToolNames };
 }
 
+interface UsageInfo {
+	promptTokens: number;
+	completionTokens: number;
+	totalTokens: number;
+}
+
 interface ApiResponse {
 	choices: Array<{
 		message: {
@@ -52,6 +58,8 @@ interface ApiResponse {
 			toolCalls?: ToolCall[];
 		};
 	}>;
+	usage?: UsageInfo;
+	durationMs: number;
 }
 
 async function callModelRaw(
@@ -65,6 +73,7 @@ async function callModelRaw(
 		temperature: TEMPERATURE,
 		messages,
     stream: true,
+    stream_options: { include_usage: true },
     reasoning: {
       enabled: true,
       effort: "xhigh",
@@ -77,6 +86,8 @@ async function callModelRaw(
 	if (model.openRouterProviderOrder) {
 		chatGenerationParams.provider = { order: model.openRouterProviderOrder };
 	}
+
+	const startTime = performance.now();
 
 	const stream = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]) as AsyncIterable<{
 		choices: Array<{
@@ -93,13 +104,49 @@ async function callModelRaw(
 			};
 			finishReason?: string | null;
 		}>;
+		usage?: {
+			prompt_tokens?: number;
+			completion_tokens?: number;
+			total_tokens?: number;
+		};
 	}>;
 
 	let content = "";
 	let reasoning = "";
 	const toolCallMap = new Map<number, ToolCall>();
+	let usage: UsageInfo | undefined;
 
+	let chunkIndex = 0;
+	let lastChunk: string = "";
+	let secondToLastChunk: string = "";
 	for await (const chunk of stream) {
+		const chunkStr = JSON.stringify(chunk, null, 2) ?? String(chunk);
+		if (debug && chunkIndex === 0) {
+			debugLog("STREAM FIRST CHUNK keys", Object.keys(chunk as Record<string, unknown>));
+			debugLog("STREAM FIRST CHUNK", chunkStr.slice(0, 1000));
+		}
+		secondToLastChunk = lastChunk;
+		lastChunk = chunkStr;
+		chunkIndex++;
+
+		if (chunk.usage) {
+			if (debug) {
+				debugLog("STREAM USAGE (raw)", JSON.stringify(chunk.usage, null, 2));
+			}
+			const u = chunk.usage as Record<string, unknown>;
+			usage = {
+				promptTokens: (u.promptTokens ?? u.prompt_tokens ?? 0) as number,
+				completionTokens: (u.completionTokens ?? u.completion_tokens ?? 0) as number,
+				totalTokens: (u.totalTokens ?? u.total_tokens ?? 0) as number,
+			};
+			if (debug) {
+				debugLog("STREAM USAGE (parsed)", {
+					...usage,
+					computedTotal: usage.promptTokens + usage.completionTokens,
+					apiTotalMatchesComputed: usage.totalTokens === usage.promptTokens + usage.completionTokens,
+				});
+			}
+		}
 		const delta = chunk.choices?.[0]?.delta;
 		if (!delta) continue;
 
@@ -138,13 +185,18 @@ async function callModelRaw(
 		}
 	}
 
-	if (debug && (content || reasoning)) {
-		process.stdout.write("\n");
+	if (debug) {
+		if (content || reasoning) process.stdout.write("\n");
+		debugLog("STREAM 2ND-TO-LAST CHUNK", secondToLastChunk.slice(0, 2000));
+		debugLog("STREAM LAST CHUNK", lastChunk.slice(0, 2000));
+		debugLog("STREAM STATS", { totalChunks: chunkIndex, usageCaptured: !!usage, usage });
 	}
 
 	const toolCalls = toolCallMap.size > 0
 		? Array.from(toolCallMap.entries()).sort((a, b) => a[0] - b[0]).map(([, v]) => v)
 		: undefined;
+
+	const durationMs = Math.round(performance.now() - startTime);
 
 	return {
 		choices: [{
@@ -153,6 +205,8 @@ async function callModelRaw(
 				toolCalls,
 			},
 		}],
+		usage,
+		durationMs,
 	};
 }
 
@@ -201,6 +255,19 @@ function debugMessages(messages: ChatMessage[]): void {
 	}
 }
 
+export interface CallMetrics {
+	promptTokens: number;
+	completionTokens: number;
+	totalTokens: number;
+	durationMs: number;
+	tokensPerSecond: number;
+}
+
+interface CallModelResult {
+	answer: string;
+	metrics: CallMetrics;
+}
+
 async function callModel(
 	model: ModelConfig,
 	systemPrompt: string,
@@ -209,7 +276,7 @@ async function callModel(
 	skillsMap?: Map<string, SkillInfo>,
 	debug?: boolean,
 	mcqToolNames?: Set<string>,
-): Promise<string> {
+): Promise<CallModelResult> {
 	const messages: ChatMessage[] = [
 		...(systemPrompt ? [{ role: "system" as const, content: systemPrompt }] : []),
 		{ role: "user" as const, content: userPrompt },
@@ -227,10 +294,38 @@ async function callModel(
 		}
 	}
 
+	let totalPromptTokens = 0;
+	let totalCompletionTokens = 0;
+	let totalDurationMs = 0;
+
+	function accumulateMetrics(data: ApiResponse) {
+		if (data.usage) {
+			totalPromptTokens += data.usage.promptTokens;
+			totalCompletionTokens += data.usage.completionTokens;
+		}
+		totalDurationMs += data.durationMs;
+	}
+
+	function buildResult(answer: string): CallModelResult {
+		const totalTokens = totalPromptTokens + totalCompletionTokens;
+		const durationSec = totalDurationMs / 1000;
+		return {
+			answer,
+			metrics: {
+				promptTokens: totalPromptTokens,
+				completionTokens: totalCompletionTokens,
+				totalTokens,
+				durationMs: totalDurationMs,
+				tokensPerSecond: durationSec > 0 ? Math.round((totalCompletionTokens / durationSec) * 100) / 100 : 0,
+			},
+		};
+	}
+
 	for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
 		const data = await callModelRaw(model, messages, tools, debug);
+		accumulateMetrics(data);
 		const msg = data.choices[0]?.message;
-		if (!msg) return "";
+		if (!msg) return buildResult("");
 
 		// If no tool calls, return the text content
 		if (!msg.toolCalls || msg.toolCalls.length === 0) {
@@ -238,7 +333,7 @@ async function callModel(
         console.log(msg);
 				debugLog("RESPONSE ← (final text)", truncate(msg.content ?? "", 500));
 			}
-			return msg.content ?? "";
+			return buildResult(msg.content ?? "");
 		}
 
 		if (debug) {
@@ -260,14 +355,14 @@ async function callModel(
 					if (debug) {
 						debugLog(`MCQ ANSWER via tool call: ${toolCall.function.name}`, letter);
 					}
-					return letter;
+					return buildResult(letter);
 				}
 			}
 		}
 
 		// Model wants to call tools — need skillsMap to resolve
 		if (!skillsMap) {
-			return msg.content ?? "";
+			return buildResult(msg.content ?? "");
 		}
 
 		// Append assistant message with toolCalls
@@ -297,11 +392,12 @@ async function callModel(
 
 	// Max rounds exceeded — make one final call without tools to force a text response
 	const finalData = await callModelRaw(model, messages, undefined, debug);
+	accumulateMetrics(finalData);
 	const finalContent = finalData.choices[0]?.message?.content ?? "";
 	if (debug) {
 		debugLog("RESPONSE ← (forced final)", truncate(finalContent, 500));
 	}
-	return finalContent;
+	return buildResult(finalContent);
 }
 
 function extractMCQAnswer(response: string): string {
@@ -325,6 +421,11 @@ function extractMCQAnswer(response: string): string {
 	return cleaned.charAt(0);
 }
 
+export interface TokenPricing {
+	promptPerToken: number;
+	completionPerToken: number;
+}
+
 export interface RunBenchmarkOptions {
 	model: ModelConfig;
 	questions: Question[];
@@ -333,6 +434,7 @@ export interface RunBenchmarkOptions {
 	tools?: Tool[];
 	skillsMap?: Map<string, SkillInfo>;
 	debug?: boolean;
+	pricing?: TokenPricing;
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
@@ -345,6 +447,7 @@ async function processQuestion(
 	tools?: Tool[],
 	skillsMap?: Map<string, SkillInfo>,
 	debug?: boolean,
+	pricing?: TokenPricing,
 ): Promise<QuestionResult> {
 	let prompt = question.question;
 	let mcqToolNames: Set<string> | undefined;
@@ -365,7 +468,7 @@ async function processQuestion(
 	}
 
 	try {
-		const response = await callModel(model, effectiveSystemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
+		const { answer: response, metrics } = await callModel(model, effectiveSystemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
 
 		let correct = false;
 		let score = 0;
@@ -382,6 +485,10 @@ async function processQuestion(
 			judgeReasoning = judgeResult.reasoning;
 		}
 
+		const cost = pricing
+			? metrics.promptTokens * pricing.promptPerToken + metrics.completionTokens * pricing.completionPerToken
+			: undefined;
+
 		return {
 			questionId: question.id,
 			category: question.category,
@@ -390,6 +497,12 @@ async function processQuestion(
 			correct,
 			score,
 			judgeReasoning,
+			promptTokens: metrics.promptTokens,
+			completionTokens: metrics.completionTokens,
+			totalTokens: metrics.totalTokens,
+			cost: cost !== undefined ? Math.round(cost * 1_000_000) / 1_000_000 : undefined,
+			durationMs: metrics.durationMs,
+			tokensPerSecond: metrics.tokensPerSecond,
 		};
 	} catch (error) {
 		console.error(`    Error (${question.id}): ${error}`);
@@ -413,12 +526,12 @@ export async function runBenchmark({
 	tools,
 	skillsMap,
 	debug,
+	pricing,
 	onQuestionComplete,
 }: RunBenchmarkOptions): Promise<QuestionResult[]> {
 	const completedIds = new Set(existingResults.map((r) => r.questionId));
 	const alreadyDone = existingResults.length;
 	const results: QuestionResult[] = [...existingResults];
-
 	const remaining = questions.filter((q) => !completedIds.has(q.id));
 
 	if (remaining.length === 0) {
@@ -443,7 +556,7 @@ export async function runBenchmark({
 				const question = remaining[idx];
         running++;
 
-				processQuestion(question, model, systemPrompt, tools, skillsMap, debug).then((result) => {
+				processQuestion(question, model, systemPrompt, tools, skillsMap, debug, pricing).then((result) => {
 					running--;
 					completed++;
 					const isBadMcq = question.type === "mcq" && !/^[A-Da-d]$/.test(result.modelAnswer.trim());

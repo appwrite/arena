@@ -17,6 +17,12 @@ export interface QuestionResult {
 	score: number;
 	judgeReasoning?: string;
 	modComment?: string;
+	promptTokens?: number;
+	completionTokens?: number;
+	totalTokens?: number;
+	cost?: number;
+	durationMs?: number;
+	tokensPerSecond?: number;
 }
 
 export interface QuestionDetail {
@@ -32,6 +38,12 @@ export interface QuestionDetail {
 	score: number;
 	judgeReasoning?: string;
 	modComment?: string;
+	promptTokens?: number;
+	completionTokens?: number;
+	totalTokens?: number;
+	cost?: number;
+	durationMs?: number;
+	tokensPerSecond?: number;
 }
 
 export interface ModelConfig {
@@ -93,11 +105,17 @@ export interface BenchmarkResults {
 	totalQuestions: number;
 	totalMcq: number;
 	totalFreeform: number;
+	totalPromptTokens: number;
+	totalCompletionTokens: number;
+	totalTokens: number;
+	totalCost: number;
+	totalDurationMs: number;
 	models: Array<{
 		modelId: string;
 		modelName: string;
 		provider: string;
-		costPerMillionTokens: number;
+		promptCostPerMillionTokens: number;
+		completionCostPerMillionTokens: number;
 		scores: Record<string, number>;
 		mcqScores: Record<string, number>;
 		freeformScores: Record<string, number>;
@@ -106,6 +124,12 @@ export interface BenchmarkResults {
 		freeformOverall: number;
 		totalQuestions: number;
 		totalCorrect: number;
+		totalPromptTokens: number;
+		totalCompletionTokens: number;
+		totalTokens: number;
+		totalCost: number;
+		totalDurationMs: number;
+		averageTokensPerSecond: number;
 		runDate: string;
 		questionDetails: QuestionDetail[];
 	}>;

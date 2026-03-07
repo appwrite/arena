@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, Clock, Coins, ExternalLink, Gauge, Info, Layers } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import CategoryTabs from "#/components/CategoryTabs";
 import FilterChip from "#/components/FilterChip";
@@ -102,6 +102,90 @@ export const Route = createFileRoute("/model/$modelId")({
 	},
 	component: ModelDetailPage,
 });
+
+function formatDuration(ms: number): string {
+	if (ms < 1000) return `${ms}ms`;
+	const sec = ms / 1000;
+	if (sec < 60) return `${sec.toFixed(1)}s`;
+	const min = Math.floor(sec / 60);
+	const remSec = Math.round(sec % 60);
+	return `${min}m ${remSec}s`;
+}
+
+interface StatCard {
+	icon: typeof Layers;
+	label: string;
+	value: string;
+	tooltip?: string;
+}
+
+function ModelStats({ model }: { model: ModelResult }) {
+	const items: StatCard[] = [];
+
+	if (model.totalTokens > 0) {
+		const parts: string[] = [];
+		if (model.totalPromptTokens > 0)
+			parts.push(`Input: ${model.totalPromptTokens.toLocaleString()}`);
+		if (model.totalCompletionTokens > 0)
+			parts.push(`Output: ${model.totalCompletionTokens.toLocaleString()}`);
+		items.push({
+			icon: Layers,
+			label: "Total tokens",
+			value: model.totalTokens.toLocaleString(),
+			tooltip: parts.length > 0 ? parts.join("\n") : undefined,
+		});
+	}
+	if (model.totalDurationMs > 0) {
+		items.push({
+			icon: Clock,
+			label: "Total duration",
+			value: formatDuration(model.totalDurationMs),
+		});
+	}
+	if (model.averageTokensPerSecond > 0) {
+		items.push({
+			icon: Gauge,
+			label: "Avg speed",
+			value: `${model.averageTokensPerSecond.toFixed(1)} tok/s`,
+		});
+	}
+	if (model.totalCost > 0) {
+		items.push({
+			icon: Coins,
+			label: "Total cost",
+			value: `$ ${model.totalCost.toFixed(4)}`,
+		});
+	}
+
+	if (items.length === 0) return null;
+
+	return (
+		<div className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
+			{items.map((item) => (
+				<div
+					key={item.label}
+					className="arena-card flex flex-col gap-1.5 p-3"
+				>
+					<div className="flex items-center gap-1.5 text-[var(--text-secondary)]">
+						<item.icon size={12} />
+						<span className="text-xs">{item.label}</span>
+					</div>
+					<span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-primary)]">
+						{item.value}
+						{item.tooltip && (
+							<span className="group/tip relative">
+								<Info size={12} className="opacity-40 group-hover/tip:opacity-70 transition-opacity cursor-help" />
+								<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-pre rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs font-normal text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
+									{item.tooltip}
+								</span>
+							</span>
+						)}
+					</span>
+				</div>
+			))}
+		</div>
+	);
+}
 
 function ModelDetailPage() {
 	const { modelId } = Route.useParams();
@@ -293,10 +377,26 @@ function ModelDetailPage() {
 						open-source backend platform for authentication, databases, storage,
 						functions, and more. This model answered {model.totalCorrect} of{" "}
 						{model.totalQuestions} questions correctly across categories
-						including Auth, Databases, Functions, Storage, and CLI. Compare{" "}
-						{model.modelName} with other LLMs on the Appwrite Arena leaderboard.
+						including Auth, Databases, Functions, Storage, and CLI.
+						{model.totalTokens > 0 && (
+							<>
+								{" "}During the benchmark it consumed{" "}
+								{model.totalTokens.toLocaleString()} tokens
+								{model.totalCost > 0 &&
+									` costing $${model.totalCost.toFixed(4)}`}
+								{model.averageTokensPerSecond > 0 &&
+									`, averaging ${model.averageTokensPerSecond.toFixed(1)} tokens per second`}
+								{model.totalDurationMs > 0 &&
+									` over ${formatDuration(model.totalDurationMs)}`}
+								.
+							</>
+						)}
+						{" "}Compare {model.modelName} with other LLMs on the Appwrite Arena
+						leaderboard.
 					</p>
 				</div>
+
+				<ModelStats model={model} />
 
 				<div className="mb-4 flex flex-wrap items-center gap-2">
 					<FilterChip

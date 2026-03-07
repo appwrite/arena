@@ -143,7 +143,8 @@ interface ModelProgress {
 	modelId: string;
 	modelName: string;
 	provider: string;
-	costPerMillionTokens: number;
+	promptCostPerMillionTokens: number;
+	completionCostPerMillionTokens: number;
 	results: QuestionResult[];
 }
 
@@ -186,7 +187,8 @@ function loadExistingResults(mode: string): Record<string, ModelProgress> {
 					modelId: m.modelId,
 					modelName: m.modelName,
 					provider: m.provider,
-					costPerMillionTokens: m.costPerMillionTokens,
+					promptCostPerMillionTokens: m.promptCostPerMillionTokens,
+					completionCostPerMillionTokens: m.completionCostPerMillionTokens,
 					results: m.questionDetails.map((d) => ({
 						questionId: d.questionId,
 						category: d.category,
@@ -196,6 +198,12 @@ function loadExistingResults(mode: string): Record<string, ModelProgress> {
 						score: d.score,
 						judgeReasoning: d.judgeReasoning,
 						...(d.modComment ? { modComment: d.modComment } : {}),
+						...(d.promptTokens != null ? { promptTokens: d.promptTokens } : {}),
+						...(d.completionTokens != null ? { completionTokens: d.completionTokens } : {}),
+						...(d.totalTokens != null ? { totalTokens: d.totalTokens } : {}),
+						...(d.cost != null ? { cost: d.cost } : {}),
+						...(d.durationMs != null ? { durationMs: d.durationMs } : {}),
+						...(d.tokensPerSecond != null ? { tokensPerSecond: d.tokensPerSecond } : {}),
 					})),
 				};
 			}
@@ -239,14 +247,31 @@ function saveResults(
 				score: r.score,
 				judgeReasoning: r.judgeReasoning,
 				...(r.modComment ? { modComment: r.modComment } : {}),
+				...(r.promptTokens != null ? { promptTokens: r.promptTokens } : {}),
+				...(r.completionTokens != null ? { completionTokens: r.completionTokens } : {}),
+				...(r.totalTokens != null ? { totalTokens: r.totalTokens } : {}),
+				...(r.cost != null ? { cost: r.cost } : {}),
+				...(r.durationMs != null ? { durationMs: r.durationMs } : {}),
+				...(r.tokensPerSecond != null ? { tokensPerSecond: r.tokensPerSecond } : {}),
 			};
 		});
+
+		const totalPromptTokens = m.results.reduce((sum, r) => sum + (r.promptTokens ?? 0), 0);
+		const totalCompletionTokens = m.results.reduce((sum, r) => sum + (r.completionTokens ?? 0), 0);
+		const totalTokens = totalPromptTokens + totalCompletionTokens;
+		const totalCost = m.results.reduce((sum, r) => sum + (r.cost ?? 0), 0);
+		const totalDurationMs = m.results.reduce((sum, r) => sum + (r.durationMs ?? 0), 0);
+		const totalDurationSec = totalDurationMs / 1000;
+		const averageTokensPerSecond = totalDurationSec > 0
+			? Math.round((totalCompletionTokens / totalDurationSec) * 100) / 100
+			: 0;
 
 		return {
 			modelId: m.modelId,
 			modelName: m.modelName,
 			provider: m.provider,
-			costPerMillionTokens: m.costPerMillionTokens,
+			promptCostPerMillionTokens: m.promptCostPerMillionTokens,
+			completionCostPerMillionTokens: m.completionCostPerMillionTokens,
 			scores,
 			mcqScores,
 			freeformScores,
@@ -255,6 +280,12 @@ function saveResults(
 			freeformOverall,
 			totalQuestions: allQuestions.length,
 			totalCorrect,
+			totalPromptTokens,
+			totalCompletionTokens,
+			totalTokens,
+			totalCost: Math.round(totalCost * 1_000_000) / 1_000_000,
+			totalDurationMs,
+			averageTokensPerSecond,
 			runDate: new Date().toISOString(),
 			questionDetails,
 		};
@@ -265,6 +296,11 @@ function saveResults(
 		(q) => q.type === "free-form",
 	).length;
 
+	const globalPromptTokens = modelEntries.reduce((sum, m) => sum + m.totalPromptTokens, 0);
+	const globalCompletionTokens = modelEntries.reduce((sum, m) => sum + m.totalCompletionTokens, 0);
+	const globalCost = modelEntries.reduce((sum, m) => sum + m.totalCost, 0);
+	const globalDurationMs = modelEntries.reduce((sum, m) => sum + m.totalDurationMs, 0);
+
 	const output: BenchmarkResults = {
 		version: "1.0.0",
 		runDate: new Date().toISOString(),
@@ -272,6 +308,11 @@ function saveResults(
 		totalQuestions: allQuestions.length,
 		totalMcq,
 		totalFreeform,
+		totalPromptTokens: globalPromptTokens,
+		totalCompletionTokens: globalCompletionTokens,
+		totalTokens: globalPromptTokens + globalCompletionTokens,
+		totalCost: Math.round(globalCost * 1_000_000) / 1_000_000,
+		totalDurationMs: globalDurationMs,
 		models: modelEntries,
 	};
 
@@ -298,9 +339,13 @@ async function main() {
 		);
 	}
 
-	if (sanitizeResults(models)) {
+	const wasSanitized = sanitizeResults(models);
+
+	// Always recompute aggregated metrics (model-level and global) from question-level data
+	// This ensures existing results get up-to-date totals even if loaded from an older format
+	if (existingModelCount > 0 || wasSanitized) {
 		saveResults(models, mode);
-		console.log(`Sanitized results saved.`);
+		console.log(`Recomputed aggregated metrics for ${existingModelCount} existing model(s).`);
 	}
 
 	let skillsMap: Map<string, SkillInfo> | undefined;
@@ -321,24 +366,28 @@ async function main() {
     systemPrompt += "\nYou have access to tools to look up Appwrite SDK documentation. Use them to answer questions accurately";
   }
   
-	const pricing = await fetchPricing(MODELS);
+	const tokenPricing = await fetchPricing(MODELS);
 
 	for (const model of MODELS) {
 		console.log(`\nRunning: ${model.name} (${model.provider})`);
 
-		const costPerMillionTokens = pricing[model.id] ?? 0;
+		const modelPricing = tokenPricing[model.id] ?? { promptPerToken: 0, completionPerToken: 0 };
+		const promptCostPerMillionTokens = Math.round(modelPricing.promptPerToken * 1_000_000 * 100) / 100;
+		const completionCostPerMillionTokens = Math.round(modelPricing.completionPerToken * 1_000_000 * 100) / 100;
 
 		if (!models[model.id]) {
 			models[model.id] = {
 				modelId: model.id,
 				modelName: model.name,
 				provider: model.provider,
-				costPerMillionTokens,
+				promptCostPerMillionTokens,
+				completionCostPerMillionTokens,
 				results: [],
 			};
 		} else {
 			// Always update pricing to latest
-			models[model.id].costPerMillionTokens = costPerMillionTokens;
+			models[model.id].promptCostPerMillionTokens = promptCostPerMillionTokens;
+			models[model.id].completionCostPerMillionTokens = completionCostPerMillionTokens;
 		}
 
 		const existingResults = models[model.id].results;
@@ -351,6 +400,7 @@ async function main() {
 			tools,
 			skillsMap,
 			debug,
+			pricing: tokenPricing[model.id],
 			onQuestionComplete: (result: QuestionResult) => {
 				models[model.id].results.push(result);
 				saveResults(models, mode);
