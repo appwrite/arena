@@ -33,7 +33,7 @@ const HIDDEN_MODEL_IDS: string[] = [];
 
 const VALID_SORT_FIELDS = new Set<SortField>([
 	"overall",
-	"costPerMillionTokens",
+	"promptCostPerMillionTokens",
 	"modelName",
 	"foundation",
 	"auth",
@@ -49,7 +49,7 @@ const VALID_SORT_FIELDS = new Set<SortField>([
 /** Sort options shown in the grid-view popover (Overall, Cost, Model first; then categories). */
 const GRID_SORT_OPTIONS: { field: SortField; label: string }[] = [
 	{ field: "overall", label: "Overall" },
-	{ field: "costPerMillionTokens", label: "Cost" },
+	{ field: "promptCostPerMillionTokens", label: "Cost" },
 	{ field: "modelName", label: "Model" },
 	...(
 		[
@@ -190,9 +190,9 @@ function useSortedModels(
 			if (sortField === "modelName") {
 				aVal = a.modelName.toLowerCase();
 				bVal = b.modelName.toLowerCase();
-			} else if (sortField === "costPerMillionTokens") {
-				aVal = a.costPerMillionTokens;
-				bVal = b.costPerMillionTokens;
+			} else if (sortField === "promptCostPerMillionTokens") {
+				aVal = a.promptCostPerMillionTokens;
+				bVal = b.promptCostPerMillionTokens;
 			} else if (sortField === "overall") {
 				aVal = aOverall;
 				bVal = bOverall;

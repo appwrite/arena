@@ -36,6 +36,7 @@ export function getShortName(modelName: string): string {
 	if (modelName.includes("Qwen")) return "Qwen";
 	if (modelName.includes("DeepSeek")) return "DeepSeek";
 	if (modelName.includes("MiniMax")) return "MiniMax";
+	if (modelName.includes("Grok")) return "Grok";
 	return modelName.split(" ")[0];
 }
 
@@ -94,16 +95,20 @@ export function buildSkillsComparisonData(
 	withSkills: ModelResult[],
 	withoutSkills: ModelResult[],
 ): SkillsComparisonDataPoint[] {
-	return withSkills.map((ws) => {
-		const wo = withoutSkills.find((m) => m.modelId === ws.modelId);
-		const baseScore = wo?.overall ?? 0;
-		return {
-			name: getShortName(ws.modelName),
-			base: round2(Math.max(baseScore - 75, 0)),
-			boost: round2(Math.max(ws.overall - baseScore, 0)),
-			color: getModelColor(ws.provider),
-		};
-	});
+	return withSkills
+		.map((ws) => {
+			const wo = withoutSkills.find((m) => m.modelId === ws.modelId);
+			const baseScore = wo?.overall ?? 0;
+			return {
+				name: getShortName(ws.modelName),
+				base: round2(Math.max(baseScore - 75, 0)),
+				boost: round2(Math.max(ws.overall - baseScore, 0)),
+				color: getModelColor(ws.provider),
+				_withSkillsOverall: ws.overall,
+			};
+		})
+		.sort((a, b) => b._withSkillsOverall - a._withSkillsOverall)
+		.map(({ _withSkillsOverall, ...rest }) => rest);
 }
 
 export interface OverallValueDataPoint {
@@ -119,17 +124,17 @@ export function buildOverallValueData(
 	models: ModelResult[],
 	category?: CategoryKey,
 ): OverallValueDataPoint[] {
-	const minCost = Math.min(...models.map((m) => m.costPerMillionTokens));
+	const minCost = Math.min(...models.map((m) => m.promptCostPerMillionTokens));
 	return models
 		.map((m) => {
 			const score = category ? m.scores[category] : m.overall;
-			const costScore = round2((minCost / m.costPerMillionTokens) * 100);
+			const costScore = round2((minCost / m.promptCostPerMillionTokens) * 100);
 			return {
 				name: getShortName(m.modelName),
 				value: round2((score + costScore) / 2),
 				score: round2(score),
 				costScore,
-				cost: m.costPerMillionTokens,
+				cost: m.promptCostPerMillionTokens,
 				color: getModelColor(m.provider),
 			};
 		})
@@ -149,7 +154,7 @@ export function buildCostEfficiencyData(
 	return models
 		.map((m) => ({
 			name: getShortName(m.modelName),
-			cost: m.costPerMillionTokens,
+			cost: m.promptCostPerMillionTokens,
 			score: round2(m.overall),
 			color: getModelColor(m.provider),
 		}))

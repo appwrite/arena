@@ -11,6 +11,12 @@ export interface QuestionDetail {
 	score: number;
 	judgeReasoning?: string;
 	modComment?: string;
+	promptTokens?: number;
+	completionTokens?: number;
+	totalTokens?: number;
+	cost?: number;
+	durationMs?: number;
+	tokensPerSecond?: number;
 }
 
 export interface BenchmarkResults {
@@ -19,6 +25,11 @@ export interface BenchmarkResults {
 	mode: "with-skills" | "without-skills";
 	totalQuestions: number;
 	totalMcq: number;
+	totalPromptTokens: number;
+	totalCompletionTokens: number;
+	totalTokens: number;
+	totalCost: number;
+	totalDurationMs: number;
 	totalFreeform: number;
 	models: ModelResult[];
 }
@@ -39,7 +50,8 @@ export interface ModelResult {
 	modelId: string;
 	modelName: string;
 	provider: string;
-	costPerMillionTokens: number;
+	promptCostPerMillionTokens: number;
+	completionCostPerMillionTokens: number;
 	scores: CategoryScores;
 	mcqScores: CategoryScores;
 	freeformScores: CategoryScores;
@@ -48,6 +60,12 @@ export interface ModelResult {
 	freeformOverall: number;
 	totalQuestions: number;
 	totalCorrect: number;
+	totalPromptTokens: number;
+	totalCompletionTokens: number;
+	totalTokens: number;
+	totalCost: number;
+	totalDurationMs: number;
+	averageTokensPerSecond: number;
 	runDate: string;
 	questionDetails: QuestionDetail[];
 }
@@ -83,4 +101,4 @@ export type SortField =
 	| CategoryKey
 	| "overall"
 	| "modelName"
-	| "costPerMillionTokens";
+	| "promptCostPerMillionTokens";

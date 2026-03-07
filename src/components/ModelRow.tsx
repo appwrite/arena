@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
+import { Info } from "lucide-react";
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
 import ProviderLogo from "./ProviderLogo";
 import ScoreCell from "./ScoreCell";
@@ -94,7 +95,15 @@ export default function ModelRow({
 			<td
 				className={`text-left text-sm text-[var(--text-secondary)] ${hideModel ? "pl-4 pr-2" : "px-2"}`}
 			>
-				${model.costPerMillionTokens.toFixed(2)}
+				<span className="group/cost relative inline-flex items-center gap-1">
+					${model.promptCostPerMillionTokens.toFixed(2)}
+					<Info size={12} className="opacity-40 group-hover/cost:opacity-70 transition-opacity" />
+					<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/cost:opacity-100">
+						Input: ${model.promptCostPerMillionTokens.toFixed(2)}/1M tokens
+						<br />
+						Output: ${model.completionCostPerMillionTokens.toFixed(2)}/1M tokens
+					</span>
+				</span>
 			</td>
 			<ScoreCell score={overall} isOverall />
 			{categories.map((cat, i) => (

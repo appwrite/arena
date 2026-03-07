@@ -96,6 +96,16 @@ export const MODELS: ModelConfig[] = [
 		providerChartColor: "#E85C2B",
 		country: "China",
 	},
+	{
+		id: "grok-4-1-fast",
+		name: "Grok 4.1 Fast",
+		provider: "xAI",
+		openRouterId: "x-ai/grok-4.1-fast",
+		providerWebsite: "https://x.ai",
+		providerBrandColor: "#000000",
+		providerChartColor: "#F97316",
+		country: "United States",
+	},
 ];
 
 export function getModelCountry(modelId: string): string | undefined {

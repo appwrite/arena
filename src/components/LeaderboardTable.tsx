@@ -151,7 +151,7 @@ export default function LeaderboardTable({
 						)}
 						<SortableTh
 							label="Cost/1M"
-							field="costPerMillionTokens"
+							field="promptCostPerMillionTokens"
 							sortField={sortField}
 							sortDirection={sortDirection}
 							onSort={onSort}

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Info } from "lucide-react";
 import { getOverallColor, getScoreClass } from "#/lib/colors";
 import type { CategoryKey, ModelResult, ScoringMode } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
@@ -53,8 +54,14 @@ export default function ModelCard({ model, scoringMode }: ModelCardProps) {
 				<span className="text-sm font-semibold text-[var(--text-primary)]">
 					{model.modelName}
 				</span>
-				<span className="ml-auto text-xs text-[var(--text-secondary)]">
-					${model.costPerMillionTokens.toFixed(2)}/1M
+				<span className="group/cost relative ml-auto inline-flex items-center gap-1 text-xs text-[var(--text-secondary)]">
+					${model.promptCostPerMillionTokens.toFixed(2)}/1M
+					<Info size={12} className="opacity-40 group-hover/cost:opacity-70 transition-opacity" />
+					<span className="pointer-events-none absolute bottom-full right-0 z-50 mb-1.5 whitespace-nowrap rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/cost:opacity-100">
+						Input: ${model.promptCostPerMillionTokens.toFixed(2)}/1M tokens
+						<br />
+						Output: ${model.completionCostPerMillionTokens.toFixed(2)}/1M tokens
+					</span>
 				</span>
 			</div>
 
