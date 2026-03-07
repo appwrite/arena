@@ -9,7 +9,7 @@ import { CATEGORY_LABELS } from "#/lib/types";
 import ModelRow from "./ModelRow";
 
 const CATEGORIES: CategoryKey[] = [
-	"fundamental",
+	"foundation",
 	"auth",
 	"databases",
 	"functions",

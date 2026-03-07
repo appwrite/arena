@@ -35,7 +35,7 @@ const VALID_SORT_FIELDS = new Set<SortField>([
 	"overall",
 	"costPerMillionTokens",
 	"modelName",
-	"fundamental",
+	"foundation",
 	"auth",
 	"databases",
 	"functions",
@@ -53,7 +53,7 @@ const GRID_SORT_OPTIONS: { field: SortField; label: string }[] = [
 	{ field: "modelName", label: "Model" },
 	...(
 		[
-			"fundamental",
+			"foundation",
 			"auth",
 			"databases",
 			"functions",

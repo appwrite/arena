@@ -5,7 +5,7 @@ import { CATEGORY_LABELS } from "#/lib/types";
 import ProviderLogo from "./ProviderLogo";
 
 const CATEGORIES: CategoryKey[] = [
-	"fundamental",
+	"foundation",
 	"auth",
 	"databases",
 	"functions",

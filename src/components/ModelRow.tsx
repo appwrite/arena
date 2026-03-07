@@ -4,7 +4,7 @@ import ProviderLogo from "./ProviderLogo";
 import ScoreCell from "./ScoreCell";
 
 const CATEGORIES: CategoryKey[] = [
-	"fundamental",
+	"foundation",
 	"auth",
 	"databases",
 	"functions",

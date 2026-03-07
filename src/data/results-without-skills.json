@@ -12,7 +12,7 @@
       "provider": "Google",
       "costPerMillionTokens": 2,
       "scores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 99.3,
         "databases": 86.5,
         "functions": 100,
@@ -23,7 +23,7 @@
         "cli": 71.4
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 85,
         "functions": 100,
@@ -34,7 +34,7 @@
         "cli": 72
       },
       "freeformScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 95,
         "databases": 96.7,
         "functions": 100,
@@ -53,7 +53,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -69,7 +69,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -85,7 +85,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -101,7 +101,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -117,7 +117,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -133,7 +133,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -145,7 +145,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -161,7 +161,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -173,7 +173,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -189,7 +189,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -1121,7 +1121,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -1137,7 +1137,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -1153,7 +1153,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -1169,7 +1169,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -1185,7 +1185,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -1201,7 +1201,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -1217,7 +1217,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -1233,7 +1233,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -1249,7 +1249,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -1265,7 +1265,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -3015,7 +3015,7 @@
       "provider": "OpenAI",
       "costPerMillionTokens": 1.75,
       "scores": {
-        "fundamental": 99.3,
+        "foundation": 99.3,
         "auth": 99.7,
         "databases": 91.3,
         "functions": 98.2,
@@ -3026,7 +3026,7 @@
         "cli": 80.4
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 90,
         "functions": 100,
@@ -3037,7 +3037,7 @@
         "cli": 80
       },
       "freeformScores": {
-        "fundamental": 95,
+        "foundation": 95,
         "auth": 98.3,
         "databases": 100,
         "functions": 88.3,
@@ -3056,7 +3056,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -3072,7 +3072,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -3088,7 +3088,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -3104,7 +3104,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -3120,7 +3120,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -3136,7 +3136,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -3148,7 +3148,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -3164,7 +3164,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -3176,7 +3176,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -3192,7 +3192,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -4124,7 +4124,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -4140,7 +4140,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -4156,7 +4156,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -4172,7 +4172,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -4188,7 +4188,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -4204,7 +4204,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -4220,7 +4220,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -4252,7 +4252,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -4268,7 +4268,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -4396,7 +4396,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -6014,7 +6014,7 @@
       "provider": "Anthropic",
       "costPerMillionTokens": 5,
       "scores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 95.7,
         "functions": 95,
@@ -6025,7 +6025,7 @@
         "cli": 84.6
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 95,
         "functions": 94.1,
@@ -6036,7 +6036,7 @@
         "cli": 88
       },
       "freeformScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 100,
         "functions": 100,
@@ -6055,7 +6055,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -6071,7 +6071,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -6087,7 +6087,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -6103,7 +6103,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -6119,7 +6119,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -6135,7 +6135,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -6147,7 +6147,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -6163,7 +6163,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -6175,7 +6175,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -6191,7 +6191,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -7123,7 +7123,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -7139,7 +7139,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -7155,7 +7155,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -7171,7 +7171,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -7187,7 +7187,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -7203,7 +7203,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -7219,7 +7219,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -7235,7 +7235,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -7251,7 +7251,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -7571,7 +7571,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -9013,7 +9013,7 @@
       "provider": "MoonshotAI",
       "costPerMillionTokens": 0.45,
       "scores": {
-        "fundamental": 99.7,
+        "foundation": 99.7,
         "auth": 99.7,
         "databases": 95,
         "functions": 93.2,
@@ -9024,7 +9024,7 @@
         "cli": 79.3
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 95,
         "functions": 94.1,
@@ -9035,7 +9035,7 @@
         "cli": 80
       },
       "freeformScores": {
-        "fundamental": 98.3,
+        "foundation": 98.3,
         "auth": 98.3,
         "databases": 95,
         "functions": 88.3,
@@ -9054,7 +9054,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -9070,7 +9070,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -9086,7 +9086,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -9102,7 +9102,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -9118,7 +9118,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -9134,7 +9134,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -9146,7 +9146,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -9162,7 +9162,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -9174,7 +9174,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -9190,7 +9190,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -10106,7 +10106,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -10122,7 +10122,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -10138,7 +10138,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -10154,7 +10154,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -10170,7 +10170,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -10186,7 +10186,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -10202,7 +10202,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -10266,7 +10266,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -10630,7 +10630,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -10738,7 +10738,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -12012,7 +12012,7 @@
       "provider": "Zhipu",
       "costPerMillionTokens": 0.8,
       "scores": {
-        "fundamental": 90,
+        "foundation": 90,
         "auth": 90,
         "databases": 91.3,
         "functions": 89.8,
@@ -12023,7 +12023,7 @@
         "cli": 67.9
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 100,
         "databases": 100,
         "functions": 88.2,
@@ -12034,7 +12034,7 @@
         "cli": 68
       },
       "freeformScores": {
-        "fundamental": 33.3,
+        "foundation": 33.3,
         "auth": 33.3,
         "databases": 33.3,
         "functions": 98.3,
@@ -12053,7 +12053,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -12069,7 +12069,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -12085,7 +12085,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -12101,7 +12101,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -12117,7 +12117,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -12133,7 +12133,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -12145,7 +12145,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -12161,7 +12161,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -12173,7 +12173,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -12189,7 +12189,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -12205,7 +12205,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -12221,7 +12221,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -12237,7 +12237,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -12253,7 +12253,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -12269,7 +12269,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -12285,7 +12285,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -12301,7 +12301,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -12317,7 +12317,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -12333,7 +12333,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -12645,7 +12645,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -15012,7 +15012,7 @@
       "provider": "Alibaba",
       "costPerMillionTokens": 0.39,
       "scores": {
-        "fundamental": 99.3,
+        "foundation": 99.3,
         "auth": 94.8,
         "databases": 90.9,
         "functions": 83.2,
@@ -15023,7 +15023,7 @@
         "cli": 63.2
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 94.1,
         "databases": 90,
         "functions": 88.2,
@@ -15034,7 +15034,7 @@
         "cli": 64
       },
       "freeformScores": {
-        "fundamental": 95,
+        "foundation": 95,
         "auth": 98.3,
         "databases": 96.7,
         "functions": 55,
@@ -15053,7 +15053,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -15069,7 +15069,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -15085,7 +15085,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -15101,7 +15101,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -15117,7 +15117,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -15133,7 +15133,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -15145,7 +15145,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -15161,7 +15161,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -15173,7 +15173,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -15189,7 +15189,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -15205,7 +15205,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -15221,7 +15221,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -15237,7 +15237,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -15253,7 +15253,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -15269,7 +15269,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -15285,7 +15285,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -15301,7 +15301,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -15317,7 +15317,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -15333,7 +15333,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -15349,7 +15349,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -18011,7 +18011,7 @@
       "provider": "DeepSeek",
       "costPerMillionTokens": 0.25,
       "scores": {
-        "fundamental": 98,
+        "foundation": 98,
         "auth": 85,
         "databases": 86.5,
         "functions": 86.5,
@@ -18022,7 +18022,7 @@
         "cli": 63.6
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 88.2,
         "databases": 85,
         "functions": 88.2,
@@ -18033,7 +18033,7 @@
         "cli": 64
       },
       "freeformScores": {
-        "fundamental": 86.7,
+        "foundation": 86.7,
         "auth": 66.7,
         "databases": 96.7,
         "functions": 76.7,
@@ -18052,7 +18052,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -18068,7 +18068,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -18084,7 +18084,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -18100,7 +18100,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -18116,7 +18116,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -18132,7 +18132,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -18144,7 +18144,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -18160,7 +18160,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -18172,7 +18172,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -18188,7 +18188,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -18204,7 +18204,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -18220,7 +18220,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -18236,7 +18236,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -18252,7 +18252,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -18268,7 +18268,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -18284,7 +18284,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -18300,7 +18300,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -18316,7 +18316,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -18332,7 +18332,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -18348,7 +18348,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -21010,7 +21010,7 @@
       "provider": "MiniMax",
       "costPerMillionTokens": 0.3,
       "scores": {
-        "fundamental": 99.3,
+        "foundation": 99.3,
         "auth": 82,
         "databases": 82.4,
         "functions": 91.3,
@@ -21021,7 +21021,7 @@
         "cli": 55.7
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 82.4,
         "databases": 80,
         "functions": 94.1,
@@ -21032,7 +21032,7 @@
         "cli": 56
       },
       "freeformScores": {
-        "fundamental": 95,
+        "foundation": 95,
         "auth": 80,
         "databases": 98.3,
         "functions": 75,
@@ -21051,7 +21051,7 @@
       "questionDetails": [
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -21067,7 +21067,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -21083,7 +21083,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -21099,7 +21099,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -21115,7 +21115,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -21127,7 +21127,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -21143,7 +21143,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -21155,7 +21155,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -21171,7 +21171,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -21187,7 +21187,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -21203,7 +21203,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -21219,7 +21219,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -21235,7 +21235,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -21251,7 +21251,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -21267,7 +21267,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -21283,7 +21283,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -21299,7 +21299,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -21315,7 +21315,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -21331,7 +21331,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
@@ -23971,7 +23971,7 @@
         },
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -24009,7 +24009,7 @@
       "provider": "OpenAI",
       "costPerMillionTokens": 2.5,
       "scores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 94,
         "databases": 91.3,
         "functions": 89,
@@ -24020,7 +24020,7 @@
         "cli": 67.5
       },
       "mcqScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 94.1,
         "databases": 90,
         "functions": 88.2,
@@ -24031,7 +24031,7 @@
         "cli": 68
       },
       "freeformScores": {
-        "fundamental": 100,
+        "foundation": 100,
         "auth": 93.3,
         "databases": 100,
         "functions": 93.3,
@@ -24050,7 +24050,7 @@
       "questionDetails": [
         {
           "questionId": "fund-1",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What type of platform is Appwrite?",
           "choices": [
@@ -24066,7 +24066,7 @@
         },
         {
           "questionId": "fund-2",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is NOT one of Appwrite's core services?",
           "choices": [
@@ -24082,7 +24082,7 @@
         },
         {
           "questionId": "fund-3",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What API protocols does Appwrite support?",
           "choices": [
@@ -24098,7 +24098,7 @@
         },
         {
           "questionId": "fund-4",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of an Appwrite API key?",
           "choices": [
@@ -24114,7 +24114,7 @@
         },
         {
           "questionId": "fund-5",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which Appwrite feature enables real-time data synchronization?",
           "choices": [
@@ -24130,7 +24130,7 @@
         },
         {
           "questionId": "fund-6",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Explain the difference between client-side and server-side SDKs in Appwrite. When would you use each?",
           "correctAnswer": "Client SDKs are designed for frontend applications where end users interact directly. They require active sessions for authentication. Server SDKs are for backend applications and use API keys with configurable scopes, allowing operations that bypass collection-level permissions.",
@@ -24142,7 +24142,7 @@
         },
         {
           "questionId": "fund-7",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically deployed?",
           "choices": [
@@ -24158,7 +24158,7 @@
         },
         {
           "questionId": "fund-8",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Describe how Appwrite's permission model works. What are the different permission types available?",
           "correctAnswer": "Appwrite uses a flexible permission system where each resource (document, file, etc.) has its own permission list. Permissions use Permission.read/create/update/delete with roles like Role.any(), Role.guests(), Role.users(), Role.user(id), Role.team(id), Role.member(id), Role.label(label).",
@@ -24170,7 +24170,7 @@
         },
         {
           "questionId": "fund-9",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is a \"project\" in Appwrite?",
           "choices": [
@@ -24186,7 +24186,7 @@
         },
         {
           "questionId": "fund-10",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which of the following is a valid way to subscribe to Appwrite Realtime events?",
           "choices": [
@@ -24202,7 +24202,7 @@
         },
         {
           "questionId": "fund-11",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is required when initializing the Appwrite client in a frontend app?",
           "choices": [
@@ -24218,7 +24218,7 @@
         },
         {
           "questionId": "fund-12",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How do Webhooks differ from Realtime in Appwrite?",
           "choices": [
@@ -24234,7 +24234,7 @@
         },
         {
           "questionId": "fund-13",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What are API key scopes in Appwrite?",
           "choices": [
@@ -24250,7 +24250,7 @@
         },
         {
           "questionId": "fund-14",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which role allows access to any user (including unauthenticated)?",
           "choices": [
@@ -24266,7 +24266,7 @@
         },
         {
           "questionId": "fund-15",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "How is Appwrite typically run in production?",
           "choices": [
@@ -24282,7 +24282,7 @@
         },
         {
           "questionId": "fund-16",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What does Role.guests() represent?",
           "choices": [
@@ -24298,7 +24298,7 @@
         },
         {
           "questionId": "fund-17",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Can you use both REST and GraphQL in the same Appwrite project?",
           "choices": [
@@ -24314,7 +24314,7 @@
         },
         {
           "questionId": "fund-18",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "Which permission type allows creating a new resource?",
           "choices": [
@@ -24330,7 +24330,7 @@
         },
         {
           "questionId": "fund-19",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "mcq",
           "question": "What is the purpose of adding a platform (e.g. Web app) to an Appwrite project?",
           "choices": [
@@ -24346,7 +24346,7 @@
         },
         {
           "questionId": "fund-20",
-          "category": "fundamental",
+          "category": "foundation",
           "type": "free-form",
           "question": "Name at least three Appwrite services (product areas) and what each is used for.",
           "correctAnswer": "Examples: Auth (users, sessions, OAuth, MFA, teams), Databases (collections, documents, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
