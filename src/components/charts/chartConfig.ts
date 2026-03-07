@@ -1,6 +1,9 @@
 import type { CSSProperties } from "react";
+import { getModelColor } from "../../../benchmark/src/config";
 import type { CategoryKey, ModelResult } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
+
+export { getModelColor };
 
 export const tooltipContentStyle: CSSProperties = {
 	background: "#1e1e22",
@@ -20,21 +23,6 @@ export const tooltipItemStyle: CSSProperties = {
 	color: "#9ca3af",
 	padding: "1px 0",
 };
-
-export const MODEL_COLORS: Record<string, string> = {
-	Anthropic: "#FE9567",
-	OpenAI: "#10B981",
-	Google: "#68A3FE",
-	MoonshotAI: "#7C67FE",
-	Zhipu: "#3B82F6",
-	Alibaba: "#6366F1",
-	DeepSeek: "#4D6BFE",
-	MiniMax: "#E85C2B",
-};
-
-export function getModelColor(provider: string): string {
-	return MODEL_COLORS[provider] ?? "#888888";
-}
 
 export function getShortName(modelName: string): string {
 	if (modelName.includes("Claude")) return "Claude";

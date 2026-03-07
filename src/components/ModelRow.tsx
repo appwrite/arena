@@ -59,21 +59,24 @@ export default function ModelRow({
 			}
 		>
 			{!hideModel && (
-				<td className="w-12 px-0 text-[var(--text-secondary)]">
+				<td className="w-11 px-0 text-[var(--text-secondary)]">
 					<div className="flex h-full items-center justify-center">
 						<ProviderLogo provider={model.provider} size={16} />
 					</div>
 				</td>
 			)}
 			{!hideModel && (
-				<td className="px-3 text-left text-sm font-semibold text-[var(--text-primary)]">
+				<td
+					className="min-w-0 px-2 text-left text-xs font-semibold text-[var(--text-primary)]"
+					title={model.modelName}
+				>
 					{disableLink ? (
-						model.modelName
+						<span className="block truncate">{model.modelName}</span>
 					) : (
 						<Link
 							to="/model/$modelId"
 							params={{ modelId: model.modelId }}
-							className="hover:underline"
+							className="block truncate hover:underline"
 							onClick={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
@@ -89,7 +92,7 @@ export default function ModelRow({
 				</td>
 			)}
 			<td
-				className={`px-3 text-left text-sm text-[var(--text-secondary)] ${hideModel ? "pl-5" : ""}`}
+				className={`text-left text-sm text-[var(--text-secondary)] ${hideModel ? "pl-4 pr-2" : "px-2"}`}
 			>
 				${model.costPerMillionTokens.toFixed(2)}
 			</td>

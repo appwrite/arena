@@ -1,10 +1,19 @@
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import JsonLd from "../components/JsonLd";
 import { PlausibleAnalytics } from "../components/PlausibleAnalytics";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../lib/site";
 
 import appCss from "../styles.css?url";
+
+const WEBSITE_JSON_LD = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: "Appwrite Arena",
+	description: SITE_DESCRIPTION,
+	url: SITE_URL,
+} as const;
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -36,6 +45,7 @@ export const Route = createRootRoute({
 			{ rel: "stylesheet", href: appCss },
 			{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
 			{ rel: "canonical", href: SITE_URL },
+			{ rel: "manifest", href: "/manifest.json" },
 		],
 		scripts: [{ src: "/theme-init.js" }],
 	}),
@@ -54,6 +64,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="flex min-h-screen flex-col font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(253,54,110,0.2)]">
+				<JsonLd data={WEBSITE_JSON_LD} />
 				<PlausibleAnalytics />
 				<Header />
 				{children}

@@ -1,14 +1,19 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import CategoryTabs from "#/components/CategoryTabs";
 import FilterChip from "#/components/FilterChip";
+import JsonLd from "#/components/JsonLd";
 import LeaderboardTable from "#/components/LeaderboardTable";
 import ProviderLogo from "#/components/ProviderLogo";
 import QuestionSection from "#/components/QuestionSection";
 import withSkillsData from "#/data/results-with-skills.json";
 import withoutSkillsData from "#/data/results-without-skills.json";
-import { SITE_URL } from "#/lib/site";
+import {
+	getModelCountry,
+	getProviderWebsite,
+} from "../../../benchmark/src/config";
+import { OG_IMAGE, SITE_URL } from "#/lib/site";
 import type { BenchmarkResults, ModelResult, ScoringMode } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
 
@@ -25,10 +30,28 @@ function findModel(
 	return data.models.find((m) => m.modelId === modelId);
 }
 
+const MODEL_PAGE_UTM = {
+	utm_source: "appwrite-arena",
+	utm_medium: "model_page",
+	utm_campaign: "benchmark",
+} as const;
+
+function formatRunDate(iso: string): string {
+	const d = new Date(iso);
+	return d.toLocaleDateString("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	});
+}
+
 interface SearchParams {
 	dataset?: "with-skills" | "without-skills";
 	scoring?: ScoringMode;
 	category?: string;
+	utm_source?: string;
+	utm_medium?: string;
+	utm_campaign?: string;
 }
 
 export const Route = createFileRoute("/model/$modelId")({
@@ -47,6 +70,10 @@ export const Route = createFileRoute("/model/$modelId")({
 		) {
 			result.category = search.category;
 		}
+		if (typeof search.utm_source === "string") result.utm_source = search.utm_source;
+		if (typeof search.utm_medium === "string") result.utm_medium = search.utm_medium;
+		if (typeof search.utm_campaign === "string")
+			result.utm_campaign = search.utm_campaign;
 		return result;
 	},
 	head: ({ params }) => {
@@ -54,14 +81,23 @@ export const Route = createFileRoute("/model/$modelId")({
 		const name = model?.modelName ?? params.modelId;
 		const title = `${name} - Appwrite Arena`;
 		const description = `Detailed benchmark results for ${name} on Appwrite Arena.`;
+		const url = `${SITE_URL}/model/${params.modelId}`;
 		return {
 			meta: [
 				{ title },
 				{ name: "description", content: description },
+				{ property: "og:type", content: "website" },
 				{ property: "og:title", content: title },
 				{ property: "og:description", content: description },
-				{ property: "og:url", content: `${SITE_URL}/model/${params.modelId}` },
+				{ property: "og:url", content: url },
+				{ property: "og:image", content: OG_IMAGE },
+				{ property: "og:site_name", content: "Appwrite Arena" },
+				{ name: "twitter:card", content: "summary_large_image" },
+				{ name: "twitter:title", content: title },
+				{ name: "twitter:description", content: description },
+				{ name: "twitter:image", content: OG_IMAGE },
 			],
+			links: [{ rel: "canonical", href: url }],
 		};
 	},
 	component: ModelDetailPage,
@@ -104,6 +140,14 @@ function ModelDetailPage() {
 	);
 
 	const model = findModel(modelId, dataset);
+
+	const ranking = useMemo(() => {
+		if (!model) return null;
+		const data = dataset === "with-skills" ? withSkills : withoutSkills;
+		const sorted = [...data.models].sort((a, b) => b.overall - a.overall);
+		const rank = sorted.findIndex((m) => m.modelId === modelId) + 1;
+		return rank > 0 ? { rank, total: sorted.length } : null;
+	}, [model, modelId, dataset]);
 
 	const categoryCounts = useMemo(() => {
 		if (!model?.questionDetails) return {};
@@ -161,8 +205,23 @@ function ModelDetailPage() {
 		);
 	}
 
+	const breadcrumbJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{ "@type": "ListItem", position: 1, name: "Appwrite Arena", item: SITE_URL },
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: model.modelName,
+				item: `${SITE_URL}/model/${modelId}`,
+			},
+		],
+	} as const;
+
 	return (
 		<main className="flex-1 arena-container px-2 pb-0 pt-8 md:px-4 md:pt-14">
+			<JsonLd data={breadcrumbJsonLd} />
 			<div className="rise-in relative z-10">
 				<Link
 					to="/"
@@ -172,13 +231,71 @@ function ModelDetailPage() {
 					Back
 				</Link>
 
-				<div className="mb-6 flex items-center gap-3">
-					<ProviderLogo provider={model.provider} size={28} colorful />
-					<div>
+				<div className="mb-6 flex flex-wrap items-start gap-3">
+					<span className="mt-1 inline-block">
+						<ProviderLogo provider={model.provider} size={28} colorful />
+					</span>
+					<div className="flex min-w-0 flex-1 flex-col gap-1">
 						<h1 className="font-heading text-2xl font-normal tracking-[-2.2%] text-[var(--text-primary)] md:text-3xl">
 							{model.modelName}
 						</h1>
+						<p className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm text-[var(--text-secondary)]">
+							<span>
+								{model.provider}
+								{(() => {
+									const country = getModelCountry(model.modelId);
+									return country ? `, ${country}` : "";
+								})()}
+							</span>
+							<span aria-hidden> - </span>
+							<span>
+								{model.totalCorrect}/{model.totalQuestions} correct
+							</span>
+							<span aria-hidden> - </span>
+							<span>Last updated {formatRunDate(model.runDate)}</span>
+							{(() => {
+								const website = getProviderWebsite(model.provider);
+								return website ? (
+									<>
+										<span aria-hidden> - </span>
+										<a
+											href={`${website}${website.includes("?") ? "&" : "?"}utm_source=${MODEL_PAGE_UTM.utm_source}&utm_medium=${MODEL_PAGE_UTM.utm_medium}&utm_campaign=${MODEL_PAGE_UTM.utm_campaign}`}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="inline-flex items-center gap-1 text-[var(--text-secondary)] underline decoration-[var(--line)] underline-offset-2 transition hover:text-[var(--text-primary)] hover:decoration-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
+									>
+										Website
+										<ExternalLink size={12} aria-hidden />
+									</a>
+								</>
+								) : null;
+							})()}
+						</p>
 					</div>
+				</div>
+
+				<div
+					className="mb-8 max-w-2xl pl-0 text-sm leading-relaxed text-[var(--text-secondary)]"
+					aria-label="About this result"
+				>
+					<p>
+						<strong className="font-medium text-[var(--text-primary)]">
+							{model.modelName}
+						</strong>{" "}
+						by {model.provider} achieved an overall score of{" "}
+						<strong className="font-medium text-[var(--text-primary)]">
+							{model.overall.toFixed(1)}%
+						</strong>{" "}
+						on Appwrite Arena
+						{ranking &&
+							`, ranking #${ranking.rank} of ${ranking.total} benchmarked models`}
+						. The benchmark tests how well AI models understand Appwrite - the
+						open-source backend platform for authentication, databases, storage,
+						functions, and more. This model answered {model.totalCorrect} of{" "}
+						{model.totalQuestions} questions correctly across categories
+						including Auth, Databases, Functions, Storage, and CLI. Compare{" "}
+						{model.modelName} with other LLMs on the Appwrite Arena leaderboard.
+					</p>
 				</div>
 
 				<div className="mb-4 flex flex-wrap items-center gap-2">

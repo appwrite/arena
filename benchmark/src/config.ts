@@ -11,56 +11,109 @@ export const MODELS: ModelConfig[] = [
 		provider: "Google",
 		openRouterId: "google/gemini-3.1-pro-preview",
 		openRouterProviderOrder: ["google-ai-studio"],
+		providerWebsite: "https://ai.google.dev",
+		providerBrandColor: "#4285F4",
+		providerChartColor: "#68A3FE",
+		country: "United States",
 	},
 	{
 		id: "gpt-5-3-codex",
 		name: "GPT 5.3 Codex",
 		provider: "OpenAI",
 		openRouterId: "openai/gpt-5.3-codex",
+		providerWebsite: "https://openai.com",
+		providerBrandColor: "#ffffff",
+		providerChartColor: "#10B981",
+		country: "United States",
 	},
 	{
 		id: "gpt-5-4",
 		name: "GPT 5.4",
 		provider: "OpenAI",
 		openRouterId: "openai/gpt-5.4",
+		providerWebsite: "https://openai.com",
+		providerBrandColor: "#ffffff",
+		providerChartColor: "#10B981",
+		country: "United States",
 	},
 	{
 		id: "claude-opus-4-6",
 		name: "Claude Opus 4.6",
 		provider: "Anthropic",
 		openRouterId: "anthropic/claude-opus-4.6",
+		providerWebsite: "https://anthropic.com",
+		providerBrandColor: "#D4A27F",
+		providerChartColor: "#FE9567",
+		country: "United States",
 	},
 	{
 		id: "kimi-k-2-5",
 		name: "Kimi K2.5",
 		provider: "MoonshotAI",
 		openRouterId: "moonshotai/kimi-k2.5",
+		providerWebsite: "https://www.moonshot.cn",
+		providerBrandColor: "#0071e3",
+		providerChartColor: "#7C67FE",
+		country: "China",
 	},
 	{
 		id: "glm-5",
 		name: "GLM 5",
 		provider: "Zhipu",
 		openRouterId: "z-ai/glm-5",
+		providerWebsite: "https://open.bigmodel.cn",
+		providerBrandColor: "#3B82F6",
+		providerChartColor: "#3B82F6",
+		country: "China",
 	},
 	{
 		id: "qwen3-5-397b-a17b",
 		name: "Qwen 3.5 397B A17B",
 		provider: "Alibaba",
 		openRouterId: "qwen/qwen3.5-397b-a17b",
+		providerWebsite: "https://tongyi.aliyun.com",
+		providerBrandColor: "#6366F1",
+		providerChartColor: "#6366F1",
+		country: "China",
 	},
 	{
 		id: "deepseek-v3-2",
 		name: "DeepSeek V3.2",
 		provider: "DeepSeek",
 		openRouterId: "deepseek/deepseek-v3.2",
+		providerWebsite: "https://deepseek.com",
+		providerBrandColor: "#4D6BFE",
+		providerChartColor: "#4D6BFE",
+		country: "China",
 	},
 	{
 		id: "minimax-m2-5",
 		name: "MiniMax M2.5",
 		provider: "MiniMax",
 		openRouterId: "minimax/minimax-m2.5",
+		providerWebsite: "https://www.minimax.chat",
+		providerBrandColor: "#E85C2B",
+		providerChartColor: "#E85C2B",
+		country: "China",
 	},
 ];
+
+export function getModelCountry(modelId: string): string | undefined {
+	return MODELS.find((m) => m.id === modelId)?.country;
+}
+
+export function getProviderWebsite(provider: string): string | undefined {
+	return MODELS.find((m) => m.provider === provider)?.providerWebsite;
+}
+
+export function getModelColor(provider: string): string {
+	const model = MODELS.find((m) => m.provider === provider);
+	return model?.providerChartColor ?? model?.providerBrandColor ?? "#888888";
+}
+
+export function getProviderBrandColor(provider: string): string | undefined {
+	return MODELS.find((m) => m.provider === provider)?.providerBrandColor;
+}
 
 export const JUDGE_MODEL = "anthropic/claude-sonnet-4.6";
 export const RATE_LIMIT_DELAY_MS = 500;
