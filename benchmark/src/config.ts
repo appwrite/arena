@@ -102,7 +102,7 @@ export const MODELS: ModelConfig[] = [
 		provider: "xAI",
 		openRouterId: "x-ai/grok-4.1-fast",
 		providerWebsite: "https://x.ai",
-		providerBrandColor: "#000000",
+		providerBrandColor: "#FFFFFF",
 		providerChartColor: "#F97316",
 		country: "United States",
 	},
