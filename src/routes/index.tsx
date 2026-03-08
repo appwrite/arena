@@ -262,9 +262,7 @@ function App() {
 	const visibleModels = useMemo(
 		() =>
 			HIDDEN_MODEL_IDS.length > 0
-				? activeData.models.filter(
-						(m) => !HIDDEN_MODEL_IDS.includes(m.modelId),
-					)
+				? activeData.models.filter((m) => !HIDDEN_MODEL_IDS.includes(m.modelId))
 				: activeData.models,
 		[activeData.models],
 	);

@@ -23,8 +23,8 @@ export default function HowItWorks({
 					across{" "}
 					<span className="font-medium text-[var(--text-primary)]">
 						{categoryCount} Appwrite services
-					</span>
-					, to help showcase impact AI can have on your project.
+					</span>{" "}
+					to highlight AI's impact on projects.
 				</>
 			),
 		},
@@ -35,8 +35,8 @@ export default function HowItWorks({
 					<span className="font-medium text-[var(--text-primary)]">
 						{modelCount} models
 					</span>{" "}
-					respond with and without Appwrite docs, so we test both raw knowledge
-					and assisted intelligence.
+					respond with and without Appwrite docs, testing both raw knowledge and
+					assisted intelligence.
 				</>
 			),
 		},

@@ -33,6 +33,8 @@ interface SortableThProps {
 	className?: string;
 	relaxedPadding?: boolean;
 	firstCol?: boolean;
+	divider?: boolean;
+	width?: number;
 }
 
 function SortableTh({
@@ -44,8 +46,11 @@ function SortableTh({
 	className = "",
 	relaxedPadding = false,
 	firstCol = false,
+	divider = false,
+	width,
 }: SortableThProps) {
 	const padX = firstCol ? "pl-4 pr-2" : relaxedPadding ? "px-2.5" : "px-2";
+	const padLeft = divider ? "pl-4" : "";
 	const isActive = sortField === field;
 	const handleClick = () => {
 		if (!onSort) return;
@@ -59,6 +64,7 @@ function SortableTh({
 		<th
 			scope="col"
 			className={`text-left ${onSort ? `cursor-pointer ${className}`.trim() : className}`}
+			style={width ? { width } : undefined}
 			role={onSort ? "columnheader" : undefined}
 			aria-sort={
 				onSort && isActive
@@ -72,9 +78,11 @@ function SortableTh({
 				<button
 					type="button"
 					onClick={handleClick}
-					className={`flex w-full cursor-pointer items-center justify-start gap-1 ${padX} py-2 text-left text-xs font-medium tracking-normal text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]`}
+					className={`flex w-full cursor-pointer items-center justify-start gap-1 ${padX} ${padLeft} py-2 text-left text-xs font-medium tracking-normal text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]`}
 				>
-					<span className="min-w-0 flex-1 truncate" title={label}>{label}</span>
+					<span className="min-w-0 truncate" title={label}>
+						{label}
+					</span>
 					<span className="inline-flex w-3 shrink-0 justify-center" aria-hidden>
 						{isActive &&
 							(sortDirection === "desc" ? (
@@ -85,7 +93,10 @@ function SortableTh({
 					</span>
 				</button>
 			) : (
-				<span className={`block min-w-0 truncate ${padX} py-2 text-xs font-medium tracking-normal text-[var(--text-secondary)]`} title={label}>
+				<span
+					className={`block min-w-0 truncate ${padX} ${padLeft} py-2 text-xs font-medium tracking-normal text-[var(--text-secondary)]`}
+					title={label}
+				>
 					{label}
 				</span>
 			)}
@@ -125,21 +136,12 @@ export default function LeaderboardTable({
 
 	return (
 		<div className="arena-card max-w-full overflow-x-auto">
-			<table
-				className={`w-full table-fixed border-collapse text-left [&_td]:align-middle ${hideModel ? "" : "min-w-[778px]"}`}
-			>
-				<colgroup>
-					{!hideModel && <col style={{ width: "44px", minWidth: "44px" }} />}
-					{!hideModel && <col style={{ width: "100px", minWidth: "100px" }} />}
-					<col style={{ width: "56px", minWidth: "56px" }} />
-					<col style={{ width: "52px", minWidth: "52px" }} />
-					{categories.map((cat) => (
-						<col key={cat} style={{ width: "58px", minWidth: "58px" }} />
-					))}
-				</colgroup>
+			<table className="w-full border-collapse whitespace-nowrap text-left [&_td]:align-middle">
 				<thead>
 					<tr className="h-10 border-b border-[var(--line-subtle)] bg-[rgba(255,255,255,0.02)] [&>th]:align-middle">
-						{!hideModel && <th className="w-11 text-left" scope="col" />}
+						{!hideModel && (
+							<th className="w-11 pl-3 pr-0 text-left" scope="col" />
+						)}
 						{!hideModel && (
 							<SortableTh
 								label="Model"
@@ -174,6 +176,8 @@ export default function LeaderboardTable({
 								sortDirection={sortDirection}
 								onSort={onSort}
 								relaxedPadding
+								divider={i === 0}
+								width={100}
 								className={
 									i === 0 ? "border-l border-[var(--line-subtle)]" : ""
 								}

@@ -171,13 +171,22 @@ function QuestionStats({ detail }: { detail: QuestionDetail }) {
 	const items: { label: string; value: string }[] = [];
 
 	if (detail.promptTokens != null)
-		items.push({ label: "Input", value: `${detail.promptTokens.toLocaleString()} tokens` });
+		items.push({
+			label: "Input",
+			value: `${detail.promptTokens.toLocaleString()} tokens`,
+		});
 	if (detail.completionTokens != null)
-		items.push({ label: "Output", value: `${detail.completionTokens.toLocaleString()} tokens` });
+		items.push({
+			label: "Output",
+			value: `${detail.completionTokens.toLocaleString()} tokens`,
+		});
 	if (detail.durationMs != null)
 		items.push({ label: "Duration", value: formatDuration(detail.durationMs) });
 	if (detail.tokensPerSecond != null && detail.tokensPerSecond > 0)
-		items.push({ label: "Speed", value: `${detail.tokensPerSecond.toFixed(1)} tok/s` });
+		items.push({
+			label: "Speed",
+			value: `${detail.tokensPerSecond.toFixed(1)} tok/s`,
+		});
 	if (detail.cost != null)
 		items.push({ label: "Cost", value: formatCost(detail.cost) });
 
@@ -185,7 +194,9 @@ function QuestionStats({ detail }: { detail: QuestionDetail }) {
 		<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-[var(--line-subtle)] pt-3">
 			{items.map((item) => (
 				<span key={item.label} className="text-xs text-[var(--text-secondary)]">
-					<span className="font-medium text-[var(--text-secondary)]">{item.label}:</span>{" "}
+					<span className="font-medium text-[var(--text-secondary)]">
+						{item.label}:
+					</span>{" "}
 					{item.value}
 				</span>
 			))}

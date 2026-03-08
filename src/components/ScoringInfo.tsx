@@ -28,7 +28,8 @@ export default function ScoringInfo({ runDate }: ScoringInfoProps) {
 			)}
 
 			<span className="md:ml-auto text-center md:text-right leading-relaxed">
-				Above {SCORE_THRESHOLD_HIGH}% is recommended, below {SCORE_THRESHOLD_LOW}% is not advised.
+				Above {SCORE_THRESHOLD_HIGH}% is recommended, below{" "}
+				{SCORE_THRESHOLD_LOW}% is not advised
 			</span>
 		</div>
 	);

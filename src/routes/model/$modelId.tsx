@@ -1,5 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, Clock, Coins, ExternalLink, Gauge, Info, Layers } from "lucide-react";
+import {
+	ArrowLeft,
+	Clock,
+	Coins,
+	ExternalLink,
+	Gauge,
+	Info,
+	Layers,
+} from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import CategoryTabs from "#/components/CategoryTabs";
 import FilterChip from "#/components/FilterChip";
@@ -70,8 +78,10 @@ export const Route = createFileRoute("/model/$modelId")({
 		) {
 			result.category = search.category;
 		}
-		if (typeof search.utm_source === "string") result.utm_source = search.utm_source;
-		if (typeof search.utm_medium === "string") result.utm_medium = search.utm_medium;
+		if (typeof search.utm_source === "string")
+			result.utm_source = search.utm_source;
+		if (typeof search.utm_medium === "string")
+			result.utm_medium = search.utm_medium;
 		if (typeof search.utm_campaign === "string")
 			result.utm_campaign = search.utm_campaign;
 		return result;
@@ -162,10 +172,7 @@ function ModelStats({ model }: { model: ModelResult }) {
 	return (
 		<div className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
 			{items.map((item) => (
-				<div
-					key={item.label}
-					className="arena-card flex flex-col gap-1.5 p-3"
-				>
+				<div key={item.label} className="arena-card flex flex-col gap-1.5 p-3">
 					<div className="flex items-center gap-1.5 text-[var(--text-secondary)]">
 						<item.icon size={12} />
 						<span className="text-xs">{item.label}</span>
@@ -174,7 +181,10 @@ function ModelStats({ model }: { model: ModelResult }) {
 						{item.value}
 						{item.tooltip && (
 							<span className="group/tip relative">
-								<Info size={12} className="opacity-40 group-hover/tip:opacity-70 transition-opacity cursor-help" />
+								<Info
+									size={12}
+									className="opacity-40 group-hover/tip:opacity-70 transition-opacity cursor-help"
+								/>
 								<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-pre rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs font-normal text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
 									{item.tooltip}
 								</span>
@@ -293,7 +303,12 @@ function ModelDetailPage() {
 		"@context": "https://schema.org",
 		"@type": "BreadcrumbList",
 		itemListElement: [
-			{ "@type": "ListItem", position: 1, name: "Appwrite Arena", item: SITE_URL },
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Appwrite Arena",
+				item: SITE_URL,
+			},
 			{
 				"@type": "ListItem",
 				position: 2,
@@ -344,14 +359,14 @@ function ModelDetailPage() {
 										<span aria-hidden> - </span>
 										<a
 											href={`${website}${website.includes("?") ? "&" : "?"}utm_source=${MODEL_PAGE_UTM.utm_source}&utm_medium=${MODEL_PAGE_UTM.utm_medium}&utm_campaign=${MODEL_PAGE_UTM.utm_campaign}`}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-flex items-center gap-1 text-[var(--text-secondary)] underline decoration-[var(--line)] underline-offset-2 transition hover:text-[var(--text-primary)] hover:decoration-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
-									>
-										Website
-										<ExternalLink size={12} aria-hidden />
-									</a>
-								</>
+											target="_blank"
+											rel="noopener noreferrer"
+											className="inline-flex items-center gap-1 text-[var(--text-secondary)] underline decoration-[var(--line)] underline-offset-2 transition hover:text-[var(--text-primary)] hover:decoration-[var(--text-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--line)]"
+										>
+											Website
+											<ExternalLink size={12} aria-hidden />
+										</a>
+									</>
 								) : null;
 							})()}
 						</p>
@@ -380,7 +395,8 @@ function ModelDetailPage() {
 						including Auth, Databases, Functions, Storage, and CLI.
 						{model.totalTokens > 0 && (
 							<>
-								{" "}During the benchmark it consumed{" "}
+								{" "}
+								During the benchmark it consumed{" "}
 								{model.totalTokens.toLocaleString()} tokens
 								{model.totalCost > 0 &&
 									` costing $${model.totalCost.toFixed(4)}`}
@@ -390,8 +406,8 @@ function ModelDetailPage() {
 									` over ${formatDuration(model.totalDurationMs)}`}
 								.
 							</>
-						)}
-						{" "}Compare {model.modelName} with other LLMs on the Appwrite Arena
+						)}{" "}
+						Compare {model.modelName} with other LLMs on the Appwrite Arena
 						leaderboard.
 					</p>
 				</div>
