@@ -60,7 +60,7 @@ export default function ModelRow({
 			}
 		>
 			{!hideModel && (
-				<td className="w-11 px-0 text-[var(--text-secondary)]">
+				<td className="w-11 pl-3 pr-0 text-[var(--text-secondary)]">
 					<div className="flex h-full items-center justify-center">
 						<ProviderLogo provider={model.provider} size={16} />
 					</div>
@@ -97,8 +97,11 @@ export default function ModelRow({
 			>
 				<span className="group/cost relative inline-flex items-center gap-1">
 					${model.promptCostPerMillionTokens.toFixed(2)}
-					<Info size={12} className="opacity-40 group-hover/cost:opacity-70 transition-opacity" />
-					<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/cost:opacity-100">
+					<Info
+						size={12}
+						className="opacity-40 group-hover/cost:opacity-70 transition-opacity"
+					/>
+					<span className="pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 whitespace-nowrap rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/cost:opacity-100">
 						Input: ${model.promptCostPerMillionTokens.toFixed(2)}/1M tokens
 						<br />
 						Output: ${model.completionCostPerMillionTokens.toFixed(2)}/1M tokens

@@ -82,21 +82,35 @@ export default function RadarPerformance({ models }: Props) {
 					<Tooltip
 						content={({ active, payload, label }) => {
 							if (!active || !payload?.length) return null;
+							const sorted = [...payload].sort(
+								(a, b) =>
+									(typeof b.value === "number" ? b.value : 0) -
+									(typeof a.value === "number" ? a.value : 0),
+							);
 							return (
 								<div style={{ ...tooltipContentStyle, padding: "10px 14px" }}>
 									<p style={tooltipLabelStyle}>{label}</p>
-									{payload.map((entry) => (
-										<p
-											key={entry.name}
-											style={{
-												color: "#9ca3af",
-												padding: "1px 0",
-												fontSize: 13,
-											}}
-										>
-											{entry.name}: {entry.value}%
-										</p>
-									))}
+									<div
+										style={{
+											display: "grid",
+											gridTemplateColumns: "1fr 1fr",
+											gap: "2px 16px",
+										}}
+									>
+										{sorted.map((entry) => (
+											<p
+												key={entry.name}
+												style={{
+													color: "#9ca3af",
+													padding: "1px 0",
+													fontSize: 13,
+													whiteSpace: "nowrap",
+												}}
+											>
+												{entry.name}: {entry.value}%
+											</p>
+										))}
+									</div>
 								</div>
 							);
 						}}
@@ -134,16 +148,16 @@ export default function RadarPerformance({ models }: Props) {
 						}))}
 						content={({ payload: items, onClick: onLegendClick }) => (
 							<div
-                style={{
-                  maxWidth: '500px',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
+								style={{
+									maxWidth: "500px",
+									marginLeft: "auto",
+									marginRight: "auto",
 									display: "flex",
 									justifyContent: "center",
 									flexWrap: "wrap",
 									gap: "12px 20px",
-                  paddingTop: 12,
-                  transform: 'translateY(20px)',
+									paddingTop: 12,
+									transform: "translateY(20px)",
 									fontSize: 13,
 									cursor: "pointer",
 								}}

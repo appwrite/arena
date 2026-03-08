@@ -1,3 +1,4 @@
+import { Check, X } from "lucide-react";
 import type { ReactNode } from "react";
 
 const KEYWORDS = new Set([
@@ -134,7 +135,7 @@ await tables.createRow({
   documentId: ID.unique(),
   data: { title: 'Hello', content: 'World' }
 });`,
-		success: "✓ built in 743ms",
+		success: "built in 743ms",
 	},
 ];
 
@@ -184,7 +185,12 @@ export default function TwoModes() {
 											<code>{highlightCode(panel.code)}</code>
 										</pre>
 										{panel.success && (
-											<div className="flex items-center gap-1.5 rounded-md border border-green-200 bg-green-50 px-2 py-1.5 font-mono text-[10px] leading-tight text-green-600">
+											<div className="flex items-center gap-1.5 rounded-md border border-[#10B981]/16 bg-[#10B981]/4 px-2 py-1.5 font-mono text-[10px] leading-tight text-[#0A714F]">
+												<Check
+													size={10}
+													className="shrink-0"
+													strokeWidth={2.5}
+												/>
 												<span>{panel.success}</span>
 											</div>
 										)}
@@ -193,9 +199,13 @@ export default function TwoModes() {
 												{panel.errors.map((error) => (
 													<div
 														key={error}
-														className="flex items-start gap-1.5 rounded-md border border-red-200 bg-red-50 px-2 py-1.5 font-mono text-[10px] leading-tight text-red-600"
+														className="flex items-start gap-1.5 rounded-md border border-[#FF453A]/16 bg-[#FF453A]/4 px-2 py-1.5 font-mono text-[10px] leading-tight text-[#B31212]"
 													>
-														<span className="mt-px shrink-0">&#x2716;</span>
+														<X
+															size={10}
+															className="mt-px shrink-0"
+															strokeWidth={2.5}
+														/>
 														<span>{error}</span>
 													</div>
 												))}

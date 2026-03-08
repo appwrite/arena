@@ -75,8 +75,8 @@ function Pill({
 }) {
 	const colors =
 		variant === "pro"
-			? "border-[var(--score-high)]/20 text-[var(--score-high)]"
-			: "border-[var(--score-low)]/20 text-[var(--score-low)]";
+			? "border-[#10B981]/16 bg-[#10B981]/4 text-[#10B981]"
+			: "border-[#FF453A]/16 bg-[#FF453A]/4 text-[#FF453A]";
 	return (
 		<span
 			className={`rounded-full border px-3 py-1 text-xs font-medium ${colors}`}

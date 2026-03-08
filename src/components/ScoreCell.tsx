@@ -11,7 +11,9 @@ export default function ScoreCell({
 	isOverall,
 	divider,
 }: ScoreCellProps) {
-	const borderClass = divider ? "border-l border-[var(--line-subtle)]" : "";
+	const borderClass = divider
+		? "border-l border-[var(--line-subtle)] pl-4"
+		: "";
 
 	if (score === undefined || score === null) {
 		return (
