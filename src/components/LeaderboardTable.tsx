@@ -158,6 +158,7 @@ export default function LeaderboardTable({
 							sortDirection={sortDirection}
 							onSort={onSort}
 							firstCol={hideModel}
+							width={hideModel ? 120 : undefined}
 						/>
 						<SortableTh
 							label="Overall"
@@ -166,6 +167,7 @@ export default function LeaderboardTable({
 							sortDirection={sortDirection}
 							onSort={onSort}
 							relaxedPadding
+							width={hideModel ? 120 : undefined}
 						/>
 						{categories.map((cat, i) => (
 							<SortableTh
@@ -177,7 +179,7 @@ export default function LeaderboardTable({
 								onSort={onSort}
 								relaxedPadding
 								divider={i === 0}
-								width={100}
+								width={hideModel ? undefined : 100}
 								className={
 									i === 0 ? "border-l border-[var(--line-subtle)]" : ""
 								}
