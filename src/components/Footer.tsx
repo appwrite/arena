@@ -44,7 +44,7 @@ export default function Footer() {
 					</a>
 				</div>
 				<p className="m-0 text-sm text-[var(--text-secondary)]">
-					&copy; 2025 Appwrite. All rights reserved.
+					&copy; {new Date().getFullYear()} Appwrite. All rights reserved.
 				</p>
 			</div>
 		</footer>
