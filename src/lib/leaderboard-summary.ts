@@ -30,9 +30,10 @@ function toSummary(models: unknown[]): ModelSummary[] {
 
 function buildSummary(mode: "with-skills" | "without-skills") {
 	const data = mode === "with-skills" ? withSkillsData : withoutSkillsData;
-	const sorted = [...(data as { models: Array<{ overall?: number }>; runDate: string }).models].sort(
-		(a, b) => (b.overall ?? 0) - (a.overall ?? 0),
-	);
+	const sorted = [
+		...(data as { models: Array<{ overall?: number }>; runDate: string })
+			.models,
+	].sort((a, b) => (b.overall ?? 0) - (a.overall ?? 0));
 	return {
 		runDate: (data as { runDate: string }).runDate,
 		mode,
@@ -44,4 +45,21 @@ export const fetchLeaderboardSummary = createServerFn()
 	.validator((mode: "with-skills" | "without-skills") => mode)
 	.handler(async ({ data: mode }) => {
 		return buildSummary(mode);
+	});
+
+export const fetchLeaderboardSummaryResponse = createServerFn()
+	.validator((mode: string) => mode)
+	.handler(async ({ data: mode }) => {
+		if (mode !== "with-skills" && mode !== "without-skills") {
+			return new Response("Invalid mode", { status: 400 });
+		}
+
+		const payload = buildSummary(mode);
+		return new Response(JSON.stringify(payload), {
+			headers: {
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin": "*",
+				"Cache-Control": "public, max-age=3600",
+			},
+		});
 	});
