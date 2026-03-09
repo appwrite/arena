@@ -31,6 +31,7 @@ const config = defineConfig({
 			pages: [
 				{ path: "/api/summary/with-skills.json" },
 				{ path: "/api/summary/without-skills.json" },
+				{ path: "/sitemap.xml" },
 			],
 			prerender: {
 				enabled: true,
