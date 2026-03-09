@@ -17,13 +17,13 @@ import ProviderLogo from "#/components/ProviderLogo";
 import QuestionSection from "#/components/QuestionSection";
 import withSkillsData from "#/data/results-with-skills.json";
 import withoutSkillsData from "#/data/results-without-skills.json";
+import { OG_IMAGE, SITE_URL } from "#/lib/site";
+import type { BenchmarkResults, ModelResult, ScoringMode } from "#/lib/types";
+import { CATEGORY_LABELS } from "#/lib/types";
 import {
 	getModelCountry,
 	getProviderWebsite,
 } from "../../../benchmark/src/config";
-import { OG_IMAGE, SITE_URL } from "#/lib/site";
-import type { BenchmarkResults, ModelResult, ScoringMode } from "#/lib/types";
-import { CATEGORY_LABELS } from "#/lib/types";
 
 const withSkills = withSkillsData as BenchmarkResults;
 const withoutSkills = withoutSkillsData as BenchmarkResults;
