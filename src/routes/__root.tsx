@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import JsonLd from "../components/JsonLd";
 import { PlausibleAnalytics } from "../components/PlausibleAnalytics";
+import { fetchGitHubStars } from "../lib/github-stars";
 import { OG_IMAGE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../lib/site";
 
 import appCss from "../styles.css?url";
@@ -16,6 +17,7 @@ const WEBSITE_JSON_LD = {
 } as const;
 
 export const Route = createRootRoute({
+	loader: () => fetchGitHubStars(),
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -53,6 +55,7 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const stars = Route.useLoaderData();
 	return (
 		<html
 			lang="en"
@@ -66,7 +69,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="flex min-h-screen flex-col font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(253,54,110,0.2)]">
 				<JsonLd data={WEBSITE_JSON_LD} />
 				<PlausibleAnalytics />
-				<Header />
+				<Header stars={stars} />
 				{children}
 				<Footer />
 				<Scripts />
