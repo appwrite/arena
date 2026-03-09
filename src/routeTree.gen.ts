@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ModelModelIdRouteImport } from './routes/model/$modelId'
+import { Route as ApiSummaryModeRouteImport } from './routes/api/summary.$mode'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const ModelModelIdRoute = ModelModelIdRouteImport.update({
   path: '/model/$modelId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSummaryModeRoute = ApiSummaryModeRouteImport.update({
+  id: '/api/summary/$mode',
+  path: '/api/summary/$mode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/model/$modelId': typeof ModelModelIdRoute
+  '/api/summary/$mode': typeof ApiSummaryModeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/model/$modelId': typeof ModelModelIdRoute
+  '/api/summary/$mode': typeof ApiSummaryModeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/model/$modelId': typeof ModelModelIdRoute
+  '/api/summary/$mode': typeof ApiSummaryModeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/model/$modelId'
+  fullPaths: '/' | '/model/$modelId' | '/api/summary/$mode'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/model/$modelId'
-  id: '__root__' | '/' | '/model/$modelId'
+  to: '/' | '/model/$modelId' | '/api/summary/$mode'
+  id: '__root__' | '/' | '/model/$modelId' | '/api/summary/$mode'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ModelModelIdRoute: typeof ModelModelIdRoute
+  ApiSummaryModeRoute: typeof ApiSummaryModeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelModelIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/summary/$mode': {
+      id: '/api/summary/$mode'
+      path: '/api/summary/$mode'
+      fullPath: '/api/summary/$mode'
+      preLoaderRoute: typeof ApiSummaryModeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ModelModelIdRoute: ModelModelIdRoute,
+  ApiSummaryModeRoute: ApiSummaryModeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

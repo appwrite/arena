@@ -5,6 +5,6 @@ import { defineNitroConfig } from "nitro/config";
  */
 export default defineNitroConfig({
 	routeRules: {
-		"/api/summary/**": { cors: true },
+		"/api/summary/*.json": { cors: true },
 	},
 });

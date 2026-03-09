@@ -28,6 +28,10 @@ const config = defineConfig({
 		tsconfigPaths({ projects: ["./tsconfig.json"] }),
 		tailwindcss(),
 		tanstackStart({
+			pages: [
+				{ path: "/api/summary/with-skills.json" },
+				{ path: "/api/summary/without-skills.json" },
+			],
 			prerender: {
 				enabled: true,
 				autoSubfolderIndex: true,

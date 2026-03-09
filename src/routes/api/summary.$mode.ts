@@ -5,7 +5,8 @@ export const Route = createFileRoute("/api/summary/$mode")({
 	server: {
 		handlers: {
 			GET: async ({ params }) => {
-				return fetchLeaderboardSummaryResponse({ data: params.mode });
+				const mode = params.mode.replace(/\.json$/, "");
+				return fetchLeaderboardSummaryResponse({ data: mode });
 			},
 		},
 	},

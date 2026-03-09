@@ -41,15 +41,15 @@ function buildSummary(mode: "with-skills" | "without-skills") {
 	};
 }
 
-export const fetchLeaderboardSummary = createServerFn()
-	.validator((mode: "with-skills" | "without-skills") => mode)
-	.handler(async ({ data: mode }) => {
-		return buildSummary(mode);
-	});
+export const fetchLeaderboardSummary = createServerFn().handler(
+	async (ctx: { data: "with-skills" | "without-skills" }) => {
+		return buildSummary(ctx.data);
+	},
+);
 
-export const fetchLeaderboardSummaryResponse = createServerFn()
-	.validator((mode: string) => mode)
-	.handler(async ({ data: mode }) => {
+export const fetchLeaderboardSummaryResponse = createServerFn().handler(
+	async (ctx: { data: string }) => {
+		const mode = ctx.data;
 		if (mode !== "with-skills" && mode !== "without-skills") {
 			return new Response("Invalid mode", { status: 400 });
 		}
@@ -62,4 +62,5 @@ export const fetchLeaderboardSummaryResponse = createServerFn()
 				"Cache-Control": "public, max-age=3600",
 			},
 		});
-	});
+	},
+);
