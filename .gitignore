@@ -12,3 +12,9 @@ dist-ssr
 __unconfig*
 todos.json
 agent-skills/
+
+# Generated at build time by scripts/generate-leaderboard-json.ts
+public/summary.json
+public/leaderboard.json
+public/leaderboard-with-skills.json
+public/leaderboard-without-skills.json

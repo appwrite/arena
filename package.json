@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vite dev --port 3000",
-    "prebuild": "bun scripts/fetch-stars.ts && bun scripts/generate-sitemap.ts",
+    "prebuild": "bun scripts/fetch-stars.ts && bun scripts/generate-sitemap.ts && bun scripts/generate-leaderboard-json.ts",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -25,6 +25,7 @@
     "@tanstack/react-router-ssr-query": "^1.131.7",
     "@tanstack/react-start": "^1.132.0",
     "@tanstack/router-plugin": "^1.132.0",
+    "@types/bun": "^1.3.10",
     "lucide-react": "^0.545.0",
     "nitro": "npm:nitro-nightly@latest",
     "react": "^19.2.0",
