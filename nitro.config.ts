@@ -5,9 +5,7 @@ import { defineNitroConfig } from "nitro/config";
  */
 export default defineNitroConfig({
 	routeRules: {
-		"/summary.json": { cors: true },
-		"/leaderboard.json": { cors: true },
-		"/leaderboard-with-skills.json": { cors: true },
-		"/leaderboard-without-skills.json": { cors: true },
+		"/summary-with-skills.json": { cors: true },
+		"/summary-without-skills.json": { cors: true },
 	},
 });

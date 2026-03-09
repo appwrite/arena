@@ -51,19 +51,10 @@ async function generate(mode: "with-skills" | "without-skills") {
 		mode,
 		models: toSummary(sorted),
 	};
-	const outPath = path.join(publicDir, `leaderboard-${mode === "with-skills" ? "with-skills" : "without-skills"}.json`);
+	const outPath = path.join(publicDir, `summary-${mode === "with-skills" ? "with-skills" : "without-skills"}.json`);
 	await Bun.write(outPath, JSON.stringify(payload, null, 0));
 	console.log(`Generated /${path.relative(rootDir, outPath)} with ${sorted.length} models`);
 }
 
 await generate("with-skills");
 await generate("without-skills");
-
-// Default leaderboard.json = with-skills (same as site default)
-const withData = await Bun.file(path.join(publicDir, "leaderboard-with-skills.json")).json();
-await Bun.write(path.join(publicDir, "leaderboard.json"), JSON.stringify(withData, null, 0));
-console.log("Generated /leaderboard.json (with-skills)");
-
-// GET /summary.json — simplified payload for homepage (SSG static file in dist)
-await Bun.write(path.join(publicDir, "summary.json"), JSON.stringify(withData, null, 0));
-console.log("Generated /summary.json (homepage summary, SSG)");
