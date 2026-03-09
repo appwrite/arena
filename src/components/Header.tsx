@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import githubStars from "#/data/github-stars.json";
+
+interface HeaderProps {
+	stars: number;
+}
 
 function AppwriteLogo() {
 	return (
@@ -49,8 +52,7 @@ function formatStars(count: number): string {
 	return String(count);
 }
 
-export default function Header() {
-	const stars = githubStars.stars;
+export default function Header({ stars }: HeaderProps) {
 	const headerRef = useRef<HTMLElement>(null);
 	const [isLight, setIsLight] = useState(false);
 

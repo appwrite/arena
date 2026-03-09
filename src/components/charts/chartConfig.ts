@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
-import { getModelColor } from "../../../benchmark/src/config";
 import type { CategoryKey, ModelResult } from "#/lib/types";
 import { CATEGORY_LABELS } from "#/lib/types";
+import { getModelColor } from "../../../benchmark/src/config";
 
 export { getModelColor };
 

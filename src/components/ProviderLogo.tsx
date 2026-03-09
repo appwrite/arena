@@ -1,10 +1,10 @@
-import { getProviderBrandColor } from "../../benchmark/src/config";
 import ClaudeColor from "@lobehub/icons/es/Claude/components/Color";
 import Claude from "@lobehub/icons/es/Claude/components/Mono";
 import DeepSeekColor from "@lobehub/icons/es/DeepSeek/components/Color";
 import DeepSeek from "@lobehub/icons/es/DeepSeek/components/Mono";
 import GeminiColor from "@lobehub/icons/es/Gemini/components/Color";
 import Gemini from "@lobehub/icons/es/Gemini/components/Mono";
+import Grok from "@lobehub/icons/es/Grok/components/Mono";
 import KimiColor from "@lobehub/icons/es/Kimi/components/Color";
 import Kimi from "@lobehub/icons/es/Kimi/components/Mono";
 import MinimaxColor from "@lobehub/icons/es/Minimax/components/Color";
@@ -12,10 +12,10 @@ import Minimax from "@lobehub/icons/es/Minimax/components/Mono";
 import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
 import QwenColor from "@lobehub/icons/es/Qwen/components/Color";
 import Qwen from "@lobehub/icons/es/Qwen/components/Mono";
-import Grok from "@lobehub/icons/es/Grok/components/Mono";
 import ZhipuColor from "@lobehub/icons/es/Zhipu/components/Color";
 import Zhipu from "@lobehub/icons/es/Zhipu/components/Mono";
 import type { ComponentType, SVGProps } from "react";
+import { getProviderBrandColor } from "../../benchmark/src/config";
 
 type IconComponent = ComponentType<
 	SVGProps<SVGSVGElement> & { size?: number | string }
