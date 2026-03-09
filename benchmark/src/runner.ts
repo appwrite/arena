@@ -77,8 +77,9 @@ async function callModelRaw(
     reasoning: {
       enabled: true,
       effort: "xhigh",
-      max_tokens: 25000,
-		}
+      max_tokens: 4096,
+    },
+		maxCompletionTokens: 8192
 	};
 	if (tools && tools.length > 0) {
 		chatGenerationParams.tools = tools;
