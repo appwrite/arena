@@ -576,10 +576,9 @@ export async function runBenchmark({
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug, pricing).then((result) => {
 					running--;
 					completed++;
-					const isBadMcq = question.type === "mcq" && !/^[A-Da-d]$/.test(result.modelAnswer.trim());
-					if (result.modelAnswer === "" || isBadMcq) {
+					if (result.modelAnswer === "") {
 						console.log(
-							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${isBadMcq ? "INVALID MCQ ANSWER" : "ERROR"} — skipping`,
+							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — skipping`,
 						);
 					} else {
 						console.log(
