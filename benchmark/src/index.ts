@@ -204,6 +204,7 @@ function loadExistingResults(mode: string): Record<string, ModelProgress> {
 						...(d.cost != null ? { cost: d.cost } : {}),
 						...(d.durationMs != null ? { durationMs: d.durationMs } : {}),
 						...(d.tokensPerSecond != null ? { tokensPerSecond: d.tokensPerSecond } : {}),
+						...(d.toolCallCount != null ? { toolCallCount: d.toolCallCount } : {}),
 					})),
 				};
 			}
@@ -253,6 +254,7 @@ function saveResults(
 				...(r.cost != null ? { cost: r.cost } : {}),
 				...(r.durationMs != null ? { durationMs: r.durationMs } : {}),
 				...(r.tokensPerSecond != null ? { tokensPerSecond: r.tokensPerSecond } : {}),
+				...(r.toolCallCount != null ? { toolCallCount: r.toolCallCount } : {}),
 			};
 		});
 

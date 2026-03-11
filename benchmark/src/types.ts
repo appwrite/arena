@@ -23,6 +23,7 @@ export interface QuestionResult {
 	cost?: number;
 	durationMs?: number;
 	tokensPerSecond?: number;
+	toolCallCount?: number;
 }
 
 export interface QuestionDetail {
@@ -44,6 +45,7 @@ export interface QuestionDetail {
 	cost?: number;
 	durationMs?: number;
 	tokensPerSecond?: number;
+	toolCallCount?: number;
 }
 
 export interface ModelConfig {

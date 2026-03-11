@@ -164,7 +164,8 @@ function QuestionStats({ detail }: { detail: QuestionDetail }) {
 		detail.promptTokens != null ||
 		detail.completionTokens != null ||
 		detail.durationMs != null ||
-		detail.cost != null;
+		detail.cost != null ||
+		detail.toolCallCount != null;
 
 	if (!hasStats) return null;
 
@@ -189,6 +190,11 @@ function QuestionStats({ detail }: { detail: QuestionDetail }) {
 		});
 	if (detail.cost != null)
 		items.push({ label: "Cost", value: formatCost(detail.cost) });
+	if (detail.toolCallCount != null)
+		items.push({
+			label: "Tool calls",
+			value: `${detail.toolCallCount}`,
+		});
 
 	return (
 		<div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 border-t border-[var(--line-subtle)] pt-3">

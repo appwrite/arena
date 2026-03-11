@@ -17,6 +17,7 @@ export interface QuestionDetail {
 	cost?: number;
 	durationMs?: number;
 	tokensPerSecond?: number;
+	toolCallCount?: number;
 }
 
 export interface BenchmarkResults {

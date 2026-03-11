@@ -267,6 +267,7 @@ export interface CallMetrics {
 interface CallModelResult {
 	answer: string;
 	metrics: CallMetrics;
+	toolCallCount: number;
 }
 
 async function callModel(
@@ -298,6 +299,7 @@ async function callModel(
 	let totalPromptTokens = 0;
 	let totalCompletionTokens = 0;
 	let totalDurationMs = 0;
+	let totalToolCalls = 0;
 
 	function accumulateMetrics(data: ApiResponse) {
 		if (data.usage) {
@@ -319,6 +321,7 @@ async function callModel(
 				durationMs: totalDurationMs,
 				tokensPerSecond: durationSec > 0 ? Math.round((totalCompletionTokens / durationSec) * 100) / 100 : 0,
 			},
+			toolCallCount: totalToolCalls,
 		};
 	}
 
@@ -356,6 +359,12 @@ async function callModel(
 					if (debug) {
 						debugLog(`MCQ ANSWER via tool call: ${toolCall.function.name}`, letter);
 					}
+					// Count non-MCQ tool calls in this batch before returning
+					for (const tc of msg.toolCalls) {
+						if (!mcqToolNames.has(tc.function.name)) {
+							totalToolCalls++;
+						}
+					}
 					return buildResult(letter);
 				}
 			}
@@ -365,6 +374,9 @@ async function callModel(
 		if (!skillsMap) {
 			return buildResult(msg.content ?? "");
 		}
+
+		// Count tool calls
+		totalToolCalls += msg.toolCalls.length;
 
 		// Append assistant message with toolCalls
 		messages.push({
@@ -439,7 +451,7 @@ export interface RunBenchmarkOptions {
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
-const CONCURRENCY_LIMIT = 1;
+const CONCURRENCY_LIMIT = 10;
 
 async function processQuestion(
 	question: Question,
@@ -469,7 +481,7 @@ async function processQuestion(
 	}
 
 	try {
-		const { answer: response, metrics } = await callModel(model, effectiveSystemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
+		const { answer: response, metrics, toolCallCount } = await callModel(model, effectiveSystemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
 
 		let correct = false;
 		let score = 0;
@@ -507,6 +519,7 @@ async function processQuestion(
 			cost: cost !== undefined ? Math.round(cost * 1_000_000) / 1_000_000 : undefined,
 			durationMs: metrics.durationMs,
 			tokensPerSecond: metrics.tokensPerSecond,
+			toolCallCount,
 		};
 	} catch (error) {
 		console.error(`    Error (${question.id}): ${error}`);
