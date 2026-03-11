@@ -475,8 +475,11 @@ async function processQuestion(
 		let score = 0;
 		let judgeReasoning: string | undefined;
 
+		let modelAnswer = response;
+
 		if (question.type === "mcq") {
 			const extracted = extractMCQAnswer(response);
+			modelAnswer = extracted;
 			correct = extracted === question.correctAnswer.toUpperCase();
 			score = correct ? 1 : 0;
 		} else {
@@ -494,7 +497,7 @@ async function processQuestion(
 			questionId: question.id,
 			category: question.category,
 			type: question.type,
-			modelAnswer: response,
+			modelAnswer,
 			correct,
 			score,
 			judgeReasoning,
