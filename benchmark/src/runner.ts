@@ -451,7 +451,7 @@ export interface RunBenchmarkOptions {
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
-const CONCURRENCY_LIMIT = 10;
+const CONCURRENCY_LIMIT = 1;
 
 async function processQuestion(
 	question: Question,
@@ -576,13 +576,14 @@ export async function runBenchmark({
 				processQuestion(question, model, systemPrompt, tools, skillsMap, debug, pricing).then((result) => {
 					running--;
 					completed++;
+
 					if (result.modelAnswer === "") {
 						console.log(
 							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — skipping`,
 						);
 					} else {
 						console.log(
-							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${result.correct ? "✓" : "✗"}`,
+							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ${result.correct ? "✓" : "✗"} ${result.modelAnswer}`,
 						);
 						results.push(result);
 						onQuestionComplete(result);
