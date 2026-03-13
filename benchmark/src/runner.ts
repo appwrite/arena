@@ -120,6 +120,7 @@ async function callModelRaw(
 	let chunkIndex = 0;
 	let lastChunk: string = "";
 	let secondToLastChunk: string = "";
+	try {
 	for await (const chunk of stream) {
 		const chunkStr = JSON.stringify(chunk, null, 2) ?? String(chunk);
 		if (debug && chunkIndex === 0) {
@@ -183,6 +184,17 @@ async function callModelRaw(
 					});
 				}
 			}
+		}
+	}
+	} catch (streamError) {
+		// When the model hits max_output_tokens, the SDK may throw an error.
+		// If we already have partial content, use it instead of failing.
+		if (content || reasoning || toolCallMap.size > 0) {
+			if (debug) {
+				debugLog("STREAM ERROR (using partial response)", String(streamError));
+			}
+		} else {
+			throw streamError;
 		}
 	}
 

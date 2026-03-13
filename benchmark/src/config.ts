@@ -66,7 +66,7 @@ export const MODELS: ModelConfig[] = [
 		providerBrandColor: "#3B82F6",
 		providerChartColor: "#3B82F6",
 		country: "China",
-	},
+  },
 	{
 		id: "gpt-5-3-codex", // ~1.75$
 		name: "GPT 5.3 Codex",
