@@ -1,4 +1,4 @@
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import JsonLd from "../components/JsonLd";
@@ -51,11 +51,11 @@ export const Route = createRootRoute({
 		],
 		scripts: [{ src: "/theme-init.js" }],
 	}),
-	shellComponent: RootDocument,
+	shellComponent: RootShell,
+	component: RootLayout,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
-	const stars = Route.useLoaderData();
+function RootShell({ children }: { children: React.ReactNode }) {
 	return (
 		<html
 			lang="en"
@@ -66,14 +66,23 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<HeadContent />
 			</head>
-			<body className="flex min-h-screen flex-col font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(253,54,110,0.2)]">
+			<body className="flex min-h-screen flex-col font-sans antialiased wrap-anywhere selection:bg-[rgba(253,54,110,0.2)]">
 				<JsonLd data={WEBSITE_JSON_LD} />
 				<PlausibleAnalytics />
-				<Header stars={stars} />
 				{children}
-				<Footer />
 				<Scripts />
 			</body>
 		</html>
+	);
+}
+
+function RootLayout() {
+	const stars = Route.useLoaderData();
+	return (
+		<>
+			<Header stars={stars} />
+			<Outlet />
+			<Footer />
+		</>
 	);
 }
