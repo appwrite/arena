@@ -79,7 +79,7 @@ async function callModelRaw(
       effort: "xhigh",
       max_tokens: 4096,
     },
-		maxCompletionTokens: 8192
+		max_completion_tokens: 16384
 	};
 	if (tools && tools.length > 0) {
 		chatGenerationParams.tools = tools;
@@ -90,6 +90,15 @@ async function callModelRaw(
 
 	const startTime = performance.now();
 
+	let content = "";
+	let reasoning = "";
+	const toolCallMap = new Map<number, ToolCall>();
+	let usage: UsageInfo | undefined;
+
+	let chunkIndex = 0;
+	let lastChunk: string = "";
+	let secondToLastChunk: string = "";
+	try {
 	const stream = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]) as AsyncIterable<{
 		choices: Array<{
 			delta: {
@@ -112,15 +121,6 @@ async function callModelRaw(
 		};
 	}>;
 
-	let content = "";
-	let reasoning = "";
-	const toolCallMap = new Map<number, ToolCall>();
-	let usage: UsageInfo | undefined;
-
-	let chunkIndex = 0;
-	let lastChunk: string = "";
-	let secondToLastChunk: string = "";
-	try {
 	for await (const chunk of stream) {
 		const chunkStr = JSON.stringify(chunk, null, 2) ?? String(chunk);
 		if (debug && chunkIndex === 0) {
