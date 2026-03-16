@@ -105,7 +105,7 @@ export default function Header({ stars }: HeaderProps) {
 					className="inline-flex items-center gap-2.5 text-[var(--text-primary)] no-underline"
 				>
 					<AppwriteLogo />
-					<span className="font-heading text-lg font-normal tracking-[-2.2%] leading-[34px]">
+					<span className="font-heading text-lg font-normal tracking-[-2.2%] leading-[34px] hidden min-[360px]:inline">
 						Appwrite Arena
 					</span>
 				</a>
@@ -117,7 +117,7 @@ export default function Header({ stars }: HeaderProps) {
 					className="header-github-btn ml-auto inline-flex items-center gap-2 rounded-lg border border-[#FD366E]/20 bg-[#FD366E]/[0.04] px-3 py-2 text-sm text-[#EDEDF0] no-underline shadow-none transition-all duration-300 ease-out hover:shadow-[0_0_20px_rgba(253,54,110,0.15)] hover:text-[#EDEDF0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
 				>
 					<StarIcon />
-					<span>Star on GitHub</span>
+					<span className="hidden sm:inline">Star on GitHub</span>
 					<span
 						className="header-stars-badge rounded-md px-2 py-0.5 text-xs font-semibold text-[#EDEDF0]"
 						style={{ background: "rgba(253, 54, 110, 0.24)" }}
