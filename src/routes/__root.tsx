@@ -18,6 +18,7 @@ const WEBSITE_JSON_LD = {
 
 export const Route = createRootRoute({
 	loader: () => fetchGitHubStars(),
+	shouldReload: false,
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -66,7 +67,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<HeadContent />
 			</head>
-			<body className="flex min-h-screen flex-col font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(253,54,110,0.2)]">
+			<body className="flex min-h-screen flex-col font-sans antialiased wrap-anywhere selection:bg-[rgba(253,54,110,0.2)]">
 				<JsonLd data={WEBSITE_JSON_LD} />
 				<PlausibleAnalytics />
 				<Header stars={stars} />
