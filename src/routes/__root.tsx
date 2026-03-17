@@ -1,4 +1,4 @@
-import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import JsonLd from "../components/JsonLd";
@@ -18,9 +18,7 @@ const WEBSITE_JSON_LD = {
 
 export const Route = createRootRoute({
 	loader: () => fetchGitHubStars(),
-
 	shouldReload: false,
-
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -54,11 +52,11 @@ export const Route = createRootRoute({
 		],
 		scripts: [{ src: "/theme-init.js" }],
 	}),
-	shellComponent: RootShell,
-	component: RootLayout,
+	shellComponent: RootDocument,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
+function RootDocument({ children }: { children: React.ReactNode }) {
+	const stars = Route.useLoaderData();
 	return (
 		<html
 			lang="en"
@@ -72,20 +70,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 			<body className="flex min-h-screen flex-col font-sans antialiased wrap-anywhere selection:bg-[rgba(253,54,110,0.2)]">
 				<JsonLd data={WEBSITE_JSON_LD} />
 				<PlausibleAnalytics />
+				<Header stars={stars} />
 				{children}
+				<Footer />
 				<Scripts />
 			</body>
 		</html>
-	);
-}
-
-function RootLayout() {
-	const stars = Route.useLoaderData();
-	return (
-		<>
-			<Header stars={stars} />
-			<Outlet />
-			<Footer />
-		</>
 	);
 }
