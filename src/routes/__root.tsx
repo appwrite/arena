@@ -18,6 +18,9 @@ const WEBSITE_JSON_LD = {
 
 export const Route = createRootRoute({
 	loader: () => fetchGitHubStars(),
+
+	shouldReload: false,
+
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
