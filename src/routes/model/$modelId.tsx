@@ -130,15 +130,26 @@ interface StatCard {
 }
 
 function ModelStats({ model }: { model: ModelResult }) {
-	const items: StatCard[] = [];
+	const totalItems: StatCard[] = [];
+	const avgItems: StatCard[] = [];
 
+	// Compute average tool calls
+	const totalToolCalls = model.questionDetails?.reduce(
+		(sum, q) => sum + (q.toolCallCount ?? 0),
+		0,
+	) ?? 0;
+	const avgToolCalls = model.totalQuestions > 0
+		? totalToolCalls / model.totalQuestions
+		: 0;
+
+	// Total stats
 	if (model.totalTokens > 0) {
 		const parts: string[] = [];
 		if (model.totalPromptTokens > 0)
 			parts.push(`Input: ${model.totalPromptTokens.toLocaleString()}`);
 		if (model.totalCompletionTokens > 0)
 			parts.push(`Output: ${model.totalCompletionTokens.toLocaleString()}`);
-		items.push({
+		totalItems.push({
 			icon: Layers,
 			label: "Total tokens",
 			value: model.totalTokens.toLocaleString(),
@@ -146,53 +157,117 @@ function ModelStats({ model }: { model: ModelResult }) {
 		});
 	}
 	if (model.totalDurationMs > 0) {
-		items.push({
+		totalItems.push({
 			icon: Clock,
 			label: "Total duration",
 			value: formatDuration(model.totalDurationMs),
 		});
 	}
+	if (model.totalCost > 0) {
+		totalItems.push({
+			icon: Coins,
+			label: "Total cost",
+			value: `$${model.totalCost.toFixed(4)}`,
+		});
+	}
+	if (totalToolCalls > 0) {
+		totalItems.push({
+			icon: Layers,
+			label: "Total tool calls",
+			value: totalToolCalls.toLocaleString(),
+		});
+	}
+
+	// Average stats per question
+	if (model.totalTokens > 0 && model.totalQuestions > 0) {
+		const avgTokens = Math.round(model.totalTokens / model.totalQuestions);
+		const avgPrompt = Math.round(model.totalPromptTokens / model.totalQuestions);
+		const avgCompletion = Math.round(model.totalCompletionTokens / model.totalQuestions);
+		avgItems.push({
+			icon: Layers,
+			label: "Avg tokens/question",
+			value: avgTokens.toLocaleString(),
+			tooltip: `Input: ${avgPrompt.toLocaleString()}\nOutput: ${avgCompletion.toLocaleString()}`,
+		});
+	}
+	if (model.totalDurationMs > 0 && model.totalQuestions > 0) {
+		const avgDurationMs = Math.round(model.totalDurationMs / model.totalQuestions);
+		avgItems.push({
+			icon: Clock,
+			label: "Avg duration/question",
+			value: formatDuration(avgDurationMs),
+		});
+	}
 	if (model.averageTokensPerSecond > 0) {
-		items.push({
+		avgItems.push({
 			icon: Gauge,
 			label: "Avg speed",
 			value: `${model.averageTokensPerSecond.toFixed(1)} tok/s`,
 		});
 	}
-	if (model.totalCost > 0) {
-		items.push({
+	if (model.totalCost > 0 && model.totalQuestions > 0) {
+		const avgCost = model.totalCost / model.totalQuestions;
+		avgItems.push({
 			icon: Coins,
-			label: "Total cost",
-			value: `$ ${model.totalCost.toFixed(4)}`,
+			label: "Avg cost/question",
+			value: avgCost < 0.0001 ? "<$0.0001" : `$${avgCost.toFixed(4)}`,
+		});
+	}
+	if (avgToolCalls > 0) {
+		avgItems.push({
+			icon: Layers,
+			label: "Avg tool calls/question",
+			value: avgToolCalls.toFixed(1),
 		});
 	}
 
-	if (items.length === 0) return null;
+	if (totalItems.length === 0 && avgItems.length === 0) return null;
+
+	const renderCard = (item: StatCard) => (
+		<div key={item.label} className="arena-card flex flex-col gap-1.5 p-3">
+			<div className="flex items-center gap-1.5 text-[var(--text-secondary)]">
+				<item.icon size={12} />
+				<span className="text-xs">{item.label}</span>
+			</div>
+			<span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-primary)]">
+				{item.value}
+				{item.tooltip && (
+					<span className="group/tip relative">
+						<Info
+							size={12}
+							className="opacity-40 group-hover/tip:opacity-70 transition-opacity cursor-help"
+						/>
+						<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-pre rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs font-normal text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
+							{item.tooltip}
+						</span>
+					</span>
+				)}
+			</span>
+		</div>
+	);
 
 	return (
-		<div className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-4">
-			{items.map((item) => (
-				<div key={item.label} className="arena-card flex flex-col gap-1.5 p-3">
-					<div className="flex items-center gap-1.5 text-[var(--text-secondary)]">
-						<item.icon size={12} />
-						<span className="text-xs">{item.label}</span>
+		<div className="mb-8 space-y-4">
+			{totalItems.length > 0 && (
+				<div>
+					<h3 className="mb-2 text-xs font-medium text-[var(--text-secondary)]">
+						Totals
+					</h3>
+					<div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+						{totalItems.map(renderCard)}
 					</div>
-					<span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-primary)]">
-						{item.value}
-						{item.tooltip && (
-							<span className="group/tip relative">
-								<Info
-									size={12}
-									className="opacity-40 group-hover/tip:opacity-70 transition-opacity cursor-help"
-								/>
-								<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-pre rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs font-normal text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
-									{item.tooltip}
-								</span>
-							</span>
-						)}
-					</span>
 				</div>
-			))}
+			)}
+			{avgItems.length > 0 && (
+				<div>
+					<h3 className="mb-2 text-xs font-medium text-[var(--text-secondary)]">
+						Averages
+					</h3>
+					<div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+						{avgItems.map(renderCard)}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
