@@ -7,6 +7,7 @@ import {
 	Gauge,
 	Info,
 	Layers,
+	Wrench,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo } from "react";
 import CategoryTabs from "#/components/CategoryTabs";
@@ -134,13 +135,13 @@ function ModelStats({ model }: { model: ModelResult }) {
 	const avgItems: StatCard[] = [];
 
 	// Compute average tool calls
-	const totalToolCalls = model.questionDetails?.reduce(
-		(sum, q) => sum + (q.toolCallCount ?? 0),
-		0,
-	) ?? 0;
-	const avgToolCalls = model.totalQuestions > 0
-		? totalToolCalls / model.totalQuestions
-		: 0;
+	const totalToolCalls =
+		model.questionDetails?.reduce(
+			(sum, q) => sum + (q.toolCallCount ?? 0),
+			0,
+		) ?? 0;
+	const avgToolCalls =
+		model.totalQuestions > 0 ? totalToolCalls / model.totalQuestions : 0;
 
 	// Total stats
 	if (model.totalTokens > 0) {
@@ -172,7 +173,7 @@ function ModelStats({ model }: { model: ModelResult }) {
 	}
 	if (totalToolCalls > 0) {
 		totalItems.push({
-			icon: Layers,
+			icon: Wrench,
 			label: "Total tool calls",
 			value: totalToolCalls.toLocaleString(),
 		});
@@ -181,8 +182,12 @@ function ModelStats({ model }: { model: ModelResult }) {
 	// Average stats per question
 	if (model.totalTokens > 0 && model.totalQuestions > 0) {
 		const avgTokens = Math.round(model.totalTokens / model.totalQuestions);
-		const avgPrompt = Math.round(model.totalPromptTokens / model.totalQuestions);
-		const avgCompletion = Math.round(model.totalCompletionTokens / model.totalQuestions);
+		const avgPrompt = Math.round(
+			model.totalPromptTokens / model.totalQuestions,
+		);
+		const avgCompletion = Math.round(
+			model.totalCompletionTokens / model.totalQuestions,
+		);
 		avgItems.push({
 			icon: Layers,
 			label: "Avg tokens/question",
@@ -191,7 +196,9 @@ function ModelStats({ model }: { model: ModelResult }) {
 		});
 	}
 	if (model.totalDurationMs > 0 && model.totalQuestions > 0) {
-		const avgDurationMs = Math.round(model.totalDurationMs / model.totalQuestions);
+		const avgDurationMs = Math.round(
+			model.totalDurationMs / model.totalQuestions,
+		);
 		avgItems.push({
 			icon: Clock,
 			label: "Avg duration/question",
@@ -215,7 +222,7 @@ function ModelStats({ model }: { model: ModelResult }) {
 	}
 	if (avgToolCalls > 0) {
 		avgItems.push({
-			icon: Layers,
+			icon: Wrench,
 			label: "Avg tool calls/question",
 			value: avgToolCalls.toFixed(1),
 		});
@@ -232,15 +239,19 @@ function ModelStats({ model }: { model: ModelResult }) {
 			<span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-primary)]">
 				{item.value}
 				{item.tooltip && (
-					<span className="group/tip relative">
+					<button
+						type="button"
+						className="group/tip relative inline-flex cursor-help border-none bg-transparent p-0"
+						aria-label={`Show details: ${item.tooltip.replace("\n", ", ")}`}
+					>
 						<Info
 							size={12}
-							className="opacity-40 group-hover/tip:opacity-70 transition-opacity cursor-help"
+							className="opacity-40 transition-opacity group-hover/tip:opacity-70 group-focus/tip:opacity-70"
 						/>
-						<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-pre rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs font-normal text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100">
+						<span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-pre rounded-md bg-[#1e1e22] px-2.5 py-1.5 text-xs font-normal text-[#EDEDF0] opacity-0 shadow-lg ring-1 ring-white/10 transition-opacity group-hover/tip:opacity-100 group-focus/tip:opacity-100">
 							{item.tooltip}
 						</span>
-					</span>
+					</button>
 				)}
 			</span>
 		</div>
