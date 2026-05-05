@@ -53,6 +53,7 @@ export const Route = createRootRoute({
 		scripts: [{ src: "/theme-init.js" }],
 	}),
 	shellComponent: RootDocument,
+	notFoundComponent: NotFoundPage,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -76,5 +77,27 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Scripts />
 			</body>
 		</html>
+	);
+}
+
+function NotFoundPage() {
+	return (
+		<main className="flex flex-1 items-center px-4 py-24">
+			<section className="arena-container max-w-3xl">
+				<p className="mb-4 text-sm font-medium text-[var(--accent)]">404</p>
+				<h1 className="mb-4 font-heading text-4xl text-[var(--text-primary)] leading-tight md:text-5xl">
+					Page not found
+				</h1>
+				<p className="mb-8 max-w-xl text-base text-[var(--text-secondary)] leading-7">
+					The benchmark result or page you requested does not exist.
+				</p>
+				<a
+					href="/"
+					className="inline-flex items-center rounded-lg bg-[var(--accent)] px-5 py-3 text-sm font-medium text-white no-underline transition hover:bg-[var(--accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+				>
+					Back to leaderboard
+				</a>
+			</section>
+		</main>
 	);
 }
