@@ -19,6 +19,11 @@ if (!apiKey) {
 const openrouter = new OpenRouter({ apiKey });
 
 const MAX_TOOL_ROUNDS = 5;
+const REQUEST_TIMEOUT_MS = getEnvInteger(
+	"BENCHMARK_REQUEST_TIMEOUT_MS",
+	180_000,
+	{ min: 1 },
+);
 
 const MCQ_LETTER_MAP: Record<string, string> = {
 	answer_a: "A",
@@ -99,7 +104,9 @@ async function callModelRaw(
 	let lastChunk: string = "";
 	let secondToLastChunk: string = "";
 	try {
-	const stream = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0]) as AsyncIterable<{
+	const stream = await openrouter.chat.send({ chatGenerationParams } as Parameters<typeof openrouter.chat.send>[0], {
+		timeoutMs: REQUEST_TIMEOUT_MS,
+	}) as AsyncIterable<{
 		choices: Array<{
 			delta: {
 				role?: string;
@@ -170,6 +177,15 @@ async function callModelRaw(
 			for (const tc of delta.toolCalls) {
 				const existing = toolCallMap.get(tc.index);
 				if (existing) {
+					if (tc.id) {
+						existing.id = tc.id;
+					}
+					if (tc.type === "function") {
+						existing.type = tc.type;
+					}
+					if (tc.function?.name) {
+						existing.function.name += tc.function.name;
+					}
 					if (tc.function?.arguments) {
 						existing.function.arguments += tc.function.arguments;
 					}
@@ -470,8 +486,21 @@ function getConcurrencyLimit(): number {
 	return parsed;
 }
 
+function getEnvInteger(
+	name: string,
+	defaultValue: number,
+	{ min }: { min: number },
+): number {
+	const raw = process.env[name];
+	if (raw === undefined) return defaultValue;
+
+	const parsed = Number.parseInt(raw, 10);
+	if (!Number.isFinite(parsed) || parsed < min) return defaultValue;
+	return parsed;
+}
+
 const CONCURRENCY_LIMIT = getConcurrencyLimit();
-const MAX_RETRIES = 2;
+const MAX_RETRIES = getEnvInteger("BENCHMARK_MAX_RETRIES", 2, { min: 0 });
 
 function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -618,7 +647,7 @@ export async function runBenchmark({
 
 					if (result.modelAnswer === "") {
 						console.log(
-							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — skipping`,
+							`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — will retry on next run`,
 						);
 					} else {
 						console.log(
@@ -627,6 +656,18 @@ export async function runBenchmark({
 						results.push(result);
 						onQuestionComplete(result);
 					}
+
+					if (completed === remaining.length) {
+						resolveAll();
+					} else {
+						startNext();
+					}
+				}).catch((error) => {
+					running--;
+					completed++;
+					console.error(
+						`  [${alreadyDone + completed}/${questions.length}] ${question.category}/${question.id} (${question.type}) ERROR — unexpected failure, will retry on next run: ${error}`,
+					);
 
 					if (completed === remaining.length) {
 						resolveAll();

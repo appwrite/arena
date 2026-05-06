@@ -25,9 +25,15 @@ Questions are split into **57 multiple-choice** (auto-scored) and **13 free-form
 
 ### Models Tested
 
-- **Claude Opus 4.6** — Anthropic
-- **GPT 5.3 Codex** — OpenAI
-- **Gemini 3.1 Pro (Preview)** — Google
+- **Claude Opus 4.7** — Anthropic
+- **GPT 5.5** — OpenAI
+- **Gemini 3.1 Pro (Preview)** and **Gemini 3.1 Flash Lite (Preview)** — Google
+- **Grok 4.3** — xAI
+- **DeepSeek V4 Flash** — DeepSeek
+- **Qwen 3.6 Plus** — Alibaba
+- **GLM 5.1** — Zhipu
+- **MiniMax M2.7** — MiniMax
+- **Mistral Large 3 2512** — Mistral
 
 All models are accessed via [OpenRouter](https://openrouter.ai) with temperature set to 0 for deterministic results.
 
