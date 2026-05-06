@@ -148,9 +148,20 @@ interface ModelProgress {
 	results: QuestionResult[];
 }
 
+function isRetryableErrorResult(result: QuestionResult): boolean {
+	return result.modelAnswer === "" && result.judgeReasoning?.startsWith("Error:");
+}
+
 function sanitizeResults(models: Record<string, ModelProgress>): boolean {
 	let fixed = false;
 	for (const [modelId, model] of Object.entries(models)) {
+		const retryableErrorCount = model.results.filter(isRetryableErrorResult).length;
+		if (retryableErrorCount > 0) {
+			model.results = model.results.filter((result) => !isRetryableErrorResult(result));
+			console.log(`  Sanitize: removed ${retryableErrorCount} retryable error result(s) from ${modelId}`);
+			fixed = true;
+		}
+
 		const seen = new Map<string, number>();
 		const duplicates: string[] = [];
 		for (let i = 0; i < model.results.length; i++) {

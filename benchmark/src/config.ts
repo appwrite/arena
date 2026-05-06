@@ -6,75 +6,75 @@ export const OPENROUTER_MODELS_URL = "https://openrouter.ai/api/v1/models";
 
 // Try to keep order from cheapest, to most expensive
 export const MODELS: ModelConfig[] = [
-  
-  {
-		id: "grok-4-1-fast", // ~0.2$
-		name: "Grok 4.1 Fast",
-		provider: "xAI",
-		openRouterId: "x-ai/grok-4.1-fast",
-		providerWebsite: "https://x.ai",
-		providerBrandColor: "#FFFFFF",
-		providerChartColor: "#F97316",
-		country: "United States",
-  },
-  {
-		id: "minimax-m2-5", // ~0.3$
-		name: "MiniMax M2.5",
-		provider: "MiniMax",
-		openRouterId: "minimax/minimax-m2.5",
-		providerWebsite: "https://www.minimax.chat",
-		providerBrandColor: "#E85C2B",
-		providerChartColor: "#E85C2B",
-		country: "China",
-	},
-  {
-		id: "deepseek-v3-2", // ~0.3$
-		name: "DeepSeek V3.2",
+	{
+		id: "deepseek-v4-flash", // ~$0.1
+		name: "DeepSeek V4 Flash",
 		provider: "DeepSeek",
-		openRouterId: "deepseek/deepseek-v3.2",
+		openRouterId: "deepseek/deepseek-v4-flash",
 		providerWebsite: "https://deepseek.com",
 		providerBrandColor: "#4D6BFE",
 		providerChartColor: "#4D6BFE",
 		country: "China",
 	},
-  {
-		id: "qwen3-5-397b-a17b", // ~0.4$
-		name: "Qwen 3.5 397B A17B",
+	{
+		id: "gemini-3-1-flash-lite-preview", // ~$0.2
+		name: "Gemini 3.1 Flash Lite (Preview)",
+		provider: "Google",
+		openRouterId: "google/gemini-3.1-flash-lite-preview",
+		openRouterProviderOrder: ["google-ai-studio"],
+		providerWebsite: "https://ai.google.dev",
+		providerBrandColor: "#4285F4",
+		providerChartColor: "#68A3FE",
+		country: "United States",
+	},
+	{
+		id: "qwen3-6-plus", // ~$0.3
+		name: "Qwen 3.6 Plus",
 		provider: "Alibaba",
-		openRouterId: "qwen/qwen3.5-397b-a17b",
+		openRouterId: "qwen/qwen3.6-plus",
 		providerWebsite: "https://tongyi.aliyun.com",
 		providerBrandColor: "#6366F1",
 		providerChartColor: "#6366F1",
 		country: "China",
 	},
-  {
-		id: "kimi-k-2-5", // ~0.5$
-		name: "Kimi K2.5",
-		provider: "MoonshotAI",
-		openRouterId: "moonshotai/kimi-k2.5",
-		providerWebsite: "https://www.moonshot.cn",
-		providerBrandColor: "#0071e3",
-		providerChartColor: "#7C67FE",
+	{
+		id: "minimax-m2-7", // ~$0.3
+		name: "MiniMax M2.7",
+		provider: "MiniMax",
+		openRouterId: "minimax/minimax-m2.7",
+		providerWebsite: "https://www.minimax.chat",
+		providerBrandColor: "#E85C2B",
+		providerChartColor: "#E85C2B",
 		country: "China",
 	},
 	{
-		id: "glm-5", // ~0.7$
-		name: "GLM 5",
+		id: "mistral-large-2512", // ~$0.50/$1.50
+		name: "Mistral Large 3 2512",
+		provider: "Mistral",
+		openRouterId: "mistralai/mistral-large-2512",
+		providerWebsite: "https://mistral.ai",
+		providerBrandColor: "#FF7000",
+		providerChartColor: "#FF7000",
+		country: "France",
+	},
+	{
+		id: "glm-5-1", // ~$1.0
+		name: "GLM 5.1",
 		provider: "Zhipu",
-		openRouterId: "z-ai/glm-5",
+		openRouterId: "z-ai/glm-5.1",
 		providerWebsite: "https://open.bigmodel.cn",
 		providerBrandColor: "#3B82F6",
 		providerChartColor: "#3B82F6",
 		country: "China",
-  },
+	},
 	{
-		id: "gpt-5-3-codex", // ~1.75$
-		name: "GPT 5.3 Codex",
-		provider: "OpenAI",
-		openRouterId: "openai/gpt-5.3-codex",
-		providerWebsite: "https://openai.com",
-		providerBrandColor: "#ffffff",
-		providerChartColor: "#10B981",
+		id: "grok-4-3", // ~$1.3
+		name: "Grok 4.3",
+		provider: "xAI",
+		openRouterId: "x-ai/grok-4.3",
+		providerWebsite: "https://x.ai",
+		providerBrandColor: "#FFFFFF",
+		providerChartColor: "#F97316",
 		country: "United States",
 	},
 	{
@@ -89,20 +89,20 @@ export const MODELS: ModelConfig[] = [
 		country: "United States",
 	},
 	{
-		id: "gpt-5-4", // ~2.5$
-		name: "GPT 5.4",
+		id: "gpt-5-5", // ~$5
+		name: "GPT 5.5",
 		provider: "OpenAI",
-		openRouterId: "openai/gpt-5.4",
+		openRouterId: "openai/gpt-5.5",
 		providerWebsite: "https://openai.com",
 		providerBrandColor: "#ffffff",
 		providerChartColor: "#10B981",
 		country: "United States",
 	},
 	{
-		id: "claude-opus-4-6", // ~5$
-		name: "Claude Opus 4.6",
+		id: "claude-opus-4-7", // ~$5
+		name: "Claude Opus 4.7",
 		provider: "Anthropic",
-		openRouterId: "anthropic/claude-opus-4.6",
+		openRouterId: "anthropic/claude-opus-4.7",
 		providerWebsite: "https://anthropic.com",
 		providerBrandColor: "#D4A27F",
 		providerChartColor: "#FE9567",
