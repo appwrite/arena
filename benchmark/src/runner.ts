@@ -463,7 +463,19 @@ export interface RunBenchmarkOptions {
 	onQuestionComplete: (result: QuestionResult) => void;
 }
 
-const CONCURRENCY_LIMIT = 1;
+function getConcurrencyLimit(): number {
+	const raw = process.env.BENCHMARK_CONCURRENCY ?? "1";
+	const parsed = Number.parseInt(raw, 10);
+	if (!Number.isFinite(parsed) || parsed < 1) return 1;
+	return parsed;
+}
+
+const CONCURRENCY_LIMIT = getConcurrencyLimit();
+const MAX_RETRIES = 2;
+
+function sleep(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 async function processQuestion(
 	question: Question,
@@ -492,6 +504,7 @@ async function processQuestion(
 		effectiveSystemPrompt += "\nTo answer, you must call the tool corresponding to the correct answer (e.g. answer_a, answer_b, answer_c, or answer_d). Do not respond with text.";
 	}
 
+	for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
 	try {
 		const { answer: response, metrics, toolCallCount } = await callModel(model, effectiveSystemPrompt, prompt, effectiveTools, skillsMap, debug, mcqToolNames);
 
@@ -503,6 +516,9 @@ async function processQuestion(
 
 		if (question.type === "mcq") {
 			const extracted = extractMCQAnswer(response);
+			if (extracted === "") {
+				throw new Error("Model did not return a valid MCQ tool call");
+			}
 			modelAnswer = extracted;
 			correct = extracted === question.correctAnswer.toUpperCase();
 			score = correct ? 1 : 0;
@@ -534,6 +550,14 @@ async function processQuestion(
 			toolCallCount,
 		};
 	} catch (error) {
+		if (attempt < MAX_RETRIES) {
+			const delayMs = 1_000 * (attempt + 1);
+			console.warn(
+				`    Error (${question.id}) attempt ${attempt + 1}/${MAX_RETRIES + 1}: ${error}. Retrying in ${delayMs}ms...`,
+			);
+			await sleep(delayMs);
+			continue;
+		}
 		console.error(`    Error (${question.id}): ${error}`);
 		return {
 			questionId: question.id,
@@ -545,6 +569,9 @@ async function processQuestion(
 			judgeReasoning: `Error: ${error}`,
 		};
 	}
+	}
+
+	throw new Error("Unreachable retry state");
 }
 
 export async function runBenchmark({

@@ -7,7 +7,7 @@ import ScoreCell from "./ScoreCell";
 const CATEGORIES: CategoryKey[] = [
 	"foundation",
 	"auth",
-	"databases",
+	"tablesdb",
 	"functions",
 	"storage",
 	"sites",

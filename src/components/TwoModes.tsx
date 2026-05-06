@@ -101,7 +101,7 @@ const PANELS: {
 		label: "Without Skills.md",
 		question: "How do I create a document?",
 		answer:
-			"Sure, here's an example code how you can create a document in Appwrite Databases:",
+			"Sure, here's an example code how you can create a row in Appwrite TablesDB:",
 		code: `import Appwrite from 'appwrite';
 
 const appwrite = new Appwrite();

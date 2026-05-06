@@ -37,7 +37,7 @@ const VALID_SORT_FIELDS = new Set<SortField>([
 	"modelName",
 	"foundation",
 	"auth",
-	"databases",
+	"tablesdb",
 	"functions",
 	"storage",
 	"sites",
@@ -55,7 +55,7 @@ const GRID_SORT_OPTIONS: { field: SortField; label: string }[] = [
 		[
 			"foundation",
 			"auth",
-			"databases",
+			"tablesdb",
 			"functions",
 			"storage",
 			"sites",

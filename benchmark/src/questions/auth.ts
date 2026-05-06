@@ -58,7 +58,7 @@ export const authQuestions: Question[] = [
 		type: "mcq",
 		question: "What is the purpose of Teams in Appwrite Auth?",
 		choices: [
-			"To organize database collections",
+			"To organize TablesDB tables",
 			"To create separate billing accounts",
 			"To manage deployment environments",
 			"To group users and manage role-based access to resources",

@@ -5,7 +5,7 @@ const entries = Object.entries(CATEGORY_LABELS);
 const CATEGORY_ICONS: Record<string, string> = {
 	foundation: "/icons/cat-foundation.svg",
 	auth: "/icons/cat-auth.svg",
-	databases: "/icons/cat-databases.svg",
+	tablesdb: "/icons/cat-tablesdb.svg",
 	functions: "/icons/cat-functions.svg",
 	storage: "/icons/cat-storage.svg",
 	sites: "/icons/cat-sites.svg",

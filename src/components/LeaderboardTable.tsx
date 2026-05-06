@@ -11,7 +11,7 @@ import ModelRow from "./ModelRow";
 const CATEGORIES: CategoryKey[] = [
 	"foundation",
 	"auth",
-	"databases",
+	"tablesdb",
 	"functions",
 	"storage",
 	"sites",

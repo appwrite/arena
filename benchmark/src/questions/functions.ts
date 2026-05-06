@@ -70,7 +70,7 @@ export const functionsQuestions: Question[] = [
 		category: "functions",
 		type: "mcq",
 		question:
-			"How can an Appwrite Function access other Appwrite services like Databases?",
+			"How can an Appwrite Function access other Appwrite services like TablesDB?",
 		choices: [
 			"Functions cannot access other Appwrite services",
 			"By importing the Node.js SDK and using the function's API key or the APPWRITE_FUNCTION_API_ENDPOINT and APPWRITE_FUNCTION_PROJECT_ID environment variables",
@@ -86,9 +86,9 @@ export const functionsQuestions: Question[] = [
 		question:
 			"Explain how to deploy an Appwrite Function using the Appwrite CLI. What are the steps and key configuration options?",
 		correctAnswer:
-			"Appwrite CLI enables function deployment through init (appwrite init function) and deploy (appwrite deploy function) commands. Configuration is stored in appwrite.json including runtime, entrypoint, build commands, scopes, and schedule.",
+			"Appwrite CLI enables function deployment through init (appwrite init functions) and push (appwrite push functions) commands. Configuration is stored in appwrite.config.json including runtime, entrypoint, build commands, execute permissions, variables, and schedule.",
 		rubric:
-			"Must mention: 1) CLI installation, 2) appwrite init or function initialization, 3) Configuration in appwrite.json, 4) appwrite deploy command, 5) Key options like runtime, entrypoint, build commands",
+			"Must mention: 1) CLI installation, 2) appwrite init functions, 3) Configuration in appwrite.config.json, 4) appwrite push functions, 5) Key options like runtime, entrypoint, build commands, permissions, variables, or schedule",
 	},
 	{
 		id: "func-8",

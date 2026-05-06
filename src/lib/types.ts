@@ -38,7 +38,7 @@ export interface BenchmarkResults {
 export interface CategoryScores {
 	foundation: number;
 	auth: number;
-	databases: number;
+	tablesdb: number;
 	functions: number;
 	storage: number;
 	sites: number;
@@ -76,7 +76,7 @@ export type ScoringMode = "all" | "mcq" | "freeform";
 export const CATEGORY_LABELS: Record<string, string> = {
 	foundation: "Foundation",
 	auth: "Auth",
-	databases: "Databases",
+	tablesdb: "TablesDB",
 	functions: "Functions",
 	storage: "Storage",
 	sites: "Sites",
@@ -88,7 +88,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
 export const CATEGORY_DESCRIPTIONS: Record<string, string> = {
 	foundation: "Core concepts, SDKs, permissions, and platform basics",
 	auth: "Authentication methods, user management, and sessions",
-	databases: "Collections, documents, queries, and relationships",
+	tablesdb: "Tables, rows, queries, and relationships",
 	functions: "Serverless functions, runtimes, and execution",
 	storage: "File uploads, buckets, and file management",
 	sites: "Static site hosting, domains, and deployments",

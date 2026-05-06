@@ -389,10 +389,10 @@ function ModelDetailPage() {
 						{ranking &&
 							`, ranking #${ranking.rank} of ${ranking.total} benchmarked models`}
 						. The benchmark tests how well AI models understand Appwrite - the
-						open-source backend platform for authentication, databases, storage,
+						open-source backend platform for authentication, TablesDB, storage,
 						functions, and more. This model answered {model.totalCorrect} of{" "}
 						{model.totalQuestions} questions correctly across categories
-						including Auth, Databases, Functions, Storage, and CLI.
+						including Auth, TablesDB, Functions, Storage, and CLI.
 						{model.totalTokens > 0 && (
 							<>
 								{" "}
