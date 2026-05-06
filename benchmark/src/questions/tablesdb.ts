@@ -1,6 +1,6 @@
 import type { Question } from "../types";
 
-export const databasesQuestions: Question[] = [
+export const tablesDBQuestions: Question[] = [
 	{
 		id: "db-1",
 		category: "databases",
@@ -9,7 +9,7 @@ export const databasesQuestions: Question[] = [
 			"What is the hierarchy of data organization in the current Appwrite TablesDB API?",
 		choices: [
 			"Database > Collection > Document",
-			"Database > Table > Row",
+			"TablesDB > Table > Row",
 			"Schema > Collection > Record",
 			"Project > Database > Table",
 		],

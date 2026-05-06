@@ -1,7 +1,7 @@
 import type { Question } from "../types";
 import { authQuestions } from "./auth";
 import { cliQuestions } from "./cli";
-import { databasesQuestions } from "./databases";
+import { tablesDBQuestions } from "./tablesdb";
 import { functionsQuestions } from "./functions";
 import { foundationQuestions } from "./foundation";
 import { messagingQuestions } from "./messaging";
@@ -12,7 +12,7 @@ import { storageQuestions } from "./storage";
 export const allQuestions: Question[] = [
 	...foundationQuestions,
 	...authQuestions,
-	...databasesQuestions,
+	...tablesDBQuestions,
 	...functionsQuestions,
 	...storageQuestions,
 	...sitesQuestions,
@@ -24,7 +24,7 @@ export const allQuestions: Question[] = [
 export {
 	foundationQuestions,
 	authQuestions,
-	databasesQuestions,
+	tablesDBQuestions,
 	functionsQuestions,
 	storageQuestions,
 	sitesQuestions,
