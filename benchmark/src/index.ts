@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, renameSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { MODELS } from "./config";
 import { fetchPricing } from "./pricing";
@@ -220,20 +220,26 @@ function saveResults(
 	models: Record<string, ModelProgress>,
 	mode: "with-skills" | "without-skills",
 ): void {
+	const questionOrder = new Map(allQuestions.map((q, idx) => [q.id, idx]));
 	const modelEntries = Object.values(models).map((m) => {
-		const scores = aggregateScores(m.results, allQuestions);
-		const mcqScores = aggregateScores(m.results, allQuestions, "mcq");
+		const orderedResults = [...m.results].sort(
+			(a, b) =>
+				(questionOrder.get(a.questionId) ?? Number.MAX_SAFE_INTEGER) -
+				(questionOrder.get(b.questionId) ?? Number.MAX_SAFE_INTEGER),
+		);
+		const scores = aggregateScores(orderedResults, allQuestions);
+		const mcqScores = aggregateScores(orderedResults, allQuestions, "mcq");
 		const freeformScores = aggregateScores(
-			m.results,
+			orderedResults,
 			allQuestions,
 			"free-form",
 		);
-		const totalCorrect = m.results.filter((r) => r.correct).length;
-		const overall = computeOverall(m.results);
-		const mcqOverall = computeOverall(m.results, "mcq");
-		const freeformOverall = computeOverall(m.results, "free-form");
+		const totalCorrect = orderedResults.filter((r) => r.correct).length;
+		const overall = computeOverall(orderedResults);
+		const mcqOverall = computeOverall(orderedResults, "mcq");
+		const freeformOverall = computeOverall(orderedResults, "free-form");
 
-		const questionDetails: QuestionDetail[] = m.results.map((r) => {
+		const questionDetails: QuestionDetail[] = orderedResults.map((r) => {
 			const q = allQuestions.find((q) => q.id === r.questionId);
 			return {
 				questionId: r.questionId,
@@ -258,11 +264,11 @@ function saveResults(
 			};
 		});
 
-		const totalPromptTokens = m.results.reduce((sum, r) => sum + (r.promptTokens ?? 0), 0);
-		const totalCompletionTokens = m.results.reduce((sum, r) => sum + (r.completionTokens ?? 0), 0);
+		const totalPromptTokens = orderedResults.reduce((sum, r) => sum + (r.promptTokens ?? 0), 0);
+		const totalCompletionTokens = orderedResults.reduce((sum, r) => sum + (r.completionTokens ?? 0), 0);
 		const totalTokens = totalPromptTokens + totalCompletionTokens;
-		const totalCost = m.results.reduce((sum, r) => sum + (r.cost ?? 0), 0);
-		const totalDurationMs = m.results.reduce((sum, r) => sum + (r.durationMs ?? 0), 0);
+		const totalCost = orderedResults.reduce((sum, r) => sum + (r.cost ?? 0), 0);
+		const totalDurationMs = orderedResults.reduce((sum, r) => sum + (r.durationMs ?? 0), 0);
 		const totalDurationSec = totalDurationMs / 1000;
 		const averageTokensPerSecond = totalDurationSec > 0
 			? Math.round((totalCompletionTokens / totalDurationSec) * 100) / 100
@@ -319,7 +325,9 @@ function saveResults(
 	};
 
 	const path = getResultsPath(mode);
-	writeFileSync(path, JSON.stringify(output, null, 2));
+	const tempPath = `${path}.tmp`;
+	writeFileSync(tempPath, JSON.stringify(output, null, 2));
+	renameSync(tempPath, path);
 }
 
 async function main() {
