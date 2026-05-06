@@ -37,7 +37,7 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"appwrite create function",
 			"appwrite new function",
-			"appwrite init function",
+			"appwrite init functions",
 			"appwrite functions init",
 		],
 		correctAnswer: "C",
@@ -85,7 +85,7 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"appwrite functions serve",
 			"appwrite dev function",
-			"appwrite run function",
+			"appwrite run functions",
 			"appwrite local function",
 		],
 		correctAnswer: "C",
@@ -122,9 +122,9 @@ export const cliQuestions: Question[] = [
 		question:
 			"Describe the complete workflow for creating, configuring, and deploying an Appwrite Function using the CLI. Include key configuration options in appwrite.config.json.",
 		correctAnswer:
-			"Run appwrite init function to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run function, then deploy with appwrite push functions.",
+			"Run appwrite init functions to scaffold, choose runtime and template, configure appwrite.config.json with function settings (name, runtime, execute permissions, variables, schedule, etc.), develop locally with appwrite run functions, then deploy with appwrite push functions.",
 		rubric:
-			"Must mention: 1) appwrite init function to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run function, 5) Deployment with appwrite push functions",
+			"Must mention: 1) appwrite init functions to scaffold, 2) Runtime selection, 3) appwrite.config.json configuration options, 4) Local development with appwrite run functions, 5) Deployment with appwrite push functions",
 	},
 	{
 		id: "cli-11",
@@ -143,12 +143,12 @@ export const cliQuestions: Question[] = [
 		id: "cli-12",
 		category: "cli",
 		type: "mcq",
-		question: "How do you deploy database collections to Appwrite using the CLI?",
+		question: "How do you deploy TablesDB tables to Appwrite using the CLI?",
 		choices: [
-			"appwrite deploy collections",
-			"appwrite sync collections",
-			"appwrite upload collections",
-			"appwrite push collections",
+			"appwrite deploy tables",
+			"appwrite sync tables",
+			"appwrite upload tables",
+			"appwrite push tables",
 		],
 		correctAnswer: "D",
 	},
@@ -173,7 +173,7 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"Only function configurations",
 			"User credentials only",
-			"Project context: functions, collections, and other resources the CLI tracks for deployment",
+			"Project context: functions, tables, buckets, and other resources the CLI tracks for deployment",
 			"Environment variables for the project",
 		],
 		correctAnswer: "C",
@@ -182,14 +182,14 @@ export const cliQuestions: Question[] = [
 		id: "cli-15",
 		category: "cli",
 		type: "mcq",
-		question: "How can you fetch existing collections from your project into the CLI?",
+		question: "How can you fetch existing TablesDB tables from your project into the CLI?",
 		choices: [
-			"appwrite init collection",
+			"appwrite init tables",
 			"appwrite sync",
-			"appwrite fetch collections",
-			"appwrite pull collections",
+			"appwrite fetch tables",
+			"appwrite pull tables",
 		],
-		correctAnswer: "A",
+		correctAnswer: "D",
 	},
 	{
 		id: "cli-16",
@@ -208,11 +208,11 @@ export const cliQuestions: Question[] = [
 		id: "cli-17",
 		category: "cli",
 		type: "mcq",
-		question: "To create a document via CLI, which command do you use?",
+		question: "To create a TablesDB row via CLI, which command do you use?",
 		choices: [
-			"appwrite databases create-document",
-			"appwrite databases add document",
-			"appwrite documents create",
+			"appwrite tables-db create-row",
+			"appwrite tables-db add row",
+			"appwrite rows create",
 			"appwrite db insert",
 		],
 		correctAnswer: "A",
@@ -225,7 +225,7 @@ export const cliQuestions: Question[] = [
 		choices: [
 			"Pushes code to a Git repository",
 			"Uploads environment variables only",
-			"Deploys tracked resources (e.g. functions, collections) from appwrite.config.json to your Appwrite project",
+			"Deploys tracked resources (e.g. functions, tables, buckets) from appwrite.config.json to your Appwrite project",
 			"Syncs local config with the server and overwrites server state",
 		],
 		correctAnswer: "C",
@@ -248,11 +248,11 @@ export const cliQuestions: Question[] = [
 		category: "cli",
 		type: "free-form",
 		question:
-			"When creating a document with the CLI, how must the data and permissions arguments be passed? Give an example.",
+			"When creating a row with the CLI, how must the data and permissions arguments be passed? Give an example.",
 		correctAnswer:
-			"The data must be a valid JSON string with keys and values in double quotes. Permissions like read and write are passed as arrays with space-separated values, e.g. --data '{\"name\": \"John\"}' --permissions 'read(\"any\")' 'read(\"team:abc\")'.",
+			"The data must be a valid JSON string with keys and values in double quotes. Permissions like read and write are passed as arrays with space-separated values, e.g. appwrite tables-db create-row --data '{\"name\": \"John\"}' --permissions 'read(\"any\")' 'read(\"team:abc\")'.",
 		rubric:
-			"Must mention: 1) data as JSON string with double quotes, 2) permissions as array (space-separated in CLI), 3) Example or correct syntax for databases create-document",
+			"Must mention: 1) data as JSON string with double quotes, 2) permissions as array (space-separated in CLI), 3) Example or correct syntax for tables-db create-row",
 	},
 	{
 		id: "cli-21",
@@ -275,9 +275,9 @@ export const cliQuestions: Question[] = [
 		question:
 			"What does the appwrite types command do?",
 		choices: [
-		  "Generates typed models for your Appwrite project's collections and attributes",
+		  "Generates typed models for your Appwrite project's tables and columns",
 			"Lists all data types supported by Appwrite databases",
-			"Converts documents between different data formats",
+			"Converts rows between different data formats",
 			"Validates the types defined in appwrite.config.json",
 		],
 		correctAnswer: "A",
@@ -290,7 +290,7 @@ export const cliQuestions: Question[] = [
 			"What does the --strict flag do in the appwrite types command?",
 		choices: [
 			"Enforces type-safe null checks in generated code",
-			"Throws errors for missing or invalid collection attributes",
+			"Throws errors for missing or invalid table columns",
 			"Automatically converts field names to follow language conventions",
 			"Disables generation of optional fields",
 		],
@@ -315,10 +315,10 @@ export const cliQuestions: Question[] = [
 		category: "cli",
 		type: "mcq",
 		question:
-			"When defining an attribute in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
+			"When defining a column in appwrite.config.json, what happens if 'type' is 'string' or 'varchar' but 'size' is not defined?",
 		choices: [
-			"The attribute is created with a default size of 255",
-			"The attribute is created as an unlimited text field",
+			"The column is created with a default size of 255",
+			"The column is created as an unlimited text field",
 			"The CLI automatically calculates the size based on sample data",
 			"The CLI throws a validation error because 'size' is required for string/varchar types",
 		],
@@ -329,7 +329,7 @@ export const cliQuestions: Question[] = [
 		category: "cli",
 		type: "mcq",
 		question:
-			"In appwrite.config.json, when defining an attribute with 'required' set to true, what must the 'default' property be set to?",
+			"In appwrite.config.json, when defining a column with 'required' set to true, what must the 'default' property be set to?",
 		choices: [
 			"The default can be any value matching the type",
 			"The default must be set to an empty string or 0",
@@ -346,7 +346,7 @@ export const cliQuestions: Question[] = [
 			"What does the 'appwrite generate' command do?",
 		choices: [
 			"Generates a new Appwrite project from a template",
-			"Creates boilerplate code for functions and collections",
+			"Creates boilerplate code for functions and tables",
 			"Generates a type-safe SDK from your Appwrite project configuration",
 			"Generates API documentation for your project",
 		],
@@ -357,9 +357,9 @@ export const cliQuestions: Question[] = [
 		category: "cli",
 		type: "mcq",
 		question:
-			"What's the key difference between `appwrite run function` and `appwrite push function`?",
+			"What's the key difference between `appwrite run functions` and `appwrite push functions`?",
 		choices: [
-		  "`run` executes locally with Docker emulation, `push` deploys to Appwrite cloud",
+		  "`appwrite run functions` executes locally with Docker emulation, `appwrite push functions` deploys to Appwrite Cloud",
 			"`run` deploys to staging, `push` deploys to production",
 			"`run` is for testing, `push` is for CI/CD pipelines only",
 			"`run` requires internet connection, `push` works offline",

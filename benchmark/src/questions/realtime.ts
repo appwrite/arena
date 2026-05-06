@@ -23,7 +23,7 @@ export const realtimeQuestions: Question[] = [
 		choices: [
 			"client.realtime(channels)",
 			"client.on(event, handler)",
-			"client.subscribe(channels, callback)",
+			"realtime.subscribe(channels, callback)",
 			"client.listen(channels)",
 		],
 		correctAnswer: "C",
@@ -35,12 +35,12 @@ export const realtimeQuestions: Question[] = [
 		question:
 			"What happens when you subscribe to a new channel on an existing connection?",
 		choices: [
-			"The new channel is added to the existing connection",
+			"The active subscription is updated with the new channel",
 			"An error is thrown because only one subscription is allowed",
-			"Connection is recreated (old closed, new opened)",
+			"Connection is always recreated (old closed, new opened)",
 			"A separate parallel connection is opened",
 		],
-		correctAnswer: "C",
+		correctAnswer: "A",
 	},
 	{
 		id: "rt-4",
@@ -48,7 +48,7 @@ export const realtimeQuestions: Question[] = [
 		type: "mcq",
 		question: "Which of these is a valid Realtime channel?",
 		choices: [
-			"databases.[DB_ID].collections.[COLL_ID].documents",
+			"tablesdb.[DB_ID].tables.[TABLE_ID].rows",
 			"realtime.documents.[DOCUMENT_ID]",
 			"subscribe.databases.collections",
 			"events.databases.documents.create",
@@ -60,11 +60,11 @@ export const realtimeQuestions: Question[] = [
 		category: "realtime",
 		type: "mcq",
 		question:
-			"What does the Realtime response payload contain for a document event?",
+			"What does the Realtime response payload contain for a row event?",
 		choices: [
-			"Only the document $id and the event type",
-			"A reference URL to fetch the document",
-			"The document data including $id, $createdAt, $updatedAt, and custom fields",
+			"Only the row $id and the event type",
+			"A reference URL to fetch the row",
+			"The row data including $id, $createdAt, $updatedAt, and custom fields",
 			"Only the fields that changed",
 		],
 		correctAnswer: "C",
@@ -104,7 +104,7 @@ export const realtimeQuestions: Question[] = [
 		question:
 			"How do you unsubscribe from a Realtime channel in the Web SDK?",
 		choices: [
-			"Call the function returned by `client.subscribe()`",
+			"Call `unsubscribe()` on the subscription returned by `realtime.subscribe()`",
 			"client.unsubscribe(channel)",
 			"client.realtime.close()",
 			"subscription.remove()",
@@ -116,11 +116,11 @@ export const realtimeQuestions: Question[] = [
 		category: "realtime",
 		type: "free-form",
 		question:
-			"Write code using the Appwrite Web SDK to subscribe to realtime document changes and file uploads simultaneously, handling each event type differently.",
+			"Write code using the Appwrite Web SDK to subscribe to realtime table row changes and file uploads simultaneously, handling each event type differently.",
 		correctAnswer:
-			"Use client.subscribe() with an array of channels for both databases documents and storage files, then check the event string in the callback to differentiate between document and file events and handle them accordingly.",
+			"Use realtime.subscribe() with an array of channels for both TablesDB rows and storage files, then check the event string in the callback to differentiate between row and file events and handle them accordingly.",
 		rubric:
-			"Must mention: 1) client.subscribe() with array of channels, 2) Channel for documents (databases.[ID].collections.[ID].documents), 3) Channel for files (buckets.[ID].files), 4) Event type checking in callback, 5) Different handling logic per event type",
+			"Must mention: 1) Realtime + realtime.subscribe() with array of channels, 2) Channel for rows (tablesdb.[ID].tables.[ID].rows or Channel.tablesdb(...).table(...).row()), 3) Channel for files (buckets.[ID].files or Channel.bucket(...).file()), 4) Event type checking in callback, 5) Different handling logic per event type",
 	},
 	{
 		id: "rt-10",
@@ -137,9 +137,9 @@ export const realtimeQuestions: Question[] = [
 		id: "rt-11",
 		category: "realtime",
 		type: "mcq",
-		question: "What does client.subscribe(channels, callback) return?",
+		question: "What does realtime.subscribe(channels, callback) return?",
 		choices: [
-			"A function that, when called, unsubscribes from those channels",
+			"A subscription object that can unsubscribe from those channels",
 			"A promise that resolves when the first event is received",
 			"The subscription ID",
 			"Nothing (undefined)",
@@ -154,7 +154,7 @@ export const realtimeQuestions: Question[] = [
 		choices: [
 			"Only the event name",
 			"Only the changed fields",
-			"events (array), channels (array), timestamp, and payload (e.g. document or file data)",
+			"events (array), channels (array), timestamp, and payload (e.g. row or file data)",
 			"A URL to fetch the resource",
 		],
 		correctAnswer: "C",
@@ -163,12 +163,12 @@ export const realtimeQuestions: Question[] = [
 		id: "rt-13",
 		category: "realtime",
 		type: "mcq",
-		question: "Which channel format subscribes to document changes in a collection?",
+		question: "Which channel format subscribes to row changes in a table?",
 		choices: [
-			"databases.[databaseId].collections.[collectionId].documents",
-			"collections.[collectionId].documents",
-			"documents.[collectionId]",
-			"realtime.documents.[collectionId]",
+			"tablesdb.[databaseId].tables.[tableId].rows",
+			"tables.[tableId].rows",
+			"rows.[tableId]",
+			"realtime.tables.[tableId]",
 		],
 		correctAnswer: "A",
 	},
@@ -189,7 +189,7 @@ export const realtimeQuestions: Question[] = [
 		id: "rt-15",
 		category: "realtime",
 		type: "mcq",
-		question: "What event types can you receive for a documents channel?",
+		question: "What event types can you receive for a rows channel?",
 		choices: [
 			"create, update, delete, and optionally other events depending on the resource",
 			"Only create and delete",
@@ -204,12 +204,12 @@ export const realtimeQuestions: Question[] = [
 		type: "mcq",
 		question: "When you subscribe to a new channel on an existing Realtime connection, what happens?",
 		choices: [
-			"The new channel is added and no reconnect occurs",
+			"The active subscription is updated with the new channel",
 			"An error is thrown",
-			"The connection is recreated: the old socket is closed and a new one is opened with all channels",
+			"The connection is always recreated: the old socket is closed and a new one is opened with all channels",
 			"A separate connection is opened for the new channel",
 		],
-		correctAnswer: "C",
+		correctAnswer: "A",
 	},
 	{
 		id: "rt-17",
@@ -228,11 +228,11 @@ export const realtimeQuestions: Question[] = [
 		id: "rt-18",
 		category: "realtime",
 		type: "mcq",
-		question: "Does the Realtime payload include the full document when a document is updated?",
+		question: "Does the Realtime payload include the full row when a row is updated?",
 		choices: [
-			"No, only the document ID",
+			"No, only the row ID",
 			"Only the fields that changed",
-			"Yes, the payload includes the full document (e.g. $id, $createdAt, $updatedAt and attributes)",
+			"Yes, the payload includes the full row (e.g. $id, $createdAt, $updatedAt and columns)",
 			"Only a version number",
 		],
 		correctAnswer: "C",
@@ -255,10 +255,10 @@ export const realtimeQuestions: Question[] = [
 		category: "realtime",
 		type: "free-form",
 		question:
-			"Write a single client.subscribe() call that listens to both a database collection's documents and a storage bucket's files. What are the exact channel strings?",
+			"Write a single realtime.subscribe() call that listens to both a TablesDB table's rows and a storage bucket's files. What are the exact channel strings?",
 		correctAnswer:
-			"client.subscribe([ 'databases.[databaseId].collections.[collectionId].documents', 'buckets.[bucketId].files' ], callback). The channel strings are databases.[databaseId].collections.[collectionId].documents and buckets.[bucketId].files.",
+			"realtime.subscribe([ 'tablesdb.[databaseId].tables.[tableId].rows', 'buckets.[bucketId].files' ], callback). The channel strings are tablesdb.[databaseId].tables.[tableId].rows and buckets.[bucketId].files.",
 		rubric:
-			"Must include: 1) client.subscribe with array of channels, 2) Correct documents channel format (databases...collections...documents), 3) Correct files channel format (buckets...files), 4) Callback",
+			"Must include: 1) realtime.subscribe with array of channels, 2) Correct rows channel format (tablesdb...tables...rows), 3) Correct files channel format (buckets...files), 4) Callback",
 	},
 ];
