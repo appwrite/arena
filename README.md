@@ -17,7 +17,7 @@ Questions are split into **57 multiple-choice** (auto-scored) and **13 free-form
 |---|---|
 | Foundation | Core Appwrite concepts and architecture |
 | Auth | Authentication, users, teams, OAuth |
-| Databases | Collections, documents, queries, permissions |
+| TablesDB | Tables, rows, queries, permissions |
 | Functions | Serverless functions, runtimes, triggers |
 | Storage | File uploads, buckets, previews |
 | Sites | Web hosting and deployment |

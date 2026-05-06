@@ -19,7 +19,7 @@ export const foundationQuestions: Question[] = [
 		category: "foundation",
 		type: "mcq",
 		question: "Which of the following is NOT one of Appwrite's core services?",
-		choices: ["Auth", "Databases", "Container Orchestration", "Storage"],
+		choices: ["Auth", "TablesDB", "Container Orchestration", "Storage"],
 		correctAnswer: "C",
 	},
 	{
@@ -97,7 +97,7 @@ export const foundationQuestions: Question[] = [
 		type: "mcq",
 		question: 'What is a "project" in Appwrite?',
 		choices: [
-			"A single database collection",
+			"A single TablesDB table",
 			"A Git repository connection",
 			"An isolated container for your application's backend services and resources",
 			"A deployment environment",
@@ -152,7 +152,7 @@ export const foundationQuestions: Question[] = [
 		choices: [
 			"Geographic regions for the key",
 			"Rate limit tiers",
-			"Permissions that limit what the API key can access (e.g. databases.read, users.write)",
+			"Permissions that limit what the API key can access (e.g. tablesdb.read, users.write)",
 			"Encryption levels",
 		],
 		correctAnswer: "C",
@@ -242,8 +242,8 @@ export const foundationQuestions: Question[] = [
 		question:
 			"Name at least three Appwrite services (product areas) and what each is used for.",
 		correctAnswer:
-			"Examples: Auth (users, sessions, OAuth, MFA, teams), Databases/TablesDB (tables, rows, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
+			"Examples: Auth (users, sessions, OAuth, MFA, teams), TablesDB (tables, rows, queries, relationships), Storage (buckets, files, previews), Functions (serverless execution), Realtime (WebSocket subscriptions), Messaging (email, SMS, push), Sites (static/dynamic hosting), GraphQL (query API).",
 		rubric:
-			"Must name at least 3 services with correct purpose. Accept Auth, Databases, Storage, Functions, Realtime, Messaging, Sites, GraphQL, CLI, etc. with accurate descriptions.",
+			"Must name at least 3 services with correct purpose. Accept Auth, TablesDB, Storage, Functions, Realtime, Messaging, Sites, GraphQL, CLI, etc. with accurate descriptions.",
 	},
 ];

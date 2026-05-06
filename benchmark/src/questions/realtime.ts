@@ -50,8 +50,8 @@ export const realtimeQuestions: Question[] = [
 		choices: [
 			"tablesdb.[DB_ID].tables.[TABLE_ID].rows",
 			"realtime.documents.[DOCUMENT_ID]",
-			"subscribe.databases.collections",
-			"events.databases.documents.create",
+			"subscribe.tablesdb.tables",
+			"events.tablesdb.rows.create",
 		],
 		correctAnswer: "A",
 	},

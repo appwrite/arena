@@ -70,7 +70,7 @@ export const functionsQuestions: Question[] = [
 		category: "functions",
 		type: "mcq",
 		question:
-			"How can an Appwrite Function access other Appwrite services like Databases?",
+			"How can an Appwrite Function access other Appwrite services like TablesDB?",
 		choices: [
 			"Functions cannot access other Appwrite services",
 			"By importing the Node.js SDK and using the function's API key or the APPWRITE_FUNCTION_API_ENDPOINT and APPWRITE_FUNCTION_PROJECT_ID environment variables",

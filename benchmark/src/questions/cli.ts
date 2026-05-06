@@ -276,7 +276,7 @@ export const cliQuestions: Question[] = [
 			"What does the appwrite types command do?",
 		choices: [
 		  "Generates typed models for your Appwrite project's tables and columns",
-			"Lists all data types supported by Appwrite databases",
+			"Lists all data types supported by Appwrite TablesDB",
 			"Converts rows between different data formats",
 			"Validates the types defined in appwrite.config.json",
 		],

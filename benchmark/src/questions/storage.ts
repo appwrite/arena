@@ -8,7 +8,7 @@ export const storageQuestions: Question[] = [
 		question: 'What is a "bucket" in Appwrite Storage?',
 		choices: [
 			"A container for organizing and managing file uploads with shared permissions and settings",
-			"A type of database collection",
+			"A type of TablesDB table",
 			"A caching layer for static assets",
 			"A backup storage location",
 		],

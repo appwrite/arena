@@ -3,7 +3,7 @@ import type { Question } from "../types";
 export const tablesDBQuestions: Question[] = [
 	{
 		id: "db-1",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"What is the hierarchy of data organization in the current Appwrite TablesDB API?",
@@ -17,7 +17,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-2",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"Which column types are supported in Appwrite TablesDB tables?",
@@ -31,7 +31,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-3",
-		category: "databases",
+		category: "tablesdb",
 		type: "free-form",
 		question:
 			'Write code using the current Appwrite Web SDK TablesDB API to create a database, a table with columns, and insert a row. Use a "tasks" table with title (varchar), completed (boolean), and dueDate (datetime) columns.',
@@ -42,7 +42,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-4",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"In TablesDB, you need rows whose status is exactly either \"open\" or \"blocked\". Which query is the correct Appwrite Query syntax?",
@@ -56,7 +56,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-5",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"Why would you add an index to a TablesDB column that is frequently filtered or sorted?",
@@ -70,7 +70,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-6",
-		category: "databases",
+		category: "tablesdb",
 		type: "free-form",
 		question:
 			"Explain how to query rows in Appwrite TablesDB using the Query class. Show examples of filtering, sorting, limiting, and pagination.",
@@ -81,7 +81,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-7",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"What types of relationships does Appwrite support between tables?",
@@ -95,7 +95,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-8",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "How do permissions work on rows in Appwrite?",
 		choices: [
@@ -108,7 +108,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-9",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "What is the correct method to update a row with the current TablesDB API?",
 		choices: [
@@ -121,7 +121,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-10",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"Which Query method performs a full-text search on a row column?",
@@ -135,7 +135,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-11",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "How do transactions work in Appwrite TablesDB?",
 		choices: [
@@ -148,9 +148,9 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-12",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
-		question: "What are the possible statuses of a database transaction?",
+		question: "What are the possible statuses of a TablesDB transaction?",
 		choices: [
 			"pending, committing, committed, failed",
 			"pending, committing, committed, rolled_back, failed",
@@ -161,7 +161,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-13",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "Which Query method is used for cursor-based pagination (get next page after a row)?",
 		choices: [
@@ -174,7 +174,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-14",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "How do you delete a row with the current TablesDB API?",
 		choices: [
@@ -187,7 +187,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-15",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "When creating a row, can you set permissions on that row?",
 		choices: [
@@ -200,7 +200,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-16",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "What is a relationship column in Appwrite?",
 		choices: [
@@ -213,7 +213,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-17",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"You want the first page of a TablesDB query to return no more than 20 rows. Which query should be included in the queries array?",
@@ -227,7 +227,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-18",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"Which query sorts TablesDB rows by a `score` column from highest to lowest?",
@@ -241,7 +241,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-19",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question: "What happens if a transaction expires before it is committed?",
 		choices: [
@@ -254,7 +254,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-20",
-		category: "databases",
+		category: "tablesdb",
 		type: "free-form",
 		question:
 			"Explain how to use Query to filter rows where a numeric field is greater than 100 and return at most 20 results sorted by that field descending.",
@@ -265,7 +265,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-21",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"What are the minimum and maximum values for an integer column in Appwrite?",
@@ -279,7 +279,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-22",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"Which of the following is NOT a valid string-based column type in Appwrite TablesDB?",
@@ -293,7 +293,7 @@ export const tablesDBQuestions: Question[] = [
 	},
 	{
 		id: "db-23",
-		category: "databases",
+		category: "tablesdb",
 		type: "mcq",
 		question:
 			"Which of the following is NOT a valid string-related column type in Appwrite TablesDB?",

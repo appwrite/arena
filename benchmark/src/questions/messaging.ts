@@ -23,7 +23,7 @@ export const messagingQuestions: Question[] = [
 			"An Appwrite hosting partner",
 			"A user role with messaging permissions",
 			"A third-party service integration (like Mailgun, Twilio, APNS, FCM) that handles message delivery",
-			"A database collection for messages",
+			"A TablesDB table for messages",
 		],
 		correctAnswer: "C",
 	},
