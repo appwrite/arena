@@ -40,7 +40,7 @@ ${urls
 </urlset>
 `;
 
-	return new Response(xml.trimEnd() + "\n", {
+	return new Response(`${xml.trimEnd()}\n`, {
 		headers: {
 			"Content-Type": "application/xml",
 			"Cache-Control": "public, max-age=3600",

@@ -373,7 +373,7 @@ function ModelDetailPage() {
 					</div>
 				</div>
 
-				<div
+				<section
 					className="mb-8 max-w-2xl pl-0 text-sm leading-relaxed text-[var(--text-secondary)]"
 					aria-label="About this result"
 				>
@@ -410,7 +410,7 @@ function ModelDetailPage() {
 						Compare {model.modelName} with other LLMs on the Appwrite Arena
 						leaderboard.
 					</p>
-				</div>
+				</section>
 
 				<ModelStats model={model} />
 
