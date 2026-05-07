@@ -58,6 +58,16 @@ export const MODELS: ModelConfig[] = [
 		country: "France",
 	},
 	{
+		id: "kimi-k2-6", // ~$0.75/$3.50
+		name: "Kimi K2.6",
+		provider: "MoonshotAI",
+		openRouterId: "moonshotai/kimi-k2.6",
+		providerWebsite: "https://www.moonshot.ai",
+		providerBrandColor: "#00D2FF",
+		providerChartColor: "#00A3FF",
+		country: "China",
+	},
+	{
 		id: "glm-5-1", // ~$1.0
 		name: "GLM 5.1",
 		provider: "Zhipu",
