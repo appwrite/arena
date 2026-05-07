@@ -34,6 +34,7 @@ Questions are split into **57 multiple-choice** (auto-scored) and **13 free-form
 - **GLM 5.1** — Zhipu
 - **MiniMax M2.7** — MiniMax
 - **Mistral Large 3 2512** — Mistral
+- **Kimi K2.6** — MoonshotAI
 
 All models are accessed via [OpenRouter](https://openrouter.ai) with temperature set to 0 for deterministic results.
 
