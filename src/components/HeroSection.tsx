@@ -27,7 +27,7 @@ export default function HeroSection({ children }: HeroSectionProps) {
 			<div className="arena-container relative flex flex-col items-center gap-14 text-center">
 				<div className="flex flex-col items-center gap-6">
 					<span className="inline-flex items-center rounded-full border border-[var(--accent-pink)]/20 bg-[var(--accent-pink)]/5 px-4 py-1.5 text-sm text-[var(--text-primary)]">
-						Open-source AI benchmark
+						May benchmark is live
 					</span>
 					<h1 className="font-heading text-5xl font-normal tracking-[-2.2%] leading-[1.1] text-[var(--text-primary)] md:text-6xl">
 						Which AI model knows
