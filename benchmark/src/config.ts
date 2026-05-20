@@ -28,6 +28,17 @@ export const MODELS: ModelConfig[] = [
 		country: "United States",
 	},
 	{
+		id: "gemini-3-5-flash", // ~$0.3
+		name: "Gemini 3.5 Flash",
+		provider: "Google",
+		openRouterId: "google/gemini-3.5-flash",
+		openRouterProviderOrder: ["google-ai-studio"],
+		providerWebsite: "https://ai.google.dev",
+		providerBrandColor: "#4285F4",
+		providerChartColor: "#68A3FE",
+		country: "United States",
+	},
+	{
 		id: "qwen3-6-plus", // ~$0.3
 		name: "Qwen 3.6 Plus",
 		provider: "Alibaba",
