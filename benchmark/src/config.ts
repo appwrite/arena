@@ -28,7 +28,7 @@ export const MODELS: ModelConfig[] = [
 		country: "United States",
 	},
 	{
-		id: "gemini-3-5-flash", // ~$0.3
+		id: "gemini-3-5-flash", 
 		name: "Gemini 3.5 Flash",
 		provider: "Google",
 		openRouterId: "google/gemini-3.5-flash",
