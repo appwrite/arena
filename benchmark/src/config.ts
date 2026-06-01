@@ -78,6 +78,16 @@ export const MODELS: ModelConfig[] = [
 		country: "China",
 	},
 	{
+		id: "grok-build-0-1", // ~$1/$2
+		name: "Grok Build 0.1",
+		provider: "xAI",
+		openRouterId: "x-ai/grok-build-0.1",
+		providerWebsite: "https://x.ai",
+		providerBrandColor: "#FFFFFF",
+		providerChartColor: "#F97316",
+		country: "United States",
+	},
+	{
 		id: "grok-4-3", // ~$1.3
 		name: "Grok 4.3",
 		provider: "xAI",
