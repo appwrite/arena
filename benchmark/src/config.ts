@@ -139,6 +139,16 @@ export const MODELS: ModelConfig[] = [
 		providerChartColor: "#FE9567",
 		country: "United States",
 	},
+	{
+		id: "claude-opus-4-8", // ~$5
+		name: "Claude Opus 4.8",
+		provider: "Anthropic",
+		openRouterId: "anthropic/claude-opus-4.8",
+		providerWebsite: "https://anthropic.com",
+		providerBrandColor: "#D4A27F",
+		providerChartColor: "#FE9567",
+		country: "United States",
+	},
 ];
 
 export function getModelCountry(modelId: string): string | undefined {
