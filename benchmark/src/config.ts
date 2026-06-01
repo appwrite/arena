@@ -48,6 +48,16 @@ export const MODELS: ModelConfig[] = [
 		country: "China",
 	},
 	{
+		id: "minimax-m3", // ~$0.30/$1.20
+		name: "MiniMax M3",
+		provider: "MiniMax",
+		openRouterId: "minimax/minimax-m3",
+		providerWebsite: "https://www.minimax.chat",
+		providerBrandColor: "#E85C2B",
+		providerChartColor: "#E85C2B",
+		country: "China",
+	},
+	{
 		id: "mistral-large-2512", // ~$0.50/$1.50
 		name: "Mistral Large 3 2512",
 		provider: "Mistral",
