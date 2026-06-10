@@ -159,6 +159,16 @@ export const MODELS: ModelConfig[] = [
 		providerChartColor: "#FE9567",
 		country: "United States",
 	},
+	{
+		id: "claude-fable-5", // $10/$50
+		name: "Claude Fable 5",
+		provider: "Anthropic",
+		openRouterId: "anthropic/claude-fable-5",
+		providerWebsite: "https://anthropic.com",
+		providerBrandColor: "#D4A27F",
+		providerChartColor: "#FE9567",
+		country: "United States",
+	},
 ];
 
 export function getModelCountry(modelId: string): string | undefined {
