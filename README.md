@@ -42,6 +42,8 @@ All models are accessed via [OpenRouter](https://openrouter.ai) with temperature
 
 **Frontend:** React, TanStack Start, Tailwind CSS, Vite, TypeScript
 
+**Package manager:** [pnpm](https://pnpm.io)
+
 **Benchmark:** Bun, OpenRouter
 
 ## Getting Started
@@ -49,13 +51,14 @@ All models are accessed via [OpenRouter](https://openrouter.ai) with temperature
 ### Prerequisites
 
 - Node.js 18+
-- [Bun](https://bun.sh) (for benchmark scripts and pre-build step)
+- [pnpm](https://pnpm.io) (install with `npm install -g pnpm` if needed)
+- [Bun](https://bun.sh) (for benchmark scripts)
 
 ### Development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 The app runs at `http://localhost:3000`.
@@ -63,23 +66,25 @@ The app runs at `http://localhost:3000`.
 ### Production Build
 
 ```bash
-npm run build
-npm run preview
+pnpm run build
+pnpm run preview
 ```
 
 ### Linting & Formatting
 
 ```bash
-npm run lint
-npm run format
-npm run check
+pnpm run lint
+pnpm run format
+pnpm run check
 ```
 
 ### Tests
 
 ```bash
-npm run test
+pnpm run test
 ```
+
+> Note: `package.json` pins the package manager (`pnpm`) via the `packageManager` field. The `benchmark/` directory is a standalone Bun project and keeps using `bun`.
 
 ## Running Benchmarks
 
