@@ -13,7 +13,11 @@ import type {
 	Tool,
 } from "./types";
 
-function parseArgs(): { mode: "with-skills" | "without-skills"; debug: boolean } {
+function parseArgs(): {
+	mode: "with-skills" | "without-skills";
+	debug: boolean;
+	modelFilter: string[] | null;
+} {
 	const args = process.argv.slice(2);
 	const modeIndex = args.indexOf("--mode");
 	let mode: "with-skills" | "without-skills" = "without-skills";
@@ -24,7 +28,40 @@ function parseArgs(): { mode: "with-skills" | "without-skills"; debug: boolean }
 		}
 	}
 	const debug = args.includes("--debug");
-	return { mode, debug };
+
+	if (args.includes("--list-models")) {
+		console.log("Available models:");
+		for (const m of MODELS) {
+			console.log(`  ${m.id}  (${m.name}, ${m.provider})`);
+		}
+		process.exit(0);
+	}
+
+	let modelFilter: string[] | null = null;
+	const modelsIndex = args.indexOf("--models");
+	if (modelsIndex !== -1) {
+		const value = args[modelsIndex + 1];
+		if (!value || value.startsWith("--")) {
+			console.error("Error: --models requires a comma-separated list of model ids (see --list-models)");
+			process.exit(1);
+		}
+		if (value !== "all") {
+			modelFilter = value.split(",").map((s) => s.trim()).filter(Boolean);
+			if (modelFilter.length === 0) {
+				console.error("Error: --models requires at least one model id (see --list-models)");
+				process.exit(1);
+			}
+			const knownIds = new Set(MODELS.map((m) => m.id));
+			const unknown = modelFilter.filter((id) => !knownIds.has(id));
+			if (unknown.length > 0) {
+				console.error(`Error: unknown model id(s): ${unknown.join(", ")}`);
+				console.error("Use --list-models to see available ids.");
+				process.exit(1);
+			}
+		}
+	}
+
+	return { mode, debug, modelFilter };
 }
 
 function parseFrontmatter(raw: string): { name: string; description: string; content: string } {
@@ -145,6 +182,7 @@ interface ModelProgress {
 	provider: string;
 	promptCostPerMillionTokens: number;
 	completionCostPerMillionTokens: number;
+	runDate?: string;
 	results: QuestionResult[];
 }
 
@@ -200,6 +238,7 @@ function loadExistingResults(mode: string): Record<string, ModelProgress> {
 					provider: m.provider,
 					promptCostPerMillionTokens: m.promptCostPerMillionTokens,
 					completionCostPerMillionTokens: m.completionCostPerMillionTokens,
+					runDate: m.runDate,
 					results: m.questionDetails.map((d) => ({
 						questionId: d.questionId,
 						category: d.category,
@@ -305,7 +344,7 @@ function saveResults(
 			totalCost: Math.round(totalCost * 1_000_000) / 1_000_000,
 			totalDurationMs,
 			averageTokensPerSecond,
-			runDate: new Date().toISOString(),
+			runDate: m.runDate ?? new Date().toISOString(),
 			questionDetails,
 		};
 	});
@@ -342,10 +381,15 @@ function saveResults(
 }
 
 async function main() {
-	const { mode, debug } = parseArgs();
+	const { mode, debug, modelFilter } = parseArgs();
+	const selectedModels = modelFilter
+		? MODELS.filter((m) => modelFilter.includes(m.id))
+		: MODELS;
 	console.log(`\nAppwrite Arena Benchmark`);
 	console.log(`Mode: ${mode}${debug ? " (debug)" : ""}`);
-	console.log(`Models: ${MODELS.length}`);
+	console.log(
+		`Models: ${selectedModels.length}${modelFilter ? ` (filtered: ${selectedModels.map((m) => m.id).join(", ")})` : ""}`,
+	);
 	console.log(`Questions: ${allQuestions.length}`);
 
 	const models = loadExistingResults(mode);
@@ -387,9 +431,9 @@ async function main() {
     systemPrompt += "\nYou have access to tools to look up Appwrite SDK documentation. Use them to answer questions accurately";
   }
   
-	const tokenPricing = await fetchPricing(MODELS);
+	const tokenPricing = await fetchPricing(selectedModels);
 
-	for (const model of MODELS) {
+	for (const model of selectedModels) {
 		console.log(`\nRunning: ${model.name} (${model.provider})`);
 
 		const modelPricing = tokenPricing[model.id] ?? { promptPerToken: 0, completionPerToken: 0 };
@@ -410,6 +454,9 @@ async function main() {
 			models[model.id].promptCostPerMillionTokens = promptCostPerMillionTokens;
 			models[model.id].completionCostPerMillionTokens = completionCostPerMillionTokens;
 		}
+
+		// Only models actually run get a fresh timestamp; others keep theirs
+		models[model.id].runDate = new Date().toISOString();
 
 		const existingResults = models[model.id].results;
 

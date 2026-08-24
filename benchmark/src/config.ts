@@ -160,6 +160,57 @@ export const MODELS: ModelConfig[] = [
 		country: "United States",
 	},
 	{
+		id: "gemini-3-7-flash", // ~$0.38/$1.88
+		name: "Gemini 3.7 Flash",
+		provider: "Google",
+		openRouterId: "google/gemini-3.7-flash",
+		openRouterProviderOrder: ["google-ai-studio"],
+		providerWebsite: "https://ai.google.dev",
+		providerBrandColor: "#4285F4",
+		providerChartColor: "#68A3FE",
+		country: "United States",
+	},
+	{
+		id: "muse-spark-1-2", // ~$1.25/$4.25
+		name: "Muse Spark 1.2",
+		provider: "Meta",
+		openRouterId: "meta/muse-spark-1.2",
+		providerWebsite: "https://ai.meta.com",
+		providerBrandColor: "#0866FF",
+		providerChartColor: "#0866FF",
+		country: "United States",
+	},
+	{
+		id: "grok-4-6", // ~$2/$6
+		name: "Grok 4.6",
+		provider: "xAI",
+		openRouterId: "x-ai/grok-4.6",
+		providerWebsite: "https://x.ai",
+		providerBrandColor: "#FFFFFF",
+		providerChartColor: "#F97316",
+		country: "United States",
+	},
+	{
+		id: "kimi-k3", // ~$3/$15
+		name: "Kimi K3",
+		provider: "MoonshotAI",
+		openRouterId: "moonshotai/kimi-k3",
+		providerWebsite: "https://www.moonshot.ai",
+		providerBrandColor: "#00D2FF",
+		providerChartColor: "#00A3FF",
+		country: "China",
+	},
+	{
+		id: "claude-opus-5", // ~$5/$25
+		name: "Claude Opus 5",
+		provider: "Anthropic",
+		openRouterId: "anthropic/claude-opus-5",
+		providerWebsite: "https://anthropic.com",
+		providerBrandColor: "#D4A27F",
+		providerChartColor: "#FE9567",
+		country: "United States",
+	},
+	{
 		id: "claude-fable-5", // $10/$50
 		name: "Claude Fable 5",
 		provider: "Anthropic",

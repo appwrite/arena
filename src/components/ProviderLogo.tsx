@@ -7,6 +7,8 @@ import Gemini from "@lobehub/icons/es/Gemini/components/Mono";
 import Grok from "@lobehub/icons/es/Grok/components/Mono";
 import KimiColor from "@lobehub/icons/es/Kimi/components/Color";
 import Kimi from "@lobehub/icons/es/Kimi/components/Mono";
+import MetaColor from "@lobehub/icons/es/Meta/components/Color";
+import Meta from "@lobehub/icons/es/Meta/components/Mono";
 import MinimaxColor from "@lobehub/icons/es/Minimax/components/Color";
 import Minimax from "@lobehub/icons/es/Minimax/components/Mono";
 import OpenAI from "@lobehub/icons/es/OpenAI/components/Mono";
@@ -32,6 +34,7 @@ const PROVIDER_ICONS: Record<
 	Zhipu: { Icon: Zhipu, ColorIcon: ZhipuColor },
 	Alibaba: { Icon: Qwen, ColorIcon: QwenColor },
 	DeepSeek: { Icon: DeepSeek, ColorIcon: DeepSeekColor },
+	Meta: { Icon: Meta, ColorIcon: MetaColor },
 	MiniMax: { Icon: Minimax, ColorIcon: MinimaxColor },
 	xAI: { Icon: Grok },
 };
