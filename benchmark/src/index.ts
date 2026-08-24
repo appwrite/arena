@@ -47,6 +47,10 @@ function parseArgs(): {
 		}
 		if (value !== "all") {
 			modelFilter = value.split(",").map((s) => s.trim()).filter(Boolean);
+			if (modelFilter.length === 0) {
+				console.error("Error: --models requires at least one model id (see --list-models)");
+				process.exit(1);
+			}
 			const knownIds = new Set(MODELS.map((m) => m.id));
 			const unknown = modelFilter.filter((id) => !knownIds.has(id));
 			if (unknown.length > 0) {
@@ -178,6 +182,7 @@ interface ModelProgress {
 	provider: string;
 	promptCostPerMillionTokens: number;
 	completionCostPerMillionTokens: number;
+	runDate?: string;
 	results: QuestionResult[];
 }
 
@@ -233,6 +238,7 @@ function loadExistingResults(mode: string): Record<string, ModelProgress> {
 					provider: m.provider,
 					promptCostPerMillionTokens: m.promptCostPerMillionTokens,
 					completionCostPerMillionTokens: m.completionCostPerMillionTokens,
+					runDate: m.runDate,
 					results: m.questionDetails.map((d) => ({
 						questionId: d.questionId,
 						category: d.category,
@@ -338,7 +344,7 @@ function saveResults(
 			totalCost: Math.round(totalCost * 1_000_000) / 1_000_000,
 			totalDurationMs,
 			averageTokensPerSecond,
-			runDate: new Date().toISOString(),
+			runDate: m.runDate ?? new Date().toISOString(),
 			questionDetails,
 		};
 	});
@@ -448,6 +454,9 @@ async function main() {
 			models[model.id].promptCostPerMillionTokens = promptCostPerMillionTokens;
 			models[model.id].completionCostPerMillionTokens = completionCostPerMillionTokens;
 		}
+
+		// Only models actually run get a fresh timestamp; others keep theirs
+		models[model.id].runDate = new Date().toISOString();
 
 		const existingResults = models[model.id].results;
 
