@@ -25,19 +25,25 @@ export const tooltipItemStyle: CSSProperties = {
 };
 
 export function getShortName(modelName: string): string {
-	if (modelName.includes("Claude")) return "Claude";
-	if (modelName.includes("GPT")) {
-		const match = modelName.match(/GPT\s*([\d.]+)/);
+	const clean = modelName
+		.replace(/\s*\([^)]*\)\s*/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
+	const family = clean.split(" ")[0];
+
+	// Keep full names for families with multiple models so chart series keys
+	// stay unique ("Claude Opus 4.7" vs "Claude Fable 5").
+	if (["Claude", "Gemini", "Grok", "MiniMax"].includes(family)) {
+		return clean;
+	}
+	if (family === "GPT") {
+		const match = clean.match(/^GPT\s*([\d.]+)/);
 		return match ? `GPT ${match[1]}` : "GPT";
 	}
-	if (modelName.includes("Gemini")) return "Gemini";
-	if (modelName.includes("Kimi")) return "Kimi";
-	if (modelName.includes("GLM")) return "GLM";
-	if (modelName.includes("Qwen")) return "Qwen";
-	if (modelName.includes("DeepSeek")) return "DeepSeek";
-	if (modelName.includes("MiniMax")) return "MiniMax";
-	if (modelName.includes("Grok")) return "Grok";
-	return modelName.split(" ")[0];
+	if (["Kimi", "GLM", "Qwen", "DeepSeek", "Mistral"].includes(family)) {
+		return family;
+	}
+	return clean;
 }
 
 /** Round to at most 2 decimal places, stripping trailing zeroes. */
