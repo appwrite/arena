@@ -28,6 +28,16 @@ export const MODELS: ModelConfig[] = [
 		country: "United States",
 	},
 	{
+		id: "gpt-5-6-luna", // ~$0.20/$1.20
+		name: "GPT 5.6 Luna",
+		provider: "OpenAI",
+		openRouterId: "openai/gpt-5.6-luna",
+		providerWebsite: "https://openai.com",
+		providerBrandColor: "#ffffff",
+		providerChartColor: "#10B981",
+		country: "United States",
+	},
+	{
 		id: "qwen3-6-plus", // ~$0.3
 		name: "Qwen 3.6 Plus",
 		provider: "Alibaba",
@@ -178,6 +188,26 @@ export const MODELS: ModelConfig[] = [
 		providerWebsite: "https://ai.meta.com",
 		providerBrandColor: "#0866FF",
 		providerChartColor: "#0866FF",
+		country: "United States",
+	},
+	{
+		id: "gpt-5-6-sol", // ~$2/$10
+		name: "GPT 5.6 Sol",
+		provider: "OpenAI",
+		openRouterId: "openai/gpt-5.6-sol",
+		providerWebsite: "https://openai.com",
+		providerBrandColor: "#ffffff",
+		providerChartColor: "#10B981",
+		country: "United States",
+	},
+	{
+		id: "gpt-5-6-terra", // ~$2/$12
+		name: "GPT 5.6 Terra",
+		provider: "OpenAI",
+		openRouterId: "openai/gpt-5.6-terra",
+		providerWebsite: "https://openai.com",
+		providerBrandColor: "#ffffff",
+		providerChartColor: "#10B981",
 		country: "United States",
 	},
 	{
