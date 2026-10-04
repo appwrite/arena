@@ -44,7 +44,7 @@ export default function CostEfficiencyChart({ models }: Props) {
 					tick={{ fill: "#9ca3af", fontSize: 12 }}
 					axisLine={{ stroke: "rgba(237,237,240,0.1)" }}
 					tickLine={false}
-					width={60}
+					width={95}
 				/>
 				<Tooltip
 					cursor={{ fill: "rgba(237,237,240,0.05)" }}
