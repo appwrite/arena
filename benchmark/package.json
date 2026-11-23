@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "typescript": "^5.7.2"
+    "typescript": "^7.0.0"
   },
   "dependencies": {
     "@openrouter/sdk": "^0.9.11"
